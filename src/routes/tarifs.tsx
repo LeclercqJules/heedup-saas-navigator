@@ -8,7 +8,7 @@ export const Route = createFileRoute("/tarifs")({
       {
         name: "description",
         content:
-          "Une tarification simple, par collaborateur suivi. Sans engagement pendant la phase pilote.",
+          "Une tarification simple et transparente pour les PME. Sans engagement pendant la phase pilote.",
       },
     ],
   }),
@@ -17,34 +17,37 @@ export const Route = createFileRoute("/tarifs")({
 
 const plans = [
   {
-    name: "Pilote",
-    price: "Sur invitation",
-    desc: "Pour les premières équipes qui rejoignent HeedUp.",
+    name: "Starter",
+    price: "40 € / mois",
+    desc: "Jusqu'à 10 salariés.",
     features: [
-      "Jusqu'à 50 collaborateurs suivis",
-      "Alertes précoces incluses",
+      "5 questions hebdomadaires",
+      "Digest manager automatique",
+      "Support par email",
+    ],
+  },
+  {
+    name: "Growth",
+    price: "87 € / mois",
+    desc: "Jusqu'à 25 salariés.",
+    features: [
+      "Tout du plan Starter",
+      "Recommandations IA",
+      "Export données CSV",
       "Support prioritaire",
     ],
-  },
-  {
-    name: "Équipe",
-    price: "9 € / mois / collaborateur",
-    desc: "Pour les PME qui veulent structurer leur veille RH.",
-    features: [
-      "Collaborateurs illimités",
-      "Tableau de bord RH complet",
-      "Intégrations SIRH",
-    ],
     highlight: true,
+    badge: "Le plus choisi",
   },
   {
-    name: "Entreprise",
-    price: "Sur devis",
-    desc: "Pour les organisations multi-sites avec exigences avancées.",
+    name: "Scale",
+    price: "150 € / mois",
+    desc: "Jusqu'à 50 salariés.",
     features: [
-      "SSO, SCIM, audit trail",
-      "Hébergement dédié possible",
-      "Accompagnement dédié",
+      "Tout du plan Growth",
+      "Intégrations SIRH",
+      "Rôles manager multiples",
+      "Accompagnement à bord",
     ],
   },
 ];
@@ -73,6 +76,7 @@ function Page() {
           {plans.map((p) => (
             <article
               key={p.name}
+              className="relative"
               style={{
                 backgroundColor: p.highlight ? "#0F1B33" : "#FFFFFF",
                 color: p.highlight ? "#F7F5F0" : "#0F1B33",
@@ -81,6 +85,27 @@ function Page() {
                 border: "1px solid rgba(15,27,51,0.08)",
               }}
             >
+              {p.badge && (
+                <span
+                  style={{
+                    position: "absolute",
+                    top: "-10px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    backgroundColor: "#C9A06A",
+                    color: "#0F1B33",
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.08em",
+                    padding: "4px 12px",
+                    borderRadius: "4px",
+                    fontFamily: "var(--font-sans)",
+                  }}
+                >
+                  {p.badge}
+                </span>
+              )}
               <h3
                 style={{
                   fontSize: "24px",
