@@ -23,11 +23,12 @@ function Index() {
               fontSize: "11px",
               fontWeight: 600,
               padding: "6px 12px",
-              borderRadius: "6px",
+              borderRadius: "5px",
               letterSpacing: "0.04em",
+              textTransform: "uppercase",
             }}
           >
-            ⚡ Alerte précoce · Turnover PME
+            Votre équipe, enfin lisible.
           </span>
 
           <h1
@@ -74,16 +75,21 @@ function Index() {
             Rejoindre la liste d'attente →
           </a>
 
-          <p
-            className="mt-4"
+          <div
+            className="mt-4 flex items-center gap-2"
             style={{
               fontFamily: "var(--font-sans)",
-              fontSize: "11px",
-              color: "rgba(15,27,51,0.45)",
+              fontSize: "11.5px",
+              color: "rgba(15,27,51,0.5)",
             }}
           >
-            ✓ RGPD natif · ✓ Anonymat garanti · ✓ Sans engagement
-          </p>
+            <span className="inline-block h-2 w-2 rounded-full bg-[#7A9B8E] animate-pulse" />
+            <span>27 dirigeants sur la liste d'attente</span>
+            <span>·</span>
+            <span>🔒 RGPD</span>
+            <span>·</span>
+            <span>🇫🇷 Hébergé en France</span>
+          </div>
         </div>
 
         {/* Colonne droite : carte digest */}
@@ -117,7 +123,7 @@ function Index() {
               }}
             >
               <span style={{ color: "#C9A06A" }}>●</span>
-              Digest manager — Lundi 16 juin
+              Rapport d'équipe — Lundi 16 juin
             </div>
             <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)" }}>
               Semaine 24
@@ -181,30 +187,62 @@ function Index() {
             >
               Recommandations IA
             </div>
-            {[
-              "Charge en baisse 2 semaines. Organisez un point d'équipe avant vendredi.",
-              "Ambiance en hausse. Bon moment pour lancer un projet à forte visibilité.",
-            ].map((text, i) => (
+            <div
+              className="mb-3 flex items-start gap-3 rounded-lg p-3"
+              style={{ backgroundColor: "rgba(201,160,106,0.10)" }}
+            >
               <div
-                key={i}
-                className="mb-3 flex items-start gap-3 rounded-lg p-3"
-                style={{ backgroundColor: "rgba(201,160,106,0.10)" }}
+                className="mt-0.5 h-5 w-5 flex-shrink-0"
+                style={{ backgroundColor: "#C9A06A" }}
+              />
+              <p
+                style={{
+                  fontSize: "12px",
+                  lineHeight: 1.5,
+                  color: "rgba(15,27,51,0.85)",
+                }}
               >
-                <div
-                  className="mt-0.5 h-5 w-5 flex-shrink-0"
-                  style={{ backgroundColor: "#C9A06A" }}
-                />
-                <p
-                  style={{
-                    fontSize: "12px",
-                    lineHeight: 1.5,
-                    color: "rgba(15,27,51,0.85)",
-                  }}
-                >
-                  {text}
-                </p>
+                Charge en baisse 2 semaines. Organisez un point d'équipe avant vendredi.
+              </p>
+            </div>
+            <div
+              className="mb-3 flex items-start gap-3 rounded-lg p-3"
+              style={{ backgroundColor: "rgba(201,160,106,0.10)" }}
+            >
+              <div
+                className="mt-0.5 h-5 w-5 flex-shrink-0"
+                style={{ backgroundColor: "#C9A06A" }}
+              />
+              <p
+                style={{
+                  fontSize: "12px",
+                  lineHeight: 1.5,
+                  color: "rgba(15,27,51,0.85)",
+                }}
+              >
+                Ambiance en hausse. Bon moment pour lancer un projet à forte visibilité.
+              </p>
+            </div>
+            <div
+              className="mb-3 flex items-start gap-3 rounded-lg p-3"
+              style={{ backgroundColor: "rgba(201,160,106,0.10)" }}
+            >
+              <div
+                className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-sm"
+                style={{ backgroundColor: "#0F1B33" }}
+              >
+                <span style={{ fontSize: "10px", color: "#FFFFFF" }}>⚠️</span>
               </div>
-            ))}
+              <p
+                style={{
+                  fontSize: "12px",
+                  lineHeight: 1.5,
+                  color: "rgba(15,27,51,0.85)",
+                }}
+              >
+                2 employés n'ont pas répondu cette semaine. Envoie un rappel discret avant vendredi — le silence est aussi un signal.
+              </p>
+            </div>
           </div>
 
           {/* Footer carte */}
