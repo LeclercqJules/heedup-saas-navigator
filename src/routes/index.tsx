@@ -46,10 +46,11 @@ function Index() {
           </h1>
 
           <p
-            className="mt-5 max-w-md"
+            className="mt-5"
             style={{
               fontFamily: "var(--font-sans)",
-              fontSize: "13.5px",
+              maxWidth: "440px",
+              fontSize: "15px",
               lineHeight: 1.6,
               color: "rgba(15,27,51,0.65)",
             }}
