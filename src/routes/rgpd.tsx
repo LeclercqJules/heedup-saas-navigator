@@ -41,7 +41,7 @@ const blocks = [
 function Page() {
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-3xl px-6 py-20">
+      <section className="mx-auto max-w-[720px] px-[5%] py-20">
         <h1 style={{ fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.1 }}>
           RGPD
         </h1>
