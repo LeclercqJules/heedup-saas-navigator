@@ -20,14 +20,14 @@ export function Nav() {
           className="font-display italic"
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "20px",
+            fontSize: "22px",
             color: "#0F1B33",
           }}
         >
           HeedUp
         </Link>
 
-        <nav className="hidden items-center gap-7 md:flex">
+        <nav className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
             <Link
               key={l.to}
@@ -35,7 +35,7 @@ export function Nav() {
               activeOptions={{ exact: true }}
               style={{
                 fontFamily: "var(--font-sans)",
-                fontSize: "13px",
+                fontSize: "15px",
                 color: "rgba(15, 27, 51, 0.55)",
                 fontWeight: 500,
               }}
