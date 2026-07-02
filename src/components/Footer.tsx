@@ -11,8 +11,8 @@ const footerLinks = [
 export function Footer() {
   return (
     <footer style={{ backgroundColor: "#0F1B33" }}>
-      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-14 md:flex-row md:items-start md:justify-between">
-        <div className="max-w-sm">
+      <div className="mx-auto flex flex-col gap-8 px-[5%] py-14 md:flex-row md:items-start md:justify-between">
+        <div>
           <div
             style={{
               fontFamily: "var(--font-display)",
