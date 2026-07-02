@@ -14,7 +14,7 @@ export function Nav() {
       className="w-full bg-white"
       style={{ borderBottom: "3px solid #0F1B33", height: "58px" }}
     >
-      <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-6">
+      <div className="mx-auto flex h-full items-center justify-between px-[5%]">
         <Link
           to="/"
           className="font-display italic"

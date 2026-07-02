@@ -9,7 +9,7 @@ function Index() {
   return (
     <SiteLayout>
       {/* Hero — 2 colonnes */}
-      <section className="mx-auto grid max-w-6xl items-center gap-10 px-6 pt-16 pb-10 md:grid-cols-2 md:pt-20">
+      <section className="mx-auto grid items-center gap-10 px-[5%] pt-16 pb-10 md:grid-cols-2 md:pt-20">
         {/* Colonne gauche : texte */}
         <div>
           <span
@@ -245,7 +245,7 @@ function Index() {
           padding: "14px 0",
         }}
       >
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6">
+        <div className="mx-auto flex flex-wrap items-center justify-center gap-x-8 gap-y-2 px-[5%]">
           {[
             "✓ RGPD natif",
             "✓ Hébergé en France",
@@ -270,7 +270,7 @@ function Index() {
       </div>
 
       {/* Feature cards conservées */}
-      <section className="mx-auto grid max-w-5xl gap-6 px-6 pb-24 pt-16 md:grid-cols-3">
+      <section className="mx-auto grid gap-6 px-[5%] pb-24 pt-16 md:grid-cols-3">
         {[
           {
             t: "Signaux faibles",

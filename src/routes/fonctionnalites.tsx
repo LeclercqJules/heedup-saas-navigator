@@ -45,12 +45,12 @@ const features = [
 function Page() {
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-5xl px-6 py-20">
+      <section className="mx-auto px-[5%] py-20">
         <h1 style={{ fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.1 }}>
           Fonctionnalités
         </h1>
         <p
-          className="mt-4 max-w-2xl"
+          className="mt-4"
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: "15px",
