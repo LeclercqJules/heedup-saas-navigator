@@ -46,10 +46,11 @@ function Index() {
           </h1>
 
           <p
-            className="mt-5 max-w-md"
+            className="mt-5"
             style={{
               fontFamily: "var(--font-sans)",
-              fontSize: "13.5px",
+              maxWidth: "440px",
+              fontSize: "15px",
               lineHeight: 1.6,
               color: "rgba(15,27,51,0.65)",
             }}
@@ -76,19 +77,24 @@ function Index() {
           </a>
 
           <div
-            className="mt-4 flex items-center gap-2"
+            className="mt-4 inline-flex items-center gap-2"
             style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "11.5px",
-              color: "rgba(15,27,51,0.5)",
+              backgroundColor: "rgba(15,27,51,0.05)",
+              borderRadius: "20px",
+              padding: "6px 12px",
             }}
           >
             <span className="inline-block h-2 w-2 rounded-full bg-[#7A9B8E] animate-pulse" />
-            <span>27 dirigeants sur la liste d'attente</span>
-            <span>·</span>
-            <span>🔒 RGPD</span>
-            <span>·</span>
-            <span>🇫🇷 Hébergé en France</span>
+            <span
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "13px",
+                fontWeight: 600,
+                color: "#0F1B33",
+              }}
+            >
+              27 dirigeants déjà sur la liste d'attente
+            </span>
           </div>
         </div>
 
@@ -224,7 +230,7 @@ function Index() {
               </p>
             </div>
             <div
-              className="mb-3 flex items-start gap-3 rounded-lg p-3"
+              className="mb-3 flex items-start gap-3 rounded-lg border border-[#C9A06A] p-3"
               style={{ backgroundColor: "rgba(201,160,106,0.10)" }}
             >
               <div

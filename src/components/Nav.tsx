@@ -12,7 +12,7 @@ export function Nav() {
   return (
     <header
       className="w-full bg-white"
-      style={{ borderBottom: "3px solid #0F1B33", height: "58px" }}
+      style={{ borderBottom: "3px solid #0F1B33", height: "68px" }}
     >
       <div className="mx-auto flex h-full items-center justify-between px-[5%]">
         <Link
@@ -20,14 +20,14 @@ export function Nav() {
           className="font-display italic"
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "20px",
+            fontSize: "22px",
             color: "#0F1B33",
           }}
         >
           HeedUp
         </Link>
 
-        <nav className="hidden items-center gap-7 md:flex">
+        <nav className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
             <Link
               key={l.to}
@@ -35,7 +35,7 @@ export function Nav() {
               activeOptions={{ exact: true }}
               style={{
                 fontFamily: "var(--font-sans)",
-                fontSize: "13px",
+                fontSize: "15px",
                 color: "rgba(15, 27, 51, 0.55)",
                 fontWeight: 500,
               }}
@@ -52,9 +52,9 @@ export function Nav() {
             backgroundColor: "#C9A06A",
             color: "#0F1B33",
             fontWeight: 700,
-            fontSize: "12px",
+            fontSize: "14px",
             borderRadius: "6px",
-            padding: "8px 16px",
+            padding: "10px 22px",
             fontFamily: "var(--font-sans)",
           }}
         >
