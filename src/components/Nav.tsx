@@ -52,9 +52,9 @@ export function Nav() {
             backgroundColor: "#C9A06A",
             color: "#0F1B33",
             fontWeight: 700,
-            fontSize: "12px",
+            fontSize: "14px",
             borderRadius: "6px",
-            padding: "8px 16px",
+            padding: "10px 22px",
             fontFamily: "var(--font-sans)",
           }}
         >
