@@ -36,7 +36,7 @@ export function Nav() {
               style={{
                 fontFamily: "var(--font-sans)",
                 fontSize: "15px",
-                color: "rgba(15, 27, 51, 0.55)",
+                color: "rgba(15, 27, 51, 0.5)",
                 fontWeight: 500,
               }}
               activeProps={{ style: { color: "#0F1B33", opacity: 1, fontWeight: 600 } }}
