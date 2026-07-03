@@ -51,10 +51,10 @@ export function Nav() {
           style={{
             backgroundColor: "#C9A06A",
             color: "#0F1B33",
-            fontWeight: 700,
-            fontSize: "14px",
-            borderRadius: "6px",
-            padding: "10px 22px",
+            fontWeight: 600,
+            fontSize: "15px",
+            borderRadius: "8px",
+            padding: "12px 28px",
             fontFamily: "var(--font-sans)",
           }}
         >
