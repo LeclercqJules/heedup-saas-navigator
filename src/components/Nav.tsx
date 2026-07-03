@@ -20,7 +20,7 @@ export function Nav() {
           className="font-display italic"
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "22px",
+            fontSize: "24px",
             color: "#0F1B33",
           }}
         >
