@@ -39,7 +39,7 @@ export function Nav() {
                 color: "rgba(15, 27, 51, 0.5)",
                 fontWeight: 500,
               }}
-              activeProps={{ style: { color: "#0F1B33", opacity: 1, fontWeight: 600 } }}
+              activeProps={{ style: { color: "#0F1B33", opacity: 1, fontWeight: 700 } }}
             >
               {l.label}
             </Link>
