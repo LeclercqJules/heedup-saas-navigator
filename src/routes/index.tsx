@@ -11,7 +11,7 @@ function Index() {
       {/* Hero */}
       <section
         style={{
-          height: "calc(100vh - 72px)",
+          height: "calc(100vh - 84px)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
@@ -19,14 +19,13 @@ function Index() {
       >
         <div
           style={{
-            flexGrow: 1,
+            flex: 1,
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            padding: "48px 5%",
+            alignItems: "center",
+            padding: "0 5%",
           }}
         >
-          <div className="grid items-center gap-10 md:grid-cols-2">
+          <div className="grid w-full items-center md:grid-cols-2" style={{ gap: "64px" }}>
             {/* Colonne gauche : texte */}
             <div>
               <span
@@ -49,32 +48,31 @@ function Index() {
               </span>
 
               <h1
-                className="mt-5"
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontStyle: "italic",
-                  fontSize: "36px",
-                  lineHeight: 1.15,
+                  fontSize: "54px",
+                  lineHeight: 1.1,
+                  letterSpacing: "-1px",
                   color: "#0F1B33",
+                  marginTop: "20px",
+                  marginBottom: "20px",
                 }}
               >
                 Votre prochain départ surprise, vous l'aurez{" "}
-                <span style={{ color: "#C9A06A" }}>vu venir</span>.
+                <span style={{ fontStyle: "italic", color: "#C9A06A" }}>vu venir</span>.
               </h1>
 
               <p
-                className="mt-5"
                 style={{
                   fontFamily: "var(--font-sans)",
-                  maxWidth: "440px",
-                  fontSize: "15px",
-                  lineHeight: 1.6,
+                  maxWidth: "460px",
+                  fontSize: "17px",
+                  lineHeight: 1.7,
                   color: "rgba(15,27,51,0.65)",
+                  marginBottom: "32px",
                 }}
               >
-                5 questions anonymes à votre équipe chaque vendredi.
-                <br />
-                Un rapport d'équipe le lundi avec les signaux d'alerte et les actions à prendre.
+                Pilotez votre équipe sans devenir RH. 5 questions anonymes chaque vendredi, un rapport d'équipe actionnable chaque lundi.
               </p>
 
               <div
@@ -86,14 +84,14 @@ function Index() {
               >
                 <a
                   href="#waitlist"
-                  className="mt-7 inline-flex items-center gap-2"
+                  className="inline-flex items-center gap-2"
                   style={{
                     backgroundColor: "#C9A06A",
                     color: "#0F1B33",
-                    fontWeight: 600,
-                    fontSize: "15px",
+                    fontWeight: 700,
+                    fontSize: "16px",
                     borderRadius: "8px",
-                    padding: "13px 24px",
+                    padding: "15px 28px",
                     fontFamily: "var(--font-sans)",
                   }}
                 >
@@ -103,10 +101,10 @@ function Index() {
                 <div
                   className="inline-flex items-center gap-2"
                   style={{
-                    marginTop: "12px",
+                    marginTop: "14px",
                     backgroundColor: "rgba(15,27,51,0.05)",
                     borderRadius: "20px",
-                    padding: "6px 14px",
+                    padding: "7px 16px",
                     alignSelf: "flex-start",
                   }}
                 >
@@ -114,7 +112,7 @@ function Index() {
                   <span
                     style={{
                       fontFamily: "var(--font-sans)",
-                      fontSize: "13px",
+                      fontSize: "14px",
                       fontWeight: 600,
                       color: "#0F1B33",
                     }}
@@ -129,7 +127,7 @@ function Index() {
             <div
               style={{
                 backgroundColor: "#FFFFFF",
-                borderRadius: "13px",
+                borderRadius: "15px",
                 border: "1px solid rgba(15,27,51,0.12)",
                 overflow: "hidden",
                 fontFamily: "var(--font-sans)",
@@ -139,7 +137,7 @@ function Index() {
               <div
                 style={{
                   backgroundColor: "#0F1B33",
-                  padding: "12px 18px",
+                  padding: "14px 22px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
@@ -147,7 +145,7 @@ function Index() {
               >
                 <div
                   style={{
-                    fontSize: "11px",
+                    fontSize: "13px",
                     color: "#FFFFFF",
                     fontWeight: 500,
                     display: "flex",
@@ -158,14 +156,14 @@ function Index() {
                   <span style={{ color: "#C9A06A" }}>●</span>
                   Rapport d'équipe — Lundi 16 juin
                 </div>
-                <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)" }}>
+                <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)" }}>
                   Semaine 24
                 </div>
               </div>
 
               {/* 3 scores */}
               <div
-                className="grid grid-cols-3 gap-3 p-4"
+                className="grid grid-cols-3 gap-4 p-5"
                 style={{ backgroundColor: "#F7F5F0" }}
               >
                 {[
@@ -175,13 +173,13 @@ function Index() {
                 ].map((s) => (
                   <div
                     key={s.label}
-                    className="rounded-lg p-3 text-center"
+                    className="rounded-lg p-4 text-center"
                     style={{ backgroundColor: "#FFFFFF" }}
                   >
                     <div
                       style={{
-                        fontSize: "10px",
-                        color: "rgba(15,27,51,0.45)",
+                        fontSize: "12px",
+                        color: "rgba(15,27,51,0.55)",
                         textTransform: "uppercase",
                         letterSpacing: "0.06em",
                         marginBottom: "4px",
@@ -191,7 +189,7 @@ function Index() {
                     </div>
                     <div
                       style={{
-                        fontSize: "22px",
+                        fontSize: "26px",
                         fontWeight: 600,
                         color: "#0F1B33",
                         lineHeight: 1,
@@ -199,7 +197,7 @@ function Index() {
                     >
                       {s.value}
                     </div>
-                    <div style={{ fontSize: "11px", color: s.changeColor, marginTop: "4px" }}>
+                    <div style={{ fontSize: "12px", color: s.changeColor, marginTop: "4px" }}>
                       {s.change}
                     </div>
                   </div>
@@ -207,32 +205,32 @@ function Index() {
               </div>
 
               {/* Recommandations */}
-              <div className="px-5 pt-4 pb-1">
+              <div className="px-6 pt-5 pb-2">
                 <div
                   style={{
-                    fontSize: "9.5px",
+                    fontSize: "11.5px",
                     color: "rgba(15,27,51,0.3)",
                     textTransform: "uppercase",
                     letterSpacing: "0.1em",
                     fontWeight: 600,
-                    marginBottom: "10px",
+                    marginBottom: "12px",
                   }}
                 >
                   Recommandations IA
                 </div>
                 <div
-                  className="mb-3 flex items-start gap-3 rounded-lg p-3"
+                  className="mb-4 flex items-start gap-3 rounded-lg p-4"
                   style={{ backgroundColor: "rgba(201,160,106,0.10)" }}
                 >
                   <div
                     className="flex flex-shrink-0 items-center justify-center"
-                    style={{ backgroundColor: "#0F1B33", width: "18px", height: "18px" }}
+                    style={{ backgroundColor: "#0F1B33", width: "22px", height: "22px" }}
                   >
-                    <span style={{ fontSize: "10px", color: "#C9A06A" }}>↓</span>
+                    <span style={{ fontSize: "12px", color: "#C9A06A" }}>↓</span>
                   </div>
                   <p
                     style={{
-                      fontSize: "12px",
+                      fontSize: "14px",
                       lineHeight: 1.5,
                       color: "rgba(15,27,51,0.85)",
                     }}
@@ -241,18 +239,18 @@ function Index() {
                   </p>
                 </div>
                 <div
-                  className="mb-3 flex items-start gap-3 rounded-lg p-3"
+                  className="mb-4 flex items-start gap-3 rounded-lg p-4"
                   style={{ backgroundColor: "rgba(201,160,106,0.10)" }}
                 >
                   <div
                     className="flex flex-shrink-0 items-center justify-center"
-                    style={{ backgroundColor: "#0F1B33", width: "18px", height: "18px" }}
+                    style={{ backgroundColor: "#0F1B33", width: "22px", height: "22px" }}
                   >
-                    <span style={{ fontSize: "10px", color: "#C9A06A" }}>↑</span>
+                    <span style={{ fontSize: "12px", color: "#C9A06A" }}>↑</span>
                   </div>
                   <p
                     style={{
-                      fontSize: "12px",
+                      fontSize: "14px",
                       lineHeight: 1.5,
                       color: "rgba(15,27,51,0.85)",
                     }}
@@ -261,18 +259,18 @@ function Index() {
                   </p>
                 </div>
                 <div
-                  className="mb-3 flex items-start gap-3 rounded-lg border border-[#C9A06A] p-3"
+                  className="mb-4 flex items-start gap-3 rounded-lg border border-[#C9A06A] p-4"
                   style={{ backgroundColor: "rgba(201,160,106,0.10)" }}
                 >
                   <div
                     className="flex flex-shrink-0 items-center justify-center"
-                    style={{ backgroundColor: "#C9A06A", width: "18px", height: "18px" }}
+                    style={{ backgroundColor: "#C9A06A", width: "22px", height: "22px" }}
                   >
-                    <span style={{ fontSize: "10px", color: "#0F1B33" }}>!</span>
+                    <span style={{ fontSize: "12px", color: "#0F1B33" }}>!</span>
                   </div>
                   <p
                     style={{
-                      fontSize: "12px",
+                      fontSize: "14px",
                       lineHeight: 1.5,
                       color: "rgba(15,27,51,0.85)",
                     }}
@@ -283,21 +281,21 @@ function Index() {
               </div>
 
               {/* Footer carte */}
-              <div className="px-5 pb-5 pt-2">
+              <div className="px-6 pb-6 pt-3">
                 <div
                   style={{
-                    fontSize: "11px",
+                    fontSize: "13px",
                     color: "rgba(15,27,51,0.55)",
-                    marginBottom: "8px",
+                    marginBottom: "10px",
                   }}
                 >
                   Taux de réponse : 8 / 10 employés
                 </div>
                 <div
                   style={{
-                    height: "6px",
+                    height: "7px",
                     backgroundColor: "rgba(15,27,51,0.08)",
-                    borderRadius: "3px",
+                    borderRadius: "4px",
                     overflow: "hidden",
                   }}
                 >
@@ -318,10 +316,10 @@ function Index() {
         <div
           style={{
             backgroundColor: "#0F1B33",
-            padding: "14px 5%",
+            padding: "16px 5%",
           }}
         >
-          <div className="flex flex-wrap items-center justify-center" style={{ gap: "32px" }}>
+          <div className="flex flex-wrap items-center justify-center" style={{ gap: "36px" }}>
             {[
               "RGPD natif",
               "Hébergé en France",
@@ -334,7 +332,8 @@ function Index() {
                 className="flex items-center gap-2"
                 style={{
                   fontFamily: "var(--font-sans)",
-                  fontSize: "12px",
+                  fontSize: "13px",
+                  fontWeight: 500,
                   color: "rgba(255,255,255,0.65)",
                 }}
               >
