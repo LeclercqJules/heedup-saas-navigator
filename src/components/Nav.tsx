@@ -12,22 +12,22 @@ export function Nav() {
   return (
     <header
       className="w-full bg-white"
-      style={{ borderBottom: "3px solid #0F1B33", height: "72px" }}
+      style={{ borderBottom: "3px solid #0F1B33", height: "84px" }}
     >
       <div className="mx-auto flex h-full items-center justify-between px-[5%]">
         <Link
           to="/"
-          className="font-display italic"
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "24px",
+            fontSize: "26px",
             color: "#0F1B33",
+            fontWeight: 400,
           }}
         >
           HeedUp
         </Link>
 
-        <nav className="hidden items-center gap-9 md:flex">
+        <nav className="hidden items-center md:flex" style={{ gap: "40px" }}>
           {links.map((l) => (
             <Link
               key={l.to}
@@ -35,11 +35,12 @@ export function Nav() {
               activeOptions={{ exact: true }}
               style={{
                 fontFamily: "var(--font-sans)",
-                fontSize: "15px",
-                color: "rgba(15, 27, 51, 0.5)",
-                fontWeight: 500,
+                fontSize: "16px",
+                color: "#0F1B33",
+                fontWeight: 600,
+                opacity: 0.6,
               }}
-              activeProps={{ style: { color: "#0F1B33", opacity: 1, fontWeight: 700 } }}
+              activeProps={{ style: { opacity: 1 } }}
             >
               {l.label}
             </Link>
@@ -51,10 +52,10 @@ export function Nav() {
           style={{
             backgroundColor: "#C9A06A",
             color: "#0F1B33",
-            fontWeight: 600,
-            fontSize: "15px",
+            fontWeight: 700,
+            fontSize: "16px",
             borderRadius: "8px",
-            padding: "12px 28px",
+            padding: "14px 32px",
             fontFamily: "var(--font-sans)",
           }}
         >
