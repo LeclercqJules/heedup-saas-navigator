@@ -12,7 +12,7 @@ export function Nav() {
   return (
     <header
       className="w-full bg-white"
-      style={{ borderBottom: "3px solid #0F1B33", height: "68px" }}
+      style={{ borderBottom: "3px solid #0F1B33", height: "72px" }}
     >
       <div className="mx-auto flex h-full items-center justify-between px-[5%]">
         <Link
