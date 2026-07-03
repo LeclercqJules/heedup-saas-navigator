@@ -27,7 +27,7 @@ export function Nav() {
           HeedUp
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-9 md:flex">
           {links.map((l) => (
             <Link
               key={l.to}
