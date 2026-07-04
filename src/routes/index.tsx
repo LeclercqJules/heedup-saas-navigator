@@ -15,6 +15,7 @@ function Index() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
+          backgroundColor: "var(--bg-main)",
         }}
       >
         <div
@@ -33,8 +34,8 @@ function Index() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "6px",
-                  backgroundColor: "#0F1B33",
-                  color: "#C9A06A",
+                  backgroundColor: "var(--indigo-pale)",
+                  color: "var(--midnight)",
                   fontFamily: "var(--font-sans)",
                   fontSize: "10px",
                   fontWeight: 600,
@@ -53,13 +54,13 @@ function Index() {
                   fontSize: "54px",
                   lineHeight: 1.1,
                   letterSpacing: "-1px",
-                  color: "#0F1B33",
+                  color: "var(--midnight)",
                   marginTop: "20px",
                   marginBottom: "20px",
                 }}
               >
                 Votre prochain départ surprise, vous l'aurez{" "}
-                <span style={{ fontStyle: "italic", color: "#C9A06A" }}>vu venir</span>.
+                <span style={{ fontStyle: "italic", color: "var(--indigo)" }}>vu venir</span>.
               </h1>
 
               <p
@@ -68,7 +69,7 @@ function Index() {
                   maxWidth: "460px",
                   fontSize: "17px",
                   lineHeight: 1.7,
-                  color: "rgba(15,27,51,0.65)",
+                  color: "var(--text-muted)",
                   marginBottom: "32px",
                 }}
               >
@@ -86,8 +87,8 @@ function Index() {
                   href="#waitlist"
                   className="inline-flex items-center gap-2"
                   style={{
-                    backgroundColor: "#C9A06A",
-                    color: "#0F1B33",
+                    backgroundColor: "var(--indigo)",
+                    color: "#FFFFFF",
                     fontWeight: 700,
                     fontSize: "16px",
                     borderRadius: "8px",
@@ -102,19 +103,22 @@ function Index() {
                   className="inline-flex items-center gap-2"
                   style={{
                     marginTop: "14px",
-                    backgroundColor: "rgba(15,27,51,0.05)",
+                    backgroundColor: "rgba(67,56,202,0.07)",
                     borderRadius: "20px",
                     padding: "7px 16px",
                     alignSelf: "flex-start",
                   }}
                 >
-                  <span className="inline-block h-2 w-2 rounded-full bg-[#7A9B8E] animate-pulse" />
+                  <span
+                    className="inline-block h-2 w-2 rounded-full animate-pulse"
+                    style={{ backgroundColor: "var(--semantic-green)" }}
+                  />
                   <span
                     style={{
                       fontFamily: "var(--font-sans)",
                       fontSize: "14px",
                       fontWeight: 600,
-                      color: "#0F1B33",
+                      color: "var(--midnight)",
                     }}
                   >
                     27 dirigeants déjà sur la liste d'attente
@@ -126,9 +130,9 @@ function Index() {
             {/* Colonne droite : carte */}
             <div
               style={{
-                backgroundColor: "#FFFFFF",
+                backgroundColor: "var(--bg-card)",
                 borderRadius: "15px",
-                border: "1px solid rgba(15,27,51,0.12)",
+                border: "1px solid rgba(67,56,202,0.12)",
                 overflow: "hidden",
                 fontFamily: "var(--font-sans)",
               }}
@@ -136,7 +140,7 @@ function Index() {
               {/* Header */}
               <div
                 style={{
-                  backgroundColor: "#0F1B33",
+                  backgroundColor: "var(--midnight)",
                   padding: "14px 22px",
                   display: "flex",
                   alignItems: "center",
@@ -153,7 +157,7 @@ function Index() {
                     gap: "6px",
                   }}
                 >
-                  <span style={{ color: "#C9A06A" }}>●</span>
+                  <span style={{ color: "var(--indigo)" }}>●</span>
                   Rapport d'équipe — Lundi 16 juin
                 </div>
                 <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)" }}>
@@ -164,22 +168,22 @@ function Index() {
               {/* 3 scores */}
               <div
                 className="grid grid-cols-3 gap-4 p-5"
-                style={{ backgroundColor: "#F7F5F0" }}
+                style={{ backgroundColor: "var(--bg-main)" }}
               >
                 {[
-                  { label: "Charge", value: "3.6", change: "▼ 0.3", changeColor: "#B23A48" },
-                  { label: "Ambiance", value: "4.1", change: "▲ 0.2", changeColor: "#3A7D44" },
-                  { label: "Motivation", value: "4.3", change: "—", changeColor: "#9A9A9A" },
+                  { label: "Charge", value: "3.6", change: "▼ 0.3", changeColor: "var(--semantic-red)" },
+                  { label: "Ambiance", value: "4.1", change: "▲ 0.2", changeColor: "var(--semantic-green)" },
+                  { label: "Motivation", value: "4.3", change: "—", changeColor: "var(--text-muted)" },
                 ].map((s) => (
                   <div
                     key={s.label}
                     className="rounded-lg p-4 text-center"
-                    style={{ backgroundColor: "#FFFFFF" }}
+                    style={{ backgroundColor: "var(--bg-card)" }}
                   >
                     <div
                       style={{
                         fontSize: "12px",
-                        color: "rgba(15,27,51,0.55)",
+                        color: "var(--text-muted)",
                         textTransform: "uppercase",
                         letterSpacing: "0.06em",
                         marginBottom: "4px",
@@ -191,7 +195,7 @@ function Index() {
                       style={{
                         fontSize: "26px",
                         fontWeight: 600,
-                        color: "#0F1B33",
+                        color: "var(--text-primary)",
                         lineHeight: 1,
                       }}
                     >
@@ -209,7 +213,7 @@ function Index() {
                 <div
                   style={{
                     fontSize: "11.5px",
-                    color: "rgba(15,27,51,0.3)",
+                    color: "var(--text-muted)",
                     textTransform: "uppercase",
                     letterSpacing: "0.1em",
                     fontWeight: 600,
@@ -220,19 +224,22 @@ function Index() {
                 </div>
                 <div
                   className="mb-4 flex items-start gap-3 rounded-lg p-4"
-                  style={{ backgroundColor: "rgba(201,160,106,0.10)" }}
+                  style={{
+                    backgroundColor: "rgba(67,56,202,0.06)",
+                    border: "1px solid rgba(67,56,202,0.15)",
+                  }}
                 >
                   <div
                     className="flex flex-shrink-0 items-center justify-center"
-                    style={{ backgroundColor: "#0F1B33", width: "22px", height: "22px" }}
+                    style={{ backgroundColor: "var(--midnight)", width: "22px", height: "22px" }}
                   >
-                    <span style={{ fontSize: "12px", color: "#C9A06A" }}>↓</span>
+                    <span style={{ fontSize: "12px", color: "var(--indigo-pale)" }}>↓</span>
                   </div>
                   <p
                     style={{
                       fontSize: "14px",
                       lineHeight: 1.5,
-                      color: "rgba(15,27,51,0.85)",
+                      color: "var(--text-primary)",
                     }}
                   >
                     Charge en baisse 2 semaines. Organisez un point d'équipe avant vendredi.
@@ -240,39 +247,45 @@ function Index() {
                 </div>
                 <div
                   className="mb-4 flex items-start gap-3 rounded-lg p-4"
-                  style={{ backgroundColor: "rgba(201,160,106,0.10)" }}
+                  style={{
+                    backgroundColor: "rgba(67,56,202,0.06)",
+                    border: "1px solid rgba(67,56,202,0.15)",
+                  }}
                 >
                   <div
                     className="flex flex-shrink-0 items-center justify-center"
-                    style={{ backgroundColor: "#0F1B33", width: "22px", height: "22px" }}
+                    style={{ backgroundColor: "var(--midnight)", width: "22px", height: "22px" }}
                   >
-                    <span style={{ fontSize: "12px", color: "#C9A06A" }}>↑</span>
+                    <span style={{ fontSize: "12px", color: "var(--indigo-pale)" }}>↑</span>
                   </div>
                   <p
                     style={{
                       fontSize: "14px",
                       lineHeight: 1.5,
-                      color: "rgba(15,27,51,0.85)",
+                      color: "var(--text-primary)",
                     }}
                   >
                     Ambiance en hausse. Bon moment pour lancer un projet à forte visibilité.
                   </p>
                 </div>
                 <div
-                  className="mb-4 flex items-start gap-3 rounded-lg border border-[#C9A06A] p-4"
-                  style={{ backgroundColor: "rgba(201,160,106,0.10)" }}
+                  className="mb-4 flex items-start gap-3 rounded-lg p-4"
+                  style={{
+                    backgroundColor: "rgba(67,56,202,0.06)",
+                    border: "1px solid rgba(67,56,202,0.15)",
+                  }}
                 >
                   <div
                     className="flex flex-shrink-0 items-center justify-center"
-                    style={{ backgroundColor: "#C9A06A", width: "22px", height: "22px" }}
+                    style={{ backgroundColor: "var(--indigo)", width: "22px", height: "22px" }}
                   >
-                    <span style={{ fontSize: "12px", color: "#0F1B33" }}>!</span>
+                    <span style={{ fontSize: "12px", color: "#FFFFFF" }}>!</span>
                   </div>
                   <p
                     style={{
                       fontSize: "14px",
                       lineHeight: 1.5,
-                      color: "rgba(15,27,51,0.85)",
+                      color: "var(--text-primary)",
                     }}
                   >
                     2 employés n'ont pas répondu cette semaine. Envoie un rappel discret avant vendredi — le silence est aussi un signal.
@@ -285,7 +298,7 @@ function Index() {
                 <div
                   style={{
                     fontSize: "13px",
-                    color: "rgba(15,27,51,0.55)",
+                    color: "var(--text-muted)",
                     marginBottom: "10px",
                   }}
                 >
@@ -294,7 +307,7 @@ function Index() {
                 <div
                   style={{
                     height: "7px",
-                    backgroundColor: "rgba(15,27,51,0.08)",
+                    backgroundColor: "rgba(67,56,202,0.1)",
                     borderRadius: "4px",
                     overflow: "hidden",
                   }}
@@ -303,7 +316,7 @@ function Index() {
                     style={{
                       width: "80%",
                       height: "100%",
-                      backgroundColor: "#7A9B8E",
+                      backgroundColor: "var(--indigo)",
                     }}
                   />
                 </div>
@@ -315,7 +328,7 @@ function Index() {
         {/* Trust bar */}
         <div
           style={{
-            backgroundColor: "#0F1B33",
+            backgroundColor: "var(--midnight)",
             padding: "16px 5%",
           }}
         >
@@ -334,10 +347,10 @@ function Index() {
                   fontFamily: "var(--font-sans)",
                   fontSize: "13px",
                   fontWeight: 500,
-                  color: "rgba(255,255,255,0.65)",
+                  color: "rgba(255,255,255,0.7)",
                 }}
               >
-                <span style={{ color: "#C9A06A" }}>✓</span>
+                <span style={{ color: "var(--indigo-pale)" }}>✓</span>
                 <span>{item}</span>
               </div>
             ))}
@@ -346,7 +359,10 @@ function Index() {
       </section>
 
       {/* Feature cards conservées */}
-      <section className="mx-auto grid gap-6 px-[5%] pb-24 pt-16 md:grid-cols-3">
+      <section
+        className="mx-auto grid gap-6 px-[5%] pb-24 pt-16 md:grid-cols-3"
+        style={{ backgroundColor: "var(--bg-main)" }}
+      >
         {[
           {
             t: "Signaux faibles",
@@ -364,20 +380,20 @@ function Index() {
           <div
             key={c.t}
             style={{
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "var(--bg-card)",
               borderRadius: "12px",
               padding: "28px",
-              border: "1px solid rgba(15,27,51,0.08)",
+              border: "1px solid rgba(67,56,202,0.1)",
             }}
           >
-            <h3 style={{ fontSize: "22px" }}>{c.t}</h3>
+            <h3 style={{ fontSize: "22px", color: "var(--midnight)" }}>{c.t}</h3>
             <p
               className="mt-3"
               style={{
                 fontFamily: "var(--font-sans)",
                 fontSize: "14px",
                 lineHeight: 1.6,
-                color: "rgba(15,27,51,0.65)",
+                color: "var(--text-muted)",
               }}
             >
               {c.d}

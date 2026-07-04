@@ -10,14 +10,14 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer style={{ backgroundColor: "#0F1B33" }}>
+    <footer style={{ backgroundColor: "var(--midnight)" }}>
       <div className="mx-auto flex flex-col gap-8 px-[5%] py-14 md:flex-row md:items-start md:justify-between">
         <div>
           <div
             style={{
               fontFamily: "var(--font-display)",
               fontStyle: "italic",
-              color: "rgba(255,255,255,0.7)",
+              color: "rgba(255,255,255,0.75)",
               fontSize: "24px",
               lineHeight: 1,
             }}
@@ -29,7 +29,7 @@ export function Footer() {
               marginTop: "12px",
               fontFamily: "var(--font-sans)",
               fontSize: "10.5px",
-              color: "rgba(255,255,255,0.3)",
+              color: "rgba(255,255,255,0.35)",
               lineHeight: 1.5,
             }}
           >
@@ -45,7 +45,7 @@ export function Footer() {
                 style={{
                   fontFamily: "var(--font-sans)",
                   fontSize: "11px",
-                  color: "rgba(255,255,255,0.35)",
+                  color: "rgba(255,255,255,0.4)",
                 }}
               >
                 {l.label}

@@ -11,8 +11,12 @@ const links = [
 export function Nav() {
   return (
     <header
-      className="w-full bg-white"
-      style={{ borderBottom: "3px solid #0F1B33", height: "84px" }}
+      className="w-full"
+      style={{
+        backgroundColor: "#FFFFFF",
+        borderBottom: "3px solid var(--midnight)",
+        height: "84px",
+      }}
     >
       <div className="mx-auto flex h-full items-center justify-between px-[5%]">
         <Link
@@ -20,7 +24,7 @@ export function Nav() {
           style={{
             fontFamily: "var(--font-display)",
             fontSize: "26px",
-            color: "#0F1B33",
+            color: "var(--midnight)",
             fontWeight: 400,
           }}
         >
@@ -36,11 +40,17 @@ export function Nav() {
               style={{
                 fontFamily: "var(--font-sans)",
                 fontSize: "16px",
-                color: "#0F1B33",
+                color: "var(--text-primary)",
                 fontWeight: 600,
                 opacity: 0.6,
               }}
-              activeProps={{ style: { opacity: 1 } }}
+              activeProps={{
+                style: {
+                  color: "var(--midnight)",
+                  opacity: 1,
+                  fontWeight: 700,
+                },
+              }}
             >
               {l.label}
             </Link>
@@ -50,8 +60,8 @@ export function Nav() {
         <a
           href="#waitlist"
           style={{
-            backgroundColor: "#C9A06A",
-            color: "#0F1B33",
+            backgroundColor: "var(--indigo)",
+            color: "#FFFFFF",
             fontWeight: 700,
             fontSize: "16px",
             borderRadius: "8px",
