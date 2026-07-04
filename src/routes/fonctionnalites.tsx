@@ -45,8 +45,17 @@ const features = [
 function Page() {
   return (
     <SiteLayout>
-      <section className="mx-auto px-[5%] py-20">
-        <h1 style={{ fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.1 }}>
+      <section
+        className="mx-auto px-[5%] py-20"
+        style={{ backgroundColor: "var(--bg-main)" }}
+      >
+        <h1
+          style={{
+            fontSize: "clamp(36px, 5vw, 56px)",
+            lineHeight: 1.1,
+            color: "var(--midnight)",
+          }}
+        >
           Fonctionnalités
         </h1>
         <p
@@ -55,7 +64,7 @@ function Page() {
             fontFamily: "var(--font-sans)",
             fontSize: "15px",
             lineHeight: 1.6,
-            color: "rgba(15,27,51,0.7)",
+            color: "var(--text-muted)",
           }}
         >
           Tout ce qu'il faut pour agir avant que le désengagement ne devienne
@@ -67,20 +76,20 @@ function Page() {
             <article
               key={f.t}
               style={{
-                backgroundColor: "#FFFFFF",
+                backgroundColor: "var(--bg-card)",
                 borderRadius: "12px",
                 padding: "28px",
-                border: "1px solid rgba(15,27,51,0.08)",
+                border: "1px solid rgba(67,56,202,0.1)",
               }}
             >
-              <h3 style={{ fontSize: "22px" }}>{f.t}</h3>
+              <h3 style={{ fontSize: "22px", color: "var(--midnight)" }}>{f.t}</h3>
               <p
                 className="mt-3"
                 style={{
                   fontFamily: "var(--font-sans)",
                   fontSize: "14px",
                   lineHeight: 1.6,
-                  color: "rgba(15,27,51,0.65)",
+                  color: "var(--text-muted)",
                 }}
               >
                 {f.d}

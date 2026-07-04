@@ -22,7 +22,7 @@ const plans = [
     desc: "Jusqu'à 10 salariés.",
     features: [
       "5 questions hebdomadaires",
-      "Digest manager automatique",
+      "Rapport d'équipe automatique",
       "Support par email",
     ],
   },
@@ -55,8 +55,17 @@ const plans = [
 function Page() {
   return (
     <SiteLayout>
-      <section className="mx-auto px-[5%] py-20">
-        <h1 style={{ fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.1 }}>
+      <section
+        className="mx-auto px-[5%] py-20"
+        style={{ backgroundColor: "var(--bg-main)" }}
+      >
+        <h1
+          style={{
+            fontSize: "clamp(36px, 5vw, 56px)",
+            lineHeight: 1.1,
+            color: "var(--midnight)",
+          }}
+        >
           Tarifs
         </h1>
         <p
@@ -65,7 +74,7 @@ function Page() {
             fontFamily: "var(--font-sans)",
             fontSize: "15px",
             lineHeight: 1.6,
-            color: "rgba(15,27,51,0.7)",
+            color: "var(--text-muted)",
           }}
         >
           Une tarification lisible. Pas de coûts cachés, pas d'engagement
@@ -78,11 +87,11 @@ function Page() {
               key={p.name}
               className="relative"
               style={{
-                backgroundColor: p.highlight ? "#0F1B33" : "#FFFFFF",
-                color: p.highlight ? "#F7F5F0" : "#0F1B33",
+                backgroundColor: p.highlight ? "var(--midnight)" : "var(--bg-card)",
+                color: p.highlight ? "#FFFFFF" : "var(--text-primary)",
                 borderRadius: "12px",
                 padding: "32px",
-                border: "1px solid rgba(15,27,51,0.08)",
+                border: "1px solid rgba(67,56,202,0.1)",
               }}
             >
               {p.badge && (
@@ -92,8 +101,8 @@ function Page() {
                     top: "-10px",
                     left: "50%",
                     transform: "translateX(-50%)",
-                    backgroundColor: "#C9A06A",
-                    color: "#0F1B33",
+                    backgroundColor: "var(--indigo)",
+                    color: "#FFFFFF",
                     fontSize: "10px",
                     fontWeight: 700,
                     textTransform: "uppercase",
@@ -109,7 +118,7 @@ function Page() {
               <h3
                 style={{
                   fontSize: "24px",
-                  color: p.highlight ? "#F7F5F0" : "#0F1B33",
+                  color: p.highlight ? "#FFFFFF" : "var(--midnight)",
                 }}
               >
                 {p.name}
@@ -120,7 +129,7 @@ function Page() {
                   fontFamily: "var(--font-sans)",
                   fontSize: "18px",
                   fontWeight: 600,
-                  color: p.highlight ? "#C9A06A" : "#0F1B33",
+                  color: p.highlight ? "var(--indigo-pale)" : "var(--midnight)",
                 }}
               >
                 {p.price}
@@ -149,6 +158,22 @@ function Page() {
                   <li key={f}>· {f}</li>
                 ))}
               </ul>
+
+              <a
+                href="#waitlist"
+                className="mt-6 inline-block"
+                style={{
+                  backgroundColor: "var(--indigo)",
+                  color: "#FFFFFF",
+                  fontWeight: 700,
+                  fontSize: "14px",
+                  borderRadius: "8px",
+                  padding: "10px 20px",
+                  fontFamily: "var(--font-sans)",
+                }}
+              >
+                Choisir ce plan
+              </a>
             </article>
           ))}
         </div>

@@ -41,8 +41,17 @@ const blocks = [
 function Page() {
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-[720px] px-[5%] py-20">
-        <h1 style={{ fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.1 }}>
+      <section
+        className="mx-auto max-w-[720px] px-[5%] py-20"
+        style={{ backgroundColor: "var(--bg-main)" }}
+      >
+        <h1
+          style={{
+            fontSize: "clamp(36px, 5vw, 56px)",
+            lineHeight: 1.1,
+            color: "var(--midnight)",
+          }}
+        >
           RGPD
         </h1>
         <p
@@ -51,7 +60,7 @@ function Page() {
             fontFamily: "var(--font-sans)",
             fontSize: "15px",
             lineHeight: 1.6,
-            color: "rgba(15,27,51,0.7)",
+            color: "var(--text-muted)",
           }}
         >
           La conformité n'est pas une case à cocher. C'est un pilier de notre
@@ -63,20 +72,20 @@ function Page() {
             <article
               key={b.t}
               style={{
-                backgroundColor: "#FFFFFF",
+                backgroundColor: "var(--bg-card)",
                 borderRadius: "12px",
                 padding: "28px",
-                border: "1px solid rgba(15,27,51,0.08)",
+                border: "1px solid rgba(67,56,202,0.1)",
               }}
             >
-              <h3 style={{ fontSize: "20px" }}>{b.t}</h3>
+              <h3 style={{ fontSize: "20px", color: "var(--midnight)" }}>{b.t}</h3>
               <p
                 className="mt-3"
                 style={{
                   fontFamily: "var(--font-sans)",
                   fontSize: "14px",
                   lineHeight: 1.6,
-                  color: "rgba(15,27,51,0.7)",
+                  color: "var(--text-muted)",
                 }}
               >
                 {b.d}
