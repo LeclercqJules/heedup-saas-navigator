@@ -10,9 +10,9 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer style={{ backgroundColor: "var(--midnight)" }}>
-      <div className="mx-auto flex flex-col gap-8 px-[5%] py-14 md:flex-row md:items-start md:justify-between">
-        <div>
+    <footer className="heedup-footer" style={{ backgroundColor: "var(--midnight)" }}>
+      <div className="heedup-footer-inner mx-auto flex flex-col gap-8 px-[5%] py-14 md:flex-row md:items-start md:justify-between">
+        <div className="heedup-footer-brand">
           <div
             style={{
               fontFamily: "var(--font-display)",
@@ -37,7 +37,7 @@ export function Footer() {
           </p>
         </div>
 
-        <ul className="flex flex-wrap gap-x-6 gap-y-2 md:justify-end">
+        <ul className="heedup-footer-links flex flex-wrap gap-x-6 gap-y-2 md:justify-end">
           {footerLinks.map((l) => (
             <li key={l.to}>
               <a
