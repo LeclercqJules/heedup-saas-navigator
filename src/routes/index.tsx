@@ -51,10 +51,10 @@ function Index() {
               <h1
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: "54px",
-                  lineHeight: 1.1,
-                  letterSpacing: "-1px",
-                  color: "var(--midnight)",
+                fontSize: "58px",
+                lineHeight: 1.08,
+                letterSpacing: "-1.5px",
+                color: "var(--midnight)",
                   marginTop: "20px",
                   marginBottom: "20px",
                 }}
@@ -225,19 +225,19 @@ function Index() {
                 <div
                   className="mb-4 flex items-start gap-3 rounded-lg p-4"
                   style={{
-                    backgroundColor: "rgba(67,56,202,0.06)",
-                    border: "1px solid rgba(67,56,202,0.15)",
+                    backgroundColor: "rgba(239,68,68,0.08)",
+                    border: "1px solid rgba(239,68,68,0.18)",
                   }}
                 >
                   <div
                     className="flex flex-shrink-0 items-center justify-center"
-                    style={{ backgroundColor: "var(--midnight)", width: "22px", height: "22px" }}
+                    style={{ backgroundColor: "var(--semantic-red)", width: "18px", height: "18px" }}
                   >
-                    <span style={{ fontSize: "12px", color: "var(--indigo-pale)" }}>↓</span>
+                    <span style={{ fontSize: "11px", color: "#FFFFFF" }}>↓</span>
                   </div>
                   <p
                     style={{
-                      fontSize: "14px",
+                      fontSize: "12px",
                       lineHeight: 1.5,
                       color: "var(--text-primary)",
                     }}
@@ -248,19 +248,19 @@ function Index() {
                 <div
                   className="mb-4 flex items-start gap-3 rounded-lg p-4"
                   style={{
-                    backgroundColor: "rgba(67,56,202,0.06)",
-                    border: "1px solid rgba(67,56,202,0.15)",
+                    backgroundColor: "rgba(34,197,94,0.08)",
+                    border: "1px solid rgba(34,197,94,0.18)",
                   }}
                 >
                   <div
                     className="flex flex-shrink-0 items-center justify-center"
-                    style={{ backgroundColor: "var(--midnight)", width: "22px", height: "22px" }}
+                    style={{ backgroundColor: "var(--semantic-green)", width: "18px", height: "18px" }}
                   >
-                    <span style={{ fontSize: "12px", color: "var(--indigo-pale)" }}>↑</span>
+                    <span style={{ fontSize: "11px", color: "#FFFFFF" }}>↑</span>
                   </div>
                   <p
                     style={{
-                      fontSize: "14px",
+                      fontSize: "12px",
                       lineHeight: 1.5,
                       color: "var(--text-primary)",
                     }}
@@ -271,19 +271,19 @@ function Index() {
                 <div
                   className="mb-4 flex items-start gap-3 rounded-lg p-4"
                   style={{
-                    backgroundColor: "rgba(67,56,202,0.06)",
-                    border: "1px solid rgba(67,56,202,0.15)",
+                    backgroundColor: "rgba(239,68,68,0.08)",
+                    border: "1px solid rgba(239,68,68,0.18)",
                   }}
                 >
                   <div
                     className="flex flex-shrink-0 items-center justify-center"
-                    style={{ backgroundColor: "var(--indigo)", width: "22px", height: "22px" }}
+                    style={{ backgroundColor: "var(--semantic-red)", width: "18px", height: "18px" }}
                   >
-                    <span style={{ fontSize: "12px", color: "#FFFFFF" }}>!</span>
+                    <span style={{ fontSize: "11px", color: "#FFFFFF" }}>!</span>
                   </div>
                   <p
                     style={{
-                      fontSize: "14px",
+                      fontSize: "12px",
                       lineHeight: 1.5,
                       color: "var(--text-primary)",
                     }}
