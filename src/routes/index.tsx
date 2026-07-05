@@ -134,6 +134,7 @@ function Index() {
 
             {/* Colonne droite : carte */}
             <div
+              className="heedup-hero-card"
               style={{
                 backgroundColor: "var(--bg-card)",
                 borderRadius: "15px",
