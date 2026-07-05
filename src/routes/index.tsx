@@ -10,6 +10,7 @@ function Index() {
     <SiteLayout>
       {/* Hero */}
       <section
+        className="heedup-hero"
         style={{
           height: "calc(100vh - 84px)",
           display: "flex",
@@ -19,6 +20,7 @@ function Index() {
         }}
       >
         <div
+          className="heedup-hero-inner"
           style={{
             flex: 1,
             display: "flex",
@@ -26,7 +28,7 @@ function Index() {
             padding: "0 5%",
           }}
         >
-          <div className="grid w-full items-center md:grid-cols-2" style={{ gap: "64px" }}>
+          <div className="heedup-hero-grid grid w-full items-center md:grid-cols-2" style={{ gap: "64px" }}>
             {/* Colonne gauche : texte */}
             <div>
               <span
@@ -49,6 +51,7 @@ function Index() {
               </span>
 
               <h1
+                className="heedup-hero-h1"
                 style={{
                   fontFamily: "var(--font-display)",
                 fontSize: "58px",
@@ -64,6 +67,7 @@ function Index() {
               </h1>
 
               <p
+                className="heedup-hero-sub"
                 style={{
                   fontFamily: "var(--font-sans)",
                   maxWidth: "460px",
@@ -77,6 +81,7 @@ function Index() {
               </p>
 
               <div
+                className="heedup-hero-actions"
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -85,7 +90,7 @@ function Index() {
               >
                 <a
                   href="#waitlist"
-                  className="inline-flex items-center gap-2"
+                  className="heedup-hero-cta inline-flex items-center gap-2"
                   style={{
                     backgroundColor: "var(--indigo)",
                     color: "#FFFFFF",
@@ -100,7 +105,7 @@ function Index() {
                 </a>
 
                 <div
-                  className="inline-flex items-center gap-2"
+                  className="heedup-hero-social inline-flex items-center gap-2"
                   style={{
                     marginTop: "14px",
                     backgroundColor: "rgba(67,56,202,0.07)",
@@ -129,6 +134,7 @@ function Index() {
 
             {/* Colonne droite : carte */}
             <div
+              className="heedup-hero-card"
               style={{
                 backgroundColor: "var(--bg-card)",
                 borderRadius: "15px",
@@ -327,12 +333,13 @@ function Index() {
 
         {/* Trust bar */}
         <div
+          className="heedup-trust"
           style={{
             backgroundColor: "var(--midnight)",
             padding: "16px 5%",
           }}
         >
-          <div className="flex flex-wrap items-center justify-center" style={{ gap: "36px" }}>
+          <div className="heedup-trust-inner flex flex-wrap items-center justify-center" style={{ gap: "36px" }}>
             {[
               "RGPD natif",
               "Hébergé en France",
