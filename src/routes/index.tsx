@@ -51,6 +51,7 @@ function Index() {
               </span>
 
               <h1
+                className="heedup-hero-h1"
                 style={{
                   fontFamily: "var(--font-display)",
                 fontSize: "58px",
@@ -66,6 +67,7 @@ function Index() {
               </h1>
 
               <p
+                className="heedup-hero-sub"
                 style={{
                   fontFamily: "var(--font-sans)",
                   maxWidth: "460px",
@@ -79,6 +81,7 @@ function Index() {
               </p>
 
               <div
+                className="heedup-hero-actions"
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -87,7 +90,7 @@ function Index() {
               >
                 <a
                   href="#waitlist"
-                  className="inline-flex items-center gap-2"
+                  className="heedup-hero-cta inline-flex items-center gap-2"
                   style={{
                     backgroundColor: "var(--indigo)",
                     color: "#FFFFFF",
