@@ -11,7 +11,7 @@ const links = [
 export function Nav() {
   return (
     <header
-      className="w-full"
+      className="heedup-nav w-full"
       style={{
         backgroundColor: "#FFFFFF",
         borderBottom: "3px solid var(--midnight)",
@@ -31,7 +31,7 @@ export function Nav() {
           HeedUp
         </Link>
 
-        <nav className="hidden items-center md:flex" style={{ gap: "40px" }}>
+        <nav className="heedup-nav-links hidden items-center md:flex" style={{ gap: "40px" }}>
           {links.map((l) => (
             <Link
               key={l.to}
@@ -59,6 +59,7 @@ export function Nav() {
 
         <a
           href="#waitlist"
+          className="heedup-nav-cta"
           style={{
             backgroundColor: "var(--indigo)",
             color: "#FFFFFF",
