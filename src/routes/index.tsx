@@ -10,6 +10,7 @@ function Index() {
     <SiteLayout>
       {/* Hero */}
       <section
+        className="heedup-hero"
         style={{
           height: "calc(100vh - 84px)",
           display: "flex",
@@ -19,6 +20,7 @@ function Index() {
         }}
       >
         <div
+          className="heedup-hero-inner"
           style={{
             flex: 1,
             display: "flex",
@@ -26,7 +28,7 @@ function Index() {
             padding: "0 5%",
           }}
         >
-          <div className="grid w-full items-center md:grid-cols-2" style={{ gap: "64px" }}>
+          <div className="heedup-hero-grid grid w-full items-center md:grid-cols-2" style={{ gap: "64px" }}>
             {/* Colonne gauche : texte */}
             <div>
               <span
