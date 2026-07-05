@@ -283,7 +283,7 @@ function Index() {
                   </div>
                   <p
                     style={{
-                      fontSize: "14px",
+                      fontSize: "12px",
                       lineHeight: 1.5,
                       color: "var(--text-primary)",
                     }}
