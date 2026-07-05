@@ -105,7 +105,7 @@ function Index() {
                 </a>
 
                 <div
-                  className="inline-flex items-center gap-2"
+                  className="heedup-hero-social inline-flex items-center gap-2"
                   style={{
                     marginTop: "14px",
                     backgroundColor: "rgba(67,56,202,0.07)",
