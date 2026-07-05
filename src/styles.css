@@ -109,3 +109,134 @@
     font-weight: 400;
   }
 }
+
+/* ============================================================
+ * Responsive overrides
+ * Desktop > 1024 : layout par défaut (inchangé)
+ * Tablet  768-1024
+ * Mobile  < 768
+ * ============================================================ */
+
+/* --- TABLET (768px - 1024px) --- */
+@media (max-width: 1024px) {
+  .heedup-hero-h1 {
+    font-size: 44px !important;
+    letter-spacing: -1px !important;
+  }
+  .heedup-hero-inner {
+    padding: 32px 5% !important;
+  }
+}
+
+/* --- MOBILE (< 768px) --- */
+@media (max-width: 767px) {
+  /* NAV */
+  .heedup-nav {
+    height: 64px !important;
+  }
+  .heedup-nav-links {
+    display: none !important;
+  }
+  .heedup-nav-cta {
+    padding: 10px 16px !important;
+    font-size: 14px !important;
+  }
+
+  /* HERO */
+  .heedup-hero {
+    height: auto !important;
+  }
+  .heedup-hero-inner {
+    padding: 40px 5% 24px !important;
+    align-items: stretch !important;
+  }
+  .heedup-hero-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 32px !important;
+  }
+  .heedup-hero-h1 {
+    font-size: 36px !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.5px !important;
+  }
+  .heedup-hero-sub {
+    font-size: 15px !important;
+  }
+  .heedup-hero-actions {
+    align-items: stretch !important;
+    width: 100% !important;
+  }
+  .heedup-hero-cta {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+  .heedup-hero-social {
+    align-self: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .heedup-hero-card {
+    width: 100% !important;
+    margin-top: 0 !important;
+  }
+
+  /* TRUST BAR */
+  .heedup-trust {
+    padding: 16px 5% !important;
+  }
+  .heedup-trust-inner {
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+  }
+
+  /* SECTIONS GÉNÉRALES */
+  main section {
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+  main section h2 {
+    font-size: 22px !important;
+  }
+  /* Hero garde son propre padding */
+  main section.heedup-hero {
+    padding: 0 !important;
+  }
+
+  /* Grilles → 1 colonne */
+  main section .grid,
+  main section [class*="grid-cols-"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Tabs dynamiques (si présents) */
+  .tabs-left,
+  .tabs-right {
+    width: 100% !important;
+  }
+  .tabs-left {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(67,56,202,0.1) !important;
+    flex-direction: column !important;
+  }
+  .tabs-right {
+    flex-direction: column !important;
+  }
+
+  /* FOOTER */
+  .heedup-footer-inner {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    gap: 20px !important;
+  }
+  .heedup-footer-links {
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+  }
+}
+
