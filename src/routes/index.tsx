@@ -271,8 +271,8 @@ function Index() {
                 <div
                   className="mb-4 flex items-start gap-3 rounded-lg p-4"
                   style={{
-                    backgroundColor: "rgba(67,56,202,0.06)",
-                    border: "1px solid rgba(67,56,202,0.15)",
+                    backgroundColor: "rgba(239,68,68,0.08)",
+                    border: "1px solid rgba(239,68,68,0.18)",
                   }}
                 >
                   <div
