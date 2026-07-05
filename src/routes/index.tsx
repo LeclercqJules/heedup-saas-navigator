@@ -333,12 +333,13 @@ function Index() {
 
         {/* Trust bar */}
         <div
+          className="heedup-trust"
           style={{
             backgroundColor: "var(--midnight)",
             padding: "16px 5%",
           }}
         >
-          <div className="flex flex-wrap items-center justify-center" style={{ gap: "36px" }}>
+          <div className="heedup-trust-inner flex flex-wrap items-center justify-center" style={{ gap: "36px" }}>
             {[
               "RGPD natif",
               "Hébergé en France",
