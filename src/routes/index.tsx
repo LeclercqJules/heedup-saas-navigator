@@ -231,9 +231,9 @@ function Index() {
                 >
                   <div
                     className="flex flex-shrink-0 items-center justify-center"
-                    style={{ backgroundColor: "var(--midnight)", width: "22px", height: "22px" }}
+                    style={{ backgroundColor: "var(--semantic-red)", width: "18px", height: "18px" }}
                   >
-                    <span style={{ fontSize: "12px", color: "var(--indigo-pale)" }}>↓</span>
+                    <span style={{ fontSize: "11px", color: "#FFFFFF" }}>↓</span>
                   </div>
                   <p
                     style={{
