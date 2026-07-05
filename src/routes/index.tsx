@@ -51,10 +51,10 @@ function Index() {
               <h1
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: "54px",
-                  lineHeight: 1.1,
-                  letterSpacing: "-1px",
-                  color: "var(--midnight)",
+                fontSize: "58px",
+                lineHeight: 1.08,
+                letterSpacing: "-1.5px",
+                color: "var(--midnight)",
                   marginTop: "20px",
                   marginBottom: "20px",
                 }}
