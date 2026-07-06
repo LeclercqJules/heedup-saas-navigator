@@ -394,22 +394,27 @@ function Index() {
             <h2
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "26px",
+                fontSize: "34px",
+                letterSpacing: "-0.5px",
                 color: "var(--midnight)",
-                marginBottom: "8px",
+                marginBottom: "12px",
               }}
             >
-              Mesurez l'impact concret sur votre performance
+              Ce que les données disent de vos équipes.
             </h2>
             <p
               style={{
                 fontFamily: "var(--font-sans)",
-                fontSize: "13.5px",
-                fontStyle: "italic",
+                fontSize: "16px",
+                lineHeight: 1.6,
                 color: "var(--text-muted)",
+                marginBottom: "40px",
+                maxWidth: "560px",
+                marginLeft: "auto",
+                marginRight: "auto",
               }}
             >
-              L'engagement n'est pas un indicateur RH. C'est un levier de performance business.
+              On ne perd pas un salarié le jour de sa démission. On le perd bien avant, en silence.
             </p>
           </div>
 
@@ -418,23 +423,27 @@ function Index() {
           >
             {[
               {
+                eyebrow: "TAUX D'ENGAGEMENT",
                 figure: "13 %",
-                label: "La France, dans le bas de l'Europe — la région la moins engagée au monde.",
+                label: "des salariés français réellement engagés dans leur travail, l'un des taux les plus bas en Europe.",
                 source: "Gallup, 2024",
               },
               {
+                eyebrow: "COÛT CHRONIQUE",
                 figure: "~14 300 €",
-                label: "Le coût du désengagement en France, chaque année, avant même le moindre départ.",
+                label: "par salarié et par an, le coût du désengagement en France, avant même le moindre départ.",
                 source: "IBET, 2024",
               },
               {
+                eyebrow: "COÛT D'UN DÉPART",
                 figure: "15–30 K€",
-                label: "Le prix réel d'un salarié qui s'en va dans une PME : recrutement, formation, désorganisation.",
+                label: "le coût réel d'un départ en PME, recrutement, formation et désorganisation compris.",
                 source: "Deloitte, 2024",
               },
               {
+                eyebrow: "LE LEVIER MANAGER",
                 figure: "70 %",
-                label: "du climat d'équipe dépend directement du manager — pas de la politique RH globale.",
+                label: "du climat d'équipe dépend directement du manager, pas de la politique RH globale.",
                 source: "Gallup, 2024",
               },
             ].map((c) => (
@@ -445,16 +454,28 @@ function Index() {
                   border: "1px solid rgba(67,56,202,0.10)",
                   borderTop: "3px solid var(--midnight)",
                   borderRadius: "12px",
-                  padding: "24px 20px",
+                  padding: "28px 24px",
                   display: "flex",
                   flexDirection: "column",
-                  gap: "10px",
+                  gap: "12px",
                 }}
               >
                 <div
                   style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    letterSpacing: "0.8px",
+                    textTransform: "uppercase",
+                    color: "var(--text-muted)",
+                  }}
+                >
+                  {c.eyebrow}
+                </div>
+                <div
+                  style={{
                     fontFamily: "var(--font-display)",
-                    fontSize: "36px",
+                    fontSize: "44px",
                     lineHeight: 1,
                     color: "var(--midnight)",
                   }}
@@ -464,8 +485,8 @@ function Index() {
                 <p
                   style={{
                     fontFamily: "var(--font-sans)",
-                    fontSize: "12.5px",
-                    lineHeight: 1.55,
+                    fontSize: "13.5px",
+                    lineHeight: 1.6,
                     color: "var(--text-primary)",
                     flex: 1,
                   }}
@@ -522,6 +543,7 @@ function Index() {
           </div>
         </div>
       </section>
+
 
     </SiteLayout>
   );
