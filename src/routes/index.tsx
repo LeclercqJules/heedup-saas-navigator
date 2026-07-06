@@ -367,49 +367,162 @@ function Index() {
         </div>
       </section>
 
-      {/* Feature cards conservées */}
+      {/* Impact business */}
       <section
-        className="mx-auto grid gap-6 px-[5%] pb-24 pt-16 md:grid-cols-3"
-        style={{ backgroundColor: "var(--bg-main)" }}
+        className="heedup-impact"
+        style={{
+          backgroundColor: "var(--bg-main)",
+          padding: "64px 5%",
+        }}
       >
-        {[
-          {
-            t: "Signaux faibles",
-            d: "Repérez les micro-changements dans l'engagement avant qu'ils ne se transforment en départ.",
-          },
-          {
-            t: "Alertes précoces",
-            d: "Recevez une alerte contextuelle dès qu'un collaborateur entre dans une zone de risque.",
-          },
-          {
-            t: "Conforme RGPD",
-            d: "Données hébergées en France, chiffrées et pseudonymisées par défaut.",
-          },
-        ].map((c) => (
-          <div
-            key={c.t}
-            style={{
-              backgroundColor: "var(--bg-card)",
-              borderRadius: "12px",
-              padding: "28px",
-              border: "1px solid rgba(67,56,202,0.1)",
-            }}
-          >
-            <h3 style={{ fontSize: "22px", color: "var(--midnight)" }}>{c.t}</h3>
-            <p
-              className="mt-3"
+        <div className="mx-auto max-w-5xl">
+          <div className="text-center" style={{ marginBottom: "40px" }}>
+            <div
               style={{
                 fontFamily: "var(--font-sans)",
-                fontSize: "14px",
-                lineHeight: 1.6,
+                fontSize: "10px",
+                fontWeight: 700,
+                letterSpacing: "0.9px",
+                textTransform: "uppercase",
+                color: "var(--midnight)",
+                opacity: 0.35,
+                marginBottom: "12px",
+              }}
+            >
+              IMPACT BUSINESS
+            </div>
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "26px",
+                color: "var(--midnight)",
+                marginBottom: "8px",
+              }}
+            >
+              Mesurez l'impact concret sur votre performance
+            </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "13.5px",
+                fontStyle: "italic",
                 color: "var(--text-muted)",
               }}
             >
-              {c.d}
+              L'engagement n'est pas un indicateur RH. C'est un levier de performance business.
             </p>
           </div>
-        ))}
+
+          <div
+            className="grid grid-cols-1 gap-[14px] md:grid-cols-2 lg:grid-cols-4"
+          >
+            {[
+              {
+                figure: "13 %",
+                label: "La France, dans le bas de l'Europe — la région la moins engagée au monde.",
+                source: "Gallup, 2024",
+              },
+              {
+                figure: "~14 300 €",
+                label: "Le coût du désengagement en France, chaque année, avant même le moindre départ.",
+                source: "IBET, 2024",
+              },
+              {
+                figure: "15–30 K€",
+                label: "Le prix réel d'un salarié qui s'en va dans une PME : recrutement, formation, désorganisation.",
+                source: "Deloitte, 2024",
+              },
+              {
+                figure: "70 %",
+                label: "du climat d'équipe dépend directement du manager — pas de la politique RH globale.",
+                source: "Gallup, 2024",
+              },
+            ].map((c) => (
+              <div
+                key={c.figure}
+                style={{
+                  backgroundColor: "var(--bg-card)",
+                  border: "1px solid rgba(67,56,202,0.10)",
+                  borderTop: "3px solid var(--midnight)",
+                  borderRadius: "12px",
+                  padding: "24px 20px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "36px",
+                    lineHeight: 1,
+                    color: "var(--midnight)",
+                  }}
+                >
+                  {c.figure}
+                </div>
+                <p
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "12.5px",
+                    lineHeight: 1.55,
+                    color: "var(--text-primary)",
+                    flex: 1,
+                  }}
+                >
+                  {c.label}
+                </p>
+                <span
+                  style={{
+                    backgroundColor: "#EEEEFF",
+                    color: "var(--midnight)",
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.4px",
+                    padding: "3px 8px",
+                    borderRadius: "4px",
+                    display: "inline-block",
+                    alignSelf: "flex-start",
+                  }}
+                >
+                  {c.source}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center" style={{ marginTop: "32px" }}>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "13px",
+                color: "var(--text-muted)",
+                marginBottom: "14px",
+              }}
+            >
+              Combien vous coûte réellement le désengagement dans votre équipe ?
+            </p>
+            <a
+              href="#waitlist"
+              className="inline-flex items-center gap-2"
+              style={{
+                backgroundColor: "var(--indigo)",
+                color: "#FFFFFF",
+                fontWeight: 700,
+                fontSize: "16px",
+                borderRadius: "8px",
+                padding: "14px 32px",
+                fontFamily: "var(--font-sans)",
+              }}
+            >
+              <Calculator size={18} strokeWidth={2} />
+              Estimer le coût pour mon équipe
+            </a>
+          </div>
+        </div>
       </section>
+
     </SiteLayout>
   );
 }
