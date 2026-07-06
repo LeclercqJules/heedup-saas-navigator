@@ -372,10 +372,10 @@ function Index() {
         className="heedup-impact"
         style={{
           backgroundColor: "var(--bg-main)",
-          padding: "64px 5%",
+          padding: "64px 3%",
         }}
       >
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto" style={{ maxWidth: "1280px", margin: "0 auto" }}>
           <div className="text-center" style={{ marginBottom: "40px" }}>
             <div
               style={{
@@ -394,8 +394,9 @@ function Index() {
             <h2
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "34px",
-                letterSpacing: "-0.5px",
+                fontSize: "42px",
+                letterSpacing: "-0.8px",
+                lineHeight: 1.15,
                 color: "var(--midnight)",
                 marginBottom: "12px",
               }}
@@ -405,11 +406,11 @@ function Index() {
             <p
               style={{
                 fontFamily: "var(--font-sans)",
-                fontSize: "16px",
-                lineHeight: 1.6,
+                fontSize: "19px",
+                lineHeight: 1.65,
                 color: "var(--text-muted)",
                 marginBottom: "40px",
-                maxWidth: "560px",
+                maxWidth: "620px",
                 marginLeft: "auto",
                 marginRight: "auto",
               }}
@@ -454,7 +455,7 @@ function Index() {
                   border: "1px solid rgba(67,56,202,0.10)",
                   borderTop: "3px solid var(--midnight)",
                   borderRadius: "12px",
-                  padding: "28px 24px",
+                  padding: "32px 28px",
                   display: "flex",
                   flexDirection: "column",
                   gap: "12px",
@@ -463,7 +464,7 @@ function Index() {
                 <div
                   style={{
                     fontFamily: "var(--font-sans)",
-                    fontSize: "10px",
+                    fontSize: "11px",
                     fontWeight: 700,
                     letterSpacing: "0.8px",
                     textTransform: "uppercase",
@@ -475,7 +476,7 @@ function Index() {
                 <div
                   style={{
                     fontFamily: "var(--font-display)",
-                    fontSize: "44px",
+                    fontSize: "52px",
                     lineHeight: 1,
                     color: "var(--midnight)",
                   }}
@@ -485,7 +486,7 @@ function Index() {
                 <p
                   style={{
                     fontFamily: "var(--font-sans)",
-                    fontSize: "13.5px",
+                    fontSize: "14.5px",
                     lineHeight: 1.6,
                     color: "var(--text-primary)",
                     flex: 1,
@@ -497,11 +498,11 @@ function Index() {
                   style={{
                     backgroundColor: "#EEEEFF",
                     color: "var(--midnight)",
-                    fontSize: "10px",
+                    fontSize: "11px",
                     fontWeight: 700,
                     textTransform: "uppercase",
                     letterSpacing: "0.4px",
-                    padding: "3px 8px",
+                    padding: "4px 10px",
                     borderRadius: "4px",
                     display: "inline-block",
                     alignSelf: "flex-start",
@@ -543,6 +544,7 @@ function Index() {
           </div>
         </div>
       </section>
+
 
 
     </SiteLayout>
