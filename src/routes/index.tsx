@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
+import { Calculator } from "lucide-react";
+
 
 export const Route = createFileRoute("/")({
   component: Index,
