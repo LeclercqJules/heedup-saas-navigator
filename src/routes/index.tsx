@@ -1034,9 +1034,9 @@ function ScoresVisual() {
             borderRadius: "8px",
             padding: "12px 16px",
             border: "1px solid rgba(67,56,202,0.10)",
-            display: "flex",
+            display: "grid",
+            gridTemplateColumns: "1fr 50px 1fr",
             alignItems: "center",
-            justifyContent: "space-between",
             fontFamily: "var(--font-sans)",
           }}
         >
@@ -1047,6 +1047,7 @@ function ScoresVisual() {
               color: "var(--text-muted)",
               fontWeight: 600,
               letterSpacing: "0.6px",
+              textAlign: "left",
             }}
           >
             {s.label}
@@ -1056,11 +1057,12 @@ function ScoresVisual() {
               fontFamily: "var(--font-display)",
               fontSize: "22px",
               color: "var(--midnight)",
+              textAlign: "left",
             }}
           >
             {s.value}
           </div>
-          <div style={{ fontSize: "11px", fontWeight: 700, color: s.color }}>{s.delta}</div>
+          <div style={{ fontSize: "11px", fontWeight: 700, color: s.color, textAlign: "right" }}>{s.delta}</div>
         </div>
       ))}
     </div>
