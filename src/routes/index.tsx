@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Fragment, useState } from "react";
-import { Upload, Clock, Rocket, Check, Calculator } from "lucide-react";
+import { Upload, Clock, Rocket, Check, Calculator, Mail } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 
 
@@ -937,81 +937,126 @@ function SetupVisual() {
 
 function PhoneVisual() {
   return (
-    <div
-      style={{
-        backgroundColor: "var(--midnight)",
-        borderRadius: "20px",
-        padding: "16px",
-        width: "180px",
-        fontFamily: "var(--font-sans)",
-      }}
-    >
-      <div
-        style={{
-          width: "40px",
-          height: "4px",
-          backgroundColor: "rgba(255,255,255,0.2)",
-          margin: "0 auto 12px",
-          borderRadius: "2px",
-        }}
-      />
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      {/* Mini preview email */}
       <div
         style={{
           backgroundColor: "#FFFFFF",
-          borderRadius: "10px",
-          padding: "14px",
+          borderRadius: "8px",
+          border: "1px solid rgba(67,56,202,0.1)",
+          padding: "10px 14px",
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+          marginBottom: "12px",
+          fontFamily: "var(--font-sans)",
+          width: "180px",
+        }}
+      >
+        <Mail size={16} style={{ color: "var(--indigo)", flexShrink: 0 }} />
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--midnight)" }}>
+            HeedUp · Votre avis de la semaine
+          </div>
+          <div style={{ fontSize: "10px", color: "var(--text-muted)", marginTop: "2px" }}>
+            Vendredi · 9h00
+          </div>
+        </div>
+      </div>
+
+      {/* Phone */}
+      <div
+        style={{
+          backgroundColor: "var(--midnight)",
+          borderRadius: "20px",
+          padding: "16px",
+          width: "180px",
+          fontFamily: "var(--font-sans)",
         }}
       >
         <div
           style={{
-            fontSize: "9px",
-            color: "var(--text-muted)",
-            textTransform: "uppercase",
-            letterSpacing: "0.5px",
-            marginBottom: "8px",
+            width: "40px",
+            height: "4px",
+            backgroundColor: "rgba(255,255,255,0.2)",
+            margin: "0 auto 12px",
+            borderRadius: "2px",
           }}
-        >
-          Question 2 sur 5
-        </div>
+        />
         <div
           style={{
-            fontSize: "12px",
-            fontWeight: 700,
-            color: "var(--midnight)",
-            lineHeight: 1.4,
-            marginBottom: "10px",
+            backgroundColor: "#FFFFFF",
+            borderRadius: "10px",
+            padding: "14px",
           }}
         >
-          Votre charge de travail est-elle gérable cette semaine ?
-        </div>
-        <div
-          style={{
-            fontSize: "10px",
-            fontWeight: 700,
-            color: "var(--indigo)",
-            marginBottom: "10px",
-          }}
-        >
-          🔒 Réponse anonyme
-        </div>
-        <div style={{ display: "flex", gap: "4px" }}>
-          {[1, 2, 3, 4, 5].map((n) => (
+          <div style={{ fontSize: "9px", color: "var(--text-muted)", marginBottom: "4px" }}>
+            2 / 5 complétées
+          </div>
+          <div
+            style={{
+              height: "3px",
+              backgroundColor: "rgba(67,56,202,0.12)",
+              borderRadius: "2px",
+              overflow: "hidden",
+              marginBottom: "10px",
+            }}
+          >
             <div
-              key={n}
-              style={{
-                flex: 1,
-                textAlign: "center",
-                padding: "6px 0",
-                borderRadius: "4px",
-                fontSize: "11px",
-                fontWeight: 700,
-                backgroundColor: n === 3 ? "var(--indigo)" : "#EEEEFF",
-                color: n === 3 ? "#FFFFFF" : "var(--midnight)",
-              }}
-            >
-              {n}
-            </div>
-          ))}
+              style={{ width: "40%", height: "100%", backgroundColor: "var(--indigo)", borderRadius: "2px" }}
+            />
+          </div>
+          <div
+            style={{
+              fontSize: "9px",
+              color: "var(--text-muted)",
+              textTransform: "uppercase",
+              letterSpacing: "0.5px",
+              marginBottom: "8px",
+            }}
+          >
+            Question 2 sur 5
+          </div>
+          <div
+            style={{
+              fontSize: "12px",
+              fontWeight: 700,
+              color: "var(--midnight)",
+              lineHeight: 1.4,
+              marginBottom: "10px",
+            }}
+          >
+            Comment évaluez-vous votre niveau d'énergie cette semaine ?
+          </div>
+          <div
+            style={{
+              fontSize: "10px",
+              fontWeight: 700,
+              color: "var(--indigo)",
+              marginBottom: "10px",
+            }}
+          >
+            🔒 Réponse anonyme
+          </div>
+          <div style={{ display: "flex", gap: "4px" }}>
+            {[1, 2, 3, 4, 5].map((n) => (
+              <div
+                key={n}
+                style={{
+                  flex: 1,
+                  textAlign: "center",
+                  padding: "6px 0",
+                  borderRadius: "4px",
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  backgroundColor: n === 3 ? "var(--indigo)" : "#EEEEFF",
+                  color: n === 3 ? "#FFFFFF" : "var(--midnight)",
+                }}
+              >
+                {n}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -1034,9 +1079,9 @@ function ScoresVisual() {
             borderRadius: "8px",
             padding: "12px 16px",
             border: "1px solid rgba(67,56,202,0.10)",
-            display: "flex",
+            display: "grid",
+            gridTemplateColumns: "1fr 50px 1fr",
             alignItems: "center",
-            justifyContent: "space-between",
             fontFamily: "var(--font-sans)",
           }}
         >
@@ -1047,6 +1092,7 @@ function ScoresVisual() {
               color: "var(--text-muted)",
               fontWeight: 600,
               letterSpacing: "0.6px",
+              textAlign: "left",
             }}
           >
             {s.label}
@@ -1056,11 +1102,12 @@ function ScoresVisual() {
               fontFamily: "var(--font-display)",
               fontSize: "22px",
               color: "var(--midnight)",
+              textAlign: "left",
             }}
           >
             {s.value}
           </div>
-          <div style={{ fontSize: "11px", fontWeight: 700, color: s.color }}>{s.delta}</div>
+          <div style={{ fontSize: "11px", fontWeight: 700, color: s.color, textAlign: "right" }}>{s.delta}</div>
         </div>
       ))}
     </div>
@@ -1144,6 +1191,35 @@ function RecosVisual() {
           </div>
         </div>
       ))}
+      <div
+        style={{
+          borderTop: "1px solid rgba(67,56,202,0.08)",
+          paddingTop: "10px",
+          marginTop: "6px",
+        }}
+      >
+        <div style={{ fontSize: "10px", color: "var(--text-muted)", fontFamily: "var(--font-sans)" }}>
+          Taux de réponse · Semaine 24 · 8 / 10 employés
+        </div>
+        <div
+          style={{
+            height: "3px",
+            backgroundColor: "rgba(67,56,202,0.12)",
+            borderRadius: "2px",
+            overflow: "hidden",
+            marginTop: "6px",
+          }}
+        >
+          <div
+            style={{
+              width: "80%",
+              height: "100%",
+              backgroundColor: "var(--indigo)",
+              borderRadius: "2px",
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 }
