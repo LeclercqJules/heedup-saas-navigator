@@ -601,6 +601,251 @@ function Index() {
         </div>
       </section>
 
+      {/* Comment ça marche */}
+      <section style={{ backgroundColor: "#EEEEFF", padding: "64px 5%" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          {/* Intro */}
+          <div className="text-center">
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "56px",
+                letterSpacing: "-1px",
+                lineHeight: 1.05,
+                color: "var(--midnight)",
+                marginBottom: "16px",
+              }}
+            >
+              Comment ça{" "}
+              <span style={{ fontStyle: "italic", color: "var(--indigo)" }}>marche ?</span>
+            </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "20px",
+                color: "var(--midnight)",
+                marginBottom: "8px",
+              }}
+            >
+              De la question posée à l'action, en une semaine.
+            </p>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "15px",
+                fontStyle: "italic",
+                color: "var(--text-muted)",
+                maxWidth: "480px",
+                margin: "0 auto 48px",
+                lineHeight: 1.6,
+              }}
+            >
+              Une seule boucle, automatique. Vous la mettez en place une fois, elle tourne toute seule.
+            </p>
+          </div>
+
+          {/* Stepper */}
+          <div
+            style={{
+              backgroundColor: "var(--bg-card)",
+              borderRadius: "12px",
+              padding: "6px",
+              border: "1px solid rgba(67,56,202,0.10)",
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "32px",
+            }}
+          >
+            {steps.map((s, i) => (
+              <>
+                {i > 0 && (
+                  <div
+                    key={`sep-${i}`}
+                    style={{ width: "1px", height: "40px", backgroundColor: "rgba(13,27,62,0.10)" }}
+                  />
+                )}
+                <button
+                  key={s.num}
+                  onClick={() => setActiveStep(i)}
+                  style={{
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: "6px",
+                    padding: "14px 8px",
+                    borderRadius: "8px",
+                    border: "none",
+                    background: activeStep === i ? "var(--midnight)" : "transparent",
+                    cursor: "pointer",
+                    fontFamily: "var(--font-sans)",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "32px",
+                      height: "32px",
+                      borderRadius: "50%",
+                      backgroundColor: activeStep === i ? "var(--indigo)" : "#EEEEFF",
+                      color: activeStep === i ? "#FFFFFF" : "var(--midnight)",
+                      fontFamily: "var(--font-display)",
+                      fontSize: "14px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {s.num}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "11px",
+                      fontWeight: 600,
+                      color: activeStep === i ? "#EEEEFF" : "var(--text-muted)",
+                      textAlign: "center",
+                      letterSpacing: "0.3px",
+                      lineHeight: 1.3,
+                      whiteSpace: "pre-line",
+                    }}
+                  >
+                    {s.label}
+                  </div>
+                </button>
+              </>
+            ))}
+          </div>
+
+          {/* Content card */}
+          <div
+            style={{
+              backgroundColor: "var(--bg-card)",
+              borderRadius: "14px",
+              border: "1px solid rgba(67,56,202,0.10)",
+              overflow: "hidden",
+              marginBottom: "28px",
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              minHeight: "280px",
+            }}
+          >
+            {/* Left column */}
+            <div
+              style={{
+                padding: "36px 32px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                gap: "14px",
+                borderRight: "1px solid rgba(67,56,202,0.08)",
+              }}
+            >
+              <span
+                style={{
+                  backgroundColor: "var(--midnight)",
+                  color: "#EEEEFF",
+                  fontSize: "10px",
+                  fontFamily: "var(--font-sans)",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.7px",
+                  padding: "4px 10px",
+                  borderRadius: "4px",
+                  alignSelf: "flex-start",
+                  display: "inline-flex",
+                  gap: "6px",
+                }}
+              >
+                {current.badge}
+              </span>
+              <h3
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "26px",
+                  color: "var(--midnight)",
+                }}
+              >
+                {current.title}
+              </h3>
+              <p
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "14px",
+                  color: "var(--text-primary)",
+                  lineHeight: 1.7,
+                }}
+              >
+                {current.description}
+              </p>
+              <div
+                style={{
+                  backgroundColor: "#EEEEFF",
+                  borderRadius: "8px",
+                  padding: "14px 16px",
+                  borderLeft: "3px solid var(--indigo)",
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.6px",
+                    color: "var(--indigo)",
+                    marginBottom: "5px",
+                  }}
+                >
+                  {current.calloutLabel}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "13px",
+                    color: "var(--midnight)",
+                    lineHeight: 1.55,
+                  }}
+                >
+                  {current.calloutText}
+                </div>
+              </div>
+            </div>
+
+            {/* Right column */}
+            <div
+              style={{
+                padding: "32px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "var(--bg-main)",
+              }}
+            >
+              {current.visual === "setup" && <SetupVisual />}
+              {current.visual === "phone" && <PhoneVisual />}
+              {current.visual === "scores" && <ScoresVisual />}
+              {current.visual === "recos" && <RecosVisual />}
+            </div>
+          </div>
+
+          {/* Closing line */}
+          <div
+            style={{
+              borderTop: "1px solid rgba(67,56,202,0.10)",
+              paddingTop: "24px",
+              maxWidth: "600px",
+              margin: "0 auto",
+              textAlign: "center",
+              fontFamily: "var(--font-sans)",
+              fontSize: "14px",
+              color: "var(--text-muted)",
+              fontStyle: "italic",
+              lineHeight: 1.6,
+            }}
+          >
+            Pas de paramétrage, pas de tableau de bord à configurer. Le vendredi part tout seul, le lundi vous lisez, c'est tout.
+          </div>
+        </div>
+      </section>
 
 
     </SiteLayout>
