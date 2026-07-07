@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Fragment, useState } from "react";
+import { Upload, Clock, Rocket, Check, Calculator } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
-import { Calculator } from "lucide-react";
 
 
 export const Route = createFileRoute("/")({
@@ -8,6 +9,61 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const [activeStep, setActiveStep] = useState(0);
+
+  const steps = [
+    {
+      num: "01",
+      label: "Connectez\nvotre équipe",
+      badge: "Mise en place · 10 minutes",
+      title: "Connectez votre équipe",
+      description: (
+        <>Importez les emails de vos salariés. Moins de 10 minutes, aucune installation de leur côté. Aucun appel commercial requis, mise en place immédiate.</>
+      ),
+      calloutLabel: "ACTIF DÈS CE VENDREDI",
+      calloutText: "Vous configurez une fois. HeedUp envoie automatiquement chaque semaine, sans que vous ayez à y penser.",
+      visual: "setup" as const,
+    },
+    {
+      num: "02",
+      label: "5 questions\nanonymes",
+      badge: "Vendredi · 9h00",
+      title: "5 questions anonymes",
+      description: (
+        <>Vos salariés reçoivent un lien par email. Ils répondent en 2 minutes, depuis leur téléphone ou ordinateur. Pas de compte à créer, <span style={{ fontWeight: 700 }}>anonymat</span> garanti dès la première réponse.</>
+      ),
+      calloutLabel: "TAUX DE RÉPONSE MOYEN",
+      calloutText: "L'anonymat garanti dès le premier écran est le principal facteur de réponse. Vos salariés répondent parce qu'ils savent que c'est vrai.",
+      visual: "phone" as const,
+    },
+    {
+      num: "03",
+      label: "Votre Rapport\nd'équipe",
+      badge: "Lundi · 8h00",
+      title: "Votre Rapport d'équipe",
+      description: (
+        <>3 scores agrégés, la tendance de la semaine, et le signal à surveiller en priorité. Vous comprenez l'état de votre équipe en 2 minutes.</>
+      ),
+      calloutLabel: "PAS UN DASHBOARD À INTERPRÉTER",
+      calloutText: "Les scores arrivent avec le contexte. Vous voyez immédiatement ce qui change et dans quel sens.",
+      visual: "scores" as const,
+    },
+    {
+      num: "04",
+      label: "Vous agissez,\nvous mesurez",
+      badge: "Dans la semaine",
+      title: "Vous agissez, vous mesurez",
+      description: (
+        <>2 à 3 recommandations managériales concrètes vous sont proposées, calibrées sur vos résultats réels. Leur effet apparaît dès le rapport suivant.</>
+      ),
+      calloutLabel: "RECOMMANDATIONS MANAGÉRIALES, PAS DES KPIs",
+      calloutText: "HeedUp ne vous donne pas un score à interpréter. Il vous donne une action à faire cette semaine, formulée pour un manager, pas pour un DRH.",
+      visual: "recos" as const,
+    },
+  ];
+
+  const current = steps[activeStep];
+
   return (
     <SiteLayout>
       {/* Hero */}
@@ -545,8 +601,549 @@ function Index() {
         </div>
       </section>
 
+      {/* Comment ça marche */}
+      <section style={{ backgroundColor: "#EEEEFF", padding: "64px 5%" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          {/* Intro */}
+          <div className="text-center">
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "56px",
+                letterSpacing: "-1px",
+                lineHeight: 1.05,
+                color: "var(--midnight)",
+                marginBottom: "16px",
+              }}
+            >
+              Comment ça{" "}
+              <span style={{ fontStyle: "italic", color: "var(--indigo)" }}>marche ?</span>
+            </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "20px",
+                color: "var(--midnight)",
+                marginBottom: "8px",
+              }}
+            >
+              De la question posée à l'action, en une semaine.
+            </p>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "15px",
+                fontStyle: "italic",
+                color: "var(--text-muted)",
+                maxWidth: "480px",
+                margin: "0 auto 48px",
+                lineHeight: 1.6,
+              }}
+            >
+              Une seule boucle, automatique. Vous la mettez en place une fois, elle tourne toute seule.
+            </p>
+          </div>
+
+          {/* Stepper */}
+          <div
+            style={{
+              backgroundColor: "var(--bg-card)",
+              borderRadius: "12px",
+              padding: "6px",
+              border: "1px solid rgba(67,56,202,0.10)",
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "32px",
+            }}
+          >
+            {steps.map((s, i) => (
+              <Fragment key={s.num}>
+                {i > 0 && (
+                  <div
+                    style={{ width: "1px", height: "40px", backgroundColor: "rgba(13,27,62,0.10)" }}
+                  />
+                )}
+                <button
+                  key={s.num}
+                  onClick={() => setActiveStep(i)}
+                  style={{
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: "6px",
+                    padding: "14px 8px",
+                    borderRadius: "8px",
+                    border: "none",
+                    background: activeStep === i ? "var(--midnight)" : "transparent",
+                    cursor: "pointer",
+                    fontFamily: "var(--font-sans)",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "32px",
+                      height: "32px",
+                      borderRadius: "50%",
+                      backgroundColor: activeStep === i ? "var(--indigo)" : "#EEEEFF",
+                      color: activeStep === i ? "#FFFFFF" : "var(--midnight)",
+                      fontFamily: "var(--font-display)",
+                      fontSize: "14px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {s.num}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "11px",
+                      fontWeight: 600,
+                      color: activeStep === i ? "#EEEEFF" : "var(--text-muted)",
+                      textAlign: "center",
+                      letterSpacing: "0.3px",
+                      lineHeight: 1.3,
+                      whiteSpace: "pre-line",
+                    }}
+                  >
+                    {s.label}
+                  </div>
+                </button>
+              </Fragment>
+            ))}
+          </div>
+
+          {/* Content card */}
+          <div
+            style={{
+              backgroundColor: "var(--bg-card)",
+              borderRadius: "14px",
+              border: "1px solid rgba(67,56,202,0.10)",
+              overflow: "hidden",
+              marginBottom: "28px",
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              minHeight: "280px",
+            }}
+          >
+            {/* Left column */}
+            <div
+              style={{
+                padding: "36px 32px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                gap: "14px",
+                borderRight: "1px solid rgba(67,56,202,0.08)",
+              }}
+            >
+              <span
+                style={{
+                  backgroundColor: "var(--midnight)",
+                  color: "#EEEEFF",
+                  fontSize: "10px",
+                  fontFamily: "var(--font-sans)",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.7px",
+                  padding: "4px 10px",
+                  borderRadius: "4px",
+                  alignSelf: "flex-start",
+                  display: "inline-flex",
+                  gap: "6px",
+                }}
+              >
+                {current.badge}
+              </span>
+              <h3
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "26px",
+                  color: "var(--midnight)",
+                }}
+              >
+                {current.title}
+              </h3>
+              <p
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "14px",
+                  color: "var(--text-primary)",
+                  lineHeight: 1.7,
+                }}
+              >
+                {current.description}
+              </p>
+              <div
+                style={{
+                  backgroundColor: "#EEEEFF",
+                  borderRadius: "8px",
+                  padding: "14px 16px",
+                  borderLeft: "3px solid var(--indigo)",
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.6px",
+                    color: "var(--indigo)",
+                    marginBottom: "5px",
+                  }}
+                >
+                  {current.calloutLabel}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "13px",
+                    color: "var(--midnight)",
+                    lineHeight: 1.55,
+                  }}
+                >
+                  {current.calloutText}
+                </div>
+              </div>
+            </div>
+
+            {/* Right column */}
+            <div
+              style={{
+                padding: "32px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "var(--bg-main)",
+              }}
+            >
+              {current.visual === "setup" && <SetupVisual />}
+              {current.visual === "phone" && <PhoneVisual />}
+              {current.visual === "scores" && <ScoresVisual />}
+              {current.visual === "recos" && <RecosVisual />}
+            </div>
+          </div>
+
+          {/* Closing line */}
+          <div
+            style={{
+              borderTop: "1px solid rgba(67,56,202,0.10)",
+              paddingTop: "24px",
+              maxWidth: "600px",
+              margin: "0 auto",
+              textAlign: "center",
+              fontFamily: "var(--font-sans)",
+              fontSize: "14px",
+              color: "var(--text-muted)",
+              fontStyle: "italic",
+              lineHeight: 1.6,
+            }}
+          >
+            Pas de paramétrage, pas de tableau de bord à configurer. Le vendredi part tout seul, le lundi vous lisez, c'est tout.
+          </div>
+        </div>
+      </section>
 
 
     </SiteLayout>
+  );
+}
+
+const cardBase: React.CSSProperties = {
+  backgroundColor: "#FFFFFF",
+  borderRadius: "8px",
+  padding: "12px 14px",
+  border: "1px solid rgba(67,56,202,0.10)",
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
+  width: "100%",
+  fontFamily: "var(--font-sans)",
+};
+
+const iconBox: React.CSSProperties = {
+  width: "32px",
+  height: "32px",
+  borderRadius: "6px",
+  backgroundColor: "var(--midnight)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  color: "#EEEEFF",
+  flexShrink: 0,
+};
+
+const checkCircle: React.CSSProperties = {
+  width: "20px",
+  height: "20px",
+  borderRadius: "50%",
+  backgroundColor: "#EEEEFF",
+  color: "var(--indigo)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  marginLeft: "auto",
+  flexShrink: 0,
+};
+
+function SetupRow({
+  icon,
+  title,
+  subtitle,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  subtitle: string;
+}) {
+  return (
+    <div style={cardBase}>
+      <div style={iconBox}>{icon}</div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: "12px", fontWeight: 700, color: "var(--midnight)" }}>{title}</div>
+        <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>
+          {subtitle}
+        </div>
+      </div>
+      <div style={checkCircle}>
+        <Check size={12} strokeWidth={3} />
+      </div>
+    </div>
+  );
+}
+
+function SetupVisual() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "100%" }}>
+      <SetupRow
+        icon={<Upload size={16} strokeWidth={2} />}
+        title="Import CSV des emails"
+        subtitle="marie@restaurant.fr, thomas@logistique.fr..."
+      />
+      <SetupRow
+        icon={<Clock size={16} strokeWidth={2} />}
+        title="Jour d'envoi configuré"
+        subtitle="Chaque vendredi à 9h00"
+      />
+      <SetupRow
+        icon={<Rocket size={16} strokeWidth={2} />}
+        title="Premier survey planifié"
+        subtitle="Vendredi 13 juin · 9h00"
+      />
+    </div>
+  );
+}
+
+function PhoneVisual() {
+  return (
+    <div
+      style={{
+        backgroundColor: "var(--midnight)",
+        borderRadius: "20px",
+        padding: "16px",
+        width: "180px",
+        fontFamily: "var(--font-sans)",
+      }}
+    >
+      <div
+        style={{
+          width: "40px",
+          height: "4px",
+          backgroundColor: "rgba(255,255,255,0.2)",
+          margin: "0 auto 12px",
+          borderRadius: "2px",
+        }}
+      />
+      <div
+        style={{
+          backgroundColor: "#FFFFFF",
+          borderRadius: "10px",
+          padding: "14px",
+        }}
+      >
+        <div
+          style={{
+            fontSize: "9px",
+            color: "var(--text-muted)",
+            textTransform: "uppercase",
+            letterSpacing: "0.5px",
+            marginBottom: "8px",
+          }}
+        >
+          Question 2 sur 5
+        </div>
+        <div
+          style={{
+            fontSize: "12px",
+            fontWeight: 700,
+            color: "var(--midnight)",
+            lineHeight: 1.4,
+            marginBottom: "10px",
+          }}
+        >
+          Votre charge de travail est-elle gérable cette semaine ?
+        </div>
+        <div
+          style={{
+            fontSize: "10px",
+            fontWeight: 700,
+            color: "var(--indigo)",
+            marginBottom: "10px",
+          }}
+        >
+          🔒 Réponse anonyme
+        </div>
+        <div style={{ display: "flex", gap: "4px" }}>
+          {[1, 2, 3, 4, 5].map((n) => (
+            <div
+              key={n}
+              style={{
+                flex: 1,
+                textAlign: "center",
+                padding: "6px 0",
+                borderRadius: "4px",
+                fontSize: "11px",
+                fontWeight: 700,
+                backgroundColor: n === 3 ? "var(--indigo)" : "#EEEEFF",
+                color: n === 3 ? "#FFFFFF" : "var(--midnight)",
+              }}
+            >
+              {n}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ScoresVisual() {
+  const scores = [
+    { label: "CHARGE", value: "3.6", delta: "▼ 0.3 vs semaine dernière", color: "var(--semantic-red)" },
+    { label: "AMBIANCE", value: "4.1", delta: "▲ 0.2 vs semaine dernière", color: "var(--semantic-green)" },
+    { label: "MOTIVATION", value: "4.3", delta: "— stable", color: "var(--text-muted)" },
+  ];
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "100%" }}>
+      {scores.map((s) => (
+        <div
+          key={s.label}
+          style={{
+            backgroundColor: "#FFFFFF",
+            borderRadius: "8px",
+            padding: "12px 16px",
+            border: "1px solid rgba(67,56,202,0.10)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            fontFamily: "var(--font-sans)",
+          }}
+        >
+          <div
+            style={{
+              fontSize: "11px",
+              textTransform: "uppercase",
+              color: "var(--text-muted)",
+              fontWeight: 600,
+              letterSpacing: "0.6px",
+            }}
+          >
+            {s.label}
+          </div>
+          <div
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "22px",
+              color: "var(--midnight)",
+            }}
+          >
+            {s.value}
+          </div>
+          <div style={{ fontSize: "11px", fontWeight: 700, color: s.color }}>{s.delta}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function RecosVisual() {
+  const recos = [
+    {
+      bg: "var(--semantic-red)",
+      symbol: "↓",
+      title: "Charge en baisse 2 semaines consécutives",
+      sub: "Planifiez un point collectif avant vendredi pour identifier les blocages.",
+    },
+    {
+      bg: "var(--semantic-green)",
+      symbol: "↑",
+      title: "Ambiance en hausse",
+      sub: "Bon moment pour lancer un projet à forte visibilité.",
+    },
+    {
+      bg: "var(--indigo)",
+      symbol: "!",
+      title: "2 employés n'ont pas répondu",
+      sub: "Le silence est aussi un signal. Envoyez un rappel discret avant vendredi.",
+    },
+  ];
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "8px", width: "100%" }}>
+      <div
+        style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: "10px",
+          textTransform: "uppercase",
+          color: "var(--text-muted)",
+          fontWeight: 700,
+          letterSpacing: "0.5px",
+          marginBottom: "8px",
+        }}
+      >
+        Recommandations IA · Semaine 24
+      </div>
+      {recos.map((r) => (
+        <div
+          key={r.symbol + r.title}
+          style={{
+            backgroundColor: "#FFFFFF",
+            borderRadius: "8px",
+            padding: "12px 14px",
+            border: "1px solid rgba(67,56,202,0.10)",
+            display: "flex",
+            alignItems: "flex-start",
+            gap: "10px",
+            fontFamily: "var(--font-sans)",
+          }}
+        >
+          <div
+            style={{
+              width: "26px",
+              height: "26px",
+              borderRadius: "6px",
+              backgroundColor: r.bg,
+              color: "#FFFFFF",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "13px",
+              fontWeight: 700,
+              flexShrink: 0,
+            }}
+          >
+            {r.symbol}
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: "12px", fontWeight: 700, color: "var(--midnight)" }}>
+              {r.title}
+            </div>
+            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginTop: "3px", lineHeight: 1.5 }}>
+              {r.sub}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }
