@@ -9,6 +9,61 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const [activeStep, setActiveStep] = useState(0);
+
+  const steps = [
+    {
+      num: "01",
+      label: "Connectez\nvotre équipe",
+      badge: "Mise en place · 10 minutes",
+      title: "Connectez votre équipe",
+      description: (
+        <>Importez les emails de vos salariés. Moins de 10 minutes, aucune installation de leur côté. Aucun appel commercial requis, mise en place immédiate.</>
+      ),
+      calloutLabel: "ACTIF DÈS CE VENDREDI",
+      calloutText: "Vous configurez une fois. HeedUp envoie automatiquement chaque semaine, sans que vous ayez à y penser.",
+      visual: "setup" as const,
+    },
+    {
+      num: "02",
+      label: "5 questions\nanonymes",
+      badge: "Vendredi · 9h00",
+      title: "5 questions anonymes",
+      description: (
+        <>Vos salariés reçoivent un lien par email. Ils répondent en 2 minutes, depuis leur téléphone ou ordinateur. Pas de compte à créer, <span style={{ fontWeight: 700 }}>anonymat</span> garanti dès la première réponse.</>
+      ),
+      calloutLabel: "TAUX DE RÉPONSE MOYEN",
+      calloutText: "L'anonymat garanti dès le premier écran est le principal facteur de réponse. Vos salariés répondent parce qu'ils savent que c'est vrai.",
+      visual: "phone" as const,
+    },
+    {
+      num: "03",
+      label: "Votre Rapport\nd'équipe",
+      badge: "Lundi · 8h00",
+      title: "Votre Rapport d'équipe",
+      description: (
+        <>3 scores agrégés, la tendance de la semaine, et le signal à surveiller en priorité. Vous comprenez l'état de votre équipe en 2 minutes.</>
+      ),
+      calloutLabel: "PAS UN DASHBOARD À INTERPRÉTER",
+      calloutText: "Les scores arrivent avec le contexte. Vous voyez immédiatement ce qui change et dans quel sens.",
+      visual: "scores" as const,
+    },
+    {
+      num: "04",
+      label: "Vous agissez,\nvous mesurez",
+      badge: "Dans la semaine",
+      title: "Vous agissez, vous mesurez",
+      description: (
+        <>2 à 3 recommandations managériales concrètes vous sont proposées, calibrées sur vos résultats réels. Leur effet apparaît dès le rapport suivant.</>
+      ),
+      calloutLabel: "RECOMMANDATIONS MANAGÉRIALES, PAS DES KPIs",
+      calloutText: "HeedUp ne vous donne pas un score à interpréter. Il vous donne une action à faire cette semaine, formulée pour un manager, pas pour un DRH.",
+      visual: "recos" as const,
+    },
+  ];
+
+  const current = steps[activeStep];
+
   return (
     <SiteLayout>
       {/* Hero */}
