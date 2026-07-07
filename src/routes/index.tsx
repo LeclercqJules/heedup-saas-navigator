@@ -657,10 +657,9 @@ function Index() {
             }}
           >
             {steps.map((s, i) => (
-              <>
+              <Fragment key={s.num}>
                 {i > 0 && (
                   <div
-                    key={`sep-${i}`}
                     style={{ width: "1px", height: "40px", backgroundColor: "rgba(13,27,62,0.10)" }}
                   />
                 )}
