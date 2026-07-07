@@ -850,3 +850,300 @@ function Index() {
     </SiteLayout>
   );
 }
+
+const cardBase: React.CSSProperties = {
+  backgroundColor: "#FFFFFF",
+  borderRadius: "8px",
+  padding: "12px 14px",
+  border: "1px solid rgba(67,56,202,0.10)",
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
+  width: "100%",
+  fontFamily: "var(--font-sans)",
+};
+
+const iconBox: React.CSSProperties = {
+  width: "32px",
+  height: "32px",
+  borderRadius: "6px",
+  backgroundColor: "var(--midnight)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  color: "#EEEEFF",
+  flexShrink: 0,
+};
+
+const checkCircle: React.CSSProperties = {
+  width: "20px",
+  height: "20px",
+  borderRadius: "50%",
+  backgroundColor: "#EEEEFF",
+  color: "var(--indigo)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  marginLeft: "auto",
+  flexShrink: 0,
+};
+
+function SetupRow({
+  icon,
+  title,
+  subtitle,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  subtitle: string;
+}) {
+  return (
+    <div style={cardBase}>
+      <div style={iconBox}>{icon}</div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: "12px", fontWeight: 700, color: "var(--midnight)" }}>{title}</div>
+        <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>
+          {subtitle}
+        </div>
+      </div>
+      <div style={checkCircle}>
+        <Check size={12} strokeWidth={3} />
+      </div>
+    </div>
+  );
+}
+
+function SetupVisual() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "100%" }}>
+      <SetupRow
+        icon={<Upload size={16} strokeWidth={2} />}
+        title="Import CSV des emails"
+        subtitle="marie@restaurant.fr, thomas@logistique.fr..."
+      />
+      <SetupRow
+        icon={<Clock size={16} strokeWidth={2} />}
+        title="Jour d'envoi configuré"
+        subtitle="Chaque vendredi à 9h00"
+      />
+      <SetupRow
+        icon={<Rocket size={16} strokeWidth={2} />}
+        title="Premier survey planifié"
+        subtitle="Vendredi 13 juin · 9h00"
+      />
+    </div>
+  );
+}
+
+function PhoneVisual() {
+  return (
+    <div
+      style={{
+        backgroundColor: "var(--midnight)",
+        borderRadius: "20px",
+        padding: "16px",
+        width: "180px",
+        fontFamily: "var(--font-sans)",
+      }}
+    >
+      <div
+        style={{
+          width: "40px",
+          height: "4px",
+          backgroundColor: "rgba(255,255,255,0.2)",
+          margin: "0 auto 12px",
+          borderRadius: "2px",
+        }}
+      />
+      <div
+        style={{
+          backgroundColor: "#FFFFFF",
+          borderRadius: "10px",
+          padding: "14px",
+        }}
+      >
+        <div
+          style={{
+            fontSize: "9px",
+            color: "var(--text-muted)",
+            textTransform: "uppercase",
+            letterSpacing: "0.5px",
+            marginBottom: "8px",
+          }}
+        >
+          Question 2 sur 5
+        </div>
+        <div
+          style={{
+            fontSize: "12px",
+            fontWeight: 700,
+            color: "var(--midnight)",
+            lineHeight: 1.4,
+            marginBottom: "10px",
+          }}
+        >
+          Votre charge de travail est-elle gérable cette semaine ?
+        </div>
+        <div
+          style={{
+            fontSize: "10px",
+            fontWeight: 700,
+            color: "var(--indigo)",
+            marginBottom: "10px",
+          }}
+        >
+          🔒 Réponse anonyme
+        </div>
+        <div style={{ display: "flex", gap: "4px" }}>
+          {[1, 2, 3, 4, 5].map((n) => (
+            <div
+              key={n}
+              style={{
+                flex: 1,
+                textAlign: "center",
+                padding: "6px 0",
+                borderRadius: "4px",
+                fontSize: "11px",
+                fontWeight: 700,
+                backgroundColor: n === 3 ? "var(--indigo)" : "#EEEEFF",
+                color: n === 3 ? "#FFFFFF" : "var(--midnight)",
+              }}
+            >
+              {n}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ScoresVisual() {
+  const scores = [
+    { label: "CHARGE", value: "3.6", delta: "▼ 0.3 vs semaine dernière", color: "var(--semantic-red)" },
+    { label: "AMBIANCE", value: "4.1", delta: "▲ 0.2 vs semaine dernière", color: "var(--semantic-green)" },
+    { label: "MOTIVATION", value: "4.3", delta: "— stable", color: "var(--text-muted)" },
+  ];
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "100%" }}>
+      {scores.map((s) => (
+        <div
+          key={s.label}
+          style={{
+            backgroundColor: "#FFFFFF",
+            borderRadius: "8px",
+            padding: "12px 16px",
+            border: "1px solid rgba(67,56,202,0.10)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            fontFamily: "var(--font-sans)",
+          }}
+        >
+          <div
+            style={{
+              fontSize: "11px",
+              textTransform: "uppercase",
+              color: "var(--text-muted)",
+              fontWeight: 600,
+              letterSpacing: "0.6px",
+            }}
+          >
+            {s.label}
+          </div>
+          <div
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "22px",
+              color: "var(--midnight)",
+            }}
+          >
+            {s.value}
+          </div>
+          <div style={{ fontSize: "11px", fontWeight: 700, color: s.color }}>{s.delta}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function RecosVisual() {
+  const recos = [
+    {
+      bg: "var(--semantic-red)",
+      symbol: "↓",
+      title: "Charge en baisse 2 semaines consécutives",
+      sub: "Planifiez un point collectif avant vendredi pour identifier les blocages.",
+    },
+    {
+      bg: "var(--semantic-green)",
+      symbol: "↑",
+      title: "Ambiance en hausse",
+      sub: "Bon moment pour lancer un projet à forte visibilité.",
+    },
+    {
+      bg: "var(--indigo)",
+      symbol: "!",
+      title: "2 employés n'ont pas répondu",
+      sub: "Le silence est aussi un signal. Envoyez un rappel discret avant vendredi.",
+    },
+  ];
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "8px", width: "100%" }}>
+      <div
+        style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: "10px",
+          textTransform: "uppercase",
+          color: "var(--text-muted)",
+          fontWeight: 700,
+          letterSpacing: "0.5px",
+          marginBottom: "8px",
+        }}
+      >
+        Recommandations IA · Semaine 24
+      </div>
+      {recos.map((r) => (
+        <div
+          key={r.symbol + r.title}
+          style={{
+            backgroundColor: "#FFFFFF",
+            borderRadius: "8px",
+            padding: "12px 14px",
+            border: "1px solid rgba(67,56,202,0.10)",
+            display: "flex",
+            alignItems: "flex-start",
+            gap: "10px",
+            fontFamily: "var(--font-sans)",
+          }}
+        >
+          <div
+            style={{
+              width: "26px",
+              height: "26px",
+              borderRadius: "6px",
+              backgroundColor: r.bg,
+              color: "#FFFFFF",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "13px",
+              fontWeight: 700,
+              flexShrink: 0,
+            }}
+          >
+            {r.symbol}
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: "12px", fontWeight: 700, color: "var(--midnight)" }}>
+              {r.title}
+            </div>
+            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginTop: "3px", lineHeight: 1.5 }}>
+              {r.sub}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
