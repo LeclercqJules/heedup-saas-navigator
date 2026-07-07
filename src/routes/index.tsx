@@ -710,7 +710,7 @@ function Index() {
                     {s.label}
                   </div>
                 </button>
-              </>
+              </Fragment>
             ))}
           </div>
 
