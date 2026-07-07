@@ -1191,6 +1191,35 @@ function RecosVisual() {
           </div>
         </div>
       ))}
+      <div
+        style={{
+          borderTop: "1px solid rgba(67,56,202,0.08)",
+          paddingTop: "10px",
+          marginTop: "6px",
+        }}
+      >
+        <div style={{ fontSize: "10px", color: "var(--text-muted)", fontFamily: "var(--font-sans)" }}>
+          Taux de réponse · Semaine 24 · 8 / 10 employés
+        </div>
+        <div
+          style={{
+            height: "3px",
+            backgroundColor: "rgba(67,56,202,0.12)",
+            borderRadius: "2px",
+            overflow: "hidden",
+            marginTop: "6px",
+          }}
+        >
+          <div
+            style={{
+              width: "80%",
+              height: "100%",
+              backgroundColor: "var(--indigo)",
+              borderRadius: "2px",
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 }
