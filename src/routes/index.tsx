@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { Upload, Clock, Rocket, Check } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { Calculator } from "lucide-react";
 
