@@ -1,6 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Fragment, useState } from "react";
 import { Upload, Clock, Rocket, Check, Calculator, Mail, User, Users } from "lucide-react";
+import {
+  IconPlayerPlay,
+  IconBrain,
+  IconRefresh,
+  IconBuilding,
+  IconTag,
+  IconShieldCheck,
+  IconCheck,
+} from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 
 
