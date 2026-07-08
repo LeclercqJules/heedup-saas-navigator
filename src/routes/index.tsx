@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Fragment, useState } from "react";
-import { Upload, Clock, Rocket, Check, Calculator, Mail } from "lucide-react";
+import { Upload, Clock, Rocket, Check, Calculator, Mail, User, Users } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 
 
@@ -846,6 +846,333 @@ function Index() {
         </div>
       </section>
 
+      {/* Simple pour vous, simple pour eux */}
+      <section style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          {/* Intro */}
+          <div className="text-center" style={{ marginBottom: "52px" }}>
+            <div
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "11px",
+                fontWeight: 700,
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+                color: "var(--midnight)",
+                opacity: 0.35,
+                marginBottom: "12px",
+              }}
+            >
+              ZÉRO FRICTION
+            </div>
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "52px",
+                letterSpacing: "-1px",
+                lineHeight: 1.08,
+                color: "var(--midnight)",
+                marginBottom: "14px",
+              }}
+            >
+              Simple pour vous,{" "}
+              <span style={{ fontStyle: "italic", color: "var(--indigo)" }}>simple pour eux.</span>
+            </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "17px",
+                lineHeight: 1.6,
+                color: "var(--text-muted)",
+                maxWidth: "500px",
+                margin: "0 auto",
+              }}
+            >
+              L'outil qui s'efface est celui qu'on utilise vraiment. HeedUp est conçu pour disparaître dans votre routine.
+            </p>
+          </div>
+
+          {/* Two columns */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr auto 1fr",
+              alignItems: "stretch",
+              gap: "0",
+            }}
+          >
+            {/* Left column */}
+            <div
+              style={{
+                backgroundColor: "var(--bg-main)",
+                borderRadius: "14px",
+                border: "1px solid rgba(67,56,202,0.10)",
+                padding: "36px 32px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+              }}
+            >
+              <span
+                style={{
+                  backgroundColor: "var(--midnight)",
+                  color: "#EEEEFF",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  letterSpacing: "0.5px",
+                  textTransform: "uppercase",
+                  padding: "5px 12px",
+                  borderRadius: "6px",
+                  alignSelf: "flex-start",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                }}
+              >
+                <User size={13} strokeWidth={2} />
+                Pour vous, le manager
+              </span>
+              <h3
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "22px",
+                  lineHeight: 1.25,
+                  letterSpacing: "-0.3px",
+                  color: "var(--midnight)",
+                }}
+              >
+                Vous pilotez. Vous ne maintenez pas.
+              </h3>
+
+              {[
+                {
+                  label: "Pas de projet informatique",
+                  desc: "Aucune intégration SIRH, aucun ticket IT, aucune réunion de déploiement. Vous importez un fichier CSV et c'est terminé.",
+                },
+                {
+                  label: "L'information vient à vous",
+                  desc: "Vous n'ouvrez pas un outil pour aller chercher les données. Le rapport d'équipe arrive dans votre boîte mail. Vous n'avez rien à déclencher.",
+                },
+                {
+                  label: "Des actions, pas des données brutes",
+                  desc: "HeedUp ne vous donne pas un score à interpréter. Il vous dit quoi faire cette semaine, formulé pour un manager, pas pour un analyste RH.",
+                },
+                {
+                  label: "Un budget PME, pas un budget ETI",
+                  desc: "À partir de 50€/mois, sans engagement annuel obligatoire. Prix affiché publiquement, sans devis, sans appel commercial préalable.",
+                },
+              ].map((b) => (
+                <div
+                  key={b.label}
+                  style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}
+                >
+                  <div
+                    style={{
+                      width: "22px",
+                      height: "22px",
+                      borderRadius: "50%",
+                      backgroundColor: "var(--midnight)",
+                      color: "#EEEEFF",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                      marginTop: "2px",
+                    }}
+                  >
+                    <span style={{ fontFamily: "var(--font-sans)", fontSize: "11px", fontWeight: 700 }}>✓</span>
+                  </div>
+                  <div>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "13.5px",
+                        fontWeight: 600,
+                        color: "var(--midnight)",
+                        marginBottom: "3px",
+                      }}
+                    >
+                      {b.label}
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "12.5px",
+                        lineHeight: 1.55,
+                        color: "var(--text-muted)",
+                      }}
+                    >
+                      {b.desc}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Central separator */}
+            <div
+              style={{
+                padding: "0 24px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "12px",
+              }}
+            >
+              <div style={{ width: "1px", flex: 1, backgroundColor: "rgba(67,56,202,0.15)" }} />
+              <div
+                style={{
+                  width: "48px",
+                  height: "48px",
+                  borderRadius: "12px",
+                  backgroundColor: "var(--midnight)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                  fontFamily: "var(--font-display)",
+                  fontSize: "16px",
+                  color: "#EEEEFF",
+                }}
+              >
+                H
+              </div>
+              <div style={{ width: "1px", flex: 1, backgroundColor: "rgba(67,56,202,0.15)" }} />
+            </div>
+
+            {/* Right column */}
+            <div
+              style={{
+                backgroundColor: "var(--bg-main)",
+                borderRadius: "14px",
+                border: "1px solid rgba(67,56,202,0.10)",
+                padding: "36px 32px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+              }}
+            >
+              <span
+                style={{
+                  backgroundColor: "var(--indigo)",
+                  color: "#FFFFFF",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  letterSpacing: "0.5px",
+                  textTransform: "uppercase",
+                  padding: "5px 12px",
+                  borderRadius: "6px",
+                  alignSelf: "flex-start",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                }}
+              >
+                <Users size={13} strokeWidth={2} />
+                Pourquoi vos salariés répondent vraiment
+              </span>
+              <h3
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "22px",
+                  lineHeight: 1.25,
+                  letterSpacing: "-0.3px",
+                  color: "var(--midnight)",
+                }}
+              >
+                Ils participent parce qu'ils font confiance.
+              </h3>
+
+              {[
+                {
+                  label: "L'anonymat est dans le code, pas dans la charte",
+                  desc: "Même vous ne pouvez pas voir les réponses individuelles. Ce n'est pas une promesse managériale, c'est une contrainte architecturale.",
+                },
+                {
+                  label: "Un seul contact par semaine",
+                  desc: "Un email le vendredi matin. Pas d'app, pas de compte, pas de relance. Moins intrusif qu'un point d'équipe.",
+                },
+                {
+                  label: "Ils voient que ça change quelque chose",
+                  desc: "Quand vos actions du lundi reflètent les signaux de la semaine, le taux de réponse monte. La boucle de confiance se referme d'elle-même.",
+                },
+                {
+                  label: "Zéro surcharge cognitive",
+                  desc: "5 questions, une échelle de 1 à 5, 2 minutes. Aucune question ouverte obligatoire, aucun formulaire à rallonge.",
+                },
+              ].map((b) => (
+                <div
+                  key={b.label}
+                  style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}
+                >
+                  <div
+                    style={{
+                      width: "22px",
+                      height: "22px",
+                      borderRadius: "50%",
+                      backgroundColor: "var(--indigo)",
+                      color: "#FFFFFF",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                      marginTop: "2px",
+                    }}
+                  >
+                    <span style={{ fontFamily: "var(--font-sans)", fontSize: "11px", fontWeight: 700 }}>✓</span>
+                  </div>
+                  <div>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "13.5px",
+                        fontWeight: 600,
+                        color: "var(--midnight)",
+                        marginBottom: "3px",
+                      }}
+                    >
+                      {b.label}
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "12.5px",
+                        lineHeight: 1.55,
+                        color: "var(--text-muted)",
+                      }}
+                    >
+                      {b.desc}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Closing line */}
+          <div
+            style={{
+              borderTop: "1px solid rgba(67,56,202,0.08)",
+              paddingTop: "32px",
+              marginTop: "40px",
+              maxWidth: "580px",
+              marginLeft: "auto",
+              marginRight: "auto",
+              textAlign: "center",
+              fontFamily: "var(--font-sans)",
+              fontSize: "14px",
+              color: "var(--text-muted)",
+              fontStyle: "italic",
+              lineHeight: 1.6,
+            }}
+          >
+            Un outil que vos salariés acceptent d'utiliser est un outil qui vous donne de vraies données. C'est le seul pari de HeedUp.
+          </div>
+        </div>
+      </section>
 
     </SiteLayout>
   );
