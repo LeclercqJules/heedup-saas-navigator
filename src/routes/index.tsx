@@ -19,6 +19,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const [activeStep, setActiveStep] = useState(0);
+  const [activeWhy, setActiveWhy] = useState(0);
 
   const steps = [
     {
