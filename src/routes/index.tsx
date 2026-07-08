@@ -1271,6 +1271,232 @@ function Index() {
         </div>
       </section>
 
+      {/* Pourquoi HeedUp */}
+      <section style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          {/* Intro */}
+          <div className="text-center" style={{ marginBottom: "48px" }}>
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "52px",
+                letterSpacing: "-1px",
+                lineHeight: 1.08,
+                color: "var(--midnight)",
+                marginBottom: "14px",
+              }}
+            >
+              Pourquoi{" "}
+              <span style={{ fontStyle: "italic", color: "var(--indigo)" }}>HeedUp</span> ?
+            </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "17px",
+                lineHeight: 1.6,
+                color: "var(--text-muted)",
+                maxWidth: "520px",
+                margin: "0 auto",
+              }}
+            >
+              Plusieurs outils mesurent l'engagement. HeedUp est conçu pour que vous fassiez quelque chose des résultats.
+            </p>
+          </div>
+
+          {/* Layout */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "210px 1fr",
+              gap: "16px",
+              alignItems: "start",
+            }}
+          >
+            {/* Vertical nav */}
+            <div
+              style={{
+                backgroundColor: "var(--bg-card)",
+                borderRadius: "12px",
+                border: "1px solid rgba(67,56,202,0.10)",
+                padding: "6px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "2px",
+              }}
+            >
+              {whyItems.map((item, idx) => {
+                const isActive = activeWhy === idx;
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={item.label}
+                    onClick={() => setActiveWhy(idx)}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: "10px",
+                      width: "100%",
+                      padding: "11px 12px",
+                      borderRadius: "8px",
+                      border: "none",
+                      backgroundColor: isActive ? "#EEEEFF" : "transparent",
+                      cursor: "pointer",
+                      borderLeft: `3px solid ${isActive ? "var(--indigo)" : "transparent"}`,
+                      textAlign: "left",
+                    }}
+                  >
+                    <Icon
+                      size={15}
+                      style={{
+                        color: isActive ? "var(--indigo)" : "var(--text-muted)",
+                        flexShrink: 0,
+                        marginTop: "2px",
+                      }}
+                    />
+                    <div style={{ minWidth: 0 }}>
+                      <div
+                        style={{
+                          fontFamily: "var(--font-sans)",
+                          fontSize: "12px",
+                          fontWeight: 600,
+                          color: "var(--midnight)",
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        {item.label}
+                      </div>
+                      <div
+                        style={{
+                          fontFamily: "var(--font-sans)",
+                          fontSize: "10.5px",
+                          color: "var(--text-muted)",
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        {item.sub}
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Panels */}
+            <div
+              style={{
+                backgroundColor: "var(--bg-card)",
+                borderRadius: "12px",
+                border: "1px solid rgba(67,56,202,0.10)",
+                overflow: "hidden",
+              }}
+            >
+              {whyItems.map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.label}
+                    style={{
+                      display: activeWhy === idx ? "block" : "none",
+                      padding: "44px 48px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        backgroundColor: "var(--midnight)",
+                        color: "#EEEEFF",
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "10px",
+                        fontWeight: 700,
+                        letterSpacing: "0.6px",
+                        textTransform: "uppercase",
+                        padding: "4px 10px",
+                        borderRadius: "4px",
+                        marginBottom: "18px",
+                      }}
+                    >
+                      <Icon size={13} strokeWidth={2} />
+                      {item.badge}
+                    </div>
+                    <h3
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: "32px",
+                        color: "var(--midnight)",
+                        letterSpacing: "-0.5px",
+                        lineHeight: 1.15,
+                        marginBottom: "14px",
+                      }}
+                    >
+                      {item.title}
+                    </h3>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "15px",
+                        color: "var(--text-muted)",
+                        lineHeight: 1.65,
+                        marginBottom: "28px",
+                        maxWidth: "560px",
+                      }}
+                    >
+                      {item.description}
+                    </p>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
+                      {item.bullets.map((bullet, bidx) => (
+                        <div
+                          key={bullet}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "12px",
+                            padding: "13px 0",
+                            borderTop: "1px solid rgba(67,56,202,0.07)",
+                            borderBottom:
+                              bidx === item.bullets.length - 1
+                                ? "1px solid rgba(67,56,202,0.07)"
+                                : undefined,
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "28px",
+                              height: "28px",
+                              borderRadius: "50%",
+                              backgroundColor: "#EEEEFF",
+                              color: "var(--indigo)",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              flexShrink: 0,
+                            }}
+                          >
+                            <IconCheck size={13} strokeWidth={3} />
+                          </div>
+                          <div
+                            style={{
+                              fontFamily: "var(--font-sans)",
+                              fontSize: "14px",
+                              fontWeight: 500,
+                              color: "var(--midnight)",
+                              lineHeight: 1.4,
+                            }}
+                          >
+                            {bullet}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
     </SiteLayout>
   );
 }
