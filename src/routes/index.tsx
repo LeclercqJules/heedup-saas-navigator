@@ -1,6 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Fragment, useState } from "react";
 import { Upload, Clock, Rocket, Check, Calculator, Mail, User, Users } from "lucide-react";
+import {
+  IconPlayerPlay,
+  IconBrain,
+  IconRefresh,
+  IconBuilding,
+  IconTag,
+  IconShieldCheck,
+  IconCheck,
+} from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 
 
@@ -8,8 +17,96 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+const whyItems = [
+  {
+    icon: IconPlayerPlay,
+    label: "Self-serve total",
+    sub: "Aucune démo requise",
+    badge: "Self-serve",
+    title: "Vous démarrez seul. Maintenant.",
+    description: "Inscription, configuration, live ce vendredi. Sans appel commercial ou rendez-vous requis.",
+    bullets: [
+      "Accès immédiat, sans validation commerciale",
+      "Configuration complète en moins de 10 minutes",
+      "Aucun déploiement IT, aucun ticket, aucune réunion",
+      "Premier survey planifié automatiquement au vendredi suivant",
+    ],
+  },
+  {
+    icon: IconBrain,
+    label: "IA actionnable",
+    sub: "Plan d'action, pas un score",
+    badge: "IA actionnable",
+    title: "Un plan d'action, pas un tableau de bord.",
+    description: "HeedUp interprète vos résultats et vous dit quoi faire cette semaine, formulé pour un manager, pas pour un analyste RH.",
+    bullets: [
+      "Recommandations managériales générées à partir de vos données réelles",
+      "Actions priorisées par impact et faisabilité",
+      "Formulées pour un dirigeant, pas pour un analyste RH",
+      "Effet mesurable dès le rapport de la semaine suivante",
+    ],
+  },
+  {
+    icon: IconRefresh,
+    label: "Boucle hebdomadaire",
+    sub: "Signal frais chaque semaine",
+    badge: "Boucle hebdomadaire",
+    title: "Un signal frais, chaque semaine.",
+    description: "Un signal qui arrive après le problème ne sert à rien. HeedUp mesure chaque vendredi pour que vous puissiez agir dans la semaine.",
+    bullets: [
+      "Détection des signaux faibles avant qu'ils deviennent des problèmes",
+      "Mesure de l'impact de vos actions dès la semaine suivante",
+      "Tendances consultables dans le temps via le dashboard",
+      "2 minutes pour vos salariés, une seule fois par semaine",
+    ],
+  },
+  {
+    icon: IconBuilding,
+    label: "Calibré PME 10-50",
+    sub: "Pas adapté, conçu",
+    badge: "Calibré PME 10-50",
+    title: "Conçu pour votre réalité, pas adapté pour elle.",
+    description: "Interface, seuil d'anonymat et recommandations IA sont tous calibrés pour des équipes de 10 à 50 personnes. Pas une adaptation d'un outil pensé pour 500.",
+    bullets: [
+      "Anonymat statistique garanti dès 10 répondants",
+      "Interface lisible sans formation RH préalable",
+      "Prix structuré pour une PME, pas pour un service RH de 5 personnes",
+      "Recommandations adaptées à des équipes que vous connaissez personnellement",
+    ],
+  },
+  {
+    icon: IconTag,
+    label: "Prix transparents",
+    sub: "Affiché avant inscription",
+    badge: "Prix transparents",
+    title: "Ce que vous payez, avant de vous inscrire.",
+    description: "Prix public, calculé par siège. Aucun devis, aucun appel, aucune case à cocher pour voir les tarifs.",
+    bullets: [
+      "Prix affiché publiquement avant toute inscription",
+      "Facturation mensuelle ou annuelle, résiliation libre à tout moment",
+      "Aucun frais de mise en place, d'onboarding ou de support",
+      "Support inclus dans tous les plans, en français",
+    ],
+  },
+  {
+    icon: IconShieldCheck,
+    label: "RGPD + France",
+    sub: "Conforme et souverain",
+    badge: "RGPD + France",
+    title: "Conforme, documenté, souverain.",
+    description: "La conformité RGPD n'est pas un badge. C'est de la documentation contractuelle et un hébergement sans aucun sous-traitant américain.",
+    bullets: [
+      "Hébergement EU West, aucune donnée hors Union Européenne",
+      "DPA contractualisé à la signature, registre de traitement inclus",
+      "Politique de confidentialité employé fournie prête à l'emploi",
+      "Made 100% in France, interlocuteur direct, soumis au droit français",
+    ],
+  },
+];
+
 function Index() {
   const [activeStep, setActiveStep] = useState(0);
+  const [activeWhy, setActiveWhy] = useState(0);
 
   const steps = [
     {
@@ -1170,6 +1267,232 @@ function Index() {
             }}
           >
             Un outil que vos salariés acceptent d'utiliser est un outil qui vous donne de vraies données. C'est le seul pari de HeedUp.
+          </div>
+        </div>
+      </section>
+
+      {/* Pourquoi HeedUp */}
+      <section style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          {/* Intro */}
+          <div className="text-center" style={{ marginBottom: "48px" }}>
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "52px",
+                letterSpacing: "-1px",
+                lineHeight: 1.08,
+                color: "var(--midnight)",
+                marginBottom: "14px",
+              }}
+            >
+              Pourquoi{" "}
+              <span style={{ fontStyle: "italic", color: "var(--indigo)" }}>HeedUp</span> ?
+            </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "17px",
+                lineHeight: 1.6,
+                color: "var(--text-muted)",
+                maxWidth: "520px",
+                margin: "0 auto",
+              }}
+            >
+              Plusieurs outils mesurent l'engagement. HeedUp est conçu pour que vous fassiez quelque chose des résultats.
+            </p>
+          </div>
+
+          {/* Layout */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "210px 1fr",
+              gap: "16px",
+              alignItems: "start",
+            }}
+          >
+            {/* Vertical nav */}
+            <div
+              style={{
+                backgroundColor: "var(--bg-card)",
+                borderRadius: "12px",
+                border: "1px solid rgba(67,56,202,0.10)",
+                padding: "6px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "2px",
+              }}
+            >
+              {whyItems.map((item, idx) => {
+                const isActive = activeWhy === idx;
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={item.label}
+                    onClick={() => setActiveWhy(idx)}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: "10px",
+                      width: "100%",
+                      padding: "11px 12px",
+                      borderRadius: "8px",
+                      border: "none",
+                      backgroundColor: isActive ? "#EEEEFF" : "transparent",
+                      cursor: "pointer",
+                      borderLeft: `3px solid ${isActive ? "var(--indigo)" : "transparent"}`,
+                      textAlign: "left",
+                    }}
+                  >
+                    <Icon
+                      size={15}
+                      style={{
+                        color: isActive ? "var(--indigo)" : "var(--text-muted)",
+                        flexShrink: 0,
+                        marginTop: "2px",
+                      }}
+                    />
+                    <div style={{ minWidth: 0 }}>
+                      <div
+                        style={{
+                          fontFamily: "var(--font-sans)",
+                          fontSize: "12px",
+                          fontWeight: 600,
+                          color: "var(--midnight)",
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        {item.label}
+                      </div>
+                      <div
+                        style={{
+                          fontFamily: "var(--font-sans)",
+                          fontSize: "10.5px",
+                          color: "var(--text-muted)",
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        {item.sub}
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Panels */}
+            <div
+              style={{
+                backgroundColor: "var(--bg-card)",
+                borderRadius: "12px",
+                border: "1px solid rgba(67,56,202,0.10)",
+                overflow: "hidden",
+              }}
+            >
+              {whyItems.map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.label}
+                    style={{
+                      display: activeWhy === idx ? "block" : "none",
+                      padding: "44px 48px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        backgroundColor: "var(--midnight)",
+                        color: "#EEEEFF",
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "10px",
+                        fontWeight: 700,
+                        letterSpacing: "0.6px",
+                        textTransform: "uppercase",
+                        padding: "4px 10px",
+                        borderRadius: "4px",
+                        marginBottom: "18px",
+                      }}
+                    >
+                      <Icon size={13} strokeWidth={2} />
+                      {item.badge}
+                    </div>
+                    <h3
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: "32px",
+                        color: "var(--midnight)",
+                        letterSpacing: "-0.5px",
+                        lineHeight: 1.15,
+                        marginBottom: "14px",
+                      }}
+                    >
+                      {item.title}
+                    </h3>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "15px",
+                        color: "var(--text-muted)",
+                        lineHeight: 1.65,
+                        marginBottom: "28px",
+                        maxWidth: "560px",
+                      }}
+                    >
+                      {item.description}
+                    </p>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
+                      {item.bullets.map((bullet, bidx) => (
+                        <div
+                          key={bullet}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "12px",
+                            padding: "13px 0",
+                            borderTop: "1px solid rgba(67,56,202,0.07)",
+                            borderBottom:
+                              bidx === item.bullets.length - 1
+                                ? "1px solid rgba(67,56,202,0.07)"
+                                : undefined,
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "28px",
+                              height: "28px",
+                              borderRadius: "50%",
+                              backgroundColor: "#EEEEFF",
+                              color: "var(--indigo)",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              flexShrink: 0,
+                            }}
+                          >
+                            <IconCheck size={13} strokeWidth={3} />
+                          </div>
+                          <div
+                            style={{
+                              fontFamily: "var(--font-sans)",
+                              fontSize: "14px",
+                              fontWeight: 500,
+                              color: "var(--midnight)",
+                              lineHeight: 1.4,
+                            }}
+                          >
+                            {bullet}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
