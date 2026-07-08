@@ -17,6 +17,93 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+const whyItems = [
+  {
+    icon: IconPlayerPlay,
+    label: "Self-serve total",
+    sub: "Aucune démo requise",
+    badge: "Self-serve",
+    title: "Vous démarrez seul. Maintenant.",
+    description: "Inscription, configuration, live ce vendredi. Sans appel commercial ou rendez-vous requis.",
+    bullets: [
+      "Accès immédiat, sans validation commerciale",
+      "Configuration complète en moins de 10 minutes",
+      "Aucun déploiement IT, aucun ticket, aucune réunion",
+      "Premier survey planifié automatiquement au vendredi suivant",
+    ],
+  },
+  {
+    icon: IconBrain,
+    label: "IA actionnable",
+    sub: "Plan d'action, pas un score",
+    badge: "IA actionnable",
+    title: "Un plan d'action, pas un tableau de bord.",
+    description: "HeedUp interprète vos résultats et vous dit quoi faire cette semaine, formulé pour un manager, pas pour un analyste RH.",
+    bullets: [
+      "Recommandations managériales générées à partir de vos données réelles",
+      "Actions priorisées par impact et faisabilité",
+      "Formulées pour un dirigeant, pas pour un analyste RH",
+      "Effet mesurable dès le rapport de la semaine suivante",
+    ],
+  },
+  {
+    icon: IconRefresh,
+    label: "Boucle hebdomadaire",
+    sub: "Signal frais chaque semaine",
+    badge: "Boucle hebdomadaire",
+    title: "Un signal frais, chaque semaine.",
+    description: "Un signal qui arrive après le problème ne sert à rien. HeedUp mesure chaque vendredi pour que vous puissiez agir dans la semaine.",
+    bullets: [
+      "Détection des signaux faibles avant qu'ils deviennent des problèmes",
+      "Mesure de l'impact de vos actions dès la semaine suivante",
+      "Tendances consultables dans le temps via le dashboard",
+      "2 minutes pour vos salariés, une seule fois par semaine",
+    ],
+  },
+  {
+    icon: IconBuilding,
+    label: "Calibré PME 10-50",
+    sub: "Pas adapté, conçu",
+    badge: "Calibré PME 10-50",
+    title: "Conçu pour votre réalité, pas adapté pour elle.",
+    description: "Interface, seuil d'anonymat et recommandations IA sont tous calibrés pour des équipes de 10 à 50 personnes. Pas une adaptation d'un outil pensé pour 500.",
+    bullets: [
+      "Anonymat statistique garanti dès 10 répondants",
+      "Interface lisible sans formation RH préalable",
+      "Prix structuré pour une PME, pas pour un service RH de 5 personnes",
+      "Recommandations adaptées à des équipes que vous connaissez personnellement",
+    ],
+  },
+  {
+    icon: IconTag,
+    label: "Prix transparents",
+    sub: "Affiché avant inscription",
+    badge: "Prix transparents",
+    title: "Ce que vous payez, avant de vous inscrire.",
+    description: "Prix public, calculé par siège. Aucun devis, aucun appel, aucune case à cocher pour voir les tarifs.",
+    bullets: [
+      "Prix affiché publiquement avant toute inscription",
+      "Facturation mensuelle ou annuelle, résiliation libre à tout moment",
+      "Aucun frais de mise en place, d'onboarding ou de support",
+      "Support inclus dans tous les plans, en français",
+    ],
+  },
+  {
+    icon: IconShieldCheck,
+    label: "RGPD + France",
+    sub: "Conforme et souverain",
+    badge: "RGPD + France",
+    title: "Conforme, documenté, souverain.",
+    description: "La conformité RGPD n'est pas un badge. C'est de la documentation contractuelle et un hébergement sans aucun sous-traitant américain.",
+    bullets: [
+      "Hébergement EU West, aucune donnée hors Union Européenne",
+      "DPA contractualisé à la signature, registre de traitement inclus",
+      "Politique de confidentialité employé fournie prête à l'emploi",
+      "Made 100% in France, interlocuteur direct, soumis au droit français",
+    ],
+  },
+];
+
 function Index() {
   const [activeStep, setActiveStep] = useState(0);
   const [activeWhy, setActiveWhy] = useState(0);
