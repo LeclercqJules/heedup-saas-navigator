@@ -1307,7 +1307,7 @@ function Index() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "210px 1fr",
+              gridTemplateColumns: "280px 1fr",
               gap: "16px",
               alignItems: "start",
             }}
@@ -1318,7 +1318,7 @@ function Index() {
                 backgroundColor: "var(--bg-card)",
                 borderRadius: "12px",
                 border: "1px solid rgba(67,56,202,0.10)",
-                padding: "6px",
+                padding: "8px",
                 display: "flex",
                 flexDirection: "column",
                 gap: "2px",
@@ -1334,9 +1334,9 @@ function Index() {
                     style={{
                       display: "flex",
                       alignItems: "flex-start",
-                      gap: "10px",
+                      gap: "12px",
                       width: "100%",
-                      padding: "11px 12px",
+                      padding: "14px 16px",
                       borderRadius: "8px",
                       border: "none",
                       backgroundColor: isActive ? "#EEEEFF" : "transparent",
@@ -1346,7 +1346,7 @@ function Index() {
                     }}
                   >
                     <Icon
-                      size={15}
+                      size={18}
                       style={{
                         color: isActive ? "var(--indigo)" : "var(--text-muted)",
                         flexShrink: 0,
@@ -1357,7 +1357,7 @@ function Index() {
                       <div
                         style={{
                           fontFamily: "var(--font-sans)",
-                          fontSize: "12px",
+                          fontSize: "13px",
                           fontWeight: 600,
                           color: "var(--midnight)",
                           lineHeight: 1.3,
@@ -1368,7 +1368,7 @@ function Index() {
                       <div
                         style={{
                           fontFamily: "var(--font-sans)",
-                          fontSize: "10.5px",
+                          fontSize: "11.5px",
                           color: "var(--text-muted)",
                           lineHeight: 1.3,
                         }}
@@ -1397,7 +1397,7 @@ function Index() {
                     key={item.label}
                     style={{
                       display: activeWhy === idx ? "block" : "none",
-                      padding: "44px 48px",
+                      padding: "48px 52px",
                     }}
                   >
                     <div
@@ -1414,7 +1414,7 @@ function Index() {
                         textTransform: "uppercase",
                         padding: "4px 10px",
                         borderRadius: "4px",
-                        marginBottom: "18px",
+                        marginBottom: "20px",
                       }}
                     >
                       <Icon size={13} strokeWidth={2} />
@@ -1423,11 +1423,11 @@ function Index() {
                     <h3
                       style={{
                         fontFamily: "var(--font-display)",
-                        fontSize: "32px",
+                        fontSize: "38px",
                         color: "var(--midnight)",
-                        letterSpacing: "-0.5px",
+                        letterSpacing: "-0.8px",
                         lineHeight: 1.15,
-                        marginBottom: "14px",
+                        marginBottom: "16px",
                       }}
                     >
                       {item.title}
@@ -1435,59 +1435,73 @@ function Index() {
                     <p
                       style={{
                         fontFamily: "var(--font-sans)",
-                        fontSize: "15px",
+                        fontSize: "16px",
                         color: "var(--text-muted)",
                         lineHeight: 1.65,
-                        marginBottom: "28px",
+                        marginBottom: "32px",
                         maxWidth: "560px",
                       }}
                     >
                       {item.description}
                     </p>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
-                      {item.bullets.map((bullet, bidx) => (
-                        <div
-                          key={bullet}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "12px",
-                            padding: "13px 0",
-                            borderTop: "1px solid rgba(67,56,202,0.07)",
-                            borderBottom:
-                              bidx === item.bullets.length - 1
-                                ? "1px solid rgba(67,56,202,0.07)"
-                                : undefined,
-                          }}
-                        >
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr",
+                        gap: "0",
+                      }}
+                    >
+                      {item.bullets.map((bullet, bidx) => {
+                        const isLeft = bidx % 2 === 0;
+                        const isSecondRow = bidx >= 2;
+                        return (
                           <div
+                            key={bullet}
                             style={{
-                              width: "28px",
-                              height: "28px",
-                              borderRadius: "50%",
-                              backgroundColor: "#EEEEFF",
-                              color: "var(--indigo)",
                               display: "flex",
                               alignItems: "center",
-                              justifyContent: "center",
-                              flexShrink: 0,
+                              gap: "12px",
+                              padding: isLeft
+                                ? "14px 24px 14px 0"
+                                : "14px 0 14px 24px",
+                              borderTop: "1px solid rgba(67,56,202,0.07)",
+                              borderBottom: isSecondRow
+                                ? "1px solid rgba(67,56,202,0.07)"
+                                : undefined,
+                              borderRight: isLeft
+                                ? "1px solid rgba(67,56,202,0.07)"
+                                : undefined,
                             }}
                           >
-                            <IconCheck size={13} strokeWidth={3} />
+                            <div
+                              style={{
+                                width: "28px",
+                                height: "28px",
+                                borderRadius: "50%",
+                                backgroundColor: "#EEEEFF",
+                                color: "var(--indigo)",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                flexShrink: 0,
+                              }}
+                            >
+                              <IconCheck size={13} strokeWidth={3} />
+                            </div>
+                            <div
+                              style={{
+                                fontFamily: "var(--font-sans)",
+                                fontSize: "14px",
+                                fontWeight: 500,
+                                color: "var(--midnight)",
+                                lineHeight: 1.4,
+                              }}
+                            >
+                              {bullet}
+                            </div>
                           </div>
-                          <div
-                            style={{
-                              fontFamily: "var(--font-sans)",
-                              fontSize: "14px",
-                              fontWeight: 500,
-                              color: "var(--midnight)",
-                              lineHeight: 1.4,
-                            }}
-                          >
-                            {bullet}
-                          </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 );
