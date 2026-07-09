@@ -1533,7 +1533,7 @@ function Index() {
             <h2
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "48px",
+                fontSize: "52px",
                 letterSpacing: "-1px",
                 lineHeight: 1.08,
                 color: "var(--midnight)",
