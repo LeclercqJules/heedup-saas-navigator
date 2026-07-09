@@ -292,7 +292,7 @@ function Index() {
               className="heedup-hero-card"
               style={{
                 backgroundColor: "var(--bg-card)",
-                borderRadius: "15px",
+                borderRadius: "12px",
                 border: "1px solid rgba(67,56,202,0.12)",
                 overflow: "hidden",
                 fontFamily: "var(--font-sans)",
