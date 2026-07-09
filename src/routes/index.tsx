@@ -815,7 +815,7 @@ function Index() {
           <div
             style={{
               backgroundColor: "var(--bg-card)",
-              borderRadius: "14px",
+              borderRadius: "12px",
               border: "1px solid rgba(67,56,202,0.10)",
               overflow: "hidden",
               marginBottom: "28px",
