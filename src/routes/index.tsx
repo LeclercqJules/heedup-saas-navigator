@@ -700,7 +700,7 @@ function Index() {
 
       {/* Comment ça marche */}
       <section style={{ backgroundColor: "#EEEEFF", padding: "64px 5%" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           {/* Intro */}
           <div className="text-center">
             <h2
