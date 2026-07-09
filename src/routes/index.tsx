@@ -292,7 +292,7 @@ function Index() {
               className="heedup-hero-card"
               style={{
                 backgroundColor: "var(--bg-card)",
-                borderRadius: "15px",
+                borderRadius: "12px",
                 border: "1px solid rgba(67,56,202,0.12)",
                 overflow: "hidden",
                 fontFamily: "var(--font-sans)",
@@ -449,7 +449,7 @@ function Index() {
                       color: "var(--text-primary)",
                     }}
                   >
-                    2 employés n'ont pas répondu cette semaine. Envoie un rappel discret avant vendredi — le silence est aussi un signal.
+                    2 employés n'ont pas répondu cette semaine. Envoie un rappel discret avant vendredi. Le silence est aussi un signal.
                   </p>
                 </div>
               </div>
@@ -525,10 +525,10 @@ function Index() {
         className="heedup-impact"
         style={{
           backgroundColor: "var(--bg-main)",
-          padding: "64px 3%",
+          padding: "64px 5%",
         }}
       >
-        <div className="mx-auto" style={{ maxWidth: "1280px", margin: "0 auto" }}>
+        <div className="mx-auto" style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <div className="text-center" style={{ marginBottom: "40px" }}>
             <div
               style={{
@@ -547,8 +547,8 @@ function Index() {
             <h2
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "42px",
-                letterSpacing: "-0.8px",
+                fontSize: "52px",
+                letterSpacing: "-1px",
                 lineHeight: 1.15,
                 color: "var(--midnight)",
                 marginBottom: "12px",
@@ -700,7 +700,7 @@ function Index() {
 
       {/* Comment ça marche */}
       <section style={{ backgroundColor: "#EEEEFF", padding: "64px 5%" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           {/* Intro */}
           <div className="text-center">
             <h2
@@ -815,7 +815,7 @@ function Index() {
           <div
             style={{
               backgroundColor: "var(--bg-card)",
-              borderRadius: "14px",
+              borderRadius: "12px",
               border: "1px solid rgba(67,56,202,0.10)",
               overflow: "hidden",
               marginBottom: "28px",
@@ -1002,7 +1002,7 @@ function Index() {
             <div
               style={{
                 backgroundColor: "var(--bg-main)",
-                borderRadius: "14px",
+                borderRadius: "12px",
                 border: "1px solid rgba(67,56,202,0.10)",
                 padding: "36px 32px",
                 display: "flex",
@@ -1143,7 +1143,7 @@ function Index() {
             <div
               style={{
                 backgroundColor: "var(--bg-main)",
-                borderRadius: "14px",
+                borderRadius: "12px",
                 border: "1px solid rgba(67,56,202,0.10)",
                 padding: "36px 32px",
                 display: "flex",
@@ -1423,10 +1423,10 @@ function Index() {
                     <h3
                       style={{
                         fontFamily: "var(--font-display)",
-                        fontSize: "38px",
+                        fontSize: "26px",
                         color: "var(--midnight)",
-                        letterSpacing: "-0.8px",
-                        lineHeight: 1.15,
+                        letterSpacing: "-0.3px",
+                        lineHeight: 1.2,
                         marginBottom: "16px",
                       }}
                     >
@@ -1533,7 +1533,7 @@ function Index() {
             <h2
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "48px",
+                fontSize: "52px",
                 letterSpacing: "-1px",
                 lineHeight: 1.08,
                 color: "var(--midnight)",
@@ -1598,7 +1598,7 @@ function Index() {
                 key={t.name}
                 style={{
                   backgroundColor: "var(--bg-main)",
-                  borderRadius: "14px",
+                  borderRadius: "12px",
                   border: "1px solid rgba(67,56,202,0.10)",
                   padding: "28px",
                   display: "flex",
