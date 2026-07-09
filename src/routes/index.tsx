@@ -449,7 +449,7 @@ function Index() {
                       color: "var(--text-primary)",
                     }}
                   >
-                    2 employés n'ont pas répondu cette semaine. Envoie un rappel discret avant vendredi — le silence est aussi un signal.
+                    2 employés n'ont pas répondu cette semaine. Envoie un rappel discret avant vendredi. Le silence est aussi un signal.
                   </p>
                 </div>
               </div>
