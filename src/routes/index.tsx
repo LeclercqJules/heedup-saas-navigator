@@ -1002,7 +1002,7 @@ function Index() {
             <div
               style={{
                 backgroundColor: "var(--bg-main)",
-                borderRadius: "14px",
+                borderRadius: "12px",
                 border: "1px solid rgba(67,56,202,0.10)",
                 padding: "36px 32px",
                 display: "flex",
