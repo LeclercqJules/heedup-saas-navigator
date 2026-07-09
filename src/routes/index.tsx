@@ -525,10 +525,10 @@ function Index() {
         className="heedup-impact"
         style={{
           backgroundColor: "var(--bg-main)",
-          padding: "64px 3%",
+          padding: "64px 5%",
         }}
       >
-        <div className="mx-auto" style={{ maxWidth: "1280px", margin: "0 auto" }}>
+        <div className="mx-auto" style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <div className="text-center" style={{ marginBottom: "40px" }}>
             <div
               style={{
@@ -547,8 +547,8 @@ function Index() {
             <h2
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "42px",
-                letterSpacing: "-0.8px",
+                fontSize: "52px",
+                letterSpacing: "-1px",
                 lineHeight: 1.15,
                 color: "var(--midnight)",
                 marginBottom: "12px",
