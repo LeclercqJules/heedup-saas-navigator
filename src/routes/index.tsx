@@ -1423,10 +1423,10 @@ function Index() {
                     <h3
                       style={{
                         fontFamily: "var(--font-display)",
-                        fontSize: "38px",
+                        fontSize: "26px",
                         color: "var(--midnight)",
-                        letterSpacing: "-0.8px",
-                        lineHeight: 1.15,
+                        letterSpacing: "-0.3px",
+                        lineHeight: 1.2,
                         marginBottom: "16px",
                       }}
                     >
