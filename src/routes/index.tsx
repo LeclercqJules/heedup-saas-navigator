@@ -1709,6 +1709,53 @@ function Index() {
         </div>
       </section>
 
+      {/* CTA final */}
+      <section style={{ backgroundColor: "#EEEEFF", padding: "80px 5%", textAlign: "center" }}>
+        <h2
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "38px",
+            letterSpacing: "-0.5px",
+            lineHeight: 1.2,
+            color: "var(--midnight)",
+            marginBottom: "14px",
+          }}
+        >
+          Arrêtez de découvrir les problèmes trop tard.
+        </h2>
+        <p
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "17px",
+            lineHeight: 1.6,
+            color: "var(--text-muted)",
+            maxWidth: "480px",
+            margin: "0 auto 32px",
+          }}
+        >
+          Rejoignez les 27 dirigeants déjà sur la liste d'attente. Lancement dans les prochaines semaines.
+        </p>
+        <button
+          type="button"
+          style={{
+            backgroundColor: "var(--indigo)",
+            color: "#FFFFFF",
+            fontFamily: "var(--font-sans)",
+            fontSize: "16px",
+            fontWeight: 700,
+            padding: "14px 32px",
+            borderRadius: "8px",
+            border: "none",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "8px",
+            cursor: "pointer",
+          }}
+        >
+          Rejoindre la liste d'attente →
+        </button>
+      </section>
+
     </SiteLayout>
   );
 }
