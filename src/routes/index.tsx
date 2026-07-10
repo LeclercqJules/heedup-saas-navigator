@@ -846,7 +846,7 @@ function Index() {
       </section>
 
       {/* Comment ça marche */}
-      <section style={{ backgroundColor: "#EEEEFF", padding: "64px 5%" }}>
+      <section id="comment-ca-marche" style={{ backgroundColor: "#EEEEFF", padding: "64px 5%" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           {/* Intro */}
           <div className="text-center">
