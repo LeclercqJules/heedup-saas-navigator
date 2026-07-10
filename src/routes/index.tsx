@@ -11,6 +11,7 @@ import {
   IconCheck,
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
+import { FloatingNav } from "@/components/FloatingNav";
 
 
 export const Route = createFileRoute("/")({
