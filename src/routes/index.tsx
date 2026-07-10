@@ -1915,7 +1915,7 @@ function Index() {
       </section>
 
       {/* CTA final */}
-      <section style={{ backgroundColor: "#EEEEFF", padding: "80px 5%", textAlign: "center" }}>
+      <section id="rejoindre" style={{ backgroundColor: "#EEEEFF", padding: "80px 5%", textAlign: "center" }}>
         <h2
           style={{
             fontFamily: "var(--font-display)",
