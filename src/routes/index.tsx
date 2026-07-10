@@ -107,6 +107,140 @@ const whyItems = [
 function Index() {
   const [activeStep, setActiveStep] = useState(0);
   const [activeWhy, setActiveWhy] = useState(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const renderFaqAnswer = (text: string, boldPart: string) => {
+    const idx = text.indexOf(boldPart);
+    if (idx === -1) return text;
+    return (
+      <>
+        {text.slice(0, idx)}
+        <span style={{ fontWeight: 600, color: "var(--midnight)" }}>{boldPart}</span>
+        {text.slice(idx + boldPart.length)}
+      </>
+    );
+  };
+
+  const faqLeft = [
+    {
+      q: "Mes employés vont-ils vraiment répondre ?",
+      a: "C'est la question que tous nos bêta-testeurs ont posée. En moyenne, plus de 75% des salariés répondent dès le premier vendredi. La raison principale : l'anonymat est visible et garanti avant même la première réponse. Vos employés savent que vous ne pouvez pas lire leurs réponses individuelles, même si vous le vouliez.",
+      b: "plus de 75% des salariés répondent dès le premier vendredi",
+    },
+    {
+      q: "L'anonymat est-il vraiment garanti, ou c'est une promesse ?",
+      a: "C'est une contrainte architecturale, pas une promesse managériale. Les réponses ne sont jamais stockées avec un identifiant nominatif. Même notre équipe ne peut pas retrouver qui a répondu quoi. Vous ne verrez toujours que des scores agrégés, peu importe le nombre de répondants.",
+      b: "contrainte architecturale, pas une promesse managériale",
+    },
+    {
+      q: "Que reçoit exactement le manager chaque lundi ?",
+      a: "Un email avec votre Rapport d'équipe : 3 scores agrégés (charge, ambiance, motivation), le delta par rapport à la semaine précédente, le taux de réponse, et 2 à 3 recommandations managériales concrètes générées par IA. Vous comprenez l'état de votre équipe en moins de 2 minutes.",
+      b: "Rapport d'équipe",
+    },
+    {
+      q: "Combien de temps ça prend à mettre en place ?",
+      a: "Moins de 10 minutes. Vous créez votre compte, importez les emails de votre équipe (CSV ou saisie manuelle), et activez le premier survey. Aucun IT requis, aucun déploiement. Le premier survey part automatiquement le vendredi suivant.",
+      b: "Aucun IT requis, aucun déploiement",
+    },
+    {
+      q: "Mes employés doivent-ils créer un compte ?",
+      a: "Non. Vos salariés reçoivent un lien par email chaque vendredi. Ils répondent directement depuis ce lien, sans inscription, sans application, sans mot de passe à retenir. Zéro friction de leur côté.",
+      b: "un lien par email chaque vendredi",
+    },
+  ];
+
+  const faqRight = [
+    {
+      q: "HeedUp remplace-t-il les entretiens annuels ?",
+      a: "Non, et ce n'est pas l'objectif. HeedUp détecte les signaux faibles en continu, semaine après semaine. L'entretien annuel reste votre espace de dialogue approfondi. HeedUp vous aide à y arriver avec une vraie visibilité sur l'année, pas juste un ressenti.",
+      b: "en continu, semaine après semaine",
+    },
+    {
+      q: "Que se passe-t-il si peu d'employés répondent ?",
+      a: "Sous 5 répondants, les scores ne sont pas affichés pour préserver l'anonymat statistique. Vous recevez une alerte avec le faible taux de participation et une suggestion pour améliorer l'adhésion. En pratique, nos bêta-testeurs observent un taux supérieur à 70% dès la deuxième semaine.",
+      b: "préserver l'anonymat statistique",
+    },
+    {
+      q: "Est-ce que ça fonctionne pour des équipes en télétravail ?",
+      a: "Oui, c'est même là qu'il est le plus utile. Sur des équipes hybrides ou distantes, le manager voit moins ses employés au quotidien. HeedUp comble précisément ce manque de visibilité informelle que le bureau permettait naturellement.",
+      b: "le plus utile",
+    },
+    {
+      q: "Puis-je personnaliser les questions ?",
+      a: "Dans la V1, les 5 questions sont fixes et ancrées sur le modèle Gallup Q12, validé scientifiquement sur des milliers d'équipes. Elles couvrent charge, ambiance, motivation, clarté des missions et relation au travail. La personnalisation est prévue dans les prochaines versions.",
+      b: "Gallup Q12",
+    },
+    {
+      q: "Où sont hébergées les données de mes employés ?",
+      a: "En France. HeedUp utilise Supabase sur la région Paris (eu-west-3), ce qui garantit que vos données ne quittent pas le territoire français. HeedUp fournit un DPA contractualisé à la signature et un registre de traitement sur demande. Conforme RGPD par conception.",
+      b: "En France",
+    },
+  ];
+
+  const renderFaqItem = (item: { q: string; a: string; b: string }, id: number) => {
+    const isOpen = openFaq === id;
+    return (
+      <div key={id} style={{ borderBottom: "1px solid rgba(67,56,202,0.08)", padding: 0 }}>
+        <button
+          type="button"
+          onClick={() => setOpenFaq(isOpen ? null : id)}
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+            gap: "16px",
+            padding: "20px 0",
+            cursor: "pointer",
+            userSelect: "none",
+            width: "100%",
+            background: "transparent",
+            border: "none",
+            textAlign: "left",
+            fontFamily: "var(--font-sans)",
+            fontSize: "15px",
+            fontWeight: 600,
+            color: "var(--midnight)",
+            lineHeight: 1.4,
+          }}
+        >
+          <span>{item.q}</span>
+          <span
+            style={{
+              width: "24px",
+              height: "24px",
+              borderRadius: "50%",
+              backgroundColor: isOpen ? "var(--indigo)" : "#EEEEFF",
+              color: isOpen ? "#FFFFFF" : "var(--indigo)",
+              flexShrink: 0,
+              marginTop: "1px",
+              fontSize: "14px",
+              fontWeight: 700,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              transition: "background 0.2s",
+            }}
+          >
+            {isOpen ? "−" : "+"}
+          </span>
+        </button>
+        {isOpen && (
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "13.5px",
+              color: "var(--text-muted)",
+              lineHeight: 1.7,
+              paddingBottom: "20px",
+              maxWidth: "480px",
+            }}
+          >
+            {renderFaqAnswer(item.a, item.b)}
+          </div>
+        )}
+      </div>
+    );
+  };
 
   const steps = [
     {
