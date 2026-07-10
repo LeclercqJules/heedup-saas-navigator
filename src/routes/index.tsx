@@ -1857,7 +1857,7 @@ function Index() {
       </section>
 
       {/* FAQ */}
-      <section style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
+      <section id="faq" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
         <div style={{ textAlign: "center", marginBottom: "48px" }}>
           <div
             style={{
