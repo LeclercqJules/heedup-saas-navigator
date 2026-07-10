@@ -1853,6 +1853,64 @@ function Index() {
         </div>
       </section>
 
+      {/* FAQ */}
+      <section style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
+        <div style={{ textAlign: "center", marginBottom: "48px" }}>
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "11px",
+              textTransform: "uppercase",
+              fontWeight: 700,
+              letterSpacing: "1px",
+              color: "var(--midnight)",
+              opacity: 0.35,
+              marginBottom: "12px",
+            }}
+          >
+            FAQ
+          </div>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "52px",
+              color: "var(--midnight)",
+              letterSpacing: "-1px",
+              lineHeight: 1.08,
+              marginBottom: "14px",
+            }}
+          >
+            Les questions que{" "}
+            <span style={{ fontStyle: "italic", color: "var(--indigo)" }}>
+              vous posez sûrement.
+            </span>
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "17px",
+              color: "var(--text-muted)",
+              maxWidth: "480px",
+              margin: "0 auto",
+            }}
+          >
+            Réponses directes, sans langue de bois.
+          </p>
+        </div>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "0 48px",
+            maxWidth: "1100px",
+            margin: "0 auto",
+          }}
+        >
+          <div>{faqLeft.map((item, i) => renderFaqItem(item, i))}</div>
+          <div>{faqRight.map((item, i) => renderFaqItem(item, i + faqLeft.length))}</div>
+        </div>
+      </section>
+
       {/* CTA final */}
       <section style={{ backgroundColor: "#EEEEFF", padding: "80px 5%", textAlign: "center" }}>
         <h2
