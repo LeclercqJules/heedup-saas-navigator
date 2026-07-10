@@ -1,49 +1,41 @@
 import { useEffect, useState } from "react";
 
 const items = [
-  { anchor: "hero", label: "Accueil" },
-  { anchor: "impact", label: "Impact" },
-  { anchor: "comment-ca-marche", label: "Comment ça marche" },
-  { anchor: "simplicite", label: "Simplicité" },
-  { anchor: "pourquoi", label: "Pourquoi HeedUp" },
-  { anchor: "temoignages", label: "Témoignages" },
-  { anchor: "faq", label: "FAQ" },
-  { anchor: "rejoindre", label: "Rejoindre" },
+  { id: "hero", label: "Accueil" },
+  { id: "impact", label: "Impact" },
+  { id: "comment-ca-marche", label: "Comment ça marche" },
+  { id: "simplicite", label: "Simplicité" },
+  { id: "pourquoi", label: "Pourquoi HeedUp" },
+  { id: "temoignages", label: "Témoignages" },
+  { id: "faq", label: "FAQ" },
+  { id: "rejoindre", label: "Rejoindre" },
 ];
 
 export function FloatingNav() {
-  const [active, setActive] = useState<string>("hero");
-  const [visible, setVisible] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("hero");
   const [hovered, setHovered] = useState<string | null>(null);
-
-  useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 100);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActive(entry.target.id);
+            setActiveSection(entry.target.id);
           }
         });
       },
       { threshold: 0.3, rootMargin: "-84px 0px -40% 0px" }
     );
     items.forEach((it) => {
-      const el = document.getElementById(it.anchor);
+      const el = document.getElementById(it.id);
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
   }, []);
 
-  const handleClick = (e: React.MouseEvent, anchor: string) => {
+  const handleClick = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
-    const el = document.getElementById(anchor);
+    const el = document.getElementById(id);
     if (!el) return;
     const top = el.getBoundingClientRect().top + window.scrollY - 84;
     window.scrollTo({ top, behavior: "smooth" });
@@ -52,7 +44,7 @@ export function FloatingNav() {
   return (
     <>
       <style>{`
-        @media (max-width: 1023px) {
+        @media (max-width: 1024px) {
           .heedup-floating-nav { display: none !important; }
         }
       `}</style>
@@ -64,71 +56,61 @@ export function FloatingNav() {
           top: "50%",
           transform: "translateY(-50%)",
           zIndex: 100,
+          background: "#0D1B3E",
+          borderRadius: "16px",
+          padding: "14px 16px",
+          boxShadow: "0 8px 32px rgba(13,27,62,0.25)",
+          minWidth: "180px",
           display: "flex",
           flexDirection: "column",
           gap: "4px",
-          background: "rgba(255,255,255,0.92)",
-          backdropFilter: "blur(8px)",
-          borderRadius: "12px",
-          border: "1px solid rgba(67,56,202,0.12)",
-          padding: "10px 8px",
-          boxShadow: "0 4px 24px rgba(13,27,62,0.08)",
-          opacity: visible ? 1 : 0,
-          pointerEvents: visible ? "auto" : "none",
-          transition: "opacity 0.3s",
         }}
       >
         {items.map((it) => {
-          const isActive = active === it.anchor;
-          const isHovered = hovered === it.anchor && !isActive;
-          const dotBg = isActive
-            ? "var(--indigo)"
-            : isHovered
-            ? "rgba(13,27,62,0.4)"
-            : "rgba(13,27,62,0.2)";
-          const labelColor = isActive ? "var(--indigo)" : "rgba(13,27,62,0.4)";
-          const labelMaxWidth = isActive || isHovered ? "140px" : "0px";
-          const labelOpacity = isActive ? 1 : isHovered ? 0.7 : 0;
+          const isActive = activeSection === it.id;
+          const isHovered = hovered === it.id;
           return (
             <a
-              key={it.anchor}
-              href={`#${it.anchor}`}
-              onClick={(e) => handleClick(e, it.anchor)}
-              onMouseEnter={() => setHovered(it.anchor)}
+              key={it.id}
+              href={`#${it.id}`}
+              onClick={(e) => handleClick(e, it.id)}
+              onMouseEnter={() => setHovered(it.id)}
               onMouseLeave={() => setHovered(null)}
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "8px",
-                padding: "6px 8px",
-                borderRadius: "6px",
+                gap: "10px",
+                padding: "6px 4px",
+                borderRadius: "7px",
                 cursor: "pointer",
-                transition: "all 0.15s",
+                transition: "background 0.15s",
                 textDecoration: "none",
+                background: isActive
+                  ? "rgba(67,56,202,0.25)"
+                  : isHovered
+                  ? "rgba(255,255,255,0.06)"
+                  : "transparent",
               }}
             >
               <span
                 style={{
-                  width: "7px",
-                  height: "7px",
-                  borderRadius: "50%",
+                  height: "2px",
+                  borderRadius: "2px",
                   flexShrink: 0,
-                  background: dotBg,
-                  transform: isActive ? "scale(1.3)" : "scale(1)",
-                  transition: "all 0.15s",
+                  transition: "all 0.2s",
+                  width: isActive ? "20px" : "12px",
+                  background: isActive ? "#4338CA" : "rgba(255,255,255,0.2)",
+                  boxShadow: isActive ? "0 0 6px rgba(67,56,202,0.7)" : "none",
                 }}
               />
               <span
                 style={{
                   fontFamily: "var(--font-sans)",
                   fontSize: "11.5px",
-                  fontWeight: 500,
-                  color: labelColor,
-                  maxWidth: labelMaxWidth,
-                  overflow: "hidden",
                   whiteSpace: "nowrap",
-                  opacity: labelOpacity,
-                  transition: "all 0.2s",
+                  transition: "color 0.15s",
+                  color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.35)",
+                  fontWeight: isActive ? 600 : 500,
                 }}
               >
                 {it.label}
