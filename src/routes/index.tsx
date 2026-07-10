@@ -308,10 +308,6 @@ function Index() {
           flexDirection: "column",
           justifyContent: "space-between",
           backgroundColor: "var(--bg-main)",
-          paddingTop: "56px",
-          paddingRight: "calc(5% + 72px)",
-          paddingBottom: "48px",
-          paddingLeft: "5%",
         }}
       >
         <div
