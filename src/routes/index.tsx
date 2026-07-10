@@ -1091,7 +1091,7 @@ function Index() {
       </section>
 
       {/* Simple pour vous, simple pour eux */}
-      <section style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
+      <section id="simplicite" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           {/* Intro */}
           <div className="text-center" style={{ marginBottom: "52px" }}>
