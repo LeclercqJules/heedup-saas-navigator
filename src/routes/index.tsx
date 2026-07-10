@@ -1969,6 +1969,7 @@ function Index() {
 
       </section>
 
+      <FloatingNav />
     </SiteLayout>
   );
 }
