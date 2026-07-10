@@ -243,9 +243,16 @@ function Index() {
                   alignItems: "flex-start",
                 }}
               >
-                <a
-                  href="#waitlist"
+                <button
+                  type="button"
                   className="heedup-hero-cta inline-flex items-center gap-2"
+                  {...{
+                    "data-tally-open": "obpYab",
+                    "data-tally-overlay": "1",
+                    "data-tally-emoji-text": "👋",
+                    "data-tally-emoji-animation": "wave",
+                    "data-tally-width": "500",
+                  }}
                   style={{
                     backgroundColor: "var(--indigo)",
                     color: "#FFFFFF",
@@ -254,10 +261,13 @@ function Index() {
                     borderRadius: "8px",
                     padding: "15px 28px",
                     fontFamily: "var(--font-sans)",
+                    border: "none",
+                    cursor: "pointer",
                   }}
                 >
                   Rejoindre la liste d'attente →
-                </a>
+                </button>
+
 
                 <div
                   className="heedup-hero-social inline-flex items-center gap-2"
@@ -1737,6 +1747,13 @@ function Index() {
         </p>
         <button
           type="button"
+          {...{
+            "data-tally-open": "obpYab",
+            "data-tally-overlay": "1",
+            "data-tally-emoji-text": "👋",
+            "data-tally-emoji-animation": "wave",
+            "data-tally-width": "500",
+          }}
           style={{
             backgroundColor: "var(--indigo)",
             color: "#FFFFFF",
@@ -1754,6 +1771,7 @@ function Index() {
         >
           Rejoindre la liste d'attente →
         </button>
+
       </section>
 
     </SiteLayout>

@@ -57,9 +57,16 @@ export function Nav() {
           ))}
         </nav>
 
-        <a
-          href="#waitlist"
+        <button
+          type="button"
           className="heedup-nav-cta"
+          {...{
+            "data-tally-open": "obpYab",
+            "data-tally-overlay": "1",
+            "data-tally-emoji-text": "👋",
+            "data-tally-emoji-animation": "wave",
+            "data-tally-width": "500",
+          }}
           style={{
             backgroundColor: "var(--indigo)",
             color: "#FFFFFF",
@@ -68,10 +75,13 @@ export function Nav() {
             borderRadius: "8px",
             padding: "14px 32px",
             fontFamily: "var(--font-sans)",
+            border: "none",
+            cursor: "pointer",
           }}
         >
           Rejoindre la liste d'attente
-        </a>
+        </button>
+
       </div>
     </header>
   );
