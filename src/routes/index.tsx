@@ -1747,6 +1747,13 @@ function Index() {
         </p>
         <button
           type="button"
+          {...{
+            "data-tally-open": "obpYab",
+            "data-tally-overlay": "1",
+            "data-tally-emoji-text": "👋",
+            "data-tally-emoji-animation": "wave",
+            "data-tally-width": "500",
+          }}
           style={{
             backgroundColor: "var(--indigo)",
             color: "#FFFFFF",
@@ -1764,6 +1771,7 @@ function Index() {
         >
           Rejoindre la liste d'attente →
         </button>
+
       </section>
 
     </SiteLayout>
