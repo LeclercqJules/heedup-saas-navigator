@@ -159,9 +159,16 @@ function Page() {
                 ))}
               </ul>
 
-              <a
-                href="#waitlist"
+              <button
+                type="button"
                 className="mt-6 inline-block"
+                {...{
+                  "data-tally-open": "obpYab",
+                  "data-tally-overlay": "1",
+                  "data-tally-emoji-text": "👋",
+                  "data-tally-emoji-animation": "wave",
+                  "data-tally-width": "500",
+                }}
                 style={{
                   backgroundColor: "var(--indigo)",
                   color: "#FFFFFF",
@@ -170,10 +177,13 @@ function Page() {
                   borderRadius: "8px",
                   padding: "10px 20px",
                   fontFamily: "var(--font-sans)",
+                  border: "none",
+                  cursor: "pointer",
                 }}
               >
                 Choisir ce plan
-              </a>
+              </button>
+
             </article>
           ))}
         </div>
