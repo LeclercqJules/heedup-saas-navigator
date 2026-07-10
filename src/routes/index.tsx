@@ -442,7 +442,6 @@ function Index() {
                 border: "1px solid rgba(67,56,202,0.12)",
                 overflow: "hidden",
                 fontFamily: "var(--font-sans)",
-                paddingRight: "72px",
               }}
             >
               {/* Header */}

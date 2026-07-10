@@ -54,14 +54,14 @@ export function FloatingNav() {
         onMouseLeave={() => setIsHovered(false)}
         style={{
           position: "fixed",
-          right: "24px",
+          right: "0px",
           top: "50%",
           transform: "translateY(-50%)",
           zIndex: 100,
           background: "#0D1B3E",
-          borderRadius: "16px",
+          borderRadius: "12px 0 0 12px",
           padding: isHovered ? "14px 16px" : "14px 12px",
-          boxShadow: "0 8px 32px rgba(13,27,62,0.25)",
+          boxShadow: "-4px 0 24px rgba(13,27,62,0.15)",
           width: isHovered ? "185px" : "fit-content",
           display: "flex",
           flexDirection: "column",
