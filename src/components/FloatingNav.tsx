@@ -13,7 +13,7 @@ const items = [
 
 export function FloatingNav() {
   const [activeSection, setActiveSection] = useState<string>("hero");
-  const [hovered, setHovered] = useState<string | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -50,6 +50,8 @@ export function FloatingNav() {
       `}</style>
       <nav
         className="heedup-floating-nav"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         style={{
           position: "fixed",
           right: "24px",
@@ -58,24 +60,22 @@ export function FloatingNav() {
           zIndex: 100,
           background: "#0D1B3E",
           borderRadius: "16px",
-          padding: "14px 16px",
+          padding: isHovered ? "14px 16px" : "14px 12px",
           boxShadow: "0 8px 32px rgba(13,27,62,0.25)",
-          minWidth: "180px",
+          width: isHovered ? "185px" : "fit-content",
           display: "flex",
           flexDirection: "column",
-          gap: "4px",
+          gap: "6px",
+          transition: "all 0.25s ease",
         }}
       >
         {items.map((it) => {
           const isActive = activeSection === it.id;
-          const isHovered = hovered === it.id;
           return (
             <a
               key={it.id}
               href={`#${it.id}`}
               onClick={(e) => handleClick(e, it.id)}
-              onMouseEnter={() => setHovered(it.id)}
-              onMouseLeave={() => setHovered(null)}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -83,13 +83,7 @@ export function FloatingNav() {
                 padding: "6px 4px",
                 borderRadius: "7px",
                 cursor: "pointer",
-                transition: "background 0.15s",
                 textDecoration: "none",
-                background: isActive
-                  ? "rgba(67,56,202,0.25)"
-                  : isHovered
-                  ? "rgba(255,255,255,0.06)"
-                  : "transparent",
               }}
             >
               <span
@@ -97,7 +91,7 @@ export function FloatingNav() {
                   height: "2px",
                   borderRadius: "2px",
                   flexShrink: 0,
-                  transition: "all 0.2s",
+                  transition: "all 0.25s ease",
                   width: isActive ? "20px" : "12px",
                   background: isActive ? "#4338CA" : "rgba(255,255,255,0.2)",
                   boxShadow: isActive ? "0 0 6px rgba(67,56,202,0.7)" : "none",
@@ -108,7 +102,10 @@ export function FloatingNav() {
                   fontFamily: "var(--font-sans)",
                   fontSize: "11.5px",
                   whiteSpace: "nowrap",
-                  transition: "color 0.15s",
+                  overflow: "hidden",
+                  maxWidth: isHovered ? "160px" : "0px",
+                  opacity: isHovered ? 1 : 0,
+                  transition: "all 0.25s ease",
                   color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.35)",
                   fontWeight: isActive ? 600 : 500,
                 }}
