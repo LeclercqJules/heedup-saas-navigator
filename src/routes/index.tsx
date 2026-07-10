@@ -634,6 +634,7 @@ function Index() {
 
         {/* Trust bar */}
         <div
+          id="impact"
           className="heedup-trust"
           style={{
             backgroundColor: "var(--midnight)",
