@@ -300,6 +300,7 @@ function Index() {
     <SiteLayout>
       {/* Hero */}
       <section
+        id="hero"
         className="heedup-hero"
         style={{
           height: "calc(100vh - 84px)",
