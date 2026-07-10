@@ -11,6 +11,7 @@ import {
   IconCheck,
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
+import { FloatingNav } from "@/components/FloatingNav";
 
 
 export const Route = createFileRoute("/")({
@@ -299,6 +300,7 @@ function Index() {
     <SiteLayout>
       {/* Hero */}
       <section
+        id="hero"
         className="heedup-hero"
         style={{
           height: "calc(100vh - 84px)",
@@ -632,6 +634,7 @@ function Index() {
 
         {/* Trust bar */}
         <div
+          id="impact"
           className="heedup-trust"
           style={{
             backgroundColor: "var(--midnight)",
@@ -843,7 +846,7 @@ function Index() {
       </section>
 
       {/* Comment ça marche */}
-      <section style={{ backgroundColor: "#EEEEFF", padding: "64px 5%" }}>
+      <section id="comment-ca-marche" style={{ backgroundColor: "#EEEEFF", padding: "64px 5%" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           {/* Intro */}
           <div className="text-center">
@@ -1088,7 +1091,7 @@ function Index() {
       </section>
 
       {/* Simple pour vous, simple pour eux */}
-      <section style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
+      <section id="simplicite" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           {/* Intro */}
           <div className="text-center" style={{ marginBottom: "52px" }}>
@@ -1416,7 +1419,7 @@ function Index() {
       </section>
 
       {/* Pourquoi HeedUp */}
-      <section style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
+      <section id="pourquoi" style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           {/* Intro */}
           <div className="text-center" style={{ marginBottom: "48px" }}>
@@ -1656,7 +1659,7 @@ function Index() {
       </section>
 
       {/* Témoignages */}
-      <section style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
+      <section id="temoignages" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           {/* Intro */}
           <div className="text-center" style={{ marginBottom: "48px" }}>
@@ -1854,7 +1857,7 @@ function Index() {
       </section>
 
       {/* FAQ */}
-      <section style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
+      <section id="faq" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
         <div style={{ textAlign: "center", marginBottom: "48px" }}>
           <div
             style={{
@@ -1912,7 +1915,7 @@ function Index() {
       </section>
 
       {/* CTA final */}
-      <section style={{ backgroundColor: "#EEEEFF", padding: "80px 5%", textAlign: "center" }}>
+      <section id="rejoindre" style={{ backgroundColor: "#EEEEFF", padding: "80px 5%", textAlign: "center" }}>
         <h2
           style={{
             fontFamily: "var(--font-display)",
@@ -1966,6 +1969,7 @@ function Index() {
 
       </section>
 
+      <FloatingNav />
     </SiteLayout>
   );
 }
