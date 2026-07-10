@@ -1419,7 +1419,7 @@ function Index() {
       </section>
 
       {/* Pourquoi HeedUp */}
-      <section style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
+      <section id="pourquoi" style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           {/* Intro */}
           <div className="text-center" style={{ marginBottom: "48px" }}>
