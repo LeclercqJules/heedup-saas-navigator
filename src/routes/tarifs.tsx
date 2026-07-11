@@ -23,17 +23,17 @@ const TALLY_ATTRS = {
   "data-tally-emoji-animation": "wave",
 } as const;
 
-const fmt = (n: number) =>
-  n
-    .toFixed(2)
-    .replace(".", ",");
+function formatFR(n: number) {
+  return n.toFixed(2).replace(".", ",");
+}
 
 function calcPrice(n: number): { seat: number; total: number } {
-  if (n < 25) return { seat: 5.0, total: n * 5 };
+  n = parseInt(String(n), 10);
+  if (n < 25) return { seat: 5.0, total: n * 5.0 };
   if (n < 50) return { seat: 4.5, total: n * 4.5 };
   if (n < 100) {
     const total = 200 + (n - 50) * 3.75;
-    return { seat: Math.round((total / n) * 100) / 100, total };
+    return { seat: parseFloat((total / n).toFixed(2)), total };
   }
   return { seat: 3.5, total: n * 3.5 };
 }
