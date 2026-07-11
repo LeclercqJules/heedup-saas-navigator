@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useMemo, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 
 export const Route = createFileRoute("/tarifs")({
@@ -8,184 +9,601 @@ export const Route = createFileRoute("/tarifs")({
       {
         name: "description",
         content:
-          "Une tarification simple et transparente pour les PME. Sans engagement pendant la phase pilote.",
+          "Prix calculé par siège, affiché avant toute inscription. Aucun appel commercial requis.",
       },
     ],
   }),
   component: Page,
 });
 
-const plans = [
+const TALLY_ATTRS = {
+  "data-tally-open": "obpYab",
+  "data-tally-overlay": "1",
+  "data-tally-emoji-text": "👋",
+  "data-tally-emoji-animation": "wave",
+} as const;
+
+const fmt = (n: number) =>
+  n
+    .toFixed(2)
+    .replace(".", ",");
+
+function calcPrice(n: number): { seat: number; total: number } {
+  if (n < 25) return { seat: 5.0, total: n * 5 };
+  if (n < 50) return { seat: 4.5, total: n * 4.5 };
+  if (n < 100) {
+    const total = 200 + (n - 50) * 3.75;
+    return { seat: Math.round((total / n) * 100) / 100, total };
+  }
+  return { seat: 3.5, total: n * 3.5 };
+}
+
+type Card = {
+  range: string;
+  price: string;
+  priceSuffix: string;
+  total: string;
+  featured?: boolean;
+};
+
+const cards: Card[] = [
   {
-    name: "Starter",
-    price: "40 € / mois",
-    desc: "Jusqu'à 10 salariés.",
-    features: [
-      "5 questions hebdomadaires",
-      "Rapport d'équipe automatique",
-      "Support par email",
-    ],
+    range: "10 à 24 salariés",
+    price: "5,00€",
+    priceSuffix: "/siège",
+    total: "À partir de 50€/mois",
   },
   {
-    name: "Growth",
-    price: "87 € / mois",
-    desc: "Jusqu'à 25 salariés.",
-    features: [
-      "Tout du plan Starter",
-      "Recommandations IA",
-      "Export données CSV",
-      "Support prioritaire",
-    ],
-    highlight: true,
-    badge: "Le plus choisi",
+    range: "25 à 49 salariés",
+    price: "4,50€",
+    priceSuffix: "/siège",
+    total: "À partir de 112,50€/mois",
+    featured: true,
   },
   {
-    name: "Scale",
-    price: "150 € / mois",
-    desc: "Jusqu'à 50 salariés.",
-    features: [
-      "Tout du plan Growth",
-      "Intégrations SIRH",
-      "Rôles manager multiples",
-      "Accompagnement à bord",
-    ],
+    range: "50 à 99 salariés",
+    price: "dès 4,00€",
+    priceSuffix: "/siège",
+    total: "À partir de 200€/mois",
+  },
+  {
+    range: "100+ salariés",
+    price: "3,50€",
+    priceSuffix: "/siège",
+    total: "À partir de 350€/mois",
   },
 ];
 
+const ticks = [
+  { value: 10, label: "5,00€/siège" },
+  { value: 25, label: "4,50€/siège" },
+  { value: 50, label: "dès 4,00€/siège" },
+  { value: 100, label: "3,50€/siège" },
+];
+
+function activeTierIndex(n: number) {
+  if (n < 25) return 0;
+  if (n < 50) return 1;
+  if (n < 100) return 2;
+  return 3;
+}
+
+function cliffMessage(n: number): string | null {
+  if (n === 24)
+    return "À 25 salariés, votre tarif passe à 4,50€/siège. Soit 112,50€/mois au lieu de 120€.";
+  if (n === 49)
+    return "À 50 salariés, votre tarif passe à 200€/mois. Soit 20,50€ de moins qu'à 49 salariés.";
+  if (n === 99)
+    return "À 100 salariés, votre tarif passe à 3,50€/siège. Soit 350€/mois au lieu de 383,75€.";
+  return null;
+}
+
 function Page() {
+  const [count, setCount] = useState(25);
+  const { seat, total } = useMemo(() => calcPrice(count), [count]);
+  const pct = ((count - 10) / 90) * 100;
+  const activeTier = activeTierIndex(count);
+  const cliff = cliffMessage(count);
+
+  useEffect(() => {
+    // inject slider thumb styles once
+    const id = "heedup-sim-slider-style";
+    if (document.getElementById(id)) return;
+    const style = document.createElement("style");
+    style.id = id;
+    style.textContent = `
+      .heedup-sim-slider { -webkit-appearance:none; appearance:none; width:100%; height:5px; border-radius:3px; outline:none; }
+      .heedup-sim-slider::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:20px; height:20px; border-radius:50%; background:var(--indigo); border:3px solid #fff; box-shadow:0 0 0 2px var(--indigo); cursor:pointer; }
+      .heedup-sim-slider::-moz-range-thumb { width:20px; height:20px; border-radius:50%; background:var(--indigo); border:3px solid #fff; box-shadow:0 0 0 2px var(--indigo); cursor:pointer; }
+    `;
+    document.head.appendChild(style);
+  }, []);
+
   return (
     <SiteLayout>
+      {/* HERO */}
       <section
-        className="mx-auto px-[5%] py-20"
-        style={{ backgroundColor: "var(--bg-main)" }}
+        style={{
+          backgroundColor: "var(--bg-main)",
+          padding: "56px 5% 48px",
+          textAlign: "center",
+        }}
       >
-        <h1
-          style={{
-            fontSize: "clamp(36px, 5vw, 56px)",
-            lineHeight: 1.1,
-            color: "var(--midnight)",
-          }}
-        >
-          Tarifs
-        </h1>
-        <p
-          className="mt-4"
+        <div
           style={{
             fontFamily: "var(--font-sans)",
-            fontSize: "15px",
-            lineHeight: 1.6,
-            color: "var(--text-muted)",
+            fontSize: "11px",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "1px",
+            color: "var(--midnight)",
+            opacity: 0.35,
+            marginBottom: "12px",
           }}
         >
-          Une tarification lisible. Pas de coûts cachés, pas d'engagement
-          pendant le pilote.
+          TARIFS
+        </div>
+        <h1
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "52px",
+            letterSpacing: "-1px",
+            color: "var(--midnight)",
+            lineHeight: 1.1,
+          }}
+        >
+          Transparent. <em style={{ color: "var(--indigo)" }}>Sans surprise.</em>
+        </h1>
+        <p
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "17px",
+            color: "var(--text-muted)",
+            maxWidth: "540px",
+            margin: "16px auto 0",
+            lineHeight: 1.6,
+          }}
+        >
+          Prix calculé par siège, affiché avant toute inscription. Aucun appel
+          commercial requis.
         </p>
+      </section>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {plans.map((p) => (
-            <article
-              key={p.name}
-              className="relative"
-              style={{
-                backgroundColor: p.highlight ? "var(--midnight)" : "var(--bg-card)",
-                color: p.highlight ? "#FFFFFF" : "var(--text-primary)",
-                borderRadius: "12px",
-                padding: "32px",
-                border: "1px solid rgba(67,56,202,0.1)",
-              }}
-            >
-              {p.badge && (
-                <span
+      {/* PRICING CARDS */}
+      <section
+        style={{
+          backgroundColor: "var(--bg-card)",
+          padding: "52px 5%",
+          borderTop: "1px solid rgba(67,56,202,0.08)",
+        }}
+      >
+        <div style={{ textAlign: "center", marginBottom: "36px" }}>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "32px",
+              letterSpacing: "-0.5px",
+              color: "var(--midnight)",
+            }}
+          >
+            Les 4 paliers tarifaires
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "15px",
+              color: "var(--text-muted)",
+              marginTop: "10px",
+            }}
+          >
+            Plus votre équipe est grande, moins vous payez par siège.
+          </p>
+        </div>
+
+        <div
+          className="grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gap: "14px",
+          }}
+        >
+          {cards.map((c) => {
+            const featured = !!c.featured;
+            return (
+              <article
+                key={c.range}
+                style={{
+                  borderRadius: "12px",
+                  overflow: "hidden",
+                  border: featured
+                    ? "2px solid var(--midnight)"
+                    : "1px solid rgba(67,56,202,0.10)",
+                  backgroundColor: "var(--bg-main)",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                {/* HEADER */}
+                <div
                   style={{
-                    position: "absolute",
-                    top: "-10px",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    backgroundColor: "var(--indigo)",
-                    color: "#FFFFFF",
-                    fontSize: "10px",
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.08em",
-                    padding: "4px 12px",
-                    borderRadius: "4px",
-                    fontFamily: "var(--font-sans)",
+                    padding: "20px 20px 16px",
+                    backgroundColor: featured ? "var(--midnight)" : "transparent",
                   }}
                 >
-                  {p.badge}
-                </span>
-              )}
-              <h3
-                style={{
-                  fontSize: "24px",
-                  color: p.highlight ? "#FFFFFF" : "var(--midnight)",
-                }}
-              >
-                {p.name}
-              </h3>
+                  {featured && (
+                    <span
+                      style={{
+                        display: "inline-block",
+                        backgroundColor: "var(--indigo)",
+                        color: "#FFFFFF",
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "9.5px",
+                        fontWeight: 700,
+                        textTransform: "uppercase",
+                        padding: "3px 8px",
+                        borderRadius: "4px",
+                        marginBottom: "10px",
+                        letterSpacing: "0.6px",
+                      }}
+                    >
+                      Le plus choisi
+                    </span>
+                  )}
+                  <div
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "10px",
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.6px",
+                      color: featured
+                        ? "rgba(255,255,255,0.4)"
+                        : "var(--midnight)",
+                      opacity: featured ? 1 : 0.4,
+                      marginBottom: "10px",
+                    }}
+                  >
+                    {c.range}
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "40px",
+                      color: featured ? "#FFFFFF" : "var(--midnight)",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {c.price}
+                    <span
+                      style={{
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "15px",
+                        opacity: 0.4,
+                        marginLeft: "4px",
+                      }}
+                    >
+                      {c.priceSuffix}
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "11px",
+                      color: featured ? "#FFFFFF" : "var(--midnight)",
+                      opacity: 0.45,
+                      marginTop: "6px",
+                      marginBottom: "12px",
+                    }}
+                  >
+                    par siège, par mois
+                  </div>
+                  <div
+                    style={{
+                      display: "inline-block",
+                      backgroundColor: featured
+                        ? "rgba(255,255,255,0.10)"
+                        : "rgba(13,27,62,0.06)",
+                      borderRadius: "6px",
+                      padding: "5px 10px",
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "12px",
+                      color: featured ? "rgba(255,255,255,0.55)" : "var(--midnight)",
+                      opacity: featured ? 1 : 0.55,
+                    }}
+                  >
+                    {c.total}
+                  </div>
+                </div>
+                {/* BODY */}
+                <div
+                  style={{
+                    padding: "16px 20px",
+                    backgroundColor: "var(--bg-card)",
+                    marginTop: "auto",
+                  }}
+                >
+                  <button
+                    type="button"
+                    {...TALLY_ATTRS}
+                    style={{
+                      width: "100%",
+                      padding: "10px",
+                      borderRadius: "7px",
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "12.5px",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      backgroundColor: featured ? "var(--indigo)" : "transparent",
+                      border: featured
+                        ? "1.5px solid var(--indigo)"
+                        : "1.5px solid var(--midnight)",
+                      color: featured ? "#FFFFFF" : "var(--midnight)",
+                    }}
+                  >
+                    Rejoindre la liste
+                  </button>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* SIMULATEUR */}
+      <section
+        style={{
+          backgroundColor: "var(--bg-main)",
+          padding: "52px 5%",
+          borderTop: "1px solid rgba(67,56,202,0.08)",
+        }}
+      >
+        <div style={{ textAlign: "center", marginBottom: "32px" }}>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "32px",
+              letterSpacing: "-0.5px",
+              color: "var(--midnight)",
+            }}
+          >
+            Estimez votre tarif
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "15px",
+              color: "var(--text-muted)",
+              marginTop: "10px",
+            }}
+          >
+            Déplacez le curseur selon la taille de votre équipe.
+          </p>
+        </div>
+
+        <div
+          style={{
+            backgroundColor: "var(--bg-card)",
+            borderRadius: "16px",
+            border: "1px solid rgba(67,56,202,0.10)",
+            padding: "40px",
+            maxWidth: "720px",
+            margin: "0 auto",
+          }}
+        >
+          <div
+            style={{
+              textAlign: "center",
+              fontFamily: "var(--font-sans)",
+              fontSize: "11px",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "0.8px",
+              color: "var(--midnight)",
+              opacity: 0.35,
+              marginBottom: "20px",
+            }}
+          >
+            NOMBRE DE SALARIÉS
+          </div>
+          <div
+            id="sim-count"
+            style={{
+              textAlign: "center",
+              fontFamily: "var(--font-display)",
+              fontSize: "52px",
+              color: "var(--midnight)",
+              lineHeight: 1,
+            }}
+          >
+            {count}
+          </div>
+          <div
+            style={{
+              textAlign: "center",
+              fontFamily: "var(--font-sans)",
+              fontSize: "13px",
+              color: "var(--text-muted)",
+              marginTop: "8px",
+              marginBottom: "24px",
+            }}
+          >
+            salariés dans votre équipe
+          </div>
+
+          <input
+            type="range"
+            min={10}
+            max={100}
+            value={count}
+            onChange={(e) => setCount(Number(e.target.value))}
+            className="heedup-sim-slider"
+            style={{
+              background: `linear-gradient(to right, var(--indigo) ${pct}%, rgba(67,56,202,0.15) ${pct}%)`,
+            }}
+          />
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gap: "8px",
+              marginTop: "14px",
+              marginBottom: "28px",
+            }}
+          >
+            {ticks.map((t, i) => {
+              const active = i === activeTier;
+              return (
+                <div
+                  key={t.value}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "1px",
+                      height: "6px",
+                      backgroundColor: active
+                        ? "var(--indigo)"
+                        : "rgba(13,27,62,0.25)",
+                      marginBottom: "6px",
+                    }}
+                  />
+                  <div
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "11.5px",
+                      fontWeight: active ? 700 : 500,
+                      color: active ? "var(--indigo)" : "var(--midnight)",
+                    }}
+                  >
+                    {t.value}
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "10px",
+                      color: "var(--text-muted)",
+                      marginTop: "2px",
+                      textAlign: "center",
+                    }}
+                  >
+                    {t.label}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* RESULT */}
+          <div
+            style={{
+              backgroundColor: "var(--midnight)",
+              borderRadius: "12px",
+              padding: "22px 28px",
+              display: "grid",
+              gridTemplateColumns: "1fr 1px 1fr auto",
+              gap: "20px",
+              alignItems: "center",
+            }}
+          >
+            <div>
               <div
-                className="mt-3"
                 style={{
                   fontFamily: "var(--font-sans)",
-                  fontSize: "18px",
-                  fontWeight: 600,
-                  color: p.highlight ? "var(--indigo-pale)" : "var(--midnight)",
+                  fontSize: "10px",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.35)",
+                  letterSpacing: "0.8px",
+                  marginBottom: "6px",
                 }}
               >
-                {p.price}
+                COÛT PAR SIÈGE
               </div>
-              <p
-                className="mt-3"
+              <div
+                id="sim-seat"
                 style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "13px",
-                  lineHeight: 1.6,
-                  opacity: 0.75,
-                }}
-              >
-                {p.desc}
-              </p>
-              <ul
-                className="mt-6 space-y-2"
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "13px",
-                  lineHeight: 1.6,
-                  opacity: 0.85,
-                }}
-              >
-                {p.features.map((f) => (
-                  <li key={f}>· {f}</li>
-                ))}
-              </ul>
-
-              <button
-                type="button"
-                className="mt-6 inline-block"
-                {...{
-                  "data-tally-open": "obpYab",
-                  "data-tally-overlay": "1",
-                  "data-tally-emoji-text": "👋",
-                  "data-tally-emoji-animation": "wave",
-                  "data-tally-width": "500",
-                }}
-                style={{
-                  backgroundColor: "var(--indigo)",
+                  fontFamily: "var(--font-display)",
+                  fontSize: "28px",
                   color: "#FFFFFF",
-                  fontWeight: 700,
-                  fontSize: "14px",
-                  borderRadius: "8px",
-                  padding: "10px 20px",
-                  fontFamily: "var(--font-sans)",
-                  border: "none",
-                  cursor: "pointer",
                 }}
               >
-                Choisir ce plan
-              </button>
+                {fmt(seat)}€/siège
+              </div>
+            </div>
+            <div
+              style={{
+                width: "1px",
+                height: "40px",
+                backgroundColor: "rgba(255,255,255,0.10)",
+              }}
+            />
+            <div>
+              <div
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "10px",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.35)",
+                  letterSpacing: "0.8px",
+                  marginBottom: "6px",
+                }}
+              >
+                TOTAL MENSUEL
+              </div>
+              <div
+                id="sim-total"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "28px",
+                  color: "#FFFFFF",
+                }}
+              >
+                {fmt(total)}€/mois
+              </div>
+            </div>
+            <button
+              type="button"
+              {...TALLY_ATTRS}
+              style={{
+                backgroundColor: "var(--indigo)",
+                color: "#FFFFFF",
+                padding: "11px 20px",
+                borderRadius: "7px",
+                fontFamily: "var(--font-sans)",
+                fontSize: "13px",
+                fontWeight: 600,
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              Rejoindre →
+            </button>
+          </div>
 
-            </article>
-          ))}
+          <div
+            id="sim-cliff"
+            style={{
+              display: cliff ? "flex" : "none",
+              alignItems: "center",
+              gap: "8px",
+              backgroundColor: "rgba(67,56,202,0.08)",
+              border: "1px solid rgba(67,56,202,0.15)",
+              borderRadius: "8px",
+              padding: "11px 14px",
+              fontFamily: "var(--font-sans)",
+              fontSize: "12.5px",
+              color: "var(--indigo)",
+              marginTop: "14px",
+            }}
+          >
+            <span aria-hidden>↗</span>
+            <span>{cliff}</span>
+          </div>
         </div>
       </section>
     </SiteLayout>
