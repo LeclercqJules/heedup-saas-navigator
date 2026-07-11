@@ -358,7 +358,7 @@ function Page() {
       <section
         style={{
           backgroundColor: "var(--bg-main)",
-          padding: "52px 5%",
+          padding: "48px 5%",
           borderTop: "1px solid rgba(67,56,202,0.08)",
         }}
       >
@@ -390,8 +390,8 @@ function Page() {
             backgroundColor: "var(--bg-card)",
             borderRadius: "16px",
             border: "1px solid rgba(67,56,202,0.10)",
-            padding: "40px",
-            maxWidth: "720px",
+            padding: "36px 40px",
+            maxWidth: "860px",
             margin: "0 auto",
           }}
         >
@@ -405,7 +405,7 @@ function Page() {
               letterSpacing: "0.8px",
               color: "var(--midnight)",
               opacity: 0.35,
-              marginBottom: "20px",
+              marginBottom: "16px",
             }}
           >
             NOMBRE DE SALARIÉS
@@ -415,9 +415,10 @@ function Page() {
             style={{
               textAlign: "center",
               fontFamily: "var(--font-display)",
-              fontSize: "52px",
+              fontSize: "56px",
               color: "var(--midnight)",
               lineHeight: 1,
+              marginBottom: "4px",
             }}
           >
             {count}
@@ -428,8 +429,7 @@ function Page() {
               fontFamily: "var(--font-sans)",
               fontSize: "13px",
               color: "var(--text-muted)",
-              marginTop: "8px",
-              marginBottom: "24px",
+              marginBottom: "20px",
             }}
           >
             salariés dans votre équipe
@@ -444,6 +444,7 @@ function Page() {
             className="heedup-sim-slider"
             style={{
               background: `linear-gradient(to right, var(--indigo) ${pct}%, rgba(67,56,202,0.15) ${pct}%)`,
+              marginBottom: 0,
             }}
           />
 
@@ -451,7 +452,7 @@ function Page() {
             style={{
               position: "relative",
               width: "100%",
-              height: "28px",
+              height: "32px",
               marginTop: "10px",
               marginBottom: "28px",
             }}
@@ -475,7 +476,7 @@ function Page() {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    gap: "3px",
+                    gap: "4px",
                   }}
                 >
                   <div
@@ -484,15 +485,15 @@ function Page() {
                       height: "6px",
                       backgroundColor: active
                         ? "var(--indigo)"
-                        : "rgba(13,27,62,0.25)",
+                        : "rgba(13,27,62,0.2)",
                     }}
                   />
                   <div
                     style={{
                       fontFamily: "var(--font-sans)",
-                      fontSize: "11.5px",
+                      fontSize: "12px",
                       fontWeight: active ? 700 : 500,
-                      color: active ? "var(--indigo)" : "var(--midnight)",
+                      color: active ? "var(--indigo)" : "var(--text-muted)",
                     }}
                   >
                     {t.value}
@@ -518,11 +519,12 @@ function Page() {
             style={{
               backgroundColor: "var(--midnight)",
               borderRadius: "12px",
-              padding: "22px 28px",
-              display: "grid",
-              gridTemplateColumns: "1fr 1px 1fr auto",
-              gap: "20px",
+              padding: "20px 28px",
+              display: "flex",
               alignItems: "center",
+              justifyContent: "space-between",
+              gap: 0,
+              marginTop: "20px",
             }}
           >
             <div>
@@ -542,7 +544,7 @@ function Page() {
                 id="sim-seat"
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: "28px",
+                  fontSize: "32px",
                   color: "#FFFFFF",
                 }}
               >
@@ -586,8 +588,8 @@ function Page() {
               style={{
                 backgroundColor: "var(--indigo)",
                 color: "#FFFFFF",
-                padding: "11px 20px",
-                borderRadius: "7px",
+                padding: "11px 22px",
+                borderRadius: "8px",
                 fontFamily: "var(--font-sans)",
                 fontSize: "13px",
                 fontWeight: 600,
@@ -605,14 +607,14 @@ function Page() {
               display: cliff ? "flex" : "none",
               alignItems: "center",
               gap: "8px",
-              backgroundColor: "rgba(67,56,202,0.08)",
-              border: "1px solid rgba(67,56,202,0.15)",
+              backgroundColor: "rgba(34,197,94,0.08)",
+              border: "1px solid rgba(34,197,94,0.2)",
               borderRadius: "8px",
               padding: "11px 14px",
               fontFamily: "var(--font-sans)",
               fontSize: "12.5px",
-              color: "var(--indigo)",
-              marginTop: "14px",
+              color: "#15803d",
+              marginTop: "12px",
             }}
           >
             <span aria-hidden>↗</span>
