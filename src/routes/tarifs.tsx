@@ -544,13 +544,13 @@ function Page() {
                   color: "#FFFFFF",
                 }}
               >
-                {fmt(seat)}€/siège
+                {formatFR(seat)}€/siège
               </div>
             </div>
             <div
               style={{
                 width: "1px",
-                height: "40px",
+                height: "36px",
                 backgroundColor: "rgba(255,255,255,0.10)",
               }}
             />
@@ -571,11 +571,11 @@ function Page() {
                 id="sim-total"
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: "28px",
+                  fontSize: "32px",
                   color: "#FFFFFF",
                 }}
               >
-                {fmt(total)}€/mois
+                {formatFR(total)}€/mois
               </div>
             </div>
             <button
