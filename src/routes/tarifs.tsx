@@ -90,11 +90,11 @@ function activeTierIndex(n: number) {
 
 function cliffMessage(n: number): string | null {
   if (n === 24)
-    return "À 25 salariés, votre tarif passe à 4,50€/siège. Soit 112,50€/mois au lieu de 120€.";
+    return "En passant à 25 salariés, votre facture passe à 112,50€/mois. Soit 7,50€ de moins qu'avec 24 salariés.";
   if (n === 49)
-    return "À 50 salariés, votre tarif passe à 200€/mois. Soit 20,50€ de moins qu'à 49 salariés.";
+    return "En passant à 50 salariés, votre facture passe à 200€/mois. Soit 20,50€ de moins qu'avec 49 salariés.";
   if (n === 99)
-    return "À 100 salariés, votre tarif passe à 3,50€/siège. Soit 350€/mois au lieu de 383,75€.";
+    return "En passant à 100 salariés, votre facture passe à 350€/mois. Soit 33,75€ de moins qu'avec 99 salariés.";
   return null;
 }
 
