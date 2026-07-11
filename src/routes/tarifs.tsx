@@ -214,12 +214,12 @@ function Page() {
               <article
                 key={c.range}
                 style={{
-                  borderRadius: "12px",
+                  borderRadius: "16px",
                   overflow: "hidden",
                   border: featured
                     ? "2px solid var(--midnight)"
-                    : "1px solid rgba(67,56,202,0.10)",
-                  backgroundColor: "var(--bg-main)",
+                    : "1px solid rgba(67,56,202,0.12)",
+                  backgroundColor: "var(--bg-card)",
                   display: "flex",
                   flexDirection: "column",
                 }}
@@ -227,8 +227,8 @@ function Page() {
                 {/* HEADER */}
                 <div
                   style={{
-                    padding: "20px 20px 16px",
-                    backgroundColor: featured ? "var(--midnight)" : "transparent",
+                    padding: "32px 28px 24px",
+                    backgroundColor: featured ? "var(--midnight)" : "var(--bg-main)",
                   }}
                 >
                   {featured && (
@@ -253,15 +253,15 @@ function Page() {
                   <div
                     style={{
                       fontFamily: "var(--font-sans)",
-                      fontSize: "10px",
+                      fontSize: "11px",
                       fontWeight: 700,
                       textTransform: "uppercase",
                       letterSpacing: "0.6px",
                       color: featured
                         ? "rgba(255,255,255,0.4)"
                         : "var(--midnight)",
-                      opacity: featured ? 1 : 0.4,
-                      marginBottom: "10px",
+                      opacity: 0.4,
+                      marginBottom: "16px",
                     }}
                   >
                     {c.range}
@@ -269,16 +269,18 @@ function Page() {
                   <div
                     style={{
                       fontFamily: "var(--font-display)",
-                      fontSize: "40px",
+                      fontSize: "52px",
+                      letterSpacing: "-1px",
                       color: featured ? "#FFFFFF" : "var(--midnight)",
                       lineHeight: 1,
+                      marginBottom: "6px",
                     }}
                   >
                     {c.price}
                     <span
                       style={{
                         fontFamily: "var(--font-sans)",
-                        fontSize: "15px",
+                        fontSize: "16px",
                         opacity: 0.4,
                         marginLeft: "4px",
                       }}
@@ -289,11 +291,10 @@ function Page() {
                   <div
                     style={{
                       fontFamily: "var(--font-sans)",
-                      fontSize: "11px",
+                      fontSize: "12px",
                       color: featured ? "#FFFFFF" : "var(--midnight)",
-                      opacity: 0.45,
-                      marginTop: "6px",
-                      marginBottom: "12px",
+                      opacity: 0.4,
+                      marginBottom: "20px",
                     }}
                   >
                     par siège, par mois
@@ -302,14 +303,15 @@ function Page() {
                     style={{
                       display: "inline-block",
                       backgroundColor: featured
-                        ? "rgba(255,255,255,0.10)"
-                        : "rgba(13,27,62,0.06)",
-                      borderRadius: "6px",
-                      padding: "5px 10px",
+                        ? "rgba(255,255,255,0.12)"
+                        : "rgba(67,56,202,0.08)",
+                      borderRadius: "8px",
+                      padding: "7px 12px",
                       fontFamily: "var(--font-sans)",
-                      fontSize: "12px",
-                      color: featured ? "rgba(255,255,255,0.55)" : "var(--midnight)",
-                      opacity: featured ? 1 : 0.55,
+                      fontSize: "13px",
+                      fontWeight: 500,
+                      color: featured ? "rgba(255,255,255,0.65)" : "var(--midnight)",
+                      opacity: featured ? 1 : 0.6,
                     }}
                   >
                     {c.total}
@@ -318,7 +320,7 @@ function Page() {
                 {/* BODY */}
                 <div
                   style={{
-                    padding: "16px 20px",
+                    padding: "24px 28px",
                     backgroundColor: "var(--bg-card)",
                     marginTop: "auto",
                   }}
@@ -328,10 +330,10 @@ function Page() {
                     {...TALLY_ATTRS}
                     style={{
                       width: "100%",
-                      padding: "10px",
-                      borderRadius: "7px",
+                      padding: "13px",
+                      borderRadius: "8px",
                       fontFamily: "var(--font-sans)",
-                      fontSize: "12.5px",
+                      fontSize: "14px",
                       fontWeight: 600,
                       cursor: "pointer",
                       backgroundColor: featured ? "var(--indigo)" : "transparent",
@@ -436,7 +438,7 @@ function Page() {
             min={10}
             max={100}
             value={count}
-            onChange={(e) => setCount(Number(e.target.value))}
+            onChange={(e) => setCount(parseInt(e.target.value, 10))}
             className="heedup-sim-slider"
             style={{
               background: `linear-gradient(to right, var(--indigo) ${pct}%, rgba(67,56,202,0.15) ${pct}%)`,
@@ -445,22 +447,33 @@ function Page() {
 
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: "8px",
-              marginTop: "14px",
+              position: "relative",
+              width: "100%",
+              height: "28px",
+              marginTop: "10px",
               marginBottom: "28px",
             }}
           >
             {ticks.map((t, i) => {
               const active = i === activeTier;
+              const left = `${((t.value - 10) / (100 - 10)) * 100}%`;
+              const isFirst = t.value === 10;
+              const isLast = t.value === 100;
               return (
                 <div
                   key={t.value}
                   style={{
+                    position: "absolute",
+                    left,
+                    transform: isFirst
+                      ? "translateX(0)"
+                      : isLast
+                        ? "translateX(-100%)"
+                        : "translateX(-50%)",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
+                    gap: "3px",
                   }}
                 >
                   <div
@@ -470,7 +483,6 @@ function Page() {
                       backgroundColor: active
                         ? "var(--indigo)"
                         : "rgba(13,27,62,0.25)",
-                      marginBottom: "6px",
                     }}
                   />
                   <div
@@ -488,8 +500,8 @@ function Page() {
                       fontFamily: "var(--font-sans)",
                       fontSize: "10px",
                       color: "var(--text-muted)",
-                      marginTop: "2px",
                       textAlign: "center",
+                      whiteSpace: "nowrap",
                     }}
                   >
                     {t.label}
