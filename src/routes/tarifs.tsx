@@ -23,17 +23,17 @@ const TALLY_ATTRS = {
   "data-tally-emoji-animation": "wave",
 } as const;
 
-const fmt = (n: number) =>
-  n
-    .toFixed(2)
-    .replace(".", ",");
+function formatFR(n: number) {
+  return n.toFixed(2).replace(".", ",");
+}
 
 function calcPrice(n: number): { seat: number; total: number } {
-  if (n < 25) return { seat: 5.0, total: n * 5 };
+  n = parseInt(String(n), 10);
+  if (n < 25) return { seat: 5.0, total: n * 5.0 };
   if (n < 50) return { seat: 4.5, total: n * 4.5 };
   if (n < 100) {
     const total = 200 + (n - 50) * 3.75;
-    return { seat: Math.round((total / n) * 100) / 100, total };
+    return { seat: parseFloat((total / n).toFixed(2)), total };
   }
   return { seat: 3.5, total: n * 3.5 };
 }
@@ -90,11 +90,11 @@ function activeTierIndex(n: number) {
 
 function cliffMessage(n: number): string | null {
   if (n === 24)
-    return "À 25 salariés, votre tarif passe à 4,50€/siège. Soit 112,50€/mois au lieu de 120€.";
+    return "En passant à 25 salariés, votre facture passe à 112,50€/mois. Soit 7,50€ de moins qu'avec 24 salariés.";
   if (n === 49)
-    return "À 50 salariés, votre tarif passe à 200€/mois. Soit 20,50€ de moins qu'à 49 salariés.";
+    return "En passant à 50 salariés, votre facture passe à 200€/mois. Soit 20,50€ de moins qu'avec 49 salariés.";
   if (n === 99)
-    return "À 100 salariés, votre tarif passe à 3,50€/siège. Soit 350€/mois au lieu de 383,75€.";
+    return "En passant à 100 salariés, votre facture passe à 350€/mois. Soit 33,75€ de moins qu'avec 99 salariés.";
   return null;
 }
 
@@ -173,7 +173,7 @@ function Page() {
       <section
         style={{
           backgroundColor: "var(--bg-card)",
-          padding: "52px 5%",
+          padding: "48px 5%",
           borderTop: "1px solid rgba(67,56,202,0.08)",
         }}
       >
@@ -205,7 +205,7 @@ function Page() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "14px",
+            gap: "16px",
           }}
         >
           {cards.map((c) => {
@@ -219,7 +219,10 @@ function Page() {
                   border: featured
                     ? "2px solid var(--midnight)"
                     : "1px solid rgba(67,56,202,0.12)",
-                  backgroundColor: "var(--bg-card)",
+                  backgroundColor: "var(--bg-main)",
+                  boxShadow: featured
+                    ? "0 8px 32px rgba(13,27,62,0.12)"
+                    : undefined,
                   display: "flex",
                   flexDirection: "column",
                 }}
@@ -227,7 +230,7 @@ function Page() {
                 {/* HEADER */}
                 <div
                   style={{
-                    padding: "32px 28px 24px",
+                    padding: "28px 24px 20px",
                     backgroundColor: featured ? "var(--midnight)" : "var(--bg-main)",
                   }}
                 >
@@ -238,12 +241,12 @@ function Page() {
                         backgroundColor: "var(--indigo)",
                         color: "#FFFFFF",
                         fontFamily: "var(--font-sans)",
-                        fontSize: "9.5px",
+                        fontSize: "9px",
                         fontWeight: 700,
                         textTransform: "uppercase",
                         padding: "3px 8px",
                         borderRadius: "4px",
-                        marginBottom: "10px",
+                        marginBottom: "12px",
                         letterSpacing: "0.6px",
                       }}
                     >
@@ -253,15 +256,15 @@ function Page() {
                   <div
                     style={{
                       fontFamily: "var(--font-sans)",
-                      fontSize: "11px",
+                      fontSize: "10px",
                       fontWeight: 700,
                       textTransform: "uppercase",
                       letterSpacing: "0.6px",
                       color: featured
                         ? "rgba(255,255,255,0.4)"
                         : "var(--midnight)",
-                      opacity: 0.4,
-                      marginBottom: "16px",
+                      opacity: featured ? 1 : 0.35,
+                      marginBottom: "14px",
                     }}
                   >
                     {c.range}
@@ -269,19 +272,19 @@ function Page() {
                   <div
                     style={{
                       fontFamily: "var(--font-display)",
-                      fontSize: "52px",
+                      fontSize: "44px",
                       letterSpacing: "-1px",
                       color: featured ? "#FFFFFF" : "var(--midnight)",
                       lineHeight: 1,
-                      marginBottom: "6px",
+                      marginBottom: "4px",
                     }}
                   >
                     {c.price}
                     <span
                       style={{
                         fontFamily: "var(--font-sans)",
-                        fontSize: "16px",
-                        opacity: 0.4,
+                        fontSize: "14px",
+                        opacity: 0.35,
                         marginLeft: "4px",
                       }}
                     >
@@ -291,10 +294,9 @@ function Page() {
                   <div
                     style={{
                       fontFamily: "var(--font-sans)",
-                      fontSize: "12px",
-                      color: featured ? "#FFFFFF" : "var(--midnight)",
-                      opacity: 0.4,
-                      marginBottom: "20px",
+                      fontSize: "11px",
+                      color: featured ? "rgba(255,255,255,0.45)" : "var(--text-muted)",
+                      marginBottom: "16px",
                     }}
                   >
                     par siège, par mois
@@ -303,15 +305,15 @@ function Page() {
                     style={{
                       display: "inline-block",
                       backgroundColor: featured
-                        ? "rgba(255,255,255,0.12)"
-                        : "rgba(67,56,202,0.08)",
-                      borderRadius: "8px",
-                      padding: "7px 12px",
+                        ? "rgba(255,255,255,0.1)"
+                        : "rgba(67,56,202,0.07)",
+                      borderRadius: "6px",
+                      padding: "6px 12px",
                       fontFamily: "var(--font-sans)",
-                      fontSize: "13px",
+                      fontSize: "12.5px",
                       fontWeight: 500,
-                      color: featured ? "rgba(255,255,255,0.65)" : "var(--midnight)",
-                      opacity: featured ? 1 : 0.6,
+                      color: featured ? "rgba(255,255,255,0.6)" : "var(--midnight)",
+                      opacity: featured ? 1 : 0.55,
                     }}
                   >
                     {c.total}
@@ -320,7 +322,7 @@ function Page() {
                 {/* BODY */}
                 <div
                   style={{
-                    padding: "24px 28px",
+                    padding: "20px 24px",
                     backgroundColor: "var(--bg-card)",
                     marginTop: "auto",
                   }}
@@ -330,10 +332,10 @@ function Page() {
                     {...TALLY_ATTRS}
                     style={{
                       width: "100%",
-                      padding: "13px",
+                      padding: "12px",
                       borderRadius: "8px",
                       fontFamily: "var(--font-sans)",
-                      fontSize: "14px",
+                      fontSize: "13px",
                       fontWeight: 600,
                       cursor: "pointer",
                       backgroundColor: featured ? "var(--indigo)" : "transparent",
@@ -356,7 +358,7 @@ function Page() {
       <section
         style={{
           backgroundColor: "var(--bg-main)",
-          padding: "52px 5%",
+          padding: "48px 5%",
           borderTop: "1px solid rgba(67,56,202,0.08)",
         }}
       >
@@ -388,8 +390,8 @@ function Page() {
             backgroundColor: "var(--bg-card)",
             borderRadius: "16px",
             border: "1px solid rgba(67,56,202,0.10)",
-            padding: "40px",
-            maxWidth: "720px",
+            padding: "36px 40px",
+            maxWidth: "860px",
             margin: "0 auto",
           }}
         >
@@ -403,7 +405,7 @@ function Page() {
               letterSpacing: "0.8px",
               color: "var(--midnight)",
               opacity: 0.35,
-              marginBottom: "20px",
+              marginBottom: "16px",
             }}
           >
             NOMBRE DE SALARIÉS
@@ -413,9 +415,10 @@ function Page() {
             style={{
               textAlign: "center",
               fontFamily: "var(--font-display)",
-              fontSize: "52px",
+              fontSize: "56px",
               color: "var(--midnight)",
               lineHeight: 1,
+              marginBottom: "4px",
             }}
           >
             {count}
@@ -426,8 +429,7 @@ function Page() {
               fontFamily: "var(--font-sans)",
               fontSize: "13px",
               color: "var(--text-muted)",
-              marginTop: "8px",
-              marginBottom: "24px",
+              marginBottom: "20px",
             }}
           >
             salariés dans votre équipe
@@ -442,6 +444,7 @@ function Page() {
             className="heedup-sim-slider"
             style={{
               background: `linear-gradient(to right, var(--indigo) ${pct}%, rgba(67,56,202,0.15) ${pct}%)`,
+              marginBottom: 0,
             }}
           />
 
@@ -449,7 +452,7 @@ function Page() {
             style={{
               position: "relative",
               width: "100%",
-              height: "28px",
+              height: "32px",
               marginTop: "10px",
               marginBottom: "28px",
             }}
@@ -473,7 +476,7 @@ function Page() {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    gap: "3px",
+                    gap: "4px",
                   }}
                 >
                   <div
@@ -482,15 +485,15 @@ function Page() {
                       height: "6px",
                       backgroundColor: active
                         ? "var(--indigo)"
-                        : "rgba(13,27,62,0.25)",
+                        : "rgba(13,27,62,0.2)",
                     }}
                   />
                   <div
                     style={{
                       fontFamily: "var(--font-sans)",
-                      fontSize: "11.5px",
+                      fontSize: "12px",
                       fontWeight: active ? 700 : 500,
-                      color: active ? "var(--indigo)" : "var(--midnight)",
+                      color: active ? "var(--indigo)" : "var(--text-muted)",
                     }}
                   >
                     {t.value}
@@ -516,11 +519,12 @@ function Page() {
             style={{
               backgroundColor: "var(--midnight)",
               borderRadius: "12px",
-              padding: "22px 28px",
-              display: "grid",
-              gridTemplateColumns: "1fr 1px 1fr auto",
-              gap: "20px",
+              padding: "20px 28px",
+              display: "flex",
               alignItems: "center",
+              justifyContent: "space-between",
+              gap: 0,
+              marginTop: "20px",
             }}
           >
             <div>
@@ -540,17 +544,17 @@ function Page() {
                 id="sim-seat"
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: "28px",
+                  fontSize: "32px",
                   color: "#FFFFFF",
                 }}
               >
-                {fmt(seat)}€/siège
+                {formatFR(seat)}€/siège
               </div>
             </div>
             <div
               style={{
                 width: "1px",
-                height: "40px",
+                height: "36px",
                 backgroundColor: "rgba(255,255,255,0.10)",
               }}
             />
@@ -571,11 +575,11 @@ function Page() {
                 id="sim-total"
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: "28px",
+                  fontSize: "32px",
                   color: "#FFFFFF",
                 }}
               >
-                {fmt(total)}€/mois
+                {formatFR(total)}€/mois
               </div>
             </div>
             <button
@@ -584,8 +588,8 @@ function Page() {
               style={{
                 backgroundColor: "var(--indigo)",
                 color: "#FFFFFF",
-                padding: "11px 20px",
-                borderRadius: "7px",
+                padding: "11px 22px",
+                borderRadius: "8px",
                 fontFamily: "var(--font-sans)",
                 fontSize: "13px",
                 fontWeight: 600,
@@ -603,14 +607,14 @@ function Page() {
               display: cliff ? "flex" : "none",
               alignItems: "center",
               gap: "8px",
-              backgroundColor: "rgba(67,56,202,0.08)",
-              border: "1px solid rgba(67,56,202,0.15)",
+              backgroundColor: "rgba(34,197,94,0.08)",
+              border: "1px solid rgba(34,197,94,0.2)",
               borderRadius: "8px",
               padding: "11px 14px",
               fontFamily: "var(--font-sans)",
               fontSize: "12.5px",
-              color: "var(--indigo)",
-              marginTop: "14px",
+              color: "#15803d",
+              marginTop: "12px",
             }}
           >
             <span aria-hidden>↗</span>
