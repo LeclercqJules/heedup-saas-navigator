@@ -173,7 +173,7 @@ function Page() {
       <section
         style={{
           backgroundColor: "var(--bg-card)",
-          padding: "52px 5%",
+          padding: "48px 5%",
           borderTop: "1px solid rgba(67,56,202,0.08)",
         }}
       >
@@ -205,7 +205,7 @@ function Page() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "14px",
+            gap: "16px",
           }}
         >
           {cards.map((c) => {
@@ -219,7 +219,10 @@ function Page() {
                   border: featured
                     ? "2px solid var(--midnight)"
                     : "1px solid rgba(67,56,202,0.12)",
-                  backgroundColor: "var(--bg-card)",
+                  backgroundColor: "var(--bg-main)",
+                  boxShadow: featured
+                    ? "0 8px 32px rgba(13,27,62,0.12)"
+                    : undefined,
                   display: "flex",
                   flexDirection: "column",
                 }}
@@ -227,7 +230,7 @@ function Page() {
                 {/* HEADER */}
                 <div
                   style={{
-                    padding: "32px 28px 24px",
+                    padding: "28px 24px 20px",
                     backgroundColor: featured ? "var(--midnight)" : "var(--bg-main)",
                   }}
                 >
@@ -238,12 +241,12 @@ function Page() {
                         backgroundColor: "var(--indigo)",
                         color: "#FFFFFF",
                         fontFamily: "var(--font-sans)",
-                        fontSize: "9.5px",
+                        fontSize: "9px",
                         fontWeight: 700,
                         textTransform: "uppercase",
                         padding: "3px 8px",
                         borderRadius: "4px",
-                        marginBottom: "10px",
+                        marginBottom: "12px",
                         letterSpacing: "0.6px",
                       }}
                     >
@@ -253,15 +256,15 @@ function Page() {
                   <div
                     style={{
                       fontFamily: "var(--font-sans)",
-                      fontSize: "11px",
+                      fontSize: "10px",
                       fontWeight: 700,
                       textTransform: "uppercase",
                       letterSpacing: "0.6px",
                       color: featured
                         ? "rgba(255,255,255,0.4)"
                         : "var(--midnight)",
-                      opacity: 0.4,
-                      marginBottom: "16px",
+                      opacity: featured ? 1 : 0.35,
+                      marginBottom: "14px",
                     }}
                   >
                     {c.range}
@@ -269,19 +272,19 @@ function Page() {
                   <div
                     style={{
                       fontFamily: "var(--font-display)",
-                      fontSize: "52px",
+                      fontSize: "44px",
                       letterSpacing: "-1px",
                       color: featured ? "#FFFFFF" : "var(--midnight)",
                       lineHeight: 1,
-                      marginBottom: "6px",
+                      marginBottom: "4px",
                     }}
                   >
                     {c.price}
                     <span
                       style={{
                         fontFamily: "var(--font-sans)",
-                        fontSize: "16px",
-                        opacity: 0.4,
+                        fontSize: "14px",
+                        opacity: 0.35,
                         marginLeft: "4px",
                       }}
                     >
@@ -291,10 +294,9 @@ function Page() {
                   <div
                     style={{
                       fontFamily: "var(--font-sans)",
-                      fontSize: "12px",
-                      color: featured ? "#FFFFFF" : "var(--midnight)",
-                      opacity: 0.4,
-                      marginBottom: "20px",
+                      fontSize: "11px",
+                      color: featured ? "rgba(255,255,255,0.45)" : "var(--text-muted)",
+                      marginBottom: "16px",
                     }}
                   >
                     par siège, par mois
@@ -303,15 +305,15 @@ function Page() {
                     style={{
                       display: "inline-block",
                       backgroundColor: featured
-                        ? "rgba(255,255,255,0.12)"
-                        : "rgba(67,56,202,0.08)",
-                      borderRadius: "8px",
-                      padding: "7px 12px",
+                        ? "rgba(255,255,255,0.1)"
+                        : "rgba(67,56,202,0.07)",
+                      borderRadius: "6px",
+                      padding: "6px 12px",
                       fontFamily: "var(--font-sans)",
-                      fontSize: "13px",
+                      fontSize: "12.5px",
                       fontWeight: 500,
-                      color: featured ? "rgba(255,255,255,0.65)" : "var(--midnight)",
-                      opacity: featured ? 1 : 0.6,
+                      color: featured ? "rgba(255,255,255,0.6)" : "var(--midnight)",
+                      opacity: featured ? 1 : 0.55,
                     }}
                   >
                     {c.total}
@@ -320,7 +322,7 @@ function Page() {
                 {/* BODY */}
                 <div
                   style={{
-                    padding: "24px 28px",
+                    padding: "20px 24px",
                     backgroundColor: "var(--bg-card)",
                     marginTop: "auto",
                   }}
@@ -330,10 +332,10 @@ function Page() {
                     {...TALLY_ATTRS}
                     style={{
                       width: "100%",
-                      padding: "13px",
+                      padding: "12px",
                       borderRadius: "8px",
                       fontFamily: "var(--font-sans)",
-                      fontSize: "14px",
+                      fontSize: "13px",
                       fontWeight: 600,
                       cursor: "pointer",
                       backgroundColor: featured ? "var(--indigo)" : "transparent",
