@@ -405,7 +405,7 @@ function SectionFeatures() {
         <h2
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: 32,
+            fontSize: 42,
             letterSpacing: "-0.5px",
             color: "var(--midnight)",
           }}
@@ -529,7 +529,7 @@ function SectionFaq() {
       <h2
         style={{
           fontFamily: "var(--font-display)",
-          fontSize: 32,
+          fontSize: 42,
           letterSpacing: "-0.5px",
           color: "var(--midnight)",
           textAlign: "center",
@@ -816,8 +816,8 @@ function Page() {
           <h2
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "32px",
-              letterSpacing: "-0.5px",
+              fontSize: "42px",
+              letterSpacing: "-0.8px",
               color: "var(--midnight)",
             }}
           >
@@ -1038,7 +1038,7 @@ function Page() {
           <h2
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "32px",
+              fontSize: "42px",
               letterSpacing: "-0.5px",
               color: "var(--midnight)",
             }}
