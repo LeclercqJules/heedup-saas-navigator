@@ -641,7 +641,7 @@ function Page() {
               marginTop: "12px",
             }}
           >
-            <span aria-hidden>↗</span>
+            <IconArrowDownRight size={14} color="#15803d" aria-hidden />
             <span>{cliff}</span>
           </div>
         </div>
