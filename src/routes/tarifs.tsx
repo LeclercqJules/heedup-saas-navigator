@@ -898,6 +898,43 @@ function Page() {
         </div>
       </section>
 
+      {/* TRUST BAR */}
+      <section
+        style={{
+          backgroundColor: "var(--midnight)",
+          padding: "16px 5%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "40px",
+          flexWrap: "wrap",
+        }}
+      >
+        {[
+          { icon: IconTag, text: "Prix affiché sans devis" },
+          { icon: IconCreditCardOff, text: "Sans engagement annuel" },
+          { icon: IconRefresh, text: "Résiliation libre" },
+          { icon: IconHeadset, text: "Support inclus" },
+          { icon: IconShieldCheck, text: "RGPD documenté" },
+        ].map((item) => (
+          <div
+            key={item.text}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              fontFamily: "var(--font-sans)",
+              fontSize: "12px",
+              color: "rgba(255,255,255,0.65)",
+              whiteSpace: "nowrap",
+            }}
+          >
+            <item.icon size={16} strokeWidth={2} color="var(--indigo-pale)" />
+            <span>{item.text}</span>
+          </div>
+        ))}
+      </section>
+
       {/* SIMULATEUR */}
       <section
         style={{
