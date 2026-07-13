@@ -830,6 +830,7 @@ function Page() {
             return (
               <article
                 key={c.range}
+                className={`pricing-card ${featured ? "featured" : ""}`}
                 style={{
                   borderRadius: "16px",
                   overflow: "hidden",
