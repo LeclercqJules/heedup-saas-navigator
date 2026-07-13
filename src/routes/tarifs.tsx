@@ -406,7 +406,7 @@ function SectionFeatures() {
           style={{
             fontFamily: "var(--font-display)",
             fontSize: 42,
-            letterSpacing: "-0.5px",
+            letterSpacing: "-0.8px",
             color: "var(--midnight)",
           }}
         >
