@@ -396,7 +396,7 @@ function SectionFeatures() {
   return (
     <section
       style={{
-        backgroundColor: "var(--bg-card)",
+        backgroundColor: "#EEEEFF",
         padding: "52px 5%",
         borderTop: "1px solid rgba(67,56,202,0.08)",
       }}
@@ -438,7 +438,7 @@ function SectionFeatures() {
             <div
               key={f.title}
               style={{
-                backgroundColor: "var(--bg-main)",
+                backgroundColor: "var(--bg-card)",
                 borderRadius: 12,
                 padding: 22,
                 border: "1px solid rgba(67,56,202,0.08)",
@@ -449,7 +449,7 @@ function SectionFeatures() {
                   width: 36,
                   height: 36,
                   borderRadius: 8,
-                  backgroundColor: "var(--midnight)",
+                  backgroundColor: "var(--indigo)",
                   color: "#EEEEFF",
                   marginBottom: 12,
                   display: "flex",
