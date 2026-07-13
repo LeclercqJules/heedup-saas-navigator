@@ -446,7 +446,7 @@ function Page() {
               marginBottom: "4px",
             }}
           >
-            {count}
+            {employees}
           </div>
           <div
             style={{
@@ -461,11 +461,16 @@ function Page() {
           </div>
 
           <input
+            id="sim-slider"
             type="range"
             min={10}
             max={100}
-            value={count}
-            onChange={(e) => setCount(parseInt(e.target.value, 10))}
+            step={1}
+            value={employees}
+            onChange={(e) => {
+              const n = parseInt(e.target.value);
+              setEmployees(n);
+            }}
             className="heedup-sim-slider"
             style={{
               background: `linear-gradient(to right, var(--indigo) ${pct}%, rgba(67,56,202,0.15) ${pct}%)`,
