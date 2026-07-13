@@ -665,6 +665,21 @@ function SectionCta() {
 function Page() {
   return (
     <SiteLayout>
+      <style>{`
+        .pricing-card {
+          transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .pricing-card:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 24px rgba(67,56,202,0.12);
+          border-color: rgba(67,56,202,0.3) !important;
+        }
+        .pricing-card.featured:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 32px rgba(13,27,62,0.2);
+          border-color: var(--midnight) !important;
+        }
+      `}</style>
       {/* HERO */}
       <section
         style={{
