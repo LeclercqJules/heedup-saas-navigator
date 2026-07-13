@@ -733,8 +733,8 @@ function Page() {
               { value: "2 min", label: "pour vos salariés" },
               { value: "0", label: "appel commercial requis" },
             ].map((m, i, arr) => (
-              <>
-                <div key={m.label} style={{ textAlign: "center" }}>
+              <Fragment key={m.label}>
+                <div style={{ textAlign: "center" }}>
                   <div
                     style={{
                       fontFamily: "var(--font-display)",
@@ -765,7 +765,7 @@ function Page() {
                     }}
                   />
                 )}
-              </>
+              </Fragment>
             ))}
           </div>
         </div>
