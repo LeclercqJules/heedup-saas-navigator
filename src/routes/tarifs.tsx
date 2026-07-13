@@ -396,7 +396,7 @@ function SectionFeatures() {
   return (
     <section
       style={{
-        backgroundColor: "var(--bg-card)",
+        backgroundColor: "#EEEEFF",
         padding: "52px 5%",
         borderTop: "1px solid rgba(67,56,202,0.08)",
       }}
