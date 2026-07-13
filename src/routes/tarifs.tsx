@@ -615,7 +615,7 @@ function SectionCta() {
   return (
     <section
       style={{
-        backgroundColor: "var(--midnight)",
+        backgroundColor: "#EEEEFF",
         padding: "64px 5%",
         textAlign: "center",
       }}
@@ -625,7 +625,7 @@ function SectionCta() {
           fontFamily: "var(--font-display)",
           fontSize: 36,
           letterSpacing: "-0.5px",
-          color: "#FFFFFF",
+          color: "var(--midnight)",
           marginBottom: 10,
         }}
       >
@@ -635,7 +635,7 @@ function SectionCta() {
         style={{
           fontFamily: "var(--font-sans)",
           fontSize: 16,
-          color: "rgba(255,255,255,0.55)",
+          color: "var(--text-muted)",
           marginBottom: 26,
           lineHeight: 1.6,
         }}
@@ -646,8 +646,8 @@ function SectionCta() {
         type="button"
         {...TALLY_ATTRS}
         style={{
-          backgroundColor: "var(--indigo-pale)",
-          color: "var(--midnight)",
+          backgroundColor: "var(--indigo)",
+          color: "#FFFFFF",
           padding: "14px 32px",
           borderRadius: 8,
           fontSize: 16,
