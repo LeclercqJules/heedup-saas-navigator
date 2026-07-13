@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
+import { IconArrowDownRight } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 
 export const Route = createFileRoute("/tarifs")({
