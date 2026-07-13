@@ -449,7 +449,7 @@ function SectionFeatures() {
                   width: 36,
                   height: 36,
                   borderRadius: 8,
-                  backgroundColor: "var(--midnight)",
+                  backgroundColor: "var(--indigo)",
                   color: "#EEEEFF",
                   marginBottom: 12,
                   display: "flex",
