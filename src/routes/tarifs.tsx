@@ -115,11 +115,20 @@ function getSavingsMessage(n: number): string | null {
 }
 
 function Page() {
-  const [count, setCount] = useState(25);
-  const { seat, total } = useMemo(() => calcPrice(count), [count]);
-  const pct = ((count - 10) / 90) * 100;
-  const activeTier = activeTierIndex(count);
-  const cliff = getSavingsMessage(count);
+  const [employees, setEmployees] = useState(25);
+  const { seat, total } = useMemo(() => calcPrice(employees), [employees]);
+  const pct = ((employees - 10) / 90) * 100;
+  const activeTier = activeTierIndex(employees);
+  const cliff = getSavingsMessage(employees);
+
+  useEffect(() => {
+    const slider = document.getElementById("sim-slider") as HTMLInputElement | null;
+    if (slider) {
+      slider.value = "25";
+      const initPct = ((25 - 10) / 90) * 100;
+      slider.style.background = `linear-gradient(to right, var(--indigo) ${initPct}%, rgba(67,56,202,0.15) ${initPct}%)`;
+    }
+  }, []);
 
   useEffect(() => {
     // inject slider thumb styles once
