@@ -198,7 +198,6 @@ function PricingSimulator() {
           step={1}
           value={val}
           onChange={handleChange}
-          className="heedup-sim-slider"
           style={{ width: "100%", height: 5, borderRadius: 3 }}
         />
 
