@@ -7,6 +7,8 @@ import {
   IconEyeOff,
   IconHeadset,
   IconCreditCardOff,
+  IconTag,
+  IconRefresh,
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 
