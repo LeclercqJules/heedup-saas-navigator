@@ -530,7 +530,7 @@ function SectionFaq() {
         style={{
           fontFamily: "var(--font-display)",
           fontSize: 42,
-          letterSpacing: "-0.5px",
+          letterSpacing: "-0.8px",
           color: "var(--midnight)",
           textAlign: "center",
           marginBottom: 32,
@@ -1022,7 +1022,7 @@ function Page() {
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "42px",
-              letterSpacing: "-0.5px",
+              letterSpacing: "-0.8px",
               color: "var(--midnight)",
             }}
           >
