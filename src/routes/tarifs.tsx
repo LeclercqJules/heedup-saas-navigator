@@ -90,44 +90,45 @@ function activeTierIndex(n: number) {
 }
 
 function getSavingsMessage(n: number): string | null {
-  n = parseInt(String(n), 10);
+  n = parseInt(String(n));
 
-  // Vers palier 25 : rentable dès 23 salariés
   if (n >= 23 && n < 25) {
-    const current = n * 5.0;
-    const nextTotal = 25 * 4.5; // 112.50
-    const saving = (current - nextTotal).toFixed(2).replace(".", ",");
+    const saving = (n * 5.0 - 112.5).toFixed(2).replace(".", ",");
     const extra = 25 - n;
-    return `En invitant ${extra} salarié${extra > 1 ? "s" : ""} de plus (25 au total), votre facture passerait à 112,50€/mois. Soit ${saving}€ économisés par mois.`;
+    return `En passant à 25 sièges, vous économisez ${saving}€/mois et pouvez inclure ${extra} salarié${extra > 1 ? "s" : ""} supplémentaire${extra > 1 ? "s" : ""}.`;
   }
 
-  // Vers palier 50 : rentable dès 45 salariés
   if (n >= 45 && n < 50) {
-    const current = n * 4.5;
-    const nextTotal = 200;
-    const saving = (current - nextTotal).toFixed(2).replace(".", ",");
+    const saving = (n * 4.5 - 200).toFixed(2).replace(".", ",");
     const extra = 50 - n;
-    return `En invitant ${extra} salarié${extra > 1 ? "s" : ""} de plus (50 au total), votre facture passerait à 200€/mois. Soit ${saving}€ économisés par mois.`;
+    return `En passant à 50 sièges, vous économisez ${saving}€/mois et pouvez inclure ${extra} salarié${extra > 1 ? "s" : ""} supplémentaire${extra > 1 ? "s" : ""}.`;
   }
 
-  // Vers palier 100 : rentable dès 91 salariés
   if (n >= 91 && n < 100) {
     const current = 200 + (n - 50) * 3.75;
-    const nextTotal = 350;
-    const saving = (current - nextTotal).toFixed(2).replace(".", ",");
+    const saving = (current - 350).toFixed(2).replace(".", ",");
     const extra = 100 - n;
-    return `En invitant ${extra} salarié${extra > 1 ? "s" : ""} de plus (100 au total), votre facture passerait à 350€/mois. Soit ${saving}€ économisés par mois.`;
+    return `En passant à 100 sièges, vous économisez ${saving}€/mois et pouvez inclure ${extra} salarié${extra > 1 ? "s" : ""} supplémentaire${extra > 1 ? "s" : ""}.`;
   }
 
   return null;
 }
 
 function Page() {
-  const [count, setCount] = useState(25);
-  const { seat, total } = useMemo(() => calcPrice(count), [count]);
-  const pct = ((count - 10) / 90) * 100;
-  const activeTier = activeTierIndex(count);
-  const cliff = getSavingsMessage(count);
+  const [employees, setEmployees] = useState(25);
+  const { seat, total } = useMemo(() => calcPrice(employees), [employees]);
+  const pct = ((employees - 10) / 90) * 100;
+  const activeTier = activeTierIndex(employees);
+  const cliff = getSavingsMessage(employees);
+
+  useEffect(() => {
+    const slider = document.getElementById("sim-slider") as HTMLInputElement | null;
+    if (slider) {
+      slider.value = "25";
+      const initPct = ((25 - 10) / 90) * 100;
+      slider.style.background = `linear-gradient(to right, var(--indigo) ${initPct}%, rgba(67,56,202,0.15) ${initPct}%)`;
+    }
+  }, []);
 
   useEffect(() => {
     // inject slider thumb styles once
@@ -445,7 +446,7 @@ function Page() {
               marginBottom: "4px",
             }}
           >
-            {count}
+            {employees}
           </div>
           <div
             style={{
@@ -460,11 +461,16 @@ function Page() {
           </div>
 
           <input
+            id="sim-slider"
             type="range"
             min={10}
             max={100}
-            value={count}
-            onChange={(e) => setCount(parseInt(e.target.value, 10))}
+            step={1}
+            value={employees}
+            onChange={(e) => {
+              const n = parseInt(e.target.value);
+              setEmployees(n);
+            }}
             className="heedup-sim-slider"
             style={{
               background: `linear-gradient(to right, var(--indigo) ${pct}%, rgba(67,56,202,0.15) ${pct}%)`,
