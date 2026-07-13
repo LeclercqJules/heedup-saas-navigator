@@ -1043,6 +1043,53 @@ function Page() {
         <PricingSimulator />
       </section>
 
+      <section
+        style={{
+          backgroundColor: "var(--bg-main)",
+          padding: "0 5% 32px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            maxWidth: "520px",
+            margin: "0 auto",
+          }}
+        >
+          <div
+            style={{
+              height: "40px",
+              width: "1px",
+              minWidth: "1px",
+              background: "rgba(67,56,202,0.12)",
+            }}
+          />
+          <p
+            style={{
+              flex: 1,
+              fontFamily: "var(--font-sans)",
+              fontSize: "14px",
+              color: "var(--text-muted)",
+              fontStyle: "italic",
+              textAlign: "center",
+              lineHeight: 1.5,
+            }}
+          >
+            Le tarif calculé ci-dessus inclut l'ensemble des fonctionnalités suivantes, sans exception.
+          </p>
+          <div
+            style={{
+              height: "40px",
+              width: "1px",
+              minWidth: "1px",
+              background: "rgba(67,56,202,0.12)",
+            }}
+          />
+        </div>
+      </section>
+
       <SectionFeatures />
       <SectionFaq />
       <SectionCta />
