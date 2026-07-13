@@ -127,7 +127,7 @@ function Page() {
   const { seat, total } = useMemo(() => calcPrice(count), [count]);
   const pct = ((count - 10) / 90) * 100;
   const activeTier = activeTierIndex(count);
-  const cliff = cliffMessage(count);
+  const cliff = getSavingsMessage(count);
 
   useEffect(() => {
     // inject slider thumb styles once
