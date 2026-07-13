@@ -1,11 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import {
+  IconSend,
+  IconBrain,
+  IconShieldCheck,
+  IconEyeOff,
+  IconHeadset,
+  IconCreditCardOff,
+} from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 
 export const Route = createFileRoute("/tarifs")({
   head: () => ({
     meta: [
-      { title: "Tarifs — HeedUp" },
+      { title: "Tarifs - HeedUp" },
       {
         name: "description",
         content:
