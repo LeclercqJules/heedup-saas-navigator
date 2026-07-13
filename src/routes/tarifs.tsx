@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
-import { IconArrowDownRight } from "@tabler/icons-react";
+import { useEffect, useRef, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
 
 export const Route = createFileRoute("/tarifs")({
@@ -23,21 +22,6 @@ const TALLY_ATTRS = {
   "data-tally-emoji-text": "👋",
   "data-tally-emoji-animation": "wave",
 } as const;
-
-function formatFR(n: number) {
-  return n.toFixed(2).replace(".", ",");
-}
-
-function calcPrice(n: number): { seat: number; total: number } {
-  n = parseInt(String(n), 10);
-  if (n < 25) return { seat: 5.0, total: n * 5.0 };
-  if (n < 50) return { seat: 4.5, total: n * 4.5 };
-  if (n < 100) {
-    const total = 200 + (n - 50) * 3.75;
-    return { seat: parseFloat((total / n).toFixed(2)), total };
-  }
-  return { seat: 3.5, total: n * 3.5 };
-}
 
 type Card = {
   range: string;
@@ -75,75 +59,297 @@ const cards: Card[] = [
   },
 ];
 
-const ticks = [
-  { value: 10, label: "5,00€/siège" },
-  { value: 25, label: "4,50€/siège" },
-  { value: 50, label: "dès 4,00€/siège" },
-  { value: 100, label: "3,50€/siège" },
-];
+const THUMB = 20; // px
+const MIN = 10;
+const MAX = 100;
 
-function activeTierIndex(n: number) {
-  if (n < 25) return 0;
-  if (n < 50) return 1;
-  if (n < 100) return 2;
-  return 3;
+function calcPrice(n: number) {
+  if (n < 25) return { seat: 5.0, total: n * 5.0 };
+  if (n < 50) return { seat: 4.5, total: n * 4.5 };
+  if (n < 100) {
+    const total = 200 + (n - 50) * 3.75;
+    return { seat: parseFloat((total / n).toFixed(2)), total };
+  }
+  return { seat: 3.5, total: n * 3.5 };
 }
 
-function getSavingsMessage(n: number): string | null {
-  n = parseInt(String(n));
+function fmt(n: number) {
+  return n.toFixed(2).replace(".", ",");
+}
 
+function getSavings(n: number): string | null {
   if (n >= 23 && n < 25) {
-    const saving = (n * 5.0 - 112.5).toFixed(2).replace(".", ",");
+    const saving = fmt(n * 5.0 - 112.5);
     const extra = 25 - n;
-    return `En passant à 25 sièges, vous économisez ${saving}€/mois et pouvez inclure ${extra} salarié${extra > 1 ? "s" : ""} supplémentaire${extra > 1 ? "s" : ""}.`;
+    return `En passant à 25 sièges, vous économisez ${saving}€/mois et pouvez couvrir ${extra} salarié${extra > 1 ? "s" : ""} supplémentaire${extra > 1 ? "s" : ""}.`;
   }
-
   if (n >= 45 && n < 50) {
-    const saving = (n * 4.5 - 200).toFixed(2).replace(".", ",");
+    const saving = fmt(n * 4.5 - 200);
     const extra = 50 - n;
-    return `En passant à 50 sièges, vous économisez ${saving}€/mois et pouvez inclure ${extra} salarié${extra > 1 ? "s" : ""} supplémentaire${extra > 1 ? "s" : ""}.`;
+    return `En passant à 50 sièges, vous économisez ${saving}€/mois et pouvez couvrir ${extra} salarié${extra > 1 ? "s" : ""} supplémentaire${extra > 1 ? "s" : ""}.`;
   }
-
   if (n >= 91 && n < 100) {
-    const current = 200 + (n - 50) * 3.75;
-    const saving = (current - 350).toFixed(2).replace(".", ",");
+    const saving = fmt(200 + (n - 50) * 3.75 - 350);
     const extra = 100 - n;
-    return `En passant à 100 sièges, vous économisez ${saving}€/mois et pouvez inclure ${extra} salarié${extra > 1 ? "s" : ""} supplémentaire${extra > 1 ? "s" : ""}.`;
+    return `En passant à 100 sièges, vous économisez ${saving}€/mois et pouvez couvrir ${extra} salarié${extra > 1 ? "s" : ""} supplémentaire${extra > 1 ? "s" : ""}.`;
   }
-
   return null;
 }
 
+function tickLeft(v: number) {
+  return `calc(${THUMB / 2}px + ${(v - MIN) / (MAX - MIN)} * (100% - ${THUMB}px))`;
+}
+
+function activeTier(n: number) {
+  if (n < 25) return 10;
+  if (n < 50) return 25;
+  if (n < 100) return 50;
+  return 100;
+}
+
+function PricingSimulator() {
+  const [val, setVal] = useState(25);
+  const sliderRef = useRef<HTMLInputElement>(null);
+
+  const updateGradient = (n: number) => {
+    if (!sliderRef.current) return;
+    const pct = ((n - MIN) / (MAX - MIN)) * 100;
+    sliderRef.current.style.background = `linear-gradient(to right, var(--indigo) ${pct}%, rgba(67,56,202,0.15) ${pct}%)`;
+  };
+
+  useEffect(() => {
+    updateGradient(25);
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const n = parseInt(e.target.value);
+    setVal(n);
+    updateGradient(n);
+  };
+
+  const price = calcPrice(val);
+  const savings = getSavings(val);
+  const tier = activeTier(val);
+
+  const ticks = [
+    { v: 10, label: "10", sub: "5,00€/siège" },
+    { v: 25, label: "25", sub: "4,50€/siège" },
+    { v: 50, label: "50", sub: "dès 4,00€/siège" },
+    { v: 100, label: "100", sub: "3,50€/siège" },
+  ];
+
+  return (
+    <div
+      style={{
+        background: "var(--bg-card)",
+        borderRadius: 16,
+        border: "1px solid rgba(67,56,202,0.10)",
+        padding: "36px 40px",
+        maxWidth: 860,
+        margin: "0 auto",
+      }}
+    >
+      {/* Label */}
+      <div
+        style={{
+          textAlign: "center",
+          fontSize: 11,
+          fontWeight: 700,
+          letterSpacing: "0.8px",
+          textTransform: "uppercase",
+          color: "rgba(13,27,62,0.35)",
+          marginBottom: 16,
+        }}
+      >
+        Nombre de salariés
+      </div>
+
+      {/* Counter */}
+      <div
+        style={{
+          textAlign: "center",
+          fontFamily: "var(--font-display)",
+          fontSize: 56,
+          color: "var(--midnight)",
+          lineHeight: 1,
+          marginBottom: 6,
+        }}
+      >
+        {val}
+      </div>
+      <div
+        style={{
+          textAlign: "center",
+          fontSize: 13,
+          color: "var(--text-muted)",
+          marginBottom: 24,
+        }}
+      >
+        salariés dans votre équipe
+      </div>
+
+      {/* Slider */}
+      <div style={{ position: "relative", marginBottom: 0 }}>
+        <input
+          ref={sliderRef}
+          type="range"
+          min={MIN}
+          max={MAX}
+          step={1}
+          value={val}
+          onChange={handleChange}
+          style={{ width: "100%", height: 5, borderRadius: 3 }}
+        />
+
+        {/* Ticks */}
+        <div style={{ position: "relative", height: 36, marginTop: 6 }}>
+          {ticks.map((t) => (
+            <div
+              key={t.v}
+              style={{
+                position: "absolute",
+                left: tickLeft(t.v),
+                transform: "translateX(-50%)",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 3,
+              }}
+            >
+              <div
+                style={{
+                  width: 1,
+                  height: 6,
+                  background: tier === t.v ? "var(--indigo)" : "rgba(13,27,62,0.2)",
+                }}
+              />
+              <div
+                style={{
+                  fontSize: 12,
+                  fontWeight: tier === t.v ? 700 : 500,
+                  color: tier === t.v ? "var(--indigo)" : "var(--text-muted)",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {t.label}
+              </div>
+              <div
+                style={{
+                  fontSize: 10,
+                  color: "var(--text-muted)",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {t.sub}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Result bar */}
+      <div
+        style={{
+          background: "var(--midnight)",
+          borderRadius: 12,
+          padding: "20px 28px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginTop: 20,
+          gap: 20,
+        }}
+      >
+        <div>
+          <div
+            style={{
+              fontSize: 10,
+              fontWeight: 700,
+              letterSpacing: "0.6px",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.35)",
+              marginBottom: 6,
+            }}
+          >
+            Coût par siège
+          </div>
+          <div
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: 32,
+              color: "#fff",
+            }}
+          >
+            {fmt(price.seat)}€/siège
+          </div>
+        </div>
+        <div style={{ width: 1, height: 36, background: "rgba(255,255,255,0.1)" }} />
+        <div>
+          <div
+            style={{
+              fontSize: 10,
+              fontWeight: 700,
+              letterSpacing: "0.6px",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.35)",
+              marginBottom: 6,
+            }}
+          >
+            Total mensuel
+          </div>
+          <div
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: 32,
+              color: "#fff",
+            }}
+          >
+            {fmt(price.total)}€/mois
+          </div>
+        </div>
+        <button
+          type="button"
+          {...TALLY_ATTRS}
+          style={{
+            background: "var(--indigo)",
+            color: "#fff",
+            border: "none",
+            padding: "11px 22px",
+            borderRadius: 8,
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: "pointer",
+            whiteSpace: "nowrap",
+          }}
+        >
+          Rejoindre →
+        </button>
+      </div>
+
+      {/* Savings message */}
+      {savings && (
+        <div
+          style={{
+            background: "rgba(34,197,94,0.08)",
+            border: "1px solid rgba(34,197,94,0.2)",
+            borderRadius: 8,
+            padding: "11px 14px",
+            fontSize: 12.5,
+            color: "#15803d",
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            marginTop: 12,
+          }}
+        >
+          ↘ {savings}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function Page() {
-  const [employees, setEmployees] = useState(25);
-  const { seat, total } = useMemo(() => calcPrice(employees), [employees]);
-  const pct = ((employees - 10) / 90) * 100;
-  const activeTier = activeTierIndex(employees);
-  const cliff = getSavingsMessage(employees);
-
-  useEffect(() => {
-    const slider = document.getElementById("sim-slider") as HTMLInputElement | null;
-    if (slider) {
-      slider.value = "25";
-      const initPct = ((25 - 10) / 90) * 100;
-      slider.style.background = `linear-gradient(to right, var(--indigo) ${initPct}%, rgba(67,56,202,0.15) ${initPct}%)`;
-    }
-  }, []);
-
-  useEffect(() => {
-    // inject slider thumb styles once
-    const id = "heedup-sim-slider-style";
-    if (document.getElementById(id)) return;
-    const style = document.createElement("style");
-    style.id = id;
-    style.textContent = `
-      .heedup-sim-slider { -webkit-appearance:none; appearance:none; width:100%; height:5px; border-radius:3px; outline:none; }
-      .heedup-sim-slider::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:20px; height:20px; border-radius:50%; background:var(--indigo); border:3px solid #fff; box-shadow:0 0 0 2px var(--indigo); cursor:pointer; }
-      .heedup-sim-slider::-moz-range-thumb { width:20px; height:20px; border-radius:50%; background:var(--indigo); border:3px solid #fff; box-shadow:0 0 0 2px var(--indigo); cursor:pointer; }
-    `;
-    document.head.appendChild(style);
-  }, []);
-
   return (
     <SiteLayout>
       {/* HERO */}
@@ -410,247 +616,7 @@ function Page() {
           </p>
         </div>
 
-        <div
-          style={{
-            backgroundColor: "var(--bg-card)",
-            borderRadius: "16px",
-            border: "1px solid rgba(67,56,202,0.10)",
-            padding: "36px 40px",
-            maxWidth: "860px",
-            margin: "0 auto",
-          }}
-        >
-          <div
-            style={{
-              textAlign: "center",
-              fontFamily: "var(--font-sans)",
-              fontSize: "11px",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "0.8px",
-              color: "var(--midnight)",
-              opacity: 0.35,
-              marginBottom: "16px",
-            }}
-          >
-            NOMBRE DE SALARIÉS
-          </div>
-          <div
-            id="sim-count"
-            style={{
-              textAlign: "center",
-              fontFamily: "var(--font-display)",
-              fontSize: "56px",
-              color: "var(--midnight)",
-              lineHeight: 1,
-              marginBottom: "4px",
-            }}
-          >
-            {employees}
-          </div>
-          <div
-            style={{
-              textAlign: "center",
-              fontFamily: "var(--font-sans)",
-              fontSize: "13px",
-              color: "var(--text-muted)",
-              marginBottom: "20px",
-            }}
-          >
-            salariés dans votre équipe
-          </div>
-
-          <input
-            id="sim-slider"
-            type="range"
-            min={10}
-            max={100}
-            step={1}
-            value={employees}
-            onChange={(e) => {
-              const n = parseInt(e.target.value);
-              setEmployees(n);
-            }}
-            className="heedup-sim-slider"
-            style={{
-              background: `linear-gradient(to right, var(--indigo) ${pct}%, rgba(67,56,202,0.15) ${pct}%)`,
-              marginBottom: 0,
-            }}
-          />
-
-          <div
-            style={{
-              position: "relative",
-              width: "100%",
-              height: "32px",
-              marginTop: "10px",
-              marginBottom: "28px",
-            }}
-          >
-            {ticks.map((t, i) => {
-              const active = i === activeTier;
-              const left = `${((t.value - 10) / (100 - 10)) * 100}%`;
-              const isFirst = t.value === 10;
-              const isLast = t.value === 100;
-              return (
-                <div
-                  key={t.value}
-                  style={{
-                    position: "absolute",
-                    left,
-                    transform: isFirst
-                      ? "translateX(0)"
-                      : isLast
-                        ? "translateX(-100%)"
-                        : "translateX(-50%)",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "4px",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: "1px",
-                      height: "6px",
-                      backgroundColor: active
-                        ? "var(--indigo)"
-                        : "rgba(13,27,62,0.2)",
-                    }}
-                  />
-                  <div
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: "12px",
-                      fontWeight: active ? 700 : 500,
-                      color: active ? "var(--indigo)" : "var(--text-muted)",
-                    }}
-                  >
-                    {t.value}
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: "10px",
-                      color: "var(--text-muted)",
-                      textAlign: "center",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {t.label}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* RESULT */}
-          <div
-            style={{
-              backgroundColor: "var(--midnight)",
-              borderRadius: "12px",
-              padding: "20px 28px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: 0,
-              marginTop: "20px",
-            }}
-          >
-            <div>
-              <div
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "10px",
-                  textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.35)",
-                  letterSpacing: "0.8px",
-                  marginBottom: "6px",
-                }}
-              >
-                COÛT PAR SIÈGE
-              </div>
-              <div
-                id="sim-seat"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "32px",
-                  color: "#FFFFFF",
-                }}
-              >
-                {formatFR(seat)}€/siège
-              </div>
-            </div>
-            <div
-              style={{
-                width: "1px",
-                height: "36px",
-                backgroundColor: "rgba(255,255,255,0.10)",
-              }}
-            />
-            <div>
-              <div
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "10px",
-                  textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.35)",
-                  letterSpacing: "0.8px",
-                  marginBottom: "6px",
-                }}
-              >
-                TOTAL MENSUEL
-              </div>
-              <div
-                id="sim-total"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "32px",
-                  color: "#FFFFFF",
-                }}
-              >
-                {formatFR(total)}€/mois
-              </div>
-            </div>
-            <button
-              type="button"
-              {...TALLY_ATTRS}
-              style={{
-                backgroundColor: "var(--indigo)",
-                color: "#FFFFFF",
-                padding: "11px 22px",
-                borderRadius: "8px",
-                fontFamily: "var(--font-sans)",
-                fontSize: "13px",
-                fontWeight: 600,
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              Rejoindre →
-            </button>
-          </div>
-
-          <div
-            id="sim-cliff"
-            style={{
-              display: cliff ? "flex" : "none",
-              alignItems: "center",
-              gap: "8px",
-              backgroundColor: "rgba(34,197,94,0.08)",
-              border: "1px solid rgba(34,197,94,0.2)",
-              borderRadius: "8px",
-              padding: "11px 14px",
-              fontFamily: "var(--font-sans)",
-              fontSize: "12.5px",
-              color: "#15803d",
-              marginTop: "12px",
-            }}
-          >
-            <IconArrowDownRight size={14} color="#15803d" aria-hidden />
-            <span>{cliff}</span>
-          </div>
-        </div>
+        <PricingSimulator />
       </section>
     </SiteLayout>
   );
