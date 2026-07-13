@@ -670,47 +670,138 @@ function Page() {
         style={{
           backgroundColor: "var(--bg-main)",
           padding: "56px 5% 48px",
-          textAlign: "center",
         }}
       >
         <div
           style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: "11px",
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "1px",
-            color: "var(--midnight)",
-            opacity: 0.35,
-            marginBottom: "12px",
+            display: "grid",
+            gridTemplateColumns: "1.1fr 0.9fr",
+            gap: "40px",
+            alignItems: "center",
           }}
         >
-          TARIFS
+          {/* Colonne gauche */}
+          <div>
+            <div
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "11px",
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "1px",
+                color: "var(--midnight)",
+                opacity: 0.35,
+                marginBottom: "12px",
+              }}
+            >
+              TARIFS
+            </div>
+            <h1
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "52px",
+                letterSpacing: "-1px",
+                color: "var(--midnight)",
+                lineHeight: 1.1,
+              }}
+            >
+              Transparent. <em style={{ color: "var(--indigo)" }}>Sans surprise.</em>
+            </h1>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "17px",
+                color: "var(--text-muted)",
+                maxWidth: "520px",
+                marginTop: "16px",
+                lineHeight: 1.6,
+              }}
+            >
+              Prix calculé par siège, affiché avant toute inscription. Aucun appel
+              commercial requis.
+            </p>
+          </div>
+
+          {/* Colonne droite : card comparatif */}
+          <div
+            style={{
+              backgroundColor: "var(--midnight)",
+              borderRadius: "12px",
+              padding: "24px",
+            }}
+          >
+            {[
+              { price: "5,00€", suffix: "/siège", seats: "10 salariés", featured: false },
+              { price: "4,50€", suffix: "/siège", seats: "25 salariés", featured: true },
+              { price: "4,00€", suffix: "/siège", seats: "50 salariés", featured: false },
+              { price: "3,50€", suffix: "/siège", seats: "100 salariés", featured: false },
+            ].map((row, i, arr) => (
+              <div
+                key={row.seats}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: i === 0 ? "0 0 14px" : i === arr.length - 1 ? "14px 0 0" : "14px 0",
+                  borderBottom: i < arr.length - 1 ? "1px solid rgba(255,255,255,0.08)" : "none",
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "28px",
+                    color: "#FFFFFF",
+                    lineHeight: 1,
+                    display: "flex",
+                    alignItems: "baseline",
+                    gap: "4px",
+                  }}
+                >
+                  {row.price}
+                  <span
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "12px",
+                      opacity: 0.45,
+                      fontWeight: 500,
+                    }}
+                  >
+                    {row.suffix}
+                  </span>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "13px",
+                    color: "rgba(255,255,255,0.65)",
+                  }}
+                >
+                  {row.seats}
+                  {row.featured && (
+                    <span
+                      style={{
+                        display: "inline-block",
+                        backgroundColor: "var(--indigo)",
+                        color: "#FFFFFF",
+                        fontSize: "9px",
+                        fontWeight: 700,
+                        textTransform: "uppercase",
+                        padding: "3px 8px",
+                        borderRadius: "4px",
+                        letterSpacing: "0.6px",
+                      }}
+                    >
+                      Le plus choisi
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-        <h1
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "52px",
-            letterSpacing: "-1px",
-            color: "var(--midnight)",
-            lineHeight: 1.1,
-          }}
-        >
-          Transparent. <em style={{ color: "var(--indigo)" }}>Sans surprise.</em>
-        </h1>
-        <p
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: "17px",
-            color: "var(--text-muted)",
-            maxWidth: "540px",
-            margin: "16px auto 0",
-            lineHeight: 1.6,
-          }}
-        >
-          Prix calculé par siège, affiché avant toute inscription. Aucun appel
-          commercial requis.
-        </p>
       </section>
 
       {/* PRICING CARDS */}
