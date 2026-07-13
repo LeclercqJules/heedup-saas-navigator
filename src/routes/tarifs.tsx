@@ -406,7 +406,7 @@ function SectionFeatures() {
           style={{
             fontFamily: "var(--font-display)",
             fontSize: 42,
-            letterSpacing: "-0.5px",
+            letterSpacing: "-0.8px",
             color: "var(--midnight)",
           }}
         >
@@ -530,7 +530,7 @@ function SectionFaq() {
         style={{
           fontFamily: "var(--font-display)",
           fontSize: 42,
-          letterSpacing: "-0.5px",
+          letterSpacing: "-0.8px",
           color: "var(--midnight)",
           textAlign: "center",
           marginBottom: 32,
@@ -665,6 +665,21 @@ function SectionCta() {
 function Page() {
   return (
     <SiteLayout>
+      <style>{`
+        .pricing-card {
+          transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .pricing-card:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 24px rgba(67,56,202,0.12);
+          border-color: rgba(67,56,202,0.3) !important;
+        }
+        .pricing-card.featured:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 32px rgba(13,27,62,0.2);
+          border-color: var(--midnight) !important;
+        }
+      `}</style>
       {/* HERO */}
       <section
         style={{
@@ -815,6 +830,7 @@ function Page() {
             return (
               <article
                 key={c.range}
+                className={`pricing-card ${featured ? "featured" : ""}`}
                 style={{
                   borderRadius: "16px",
                   overflow: "hidden",
@@ -1006,7 +1022,7 @@ function Page() {
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "42px",
-              letterSpacing: "-0.5px",
+              letterSpacing: "-0.8px",
               color: "var(--midnight)",
             }}
           >
@@ -1025,6 +1041,53 @@ function Page() {
         </div>
 
         <PricingSimulator />
+      </section>
+
+      <section
+        style={{
+          backgroundColor: "var(--bg-main)",
+          padding: "0 5% 32px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            maxWidth: "520px",
+            margin: "0 auto",
+          }}
+        >
+          <div
+            style={{
+              height: "40px",
+              width: "1px",
+              minWidth: "1px",
+              background: "rgba(67,56,202,0.12)",
+            }}
+          />
+          <p
+            style={{
+              flex: 1,
+              fontFamily: "var(--font-sans)",
+              fontSize: "14px",
+              color: "var(--text-muted)",
+              fontStyle: "italic",
+              textAlign: "center",
+              lineHeight: 1.5,
+            }}
+          >
+            Le tarif calculé ci-dessus inclut l'ensemble des fonctionnalités suivantes, sans exception.
+          </p>
+          <div
+            style={{
+              height: "40px",
+              width: "1px",
+              minWidth: "1px",
+              background: "rgba(67,56,202,0.12)",
+            }}
+          />
+        </div>
       </section>
 
       <SectionFeatures />
