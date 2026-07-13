@@ -929,6 +929,10 @@ function Page() {
 
         <PricingSimulator />
       </section>
+
+      <SectionFeatures />
+      <SectionFaq />
+      <SectionCta />
     </SiteLayout>
   );
 }
