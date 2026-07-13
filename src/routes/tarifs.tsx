@@ -438,7 +438,7 @@ function SectionFeatures() {
             <div
               key={f.title}
               style={{
-                backgroundColor: "var(--bg-main)",
+                backgroundColor: "var(--bg-card)",
                 borderRadius: 12,
                 padding: 22,
                 border: "1px solid rgba(67,56,202,0.08)",
