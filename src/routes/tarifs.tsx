@@ -357,6 +357,309 @@ function PricingSimulator() {
   );
 }
 
+const features = [
+  {
+    icon: IconSend,
+    title: "Survey hebdomadaire automatique",
+    desc: "Envoi automatique chaque vendredi à vos salariés. Aucune intervention requise de votre côté.",
+  },
+  {
+    icon: IconBrain,
+    title: "Rapport d'équipe IA chaque lundi",
+    desc: "Scores, tendances et recommandations managériales actionnables générées par IA.",
+  },
+  {
+    icon: IconShieldCheck,
+    title: "RGPD documenté et vérifiable",
+    desc: "DPA fourni à la signature, registre de traitement inclus, hébergement Paris eu-west-3.",
+  },
+  {
+    icon: IconEyeOff,
+    title: "Anonymat architectural",
+    desc: "Réponses individuelles inaccessibles par conception. Jamais un paramètre désactivable.",
+  },
+  {
+    icon: IconHeadset,
+    title: "Support en français",
+    desc: "Réponse sous 24h ouvrées par email, en français, sans chatbot.",
+  },
+  {
+    icon: IconCreditCardOff,
+    title: "Sans engagement annuel obligatoire",
+    desc: "Facturation mensuelle ou annuelle. Résiliation libre depuis votre espace client.",
+  },
+];
+
+function SectionFeatures() {
+  return (
+    <section
+      style={{
+        backgroundColor: "var(--bg-card)",
+        padding: "52px 5%",
+        borderTop: "1px solid rgba(67,56,202,0.08)",
+      }}
+    >
+      <div style={{ textAlign: "center", marginBottom: 36 }}>
+        <h2
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: 32,
+            letterSpacing: "-0.5px",
+            color: "var(--midnight)",
+          }}
+        >
+          Tout est inclus. Dès le premier plan.
+        </h2>
+        <p
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: 15,
+            color: "var(--text-muted)",
+            marginTop: 10,
+          }}
+        >
+          Aucun module à débloquer, aucune feature réservée aux plans supérieurs.
+        </p>
+      </div>
+
+      <div
+        className="grid"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: 16,
+        }}
+      >
+        {features.map((f) => {
+          const Icon = f.icon;
+          return (
+            <div
+              key={f.title}
+              style={{
+                backgroundColor: "var(--bg-main)",
+                borderRadius: 12,
+                padding: 22,
+                border: "1px solid rgba(67,56,202,0.08)",
+              }}
+            >
+              <div
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 8,
+                  backgroundColor: "var(--midnight)",
+                  color: "#EEEEFF",
+                  marginBottom: 12,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Icon size={18} strokeWidth={2} />
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: 13.5,
+                  fontWeight: 600,
+                  color: "var(--midnight)",
+                  marginBottom: 4,
+                }}
+              >
+                {f.title}
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: 12,
+                  color: "var(--text-muted)",
+                  lineHeight: 1.55,
+                }}
+              >
+                {f.desc}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+const faqItems = [
+  {
+    q: "Comment est calculé mon tarif ?",
+    a: "Le prix est calculé par siège, selon le palier correspondant à la taille de votre équipe. Le nombre de sièges correspond au nombre de salariés que vous invitez à répondre au survey. Plus votre équipe est grande, moins vous payez par siège.",
+  },
+  {
+    q: "Que se passe-t-il si j'embauche et change de palier ?",
+    a: "Votre facture est automatiquement recalculée au nouveau palier. Attention : franchir un seuil (25, 50 ou 100 salariés) peut réduire votre facture, car le tarif par siège du nouveau palier s'applique à l'ensemble des sièges. Le simulateur ci-dessus vous indique précisément ces zones d'économie.",
+  },
+  {
+    q: "Quelle est la différence entre facturation mensuelle et annuelle ?",
+    a: "La facturation mensuelle est disponible sans engagement. L'option annuelle offre une remise sur le tarif mensuel équivalent. Les deux options sont disponibles depuis votre espace client.",
+  },
+  {
+    q: "Puis-je résilier à tout moment ?",
+    a: "Oui, sans préavis ni frais de résiliation. Vous pouvez résilier depuis votre espace client à tout moment. La résiliation prend effet à la fin de la période de facturation en cours.",
+  },
+  {
+    q: "Y a-t-il des frais cachés ?",
+    a: "Non. Le prix affiché est le prix payé. Aucun frais d'installation, aucun onboarding payant, aucun module à débloquer, support inclus dans tous les plans. Ce que vous lisez est ce que vous payez.",
+  },
+  {
+    q: "Mon équipe dépasse 100 salariés. HeedUp est-il adapté ?",
+    a: "HeedUp est calibré pour les équipes de 10 à 100 salariés. Au-delà, contactez-nous directement via le formulaire de liste d'attente. Nous évaluerons ensemble si le produit correspond à votre contexte ou si nous pouvons vous orienter.",
+  },
+];
+
+function SectionFaq() {
+  const [open, setOpen] = useState<number | null>(null);
+
+  return (
+    <section
+      style={{
+        backgroundColor: "var(--bg-main)",
+        padding: "52px 5%",
+        borderTop: "1px solid rgba(67,56,202,0.08)",
+      }}
+    >
+      <h2
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: 32,
+          letterSpacing: "-0.5px",
+          color: "var(--midnight)",
+          textAlign: "center",
+          marginBottom: 32,
+        }}
+      >
+        Questions sur les tarifs
+      </h2>
+
+      <div style={{ maxWidth: 720, margin: "0 auto" }}>
+        {faqItems.map((item, i) => {
+          const isOpen = open === i;
+          return (
+            <div
+              key={i}
+              style={{ borderBottom: "1px solid rgba(67,56,202,0.08)", padding: 0 }}
+            >
+              <button
+                type="button"
+                onClick={() => setOpen(isOpen ? null : i)}
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  justifyContent: "space-between",
+                  gap: 16,
+                  padding: "20px 0",
+                  cursor: "pointer",
+                  userSelect: "none",
+                  width: "100%",
+                  background: "transparent",
+                  border: "none",
+                  textAlign: "left",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: 15,
+                  fontWeight: 600,
+                  color: "var(--midnight)",
+                  lineHeight: 1.4,
+                }}
+              >
+                <span>{item.q}</span>
+                <span
+                  style={{
+                    width: 24,
+                    height: 24,
+                    borderRadius: "50%",
+                    backgroundColor: isOpen ? "var(--indigo)" : "#EEEEFF",
+                    color: isOpen ? "#FFFFFF" : "var(--indigo)",
+                    flexShrink: 0,
+                    marginTop: 1,
+                    fontSize: 14,
+                    fontWeight: 700,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    transition: "background 0.2s",
+                  }}
+                >
+                  {isOpen ? "−" : "+"}
+                </span>
+              </button>
+              {isOpen && (
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 13.5,
+                    color: "var(--text-muted)",
+                    lineHeight: 1.7,
+                    paddingBottom: 20,
+                  }}
+                >
+                  {item.a}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function SectionCta() {
+  return (
+    <section
+      style={{
+        backgroundColor: "#EEEEFF",
+        padding: "64px 5%",
+        textAlign: "center",
+      }}
+    >
+      <h2
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: 36,
+          letterSpacing: "-0.5px",
+          color: "var(--midnight)",
+          marginBottom: 10,
+        }}
+      >
+        Prêt à démarrer ce vendredi ?
+      </h2>
+      <p
+        style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: 16,
+          color: "var(--text-muted)",
+          marginBottom: 26,
+          lineHeight: 1.6,
+        }}
+      >
+        Rejoignez les 27 dirigeants déjà sur la liste d'attente. Lancement dans les prochaines semaines.
+      </p>
+      <button
+        type="button"
+        {...TALLY_ATTRS}
+        style={{
+          backgroundColor: "var(--indigo)",
+          color: "#FFFFFF",
+          padding: "14px 32px",
+          borderRadius: 8,
+          fontSize: 16,
+          fontWeight: 700,
+          border: "none",
+          cursor: "pointer",
+        }}
+      >
+        Rejoindre la liste d'attente →
+      </button>
+    </section>
+  );
+}
+
 function Page() {
   return (
     <SiteLayout>
