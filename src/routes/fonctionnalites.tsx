@@ -314,32 +314,111 @@ function VisualAnon() {
 }
 
 function VisualDashboard() {
-  const bars = [
-    { label: "S20", h: 80, color: "var(--indigo)" },
-    { label: "S21", h: 75, color: "var(--indigo)" },
-    { label: "S22", h: 65, color: "rgba(67,56,202,0.3)" },
-    { label: "S23", h: 55, color: "rgba(67,56,202,0.3)" },
-    { label: "S24", h: 50, color: "rgba(239,68,68,0.3)", red: true },
-  ];
   return (
-    <div style={{ background: "#FFFFFF", borderRadius: "10px", border: "1px solid rgba(67,56,202,0.10)", overflow: "hidden", width: "100%", maxWidth: "380px" }}>
-      <div style={{ background: "var(--midnight)", color: "#FFFFFF", padding: "10px 14px", fontSize: "11.5px", fontWeight: 600 }}>
-        Tableau de bord · Semaines 20-24
-      </div>
-      <div style={{ padding: "16px" }}>
-        <div style={{ display: "flex", gap: "10px", alignItems: "flex-end", height: "140px" }}>
-          {bars.map((b) => (
-            <div key={b.label} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
-              <div style={{ width: "100%", height: `${b.h}%`, background: b.color, borderRadius: "4px 4px 0 0" }} />
-              <div style={{ fontSize: "10.5px", fontWeight: 600, color: b.red ? "#EF4444" : "var(--text-muted)" }}>{b.label}</div>
-            </div>
-          ))}
-        </div>
-        <div style={{ marginTop: "12px", background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.15)", borderRadius: "6px", padding: "8px 10px", display: "flex", gap: "7px", alignItems: "center" }}>
-          <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#EF4444", flexShrink: 0 }} />
-          <span style={{ fontSize: "11px", color: "#991b1b", fontWeight: 700 }}>
-            Charge en baisse depuis 3 semaines. Tendance à surveiller.
+    <div style={{ width: "100%" }}>
+      <div style={{
+        background: "white",
+        borderRadius: 10,
+        border: "1px solid rgba(67,56,202,0.10)",
+        overflow: "hidden"
+      }}>
+        {/* Header */}
+        <div style={{
+          background: "var(--midnight)",
+          padding: "10px 14px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center"
+        }}>
+          <span style={{ fontSize: 11, color: "white", fontWeight: 500 }}>
+            Tableau de bord · Semaines 20-24
           </span>
+          <span style={{ fontSize: 10, color: "rgba(255,255,255,0.4)" }}>
+            Charge de travail
+          </span>
+        </div>
+        {/* Chart */}
+        <div style={{ padding: "16px 14px 8px" }}>
+          <div style={{
+            display: "flex",
+            alignItems: "flex-end",
+            gap: 8,
+            height: 80,
+            marginBottom: 8
+          }}>
+            <div style={{
+              flex: 1, height: "80%",
+              background: "var(--indigo)",
+              borderRadius: "3px 3px 0 0"
+            }} />
+            <div style={{
+              flex: 1, height: "72%",
+              background: "var(--indigo)",
+              borderRadius: "3px 3px 0 0"
+            }} />
+            <div style={{
+              flex: 1, height: "60%",
+              background: "rgba(67,56,202,0.35)",
+              borderRadius: "3px 3px 0 0"
+            }} />
+            <div style={{
+              flex: 1, height: "50%",
+              background: "rgba(239,68,68,0.35)",
+              borderRadius: "3px 3px 0 0"
+            }} />
+            <div style={{
+              flex: 1, height: "42%",
+              background: "var(--semantic-red)",
+              borderRadius: "3px 3px 0 0",
+              opacity: 0.7
+            }} />
+          </div>
+          {/* Labels */}
+          <div style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: 12
+          }}>
+            {["S20", "S21", "S22", "S23"].map(w => (
+              <span key={w} style={{ fontSize: 10, color: "#6B7280" }}>{w}</span>
+            ))}
+            <span style={{
+              fontSize: 10,
+              color: "var(--semantic-red)",
+              fontWeight: 600
+            }}>S24</span>
+          </div>
+          {/* Alert */}
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 7,
+            background: "rgba(239,68,68,0.06)",
+            border: "1px solid rgba(239,68,68,0.15)",
+            borderRadius: 6,
+            padding: "8px 10px"
+          }}>
+            <div style={{
+              width: 16, height: 16,
+              borderRadius: "50%",
+              background: "var(--semantic-red)",
+              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 9,
+              fontWeight: 700,
+              flexShrink: 0
+            }}>!</div>
+            <span style={{
+              fontSize: 11,
+              color: "#991b1b",
+              fontWeight: 600
+            }}>
+              Charge en baisse depuis 3 semaines.
+              Tendance à surveiller.
+            </span>
+          </div>
         </div>
       </div>
     </div>
