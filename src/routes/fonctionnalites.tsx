@@ -806,37 +806,45 @@ function Page() {
       {/* Section 4 : Comparatif */}
       <section style={{ background: "var(--bg-main)", padding: "56px 5%", borderTop: "1px solid rgba(67,56,202,0.08)" }}>
         <h2 style={{ fontFamily: "var(--font-display)", fontSize: "42px", color: "var(--midnight)", letterSpacing: "-0.8px", textAlign: "center", marginBottom: "8px" }}>
-          HeedUp vs les outils existants
+          Ce qui change vraiment avec HeedUp
         </h2>
-        <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", color: "var(--text-muted)", textAlign: "center", marginBottom: "36px" }}>
-          Des chiffres concrets, pas des généralités.
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", color: "var(--text-muted)", textAlign: "center", marginBottom: "40px" }}>
+          Six différences concrètes avec les outils conçus pour les équipes RH.
         </p>
-        <div style={{ background: "var(--bg-card)", borderRadius: "14px", border: "1px solid rgba(67,56,202,0.10)", overflow: "hidden", maxWidth: "900px", margin: "0 auto" }}>
-          <div style={{ background: "var(--midnight)", padding: "14px 24px", display: "grid", gridTemplateColumns: "1fr 140px 140px", gap: "16px", alignItems: "center" }}>
-            <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)" }}>Critère</div>
-            <div style={{ fontSize: "12px", fontWeight: 700, color: "var(--indigo)", textAlign: "center" }}>HeedUp</div>
-            <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.3)", textAlign: "center" }}>Outils RH classiques</div>
+        <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "16px", marginBottom: "12px" }}>
+            <div style={{ fontSize: "11px", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.7px", color: "rgba(13,27,62,0.35)", textAlign: "left" }}>Sans HeedUp</div>
+            <div />
+            <div style={{ fontSize: "11px", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.7px", color: "var(--indigo)", textAlign: "right" }}>Avec HeedUp</div>
           </div>
-          {compareRows.map((r, i) => (
-            <div
-              key={r.label}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 140px 140px",
-                gap: "16px",
-                padding: "14px 24px",
-                borderBottom: i === compareRows.length - 1 ? "none" : "1px solid rgba(67,56,202,0.06)",
-                alignItems: "center",
-              }}
-            >
-              <div>
-                <div style={{ fontSize: "13px", color: "var(--midnight)", fontWeight: 500 }}>{r.label}</div>
-                <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>{r.sub}</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            {[
+              { left: "Des semaines de déploiement IT avant de pouvoir envoyer la première question.", right: "Opérationnel en 10 minutes. Vous vous inscrivez, vous configurez, le premier survey part vendredi." },
+              { left: "Un baromètre mensuel ou trimestriel. Le signal arrive après que le problème s'est installé.", right: "Une mesure hebdomadaire. Vous détectez les signaux faibles avant qu'ils deviennent des départs." },
+              { left: "Un dashboard avec des scores à lire, interpréter et traduire en actions vous-même.", right: "2 à 3 recommandations managériales actionnables livrées directement avec le rapport." },
+              { left: "Un appel commercial obligatoire avant d'avoir accès au produit ou au moindre tarif.", right: "Inscription directe, prix affiché publiquement. Vous démarrez sans parler à personne." },
+              { left: "Un contrat d'un an minimum. Vous êtes engagé avant même d'avoir validé que ça fonctionne pour votre équipe.", right: "Facturation mensuelle, résiliation libre. Vous arrêtez quand vous voulez, sans frais ni préavis." },
+              { left: "Des questionnaires pensés pour des DRH qui gèrent des centaines de personnes, pas pour un dirigeant qui pilote seul.", right: "Calibré pour 10 à 100 salariés. Interface, recommandations et seuil d'anonymat pensés pour votre réalité." },
+            ].map((row, i) => (
+              <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "16px" }}>
+                <div style={{ background: "rgba(239,68,68,0.04)", border: "1px solid rgba(239,68,68,0.12)", borderRadius: "10px", padding: "14px 16px", display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                  <div style={{ width: "20px", height: "20px", borderRadius: "50%", background: "rgba(239,68,68,0.15)", color: "#b91c1c", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <X size={10} />
+                  </div>
+                  <span style={{ fontSize: "12.5px", color: "rgba(13,27,62,0.55)", lineHeight: 1.5 }}>{row.left}</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <span style={{ fontSize: "18px", color: "rgba(67,56,202,0.3)" }}>→</span>
+                </div>
+                <div style={{ background: "rgba(67,56,202,0.05)", border: "1px solid rgba(67,56,202,0.15)", borderRadius: "10px", padding: "14px 16px", display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                  <div style={{ width: "20px", height: "20px", borderRadius: "50%", background: "var(--indigo)", color: "white", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <Check size={10} />
+                  </div>
+                  <span style={{ fontSize: "12.5px", color: "var(--midnight)", fontWeight: 600, lineHeight: 1.5 }}>{row.right}</span>
+                </div>
               </div>
-              <div style={{ fontSize: "12.5px", fontWeight: 600, color: "#15803d", textAlign: "center" }}>{r.heedup}</div>
-              <div style={{ fontSize: "12.5px", color: "rgba(13,27,62,0.3)", textAlign: "center" }}>{r.other}</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
