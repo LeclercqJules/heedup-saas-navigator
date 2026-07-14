@@ -596,17 +596,6 @@ function SpotlightCard() {
   );
 }
 
-// ---------- Compare table ----------
-
-const compareRows: { label: string; sub: string; heedup: string; other: string }[] = [
-  { label: "Temps de démarrage", sub: "Du compte au premier survey", heedup: "10 minutes", other: "4 à 12 semaines" },
-  { label: "Fréquence de mesure", sub: "Délai avant le premier signal", heedup: "Hebdomadaire", other: "Mensuel ou trimestriel" },
-  { label: "Prix d'entrée", sub: "Pour 25 salariés", heedup: "112,50€/mois", other: "Dès 667€/mois (8 000€/an)" },
-  { label: "Engagement", sub: "Durée minimale", heedup: "Mensuel, libre", other: "12 mois minimum" },
-  { label: "Appel commercial requis", sub: "Avant accès au produit", heedup: "Non", other: "Systématiquement" },
-  { label: "Anonymat", sub: "Niveau de garantie", heedup: "Architectural (by design)", other: "Paramètre désactivable" },
-  { label: "Compte salarié requis", sub: "Pour répondre au survey", heedup: "Non, lien direct", other: "Oui, inscription requise" },
-];
 
 // ---------- Page ----------
 
