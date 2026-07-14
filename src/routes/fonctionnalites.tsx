@@ -15,6 +15,7 @@ import {
   ListChecks,
   Users,
   Check,
+  X,
 } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 
@@ -313,32 +314,111 @@ function VisualAnon() {
 }
 
 function VisualDashboard() {
-  const bars = [
-    { label: "S20", h: 80, color: "var(--indigo)" },
-    { label: "S21", h: 75, color: "var(--indigo)" },
-    { label: "S22", h: 65, color: "rgba(67,56,202,0.3)" },
-    { label: "S23", h: 55, color: "rgba(67,56,202,0.3)" },
-    { label: "S24", h: 50, color: "rgba(239,68,68,0.3)", red: true },
-  ];
   return (
-    <div style={{ background: "#FFFFFF", borderRadius: "10px", border: "1px solid rgba(67,56,202,0.10)", overflow: "hidden", width: "100%", maxWidth: "380px" }}>
-      <div style={{ background: "var(--midnight)", color: "#FFFFFF", padding: "10px 14px", fontSize: "11.5px", fontWeight: 600 }}>
-        Tableau de bord · Semaines 20-24
-      </div>
-      <div style={{ padding: "16px" }}>
-        <div style={{ display: "flex", gap: "10px", alignItems: "flex-end", height: "140px" }}>
-          {bars.map((b) => (
-            <div key={b.label} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
-              <div style={{ width: "100%", height: `${b.h}%`, background: b.color, borderRadius: "4px 4px 0 0" }} />
-              <div style={{ fontSize: "10.5px", fontWeight: 600, color: b.red ? "#EF4444" : "var(--text-muted)" }}>{b.label}</div>
-            </div>
-          ))}
-        </div>
-        <div style={{ marginTop: "12px", background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.15)", borderRadius: "6px", padding: "8px 10px", display: "flex", gap: "7px", alignItems: "center" }}>
-          <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#EF4444", flexShrink: 0 }} />
-          <span style={{ fontSize: "11px", color: "#991b1b", fontWeight: 700 }}>
-            Charge en baisse depuis 3 semaines. Tendance à surveiller.
+    <div style={{ width: "100%" }}>
+      <div style={{
+        background: "white",
+        borderRadius: 10,
+        border: "1px solid rgba(67,56,202,0.10)",
+        overflow: "hidden"
+      }}>
+        {/* Header */}
+        <div style={{
+          background: "var(--midnight)",
+          padding: "10px 14px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center"
+        }}>
+          <span style={{ fontSize: 11, color: "white", fontWeight: 500 }}>
+            Tableau de bord · Semaines 20-24
           </span>
+          <span style={{ fontSize: 10, color: "rgba(255,255,255,0.4)" }}>
+            Charge de travail
+          </span>
+        </div>
+        {/* Chart */}
+        <div style={{ padding: "16px 14px 8px" }}>
+          <div style={{
+            display: "flex",
+            alignItems: "flex-end",
+            gap: 8,
+            height: 80,
+            marginBottom: 8
+          }}>
+            <div style={{
+              flex: 1, height: "80%",
+              background: "var(--indigo)",
+              borderRadius: "3px 3px 0 0"
+            }} />
+            <div style={{
+              flex: 1, height: "72%",
+              background: "var(--indigo)",
+              borderRadius: "3px 3px 0 0"
+            }} />
+            <div style={{
+              flex: 1, height: "60%",
+              background: "rgba(67,56,202,0.35)",
+              borderRadius: "3px 3px 0 0"
+            }} />
+            <div style={{
+              flex: 1, height: "50%",
+              background: "rgba(239,68,68,0.35)",
+              borderRadius: "3px 3px 0 0"
+            }} />
+            <div style={{
+              flex: 1, height: "42%",
+              background: "var(--semantic-red)",
+              borderRadius: "3px 3px 0 0",
+              opacity: 0.7
+            }} />
+          </div>
+          {/* Labels */}
+          <div style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: 12
+          }}>
+            {["S20", "S21", "S22", "S23"].map(w => (
+              <span key={w} style={{ fontSize: 10, color: "#6B7280" }}>{w}</span>
+            ))}
+            <span style={{
+              fontSize: 10,
+              color: "var(--semantic-red)",
+              fontWeight: 600
+            }}>S24</span>
+          </div>
+          {/* Alert */}
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 7,
+            background: "rgba(239,68,68,0.06)",
+            border: "1px solid rgba(239,68,68,0.15)",
+            borderRadius: 6,
+            padding: "8px 10px"
+          }}>
+            <div style={{
+              width: 16, height: 16,
+              borderRadius: "50%",
+              background: "var(--semantic-red)",
+              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 9,
+              fontWeight: 700,
+              flexShrink: 0
+            }}>!</div>
+            <span style={{
+              fontSize: 11,
+              color: "#991b1b",
+              fontWeight: 600
+            }}>
+              Charge en baisse depuis 3 semaines.
+              Tendance à surveiller.
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -516,17 +596,6 @@ function SpotlightCard() {
   );
 }
 
-// ---------- Compare table ----------
-
-const compareRows: { label: string; sub: string; heedup: string; other: string }[] = [
-  { label: "Temps de démarrage", sub: "Du compte au premier survey", heedup: "10 minutes", other: "4 à 12 semaines" },
-  { label: "Fréquence de mesure", sub: "Délai avant le premier signal", heedup: "Hebdomadaire", other: "Mensuel ou trimestriel" },
-  { label: "Prix d'entrée", sub: "Pour 25 salariés", heedup: "112,50€/mois", other: "Dès 667€/mois (8 000€/an)" },
-  { label: "Engagement", sub: "Durée minimale", heedup: "Mensuel, libre", other: "12 mois minimum" },
-  { label: "Appel commercial requis", sub: "Avant accès au produit", heedup: "Non", other: "Systématiquement" },
-  { label: "Anonymat", sub: "Niveau de garantie", heedup: "Architectural (by design)", other: "Paramètre désactivable" },
-  { label: "Compte salarié requis", sub: "Pour répondre au survey", heedup: "Non, lien direct", other: "Oui, inscription requise" },
-];
 
 // ---------- Page ----------
 
@@ -552,6 +621,14 @@ function Page() {
 
       {/* Section 2 : Feature Explorer */}
       <section style={{ background: "var(--bg-card)", padding: "52px 5%", borderTop: "1px solid rgba(67,56,202,0.08)" }}>
+        <style>{`
+          .feature-tab {
+            transition: all 0.15s;
+          }
+          .feature-tab:not(.active):hover {
+            border-color: rgba(67,56,202,0.4) !important;
+          }
+        `}</style>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", justifyContent: "center", marginBottom: "16px" }}>
           {tabs.map(({ id, label, Icon }) => {
             const isActive = id === active;
@@ -560,20 +637,21 @@ function Page() {
                 key={id}
                 type="button"
                 onClick={() => setActive(id)}
+                className={`feature-tab ${isActive ? "active" : ""}`}
                 style={{
                   display: "flex",
                   alignItems: "center",
                   gap: "7px",
                   padding: "10px 16px",
                   borderRadius: "8px",
-                  border: `1.5px solid ${isActive ? "var(--midnight)" : "rgba(67,56,202,0.15)"}`,
-                  background: isActive ? "var(--midnight)" : "var(--bg-main)",
+                  border: `1.5px solid ${isActive ? "var(--midnight)" : "rgba(13,27,62,0.25)"}`,
+                  background: isActive ? "var(--midnight)" : "var(--bg-card)",
                   fontFamily: "var(--font-sans)",
                   fontSize: "12.5px",
                   fontWeight: 600,
-                  color: isActive ? "#EEEEFF" : "rgba(13,27,62,0.55)",
+                  color: isActive ? "#EEEEFF" : "var(--midnight)",
                   cursor: "pointer",
-                  transition: "all 0.15s",
+                  boxShadow: isActive ? "none" : "0 1px 4px rgba(13,27,62,0.08)",
                 }}
               >
                 <Icon size={14} color="var(--indigo)" />
@@ -728,37 +806,45 @@ function Page() {
       {/* Section 4 : Comparatif */}
       <section style={{ background: "var(--bg-main)", padding: "56px 5%", borderTop: "1px solid rgba(67,56,202,0.08)" }}>
         <h2 style={{ fontFamily: "var(--font-display)", fontSize: "42px", color: "var(--midnight)", letterSpacing: "-0.8px", textAlign: "center", marginBottom: "8px" }}>
-          HeedUp vs les outils existants
+          Ce qui change vraiment avec HeedUp
         </h2>
-        <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", color: "var(--text-muted)", textAlign: "center", marginBottom: "36px" }}>
-          Des chiffres concrets, pas des généralités.
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", color: "var(--text-muted)", textAlign: "center", marginBottom: "40px" }}>
+          Six différences concrètes avec les outils conçus pour les équipes RH.
         </p>
-        <div style={{ background: "var(--bg-card)", borderRadius: "14px", border: "1px solid rgba(67,56,202,0.10)", overflow: "hidden", maxWidth: "900px", margin: "0 auto" }}>
-          <div style={{ background: "var(--midnight)", padding: "14px 24px", display: "grid", gridTemplateColumns: "1fr 140px 140px", gap: "16px", alignItems: "center" }}>
-            <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)" }}>Critère</div>
-            <div style={{ fontSize: "12px", fontWeight: 700, color: "var(--indigo)", textAlign: "center" }}>HeedUp</div>
-            <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.3)", textAlign: "center" }}>Outils RH classiques</div>
+        <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "16px", marginBottom: "12px" }}>
+            <div style={{ fontSize: "11px", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.7px", color: "rgba(13,27,62,0.35)", textAlign: "left" }}>Sans HeedUp</div>
+            <div />
+            <div style={{ fontSize: "11px", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.7px", color: "var(--indigo)", textAlign: "right" }}>Avec HeedUp</div>
           </div>
-          {compareRows.map((r, i) => (
-            <div
-              key={r.label}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 140px 140px",
-                gap: "16px",
-                padding: "14px 24px",
-                borderBottom: i === compareRows.length - 1 ? "none" : "1px solid rgba(67,56,202,0.06)",
-                alignItems: "center",
-              }}
-            >
-              <div>
-                <div style={{ fontSize: "13px", color: "var(--midnight)", fontWeight: 500 }}>{r.label}</div>
-                <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>{r.sub}</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            {[
+              { left: "Des semaines de déploiement IT avant de pouvoir envoyer la première question.", right: "Opérationnel en 10 minutes. Vous vous inscrivez, vous configurez, le premier survey part vendredi." },
+              { left: "Un baromètre mensuel ou trimestriel. Le signal arrive après que le problème s'est installé.", right: "Une mesure hebdomadaire. Vous détectez les signaux faibles avant qu'ils deviennent des départs." },
+              { left: "Un dashboard avec des scores à lire, interpréter et traduire en actions vous-même.", right: "2 à 3 recommandations managériales actionnables livrées directement avec le rapport." },
+              { left: "Un appel commercial obligatoire avant d'avoir accès au produit ou au moindre tarif.", right: "Inscription directe, prix affiché publiquement. Vous démarrez sans parler à personne." },
+              { left: "Un contrat d'un an minimum. Vous êtes engagé avant même d'avoir validé que ça fonctionne pour votre équipe.", right: "Facturation mensuelle, résiliation libre. Vous arrêtez quand vous voulez, sans frais ni préavis." },
+              { left: "Des questionnaires pensés pour des DRH qui gèrent des centaines de personnes, pas pour un dirigeant qui pilote seul.", right: "Calibré pour 10 à 100 salariés. Interface, recommandations et seuil d'anonymat pensés pour votre réalité." },
+            ].map((row, i) => (
+              <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "16px" }}>
+                <div style={{ background: "rgba(239,68,68,0.04)", border: "1px solid rgba(239,68,68,0.12)", borderRadius: "10px", padding: "14px 16px", display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                  <div style={{ width: "20px", height: "20px", borderRadius: "50%", background: "rgba(239,68,68,0.15)", color: "#b91c1c", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <X size={10} />
+                  </div>
+                  <span style={{ fontSize: "12.5px", color: "rgba(13,27,62,0.55)", lineHeight: 1.5 }}>{row.left}</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <span style={{ fontSize: "18px", color: "rgba(67,56,202,0.3)" }}>→</span>
+                </div>
+                <div style={{ background: "rgba(67,56,202,0.05)", border: "1px solid rgba(67,56,202,0.15)", borderRadius: "10px", padding: "14px 16px", display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                  <div style={{ width: "20px", height: "20px", borderRadius: "50%", background: "var(--indigo)", color: "white", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <Check size={10} />
+                  </div>
+                  <span style={{ fontSize: "12.5px", color: "var(--midnight)", fontWeight: 600, lineHeight: 1.5 }}>{row.right}</span>
+                </div>
               </div>
-              <div style={{ fontSize: "12.5px", fontWeight: 600, color: "#15803d", textAlign: "center" }}>{r.heedup}</div>
-              <div style={{ fontSize: "12.5px", color: "rgba(13,27,62,0.3)", textAlign: "center" }}>{r.other}</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
