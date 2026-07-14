@@ -586,7 +586,7 @@ function Page() {
                   boxShadow: isActive ? "none" : "0 1px 4px rgba(13,27,62,0.08)",
                 }}
               >
-                <Icon size={14} color={isActive ? "var(--indigo-pale)" : "var(--indigo)"} />
+                <Icon size={14} color="var(--indigo)" />
                 {label}
               </button>
             );
