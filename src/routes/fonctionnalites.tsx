@@ -553,6 +553,14 @@ function Page() {
 
       {/* Section 2 : Feature Explorer */}
       <section style={{ background: "var(--bg-card)", padding: "52px 5%", borderTop: "1px solid rgba(67,56,202,0.08)" }}>
+        <style>{`
+          .feature-tab {
+            transition: all 0.15s;
+          }
+          .feature-tab:not(.active):hover {
+            border-color: rgba(67,56,202,0.4) !important;
+          }
+        `}</style>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", justifyContent: "center", marginBottom: "16px" }}>
           {tabs.map(({ id, label, Icon }) => {
             const isActive = id === active;
@@ -561,23 +569,24 @@ function Page() {
                 key={id}
                 type="button"
                 onClick={() => setActive(id)}
+                className={`feature-tab ${isActive ? "active" : ""}`}
                 style={{
                   display: "flex",
                   alignItems: "center",
                   gap: "7px",
                   padding: "10px 16px",
                   borderRadius: "8px",
-                  border: `1.5px solid ${isActive ? "var(--midnight)" : "rgba(67,56,202,0.15)"}`,
-                  background: isActive ? "var(--midnight)" : "var(--bg-main)",
+                  border: `1.5px solid ${isActive ? "var(--midnight)" : "rgba(13,27,62,0.25)"}`,
+                  background: isActive ? "var(--midnight)" : "var(--bg-card)",
                   fontFamily: "var(--font-sans)",
                   fontSize: "12.5px",
                   fontWeight: 600,
-                  color: isActive ? "#EEEEFF" : "rgba(13,27,62,0.55)",
+                  color: isActive ? "#EEEEFF" : "var(--midnight)",
                   cursor: "pointer",
-                  transition: "all 0.15s",
+                  boxShadow: isActive ? "none" : "0 1px 4px rgba(13,27,62,0.08)",
                 }}
               >
-                <Icon size={14} color="var(--indigo)" />
+                <Icon size={14} color={isActive ? "var(--indigo-pale)" : "var(--indigo)"} />
                 {label}
               </button>
             );
