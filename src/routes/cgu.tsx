@@ -97,7 +97,7 @@ function Page() {
               marginBottom: "48px",
             }}
           >
-            CGU et CGV, en vigueur depuis juillet 2025
+            CGU et CGV, en vigueur depuis juillet 2026
           </p>
 
           {sections.map((section, index) => (
