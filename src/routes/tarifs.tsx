@@ -35,37 +35,32 @@ const TALLY_ATTRS = {
 
 type Card = {
   range: string;
-  price: string;
-  priceSuffix: string;
-  total: string;
   featured?: boolean;
+  monthly: { price: string; total: string };
+  annual: { price: string; total: string; savings: string };
 };
 
 const cards: Card[] = [
   {
     range: "10 à 24 salariés",
-    price: "5,00€",
-    priceSuffix: "/siège",
-    total: "À partir de 50€/mois",
+    monthly: { price: "5,00€/siège", total: "À partir de 50€/mois" },
+    annual: { price: "4,17€/siège", total: "500€/an · 2 mois offerts", savings: "Économisez 100€/an" },
   },
   {
     range: "25 à 49 salariés",
-    price: "4,50€",
-    priceSuffix: "/siège",
-    total: "À partir de 112,50€/mois",
     featured: true,
+    monthly: { price: "4,50€/siège", total: "À partir de 112,50€/mois" },
+    annual: { price: "3,75€/siège", total: "1 125€/an · 2 mois offerts", savings: "Économisez 225€/an" },
   },
   {
     range: "50 à 99 salariés",
-    price: "dès 4,00€",
-    priceSuffix: "/siège",
-    total: "À partir de 200€/mois",
+    monthly: { price: "dès 4,00€/siège", total: "À partir de 200€/mois" },
+    annual: { price: "dès 3,33€/siège", total: "2 000€/an · 2 mois offerts", savings: "Économisez 400€/an" },
   },
   {
     range: "100+ salariés",
-    price: "3,50€",
-    priceSuffix: "/siège",
-    total: "À partir de 350€/mois",
+    monthly: { price: "3,50€/siège", total: "À partir de 350€/mois" },
+    annual: { price: "2,92€/siège", total: "3 500€/an · 2 mois offerts", savings: "Économisez 700€/an" },
   },
 ];
 
