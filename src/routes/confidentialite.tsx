@@ -19,7 +19,7 @@ const sections = [
   {
     title: "Éditeur",
     content:
-      "Jules Leclercq, auto-entrepreneur.\n32 Cours Pasteur, 33000 Bordeaux, France.\nContact : contact@heedup.fr",
+      "Jules Leclercq, auto-entrepreneur.\nSIRET : 90077093400017\n32 Cours Pasteur, 33000 Bordeaux, France.\nContact : contact@heedup.fr",
   },
   {
     title: "Hébergement",
