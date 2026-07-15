@@ -840,7 +840,7 @@ function SectionPricingCards() {
                       marginTop: "6px",
                     }}
                   >
-                    {plan.savings}
+                    {c.annual.savings}
                   </div>
                 )}
               </div>
