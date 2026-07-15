@@ -4,37 +4,42 @@ import { SiteLayout } from "@/components/SiteLayout";
 export const Route = createFileRoute("/confidentialite")({
   head: () => ({
     meta: [
-      { title: "RGPD — HeedUp" },
+      { title: "Confidentialité — HeedUp" },
       {
         name: "description",
         content:
-          "Nos engagements RGPD : minimisation, pseudonymisation, hébergement en France.",
+          "Politique de confidentialité de HeedUp : hébergement en France, anonymat des réponses, droits RGPD.",
       },
     ],
   }),
   component: Page,
 });
 
-const blocks = [
+const sections = [
   {
-    t: "Minimisation des données",
-    d: "Nous ne collectons que les données strictement nécessaires à la détection des signaux faibles. Aucune donnée émotionnelle brute n'est stockée.",
+    title: "Éditeur",
+    content:
+      "Jules Leclercq, auto-entrepreneur.\n32 Cours Pasteur, 33000 Bordeaux, France.\nContact : contact@heedup.fr",
   },
   {
-    t: "Pseudonymisation par défaut",
-    d: "Les identifiants collaborateurs sont pseudonymisés dès l'ingestion. Le rapprochement n'est possible que côté client RH autorisé.",
+    title: "Hébergement",
+    content:
+      "Les données HeedUp sont hébergées en France, sur des serveurs situés en région parisienne. Aucune donnée ne transite hors de l'Union Européenne.",
   },
   {
-    t: "Hébergement souverain",
-    d: "Toutes les données sont hébergées en France, chez un hébergeur certifié HDS pour les cas cliniques et ISO 27001 par défaut.",
+    title: "Données collectées",
+    content:
+      "Côté manager : email, nom, entreprise, taille d'équipe. Les paiements sont traités par Stripe et ne sont jamais stockés par HeedUp.\n\nCôté salarié : aucune donnée nominative. Les réponses sont associées à un token aléatoire non-traçable, régénéré chaque semaine. Il est techniquement impossible de relier une réponse à un salarié identifié.",
   },
   {
-    t: "Droits des personnes",
-    d: "Accès, rectification, effacement, opposition — les demandes sont traitées sous 30 jours via dpo@heedup.fr.",
+    title: "Anonymat des réponses",
+    content:
+      "L'anonymat est une contrainte d'architecture, pas un paramètre désactivable. Même HeedUp ne peut pas identifier l'auteur d'une réponse individuelle. En dessous de 5 répondants, aucun score n'est affiché.",
   },
   {
-    t: "Sous-traitants",
-    d: "Liste tenue à jour et communiquée sur demande. Aucun transfert hors UE sans garantie appropriée.",
+    title: "Vos droits",
+    content:
+      "Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour toute demande : contact@heedup.fr\n\nRéclamation possible auprès de la CNIL : www.cnil.fr",
   },
 ];
 
@@ -42,56 +47,94 @@ function Page() {
   return (
     <SiteLayout>
       <section
-        className="mx-auto max-w-[720px] px-[5%] py-20"
-        style={{ backgroundColor: "var(--bg-main)" }}
+        style={{
+          backgroundColor: "var(--bg-main)",
+          padding: "64px 5%",
+        }}
       >
-        <h1
-          style={{
-            fontSize: "clamp(36px, 5vw, 56px)",
-            lineHeight: 1.1,
-            color: "var(--midnight)",
-          }}
-        >
-          RGPD
-        </h1>
-        <p
-          className="mt-4"
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: "15px",
-            lineHeight: 1.6,
-            color: "var(--text-muted)",
-          }}
-        >
-          La conformité n'est pas une case à cocher. C'est un pilier de notre
-          conception.
-        </p>
+        <div style={{ maxWidth: "680px", margin: "0 auto" }}>
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "42px",
+              color: "var(--midnight)",
+              letterSpacing: "-0.8px",
+              marginBottom: "8px",
+            }}
+          >
+            Confidentialité
+          </h1>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "15px",
+              color: "var(--text-muted)",
+              marginBottom: "48px",
+            }}
+          >
+            Dernière mise à jour : juillet 2025
+          </p>
 
-        <div className="mt-12 space-y-6">
-          {blocks.map((b) => (
-            <article
-              key={b.t}
-              style={{
-                backgroundColor: "var(--bg-card)",
-                borderRadius: "12px",
-                padding: "28px",
-                border: "1px solid rgba(67,56,202,0.1)",
-              }}
-            >
-              <h3 style={{ fontSize: "20px", color: "var(--midnight)" }}>{b.t}</h3>
+          {sections.map((section, index) => (
+            <div key={section.title}>
+              <h2
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "22px",
+                  color: "var(--midnight)",
+                  paddingTop: "36px",
+                  marginBottom: "10px",
+                  borderTop:
+                    index > 0
+                      ? "1px solid rgba(67,56,202,0.08)"
+                      : "none",
+                }}
+              >
+                {section.title}
+              </h2>
               <p
-                className="mt-3"
                 style={{
                   fontFamily: "var(--font-sans)",
                   fontSize: "14px",
-                  lineHeight: 1.6,
-                  color: "var(--text-muted)",
+                  color: "var(--text-primary)",
+                  lineHeight: 1.75,
+                  whiteSpace: "pre-line",
                 }}
               >
-                {b.d}
+                {section.content}
               </p>
-            </article>
+            </div>
           ))}
+
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "22px",
+              color: "var(--midnight)",
+              paddingTop: "36px",
+              marginBottom: "10px",
+              borderTop: "1px solid rgba(67,56,202,0.08)",
+            }}
+          >
+            Contact
+          </h2>
+          <div
+            style={{
+              background: "#EEEEFF",
+              borderRadius: "10px",
+              padding: "20px 24px",
+              border: "1px solid rgba(67,56,202,0.15)",
+              fontFamily: "var(--font-sans)",
+              fontSize: "14px",
+              color: "var(--midnight)",
+              fontWeight: 500,
+              lineHeight: 2,
+            }}
+          >
+            contact@heedup.fr
+            <br />
+            32 Cours Pasteur, 33000 Bordeaux, France
+          </div>
         </div>
       </section>
     </SiteLayout>
