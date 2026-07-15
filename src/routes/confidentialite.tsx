@@ -4,27 +4,22 @@ import { SiteLayout } from "@/components/SiteLayout";
 export const Route = createFileRoute("/confidentialite")({
   head: () => ({
     meta: [
-      { title: "Confidentialité — HeedUp" },
+      { title: "Confidentialité et mentions légales — HeedUp" },
       {
         name: "description",
         content:
-          "Politique de confidentialité de HeedUp : hébergement en France, anonymat des réponses, droits RGPD.",
+          "Politique de confidentialité et mentions légales de HeedUp : hébergement en France, anonymat des réponses, droits RGPD.",
       },
     ],
   }),
   component: Page,
 });
 
-const sections = [
+const sections: { title: string; content: string }[] = [
   {
-    title: "Éditeur",
+    title: "Mentions légales",
     content:
-      "Jules Leclercq, auto-entrepreneur.\nSIRET : 90077093400017\n32 Cours Pasteur, 33000 Bordeaux, France.\nContact : contact@heedup.fr",
-  },
-  {
-    title: "Hébergement",
-    content:
-      "Les données HeedUp sont hébergées en France, sur des serveurs situés en région parisienne. Aucune donnée ne transite hors de l'Union Européenne.",
+      "Éditeur : Jules Leclercq, auto-entrepreneur.\nSIRET : 90077093400017\n32 Cours Pasteur, 33000 Bordeaux, France.\nDirecteur de publication : Jules Leclercq.\nContact : contact@heedup.fr\n\nHébergement frontend : Vercel Inc., 340 Pine Street, San Francisco, CA 94104.\nHébergement des données : serveurs en France (région Paris). Aucune donnée personnelle ne transite hors de l'Union Européenne.",
   },
   {
     title: "Données collectées",
@@ -37,6 +32,21 @@ const sections = [
       "L'anonymat est une contrainte d'architecture, pas un paramètre désactivable. Même HeedUp ne peut pas identifier l'auteur d'une réponse individuelle. En dessous de 5 répondants, aucun score n'est affiché.",
   },
   {
+    title: "Hébergement et sécurité",
+    content:
+      "Toutes les données sont hébergées en France, sur des serveurs situés en région parisienne. Les communications sont chiffrées via HTTPS. Aucune donnée personnelle ne transite hors de l'Union Européenne.",
+  },
+  {
+    title: "Durée de conservation",
+    content:
+      "Réponses anonymisées : 12 mois glissants.\nDonnées managers : durée de l'abonnement plus 12 mois après résiliation.\nDonnées de facturation : 10 ans (obligation légale comptable).",
+  },
+  {
+    title: "Cookies",
+    content:
+      "HeedUp utilisera Plausible Analytics, un outil sans cookie et sans donnée personnelle identifiable. Aucun consentement n'est requis. Aucun autre outil de tracking n'est utilisé.",
+  },
+  {
     title: "Vos droits",
     content:
       "Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour toute demande : contact@heedup.fr\n\nRéclamation possible auprès de la CNIL : www.cnil.fr",
@@ -46,12 +56,7 @@ const sections = [
 function Page() {
   return (
     <SiteLayout>
-      <section
-        style={{
-          backgroundColor: "var(--bg-main)",
-          padding: "64px 5%",
-        }}
-      >
+      <section style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
         <div style={{ maxWidth: "680px", margin: "0 auto" }}>
           <h1
             style={{
@@ -62,7 +67,7 @@ function Page() {
               marginBottom: "8px",
             }}
           >
-            Confidentialité
+            Confidentialité et mentions légales
           </h1>
           <p
             style={{
@@ -84,10 +89,7 @@ function Page() {
                   color: "var(--midnight)",
                   paddingTop: "36px",
                   marginBottom: "10px",
-                  borderTop:
-                    index > 0
-                      ? "1px solid rgba(67,56,202,0.08)"
-                      : "none",
+                  borderTop: index > 0 ? "1px solid rgba(67,56,202,0.08)" : "none",
                 }}
               >
                 {section.title}

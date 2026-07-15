@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TarifsRouteImport } from './routes/tarifs'
 import { Route as FonctionnalitesRouteImport } from './routes/fonctionnalites'
 import { Route as ConfidentialiteRouteImport } from './routes/confidentialite'
+import { Route as CguRouteImport } from './routes/cgu'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -30,6 +31,11 @@ const ConfidentialiteRoute = ConfidentialiteRouteImport.update({
   path: '/confidentialite',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CguRoute = CguRouteImport.update({
+  id: '/cgu',
+  path: '/cgu',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogRoute = BlogRouteImport.update({
   id: '/blog',
   path: '/blog',
@@ -44,6 +50,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
+  '/cgu': typeof CguRoute
   '/confidentialite': typeof ConfidentialiteRoute
   '/fonctionnalites': typeof FonctionnalitesRoute
   '/tarifs': typeof TarifsRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
+  '/cgu': typeof CguRoute
   '/confidentialite': typeof ConfidentialiteRoute
   '/fonctionnalites': typeof FonctionnalitesRoute
   '/tarifs': typeof TarifsRoute
@@ -59,19 +67,33 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
+  '/cgu': typeof CguRoute
   '/confidentialite': typeof ConfidentialiteRoute
   '/fonctionnalites': typeof FonctionnalitesRoute
   '/tarifs': typeof TarifsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/blog' | '/confidentialite' | '/fonctionnalites' | '/tarifs'
+  fullPaths:
+    | '/'
+    | '/blog'
+    | '/cgu'
+    | '/confidentialite'
+    | '/fonctionnalites'
+    | '/tarifs'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/blog' | '/confidentialite' | '/fonctionnalites' | '/tarifs'
+  to:
+    | '/'
+    | '/blog'
+    | '/cgu'
+    | '/confidentialite'
+    | '/fonctionnalites'
+    | '/tarifs'
   id:
     | '__root__'
     | '/'
     | '/blog'
+    | '/cgu'
     | '/confidentialite'
     | '/fonctionnalites'
     | '/tarifs'
@@ -80,6 +102,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BlogRoute: typeof BlogRoute
+  CguRoute: typeof CguRoute
   ConfidentialiteRoute: typeof ConfidentialiteRoute
   FonctionnalitesRoute: typeof FonctionnalitesRoute
   TarifsRoute: typeof TarifsRoute
@@ -108,6 +131,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConfidentialiteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cgu': {
+      id: '/cgu'
+      path: '/cgu'
+      fullPath: '/cgu'
+      preLoaderRoute: typeof CguRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog': {
       id: '/blog'
       path: '/blog'
@@ -128,6 +158,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BlogRoute: BlogRoute,
+  CguRoute: CguRoute,
   ConfidentialiteRoute: ConfidentialiteRoute,
   FonctionnalitesRoute: FonctionnalitesRoute,
   TarifsRoute: TarifsRoute,
