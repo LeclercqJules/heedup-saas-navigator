@@ -606,6 +606,281 @@ function SectionFaq() {
   );
 }
 
+function SectionPricingCards() {
+  const [isAnnual, setIsAnnual] = useState(false);
+
+  return (
+    <section
+      style={{
+        backgroundColor: "var(--bg-card)",
+        padding: "48px 5%",
+        borderTop: "1px solid rgba(67,56,202,0.08)",
+      }}
+    >
+      <div style={{ textAlign: "center", marginBottom: "36px" }}>
+        <h2
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "42px",
+            letterSpacing: "-0.8px",
+            color: "var(--midnight)",
+          }}
+        >
+          Les 4 paliers tarifaires
+        </h2>
+        <p
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "15px",
+            color: "var(--text-muted)",
+            marginTop: "10px",
+          }}
+        >
+          Plus votre équipe est grande, moins vous payez par siège.
+        </p>
+        {isAnnual && (
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "13px",
+              color: "#15803d",
+              fontWeight: 500,
+              marginTop: "-16px",
+              marginBottom: "24px",
+            }}
+          >
+            Facturation en une fois pour 12 mois. 2 mois offerts par rapport au mensuel.
+          </p>
+        )}
+      </div>
+
+      {/* Toggle */}
+      <div style={{ textAlign: "center", marginBottom: "32px" }}>
+        <div
+          style={{
+            display: "inline-flex",
+            background: "var(--bg-main)",
+            border: "1px solid rgba(67,56,202,0.15)",
+            borderRadius: "10px",
+            padding: "4px",
+            gap: "4px",
+          }}
+        >
+          <button
+            type="button"
+            onClick={() => setIsAnnual(false)}
+            style={{
+              padding: "8px 20px",
+              borderRadius: "7px",
+              fontSize: "13px",
+              fontWeight: 600,
+              cursor: "pointer",
+              border: "none",
+              fontFamily: "var(--font-sans)",
+              background: isAnnual ? "transparent" : "var(--midnight)",
+              color: isAnnual ? "rgba(13,27,62,0.55)" : "#FFFFFF",
+            }}
+          >
+            Mensuel
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsAnnual(true)}
+            style={{
+              padding: "8px 20px",
+              borderRadius: "7px",
+              fontSize: "13px",
+              fontWeight: 600,
+              cursor: "pointer",
+              border: "none",
+              fontFamily: "var(--font-sans)",
+              background: isAnnual ? "var(--midnight)" : "transparent",
+              color: isAnnual ? "#FFFFFF" : "rgba(13,27,62,0.55)",
+            }}
+          >
+            Annuel
+            <span
+              style={{
+                display: "inline-block",
+                background: "rgba(34,197,94,0.12)",
+                color: "#15803d",
+                fontSize: "9.5px",
+                fontWeight: 700,
+                padding: "2px 7px",
+                borderRadius: "4px",
+                marginLeft: "6px",
+              }}
+            >
+              2 MOIS OFFERTS
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <div
+        className="grid"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: "16px",
+        }}
+      >
+        {cards.map((c) => {
+          const featured = !!c.featured;
+          const plan = isAnnual ? c.annual : c.monthly;
+          return (
+            <article
+              key={c.range}
+              className={`pricing-card ${featured ? "featured" : ""}`}
+              style={{
+                borderRadius: "16px",
+                overflow: "hidden",
+                border: featured
+                  ? "2px solid var(--midnight)"
+                  : "1px solid rgba(67,56,202,0.12)",
+                backgroundColor: "var(--bg-main)",
+                boxShadow: featured
+                  ? "0 8px 32px rgba(13,27,62,0.12)"
+                  : undefined,
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              {/* HEADER */}
+              <div
+                style={{
+                  padding: "28px 24px 20px",
+                  backgroundColor: featured ? "var(--midnight)" : "var(--bg-main)",
+                }}
+              >
+                {featured && (
+                  <span
+                    style={{
+                      display: "inline-block",
+                      backgroundColor: "var(--indigo)",
+                      color: "#FFFFFF",
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "9px",
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      padding: "3px 8px",
+                      borderRadius: "4px",
+                      marginBottom: "12px",
+                      letterSpacing: "0.6px",
+                    }}
+                  >
+                    Le plus choisi
+                  </span>
+                )}
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.6px",
+                    color: featured
+                      ? "rgba(255,255,255,0.4)"
+                      : "var(--midnight)",
+                    opacity: featured ? 1 : 0.35,
+                    marginBottom: "14px",
+                  }}
+                >
+                  {c.range}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "44px",
+                    letterSpacing: "-1px",
+                    color: featured ? "#FFFFFF" : "var(--midnight)",
+                    lineHeight: 1,
+                    marginBottom: "4px",
+                  }}
+                >
+                  {plan.price}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "11px",
+                    color: featured ? "rgba(255,255,255,0.45)" : "var(--text-muted)",
+                    marginBottom: "16px",
+                  }}
+                >
+                  par siège, par mois
+                </div>
+                <div
+                  style={{
+                    display: "inline-block",
+                    backgroundColor: featured
+                      ? "rgba(255,255,255,0.1)"
+                      : "rgba(67,56,202,0.07)",
+                    borderRadius: "6px",
+                    padding: "6px 12px",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "12.5px",
+                    fontWeight: 500,
+                    color: featured ? "rgba(255,255,255,0.6)" : "var(--midnight)",
+                    opacity: featured ? 1 : 0.55,
+                  }}
+                >
+                  {plan.total}
+                </div>
+                {isAnnual && (
+                  <div
+                    style={{
+                      display: "inline-block",
+                      background: "rgba(34,197,94,0.10)",
+                      color: "#15803d",
+                      fontSize: "10px",
+                      fontWeight: 700,
+                      padding: "3px 9px",
+                      borderRadius: "5px",
+                      marginTop: "6px",
+                    }}
+                  >
+                    {plan.savings}
+                  </div>
+                )}
+              </div>
+              {/* BODY */}
+              <div
+                style={{
+                  padding: "20px 24px",
+                  backgroundColor: "var(--bg-card)",
+                  marginTop: "auto",
+                }}
+              >
+                <button
+                  type="button"
+                  {...TALLY_ATTRS}
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    borderRadius: "8px",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "13px",
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    backgroundColor: featured ? "var(--indigo)" : "transparent",
+                    border: featured
+                      ? "1.5px solid var(--indigo)"
+                      : "1.5px solid var(--midnight)",
+                    color: featured ? "#FFFFFF" : "var(--midnight)",
+                  }}
+                >
+                  Rejoindre la liste
+                </button>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 function SectionCta() {
   return (
     <section
