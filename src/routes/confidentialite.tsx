@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 
-export const Route = createFileRoute("/rgpd")({
+export const Route = createFileRoute("/confidentialite")({
   head: () => ({
     meta: [
       { title: "RGPD — HeedUp" },
