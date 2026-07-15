@@ -1,11 +1,9 @@
 import { Link } from "@tanstack/react-router";
 
 const footerLinks = [
-  { to: "/fonctionnalites", label: "Fonctionnalités" },
-  { to: "/tarifs", label: "Tarifs" },
-  { to: "/rgpd", label: "RGPD" },
   { to: "/mentions-legales", label: "Mentions légales" },
-  { to: "/contact", label: "Contact" },
+  { to: "/confidentialite", label: "Confidentialité" },
+  { to: "mailto:contact@heedup.fr", label: "Contact" },
 ] as const;
 
 export function Footer() {
