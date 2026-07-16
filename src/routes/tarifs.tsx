@@ -1189,7 +1189,7 @@ function Page() {
           </p>
         </div>
 
-        <PricingSimulator />
+        <PricingSimulator isAnnual={isAnnual} />
       </section>
 
       <section
