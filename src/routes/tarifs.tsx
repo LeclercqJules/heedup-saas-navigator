@@ -82,6 +82,17 @@ function fmt(n: number) {
   return n.toFixed(2).replace(".", ",");
 }
 
+function fmtInt(n: number) {
+  return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
+function calcAnnual(n: number) {
+  if (n < 25) return n * 5.0 * 10;
+  if (n < 50) return n * 4.5 * 10;
+  if (n < 100) return (200 + (n - 50) * 3.75) * 10;
+  return n * 3.5 * 10;
+}
+
 function getSavings(n: number): string | null {
   if (n >= 23 && n < 25) {
     const saving = fmt(n * 5.0 - 112.5);
