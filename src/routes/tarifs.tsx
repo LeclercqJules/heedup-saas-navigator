@@ -37,30 +37,30 @@ type Card = {
   range: string;
   featured?: boolean;
   monthly: { price: string; total: string };
-  annual: { price: string; total: string; savings: string };
+  annual: { price: string; total: string; savings?: string };
 };
 
 const cards: Card[] = [
   {
-    range: "10 à 24 salariés",
-    monthly: { price: "5,00€/siège", total: "À partir de 50€/mois" },
-    annual: { price: "4,17€/siège", total: "500€/an · 2 mois offerts", savings: "Économisez 100€/an" },
+    range: "10-24 salariés",
+    monthly: { price: "5,00€", total: "À partir de 50€/mois" },
+    annual: { price: "4,17€", total: "500€/an · 2 mois offerts" },
   },
   {
-    range: "25 à 49 salariés",
+    range: "25-49 salariés",
     featured: true,
-    monthly: { price: "4,50€/siège", total: "À partir de 112,50€/mois" },
-    annual: { price: "3,75€/siège", total: "1 125€/an · 2 mois offerts", savings: "Économisez 225€/an" },
+    monthly: { price: "4,50€", total: "À partir de 112,50€/mois" },
+    annual: { price: "3,75€", total: "1 125€/an", savings: "225€/an" },
   },
   {
-    range: "50 à 99 salariés",
-    monthly: { price: "dès 4,00€/siège", total: "À partir de 200€/mois" },
-    annual: { price: "dès 3,33€/siège", total: "2 000€/an · 2 mois offerts", savings: "Économisez 400€/an" },
+    range: "50-99 salariés",
+    monthly: { price: "4,00€", total: "À partir de 200€/mois" },
+    annual: { price: "3,33€", total: "2 000€/an · 2 mois offerts" },
   },
   {
     range: "100+ salariés",
-    monthly: { price: "3,50€/siège", total: "À partir de 350€/mois" },
-    annual: { price: "2,92€/siège", total: "3 500€/an · 2 mois offerts", savings: "Économisez 700€/an" },
+    monthly: { price: "3,50€", total: "À partir de 350€/mois" },
+    annual: { price: "2,92€", total: "3 500€/an · 2 mois offerts" },
   },
 ];
 
@@ -80,6 +80,17 @@ function calcPrice(n: number) {
 
 function fmt(n: number) {
   return n.toFixed(2).replace(".", ",");
+}
+
+function fmtInt(n: number) {
+  return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
+function calcAnnual(n: number) {
+  if (n < 25) return n * 5.0 * 10;
+  if (n < 50) return n * 4.5 * 10;
+  if (n < 100) return (200 + (n - 50) * 3.75) * 10;
+  return n * 3.5 * 10;
 }
 
 function getSavings(n: number): string | null {
@@ -112,7 +123,7 @@ function activeTier(n: number) {
   return 100;
 }
 
-function PricingSimulator() {
+function PricingSimulator({ isAnnual }: { isAnnual: boolean }) {
   const [val, setVal] = useState(25);
   const sliderRef = useRef<HTMLInputElement>(null);
 
@@ -285,7 +296,9 @@ function PricingSimulator() {
               color: "#fff",
             }}
           >
-            {fmt(price.seat)}€/siège
+            {isAnnual
+              ? `${fmt(calcAnnual(val) / 12 / val)}€/siège`
+              : `${fmt(price.seat)}€/siège`}
           </div>
         </div>
         <div style={{ width: 1, height: 36, background: "rgba(255,255,255,0.1)" }} />
@@ -300,7 +313,7 @@ function PricingSimulator() {
               marginBottom: 6,
             }}
           >
-            Total mensuel
+            {isAnnual ? "Total annuel" : "Total mensuel"}
           </div>
           <div
             style={{
@@ -309,7 +322,9 @@ function PricingSimulator() {
               color: "#fff",
             }}
           >
-            {fmt(price.total)}€/mois
+            {isAnnual
+              ? `${fmtInt(calcAnnual(val))}€/an`
+              : `${fmt(price.total)}€/mois`}
           </div>
         </div>
         <button
@@ -606,9 +621,13 @@ function SectionFaq() {
   );
 }
 
-function SectionPricingCards() {
-  const [isAnnual, setIsAnnual] = useState(false);
-
+function SectionPricingCards({
+  isAnnual,
+  setIsAnnual,
+}: {
+  isAnnual: boolean;
+  setIsAnnual: (v: boolean) => void;
+}) {
   return (
     <section
       style={{
@@ -617,7 +636,7 @@ function SectionPricingCards() {
         borderTop: "1px solid rgba(67,56,202,0.08)",
       }}
     >
-      <div style={{ textAlign: "center", marginBottom: "36px" }}>
+      <div style={{ textAlign: "center", marginBottom: "24px" }}>
         <h2
           style={{
             fontFamily: "var(--font-display)",
@@ -638,28 +657,14 @@ function SectionPricingCards() {
         >
           Plus votre équipe est grande, moins vous payez par siège.
         </p>
-        {isAnnual && (
-          <p
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "13px",
-              color: "#15803d",
-              fontWeight: 500,
-              marginTop: "-16px",
-              marginBottom: "24px",
-            }}
-          >
-            Facturation en une fois pour 12 mois. 2 mois offerts par rapport au mensuel.
-          </p>
-        )}
       </div>
 
       {/* Toggle */}
-      <div style={{ textAlign: "center", marginBottom: "32px" }}>
+      <div style={{ textAlign: "center", marginBottom: "40px" }}>
         <div
           style={{
             display: "inline-flex",
-            background: "var(--bg-main)",
+            background: "var(--bg-card)",
             border: "1px solid rgba(67,56,202,0.15)",
             borderRadius: "10px",
             padding: "4px",
@@ -677,6 +682,7 @@ function SectionPricingCards() {
               cursor: "pointer",
               border: "none",
               fontFamily: "var(--font-sans)",
+              transition: "all 0.15s",
               background: isAnnual ? "transparent" : "var(--midnight)",
               color: isAnnual ? "rgba(13,27,62,0.55)" : "#FFFFFF",
             }}
@@ -694,6 +700,7 @@ function SectionPricingCards() {
               cursor: "pointer",
               border: "none",
               fontFamily: "var(--font-sans)",
+              transition: "all 0.15s",
               background: isAnnual ? "var(--midnight)" : "transparent",
               color: isAnnual ? "#FFFFFF" : "rgba(13,27,62,0.55)",
             }}
@@ -701,7 +708,6 @@ function SectionPricingCards() {
             Annuel
             <span
               style={{
-                display: "inline-block",
                 background: "rgba(34,197,94,0.12)",
                 color: "#15803d",
                 fontSize: "9.5px",
@@ -717,163 +723,218 @@ function SectionPricingCards() {
         </div>
       </div>
 
+      {isAnnual && (
+        <p
+          style={{
+            textAlign: "center",
+            fontFamily: "var(--font-sans)",
+            fontSize: "13px",
+            color: "#15803d",
+            fontWeight: 500,
+            marginTop: "-24px",
+            marginBottom: "24px",
+          }}
+        >
+          Facturation en une fois pour 12 mois. 2 mois offerts par rapport au mensuel.
+        </p>
+      )}
+
       <div
         className="grid"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
           gap: "16px",
+          alignItems: "start",
         }}
       >
         {cards.map((c) => {
           const featured = !!c.featured;
           const plan = isAnnual ? c.annual : c.monthly;
           return (
-            <article
-              key={c.range}
-              className={`pricing-card ${featured ? "featured" : ""}`}
-              style={{
-                borderRadius: "16px",
-                overflow: "hidden",
-                border: featured
-                  ? "2px solid var(--midnight)"
-                  : "1px solid rgba(67,56,202,0.12)",
-                backgroundColor: "var(--bg-main)",
-                boxShadow: featured
-                  ? "0 8px 32px rgba(13,27,62,0.12)"
-                  : undefined,
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              {/* HEADER */}
-              <div
-                style={{
-                  padding: "28px 24px 20px",
-                  backgroundColor: featured ? "var(--midnight)" : "var(--bg-main)",
-                }}
-              >
-                {featured && (
+            <div key={c.range} style={{ position: "relative" }}>
+              {featured && (
+                <div style={{ textAlign: "center", marginBottom: "8px" }}>
                   <span
                     style={{
                       display: "inline-block",
                       backgroundColor: "var(--indigo)",
                       color: "#FFFFFF",
                       fontFamily: "var(--font-sans)",
-                      fontSize: "9px",
+                      fontSize: "10px",
                       fontWeight: 700,
+                      letterSpacing: "0.5px",
                       textTransform: "uppercase",
-                      padding: "3px 8px",
-                      borderRadius: "4px",
-                      marginBottom: "12px",
-                      letterSpacing: "0.6px",
+                      padding: "4px 14px",
+                      borderRadius: "50px",
                     }}
                   >
                     Le plus choisi
                   </span>
-                )}
-                <div
+                </div>
+              )}
+              <article
+                className={`pricing-card ${featured ? "featured" : ""}`}
+                style={{
+                  background: featured ? "var(--midnight)" : "var(--bg-card)",
+                  borderRadius: "16px",
+                  border: featured ? "none" : "1px solid rgba(67,56,202,0.12)",
+                  padding: "28px 24px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: 0,
+                  boxShadow: featured ? "0 8px 32px rgba(13,27,62,0.2)" : undefined,
+                }}
+              >
+                {/* Pill range */}
+                <span
                   style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "10px",
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.6px",
+                    background: featured
+                      ? isAnnual
+                        ? "rgba(67,56,202,0.4)"
+                        : "rgba(255,255,255,0.12)"
+                      : isAnnual
+                        ? "var(--indigo)"
+                        : "var(--midnight)",
                     color: featured
-                      ? "rgba(255,255,255,0.4)"
-                      : "var(--midnight)",
-                    opacity: featured ? 1 : 0.35,
-                    marginBottom: "14px",
+                      ? "rgba(255,255,255,0.8)"
+                      : "var(--indigo-pale)",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    letterSpacing: "0.8px",
+                    textTransform: "uppercase",
+                    padding: "7px 16px",
+                    borderRadius: "50px",
+                    marginBottom: "20px",
                   }}
                 >
                   {c.range}
-                </div>
+                </span>
+
+                {/* Price */}
                 <div
                   style={{
                     fontFamily: "var(--font-display)",
-                    fontSize: "44px",
-                    letterSpacing: "-1px",
+                    fontSize: "52px",
                     color: featured ? "#FFFFFF" : "var(--midnight)",
                     lineHeight: 1,
-                    marginBottom: "4px",
+                    textAlign: "center",
+                    marginBottom: 0,
                   }}
                 >
                   {plan.price}
                 </div>
+
+                {/* Unit */}
                 <div
                   style={{
                     fontFamily: "var(--font-sans)",
-                    fontSize: "11px",
-                    color: featured ? "rgba(255,255,255,0.45)" : "var(--text-muted)",
+                    fontSize: "14px",
+                    color: featured
+                      ? "rgba(255,255,255,0.55)"
+                      : "var(--text-muted)",
+                    textAlign: "center",
+                    lineHeight: 1.6,
                     marginBottom: "16px",
                   }}
                 >
-                  par siège, par mois
+                  / siège
+                  <br />
+                  par mois
                 </div>
+
+                {/* Separator */}
                 <div
                   style={{
-                    display: "inline-block",
-                    backgroundColor: featured
-                      ? "rgba(255,255,255,0.1)"
-                      : "rgba(67,56,202,0.07)",
-                    borderRadius: "6px",
-                    padding: "6px 12px",
+                    width: "100%",
+                    height: "1px",
+                    background: featured
+                      ? "rgba(255,255,255,0.12)"
+                      : "rgba(67,56,202,0.10)",
+                    marginBottom: "14px",
+                  }}
+                />
+
+                {/* Total badge */}
+                <div
+                  style={{
+                    background: featured
+                      ? "rgba(255,255,255,0.08)"
+                      : "var(--bg-main)",
+                    border: featured
+                      ? "1px solid rgba(255,255,255,0.12)"
+                      : "1px solid rgba(67,56,202,0.12)",
+                    borderRadius: "7px",
+                    padding: "7px 14px",
                     fontFamily: "var(--font-sans)",
                     fontSize: "12.5px",
                     fontWeight: 500,
-                    color: featured ? "rgba(255,255,255,0.6)" : "var(--midnight)",
-                    opacity: featured ? 1 : 0.55,
+                    color: featured
+                      ? "rgba(255,255,255,0.7)"
+                      : "var(--midnight)",
+                    textAlign: "center",
+                    marginBottom: "16px",
+                    width: "100%",
                   }}
                 >
                   {plan.total}
                 </div>
-                {isAnnual && (
+
+                {/* Savings (featured + annual only) */}
+                {featured && isAnnual && c.annual.savings && (
                   <div
                     style={{
-                      display: "inline-block",
-                      background: "rgba(34,197,94,0.10)",
-                      color: "#15803d",
-                      fontSize: "10px",
-                      fontWeight: 700,
-                      padding: "3px 9px",
-                      borderRadius: "5px",
-                      marginTop: "6px",
+                      background: "rgba(34,197,94,0.12)",
+                      border: "1px solid rgba(34,197,94,0.25)",
+                      borderRadius: "7px",
+                      padding: "7px 14px",
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "12px",
+                      fontWeight: 600,
+                      color: "#4ade80",
+                      marginBottom: "16px",
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
                     }}
                   >
-                    {c.annual.savings}
+                    <span>Vous économisez</span>
+                    <span
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: "18px",
+                        color: "#4ade80",
+                      }}
+                    >
+                      {c.annual.savings}
+                    </span>
                   </div>
                 )}
-              </div>
-              {/* BODY */}
-              <div
-                style={{
-                  padding: "20px 24px",
-                  backgroundColor: "var(--bg-card)",
-                  marginTop: "auto",
-                }}
-              >
+
+                {/* CTA */}
                 <button
                   type="button"
                   {...TALLY_ATTRS}
                   style={{
                     width: "100%",
-                    padding: "12px",
+                    padding: "11px",
                     borderRadius: "8px",
                     fontFamily: "var(--font-sans)",
                     fontSize: "13px",
                     fontWeight: 600,
                     cursor: "pointer",
-                    backgroundColor: featured ? "var(--indigo)" : "transparent",
-                    border: featured
-                      ? "1.5px solid var(--indigo)"
-                      : "1.5px solid var(--midnight)",
+                    background: featured ? "var(--indigo)" : "transparent",
+                    border: featured ? "none" : "1.5px solid var(--midnight)",
                     color: featured ? "#FFFFFF" : "var(--midnight)",
                   }}
                 >
                   Rejoindre la liste
                 </button>
-              </div>
-            </article>
+              </article>
+            </div>
           );
         })}
       </div>
@@ -933,6 +994,7 @@ function SectionCta() {
 }
 
 function Page() {
+  const [isAnnual, setIsAnnual] = useState(false);
   return (
     <SiteLayout>
       <style>{`
@@ -1057,7 +1119,7 @@ function Page() {
       </section>
 
       {/* PRICING CARDS */}
-      <SectionPricingCards />
+      <SectionPricingCards isAnnual={isAnnual} setIsAnnual={setIsAnnual} />
 
       {/* TRUST BAR */}
       <section
@@ -1127,7 +1189,7 @@ function Page() {
           </p>
         </div>
 
-        <PricingSimulator />
+        <PricingSimulator isAnnual={isAnnual} />
       </section>
 
       <section
