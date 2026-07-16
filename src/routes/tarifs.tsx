@@ -123,7 +123,7 @@ function activeTier(n: number) {
   return 100;
 }
 
-function PricingSimulator() {
+function PricingSimulator({ isAnnual }: { isAnnual: boolean }) {
   const [val, setVal] = useState(25);
   const sliderRef = useRef<HTMLInputElement>(null);
 
