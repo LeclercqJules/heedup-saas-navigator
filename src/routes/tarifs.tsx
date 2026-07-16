@@ -1119,7 +1119,7 @@ function Page() {
       </section>
 
       {/* PRICING CARDS */}
-      <SectionPricingCards />
+      <SectionPricingCards isAnnual={isAnnual} setIsAnnual={setIsAnnual} />
 
       {/* TRUST BAR */}
       <section
