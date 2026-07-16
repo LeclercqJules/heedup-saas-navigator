@@ -752,9 +752,17 @@ function SectionPricingCards({
           const featured = !!c.featured;
           const plan = isAnnual ? c.annual : c.monthly;
           return (
-            <div key={c.range} style={{ position: "relative" }}>
-              {featured && (
-                <div style={{ textAlign: "center", marginBottom: "8px" }}>
+            <div key={c.range} style={{ display: "flex", flexDirection: "column" }}>
+              {/* Top zone */}
+              <div
+                style={{
+                  height: 32,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {featured && (
                   <span
                     style={{
                       display: "inline-block",
@@ -765,14 +773,15 @@ function SectionPricingCards({
                       fontWeight: 700,
                       letterSpacing: "0.5px",
                       textTransform: "uppercase",
-                      padding: "4px 14px",
+                      padding: "5px 14px",
                       borderRadius: "50px",
                     }}
                   >
-                    Le plus choisi
+                    LE PLUS CHOISI
                   </span>
-                </div>
-              )}
+                )}
+              </div>
+
               <article
                 className={`pricing-card ${featured ? "featured" : ""}`}
                 style={{
@@ -791,12 +800,8 @@ function SectionPricingCards({
                 <span
                   style={{
                     background: featured
-                      ? isAnnual
-                        ? "rgba(67,56,202,0.4)"
-                        : "rgba(255,255,255,0.12)"
-                      : isAnnual
-                        ? "var(--indigo)"
-                        : "var(--midnight)",
+                      ? "rgba(255,255,255,0.12)"
+                      : "var(--midnight)",
                     color: featured
                       ? "rgba(255,255,255,0.8)"
                       : "var(--indigo-pale)",
@@ -875,42 +880,35 @@ function SectionPricingCards({
                       ? "rgba(255,255,255,0.7)"
                       : "var(--midnight)",
                     textAlign: "center",
-                    marginBottom: "16px",
+                    marginBottom: "14px",
                     width: "100%",
                   }}
                 >
                   {plan.total}
                 </div>
 
-                {/* Savings (featured + annual only) */}
-                {featured && isAnnual && c.annual.savings && (
+                {/* Economy badge */}
+                {isAnnual && (
                   <div
                     style={{
-                      background: "rgba(34,197,94,0.12)",
-                      border: "1px solid rgba(34,197,94,0.25)",
+                      background: featured
+                        ? "rgba(34,197,94,0.12)"
+                        : "rgba(34,197,94,0.08)",
+                      border: featured
+                        ? "1px solid rgba(34,197,94,0.25)"
+                        : "1px solid rgba(34,197,94,0.2)",
                       borderRadius: "7px",
-                      padding: "7px 14px",
+                      padding: "6px 12px",
                       fontFamily: "var(--font-sans)",
                       fontSize: "12px",
                       fontWeight: 600,
-                      color: "#4ade80",
-                      marginBottom: "16px",
+                      color: featured ? "#4ade80" : "#15803d",
+                      textAlign: "center",
+                      marginBottom: "14px",
                       width: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
                     }}
                   >
-                    <span>Vous économisez</span>
-                    <span
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontSize: "18px",
-                        color: "#4ade80",
-                      }}
-                    >
-                      {c.annual.savings}
-                    </span>
+                    Vous économisez au moins {c.annual.economy}€/an
                   </div>
                 )}
 
