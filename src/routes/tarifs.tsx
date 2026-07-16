@@ -37,30 +37,30 @@ type Card = {
   range: string;
   featured?: boolean;
   monthly: { price: string; total: string };
-  annual: { price: string; total: string; savings?: string };
+  annual: { price: string; total: string; economy: string };
 };
 
 const cards: Card[] = [
   {
     range: "10-24 salariés",
     monthly: { price: "5,00€", total: "À partir de 50€/mois" },
-    annual: { price: "4,17€", total: "500€/an · 2 mois offerts" },
+    annual: { price: "4,17€", total: "500€/an · 2 mois offerts", economy: "100" },
   },
   {
     range: "25-49 salariés",
     featured: true,
     monthly: { price: "4,50€", total: "À partir de 112,50€/mois" },
-    annual: { price: "3,75€", total: "1 125€/an", savings: "225€/an" },
+    annual: { price: "3,75€", total: "1 125€/an", economy: "225" },
   },
   {
     range: "50-99 salariés",
     monthly: { price: "4,00€", total: "À partir de 200€/mois" },
-    annual: { price: "3,33€", total: "2 000€/an · 2 mois offerts" },
+    annual: { price: "3,33€", total: "2 000€/an · 2 mois offerts", economy: "400" },
   },
   {
     range: "100+ salariés",
     monthly: { price: "3,50€", total: "À partir de 350€/mois" },
-    annual: { price: "2,92€", total: "3 500€/an · 2 mois offerts" },
+    annual: { price: "2,92€", total: "3 500€/an · 2 mois offerts", economy: "700" },
   },
 ];
 
