@@ -296,7 +296,9 @@ function PricingSimulator({ isAnnual }: { isAnnual: boolean }) {
               color: "#fff",
             }}
           >
-            {fmt(price.seat)}€/siège
+            {isAnnual
+              ? `${fmt(calcAnnual(val) / 12 / val)}€/siège`
+              : `${fmt(price.seat)}€/siège`}
           </div>
         </div>
         <div style={{ width: 1, height: 36, background: "rgba(255,255,255,0.1)" }} />
@@ -311,7 +313,7 @@ function PricingSimulator({ isAnnual }: { isAnnual: boolean }) {
               marginBottom: 6,
             }}
           >
-            Total mensuel
+            {isAnnual ? "Total annuel" : "Total mensuel"}
           </div>
           <div
             style={{
@@ -320,7 +322,9 @@ function PricingSimulator({ isAnnual }: { isAnnual: boolean }) {
               color: "#fff",
             }}
           >
-            {fmt(price.total)}€/mois
+            {isAnnual
+              ? `${fmtInt(calcAnnual(val))}€/an`
+              : `${fmt(price.total)}€/mois`}
           </div>
         </div>
         <button
