@@ -1,0 +1,10 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HeedUp">
+  <title>HeedUp</title>
+  <desc>Avatar HeedUp — lettre h sur fond indigo.</desc>
+  <rect width="512" height="512" rx="112" fill="#4338CA"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="34" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M190 150 L190 362"/>
+    <path d="M190 258 C190 190 322 190 322 258"/>
+    <path d="M322 258 L322 362"/>
+  </g>
+</svg>
