@@ -1067,6 +1067,7 @@ function Page() {
           </p>
 
           <div
+            className="heedup-tarifs-metrics"
             style={{
               display: "flex",
               justifyContent: "center",
