@@ -1280,6 +1280,7 @@ function Page() {
       <SectionFeatures />
       <SectionFaq />
       <SectionCta />
+      <CostCalculatorModal isOpen={isCalculatorOpen} onClose={() => setIsCalculatorOpen(false)} />
     </SiteLayout>
   );
 }
