@@ -11,6 +11,7 @@ import {
   IconRefresh,
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
+import { CostCalculatorModal } from "@/components/CostCalculatorModal";
 
 export const Route = createFileRoute("/tarifs")({
   head: () => ({
