@@ -1455,6 +1455,7 @@ function Index() {
 
           {/* Layout */}
           <div
+            className="heedup-pourquoi"
             style={{
               display: "grid",
               gridTemplateColumns: "280px 1fr",
@@ -1464,6 +1465,7 @@ function Index() {
           >
             {/* Vertical nav */}
             <div
+              className="heedup-pourquoi-nav"
               style={{
                 backgroundColor: "var(--bg-card)",
                 borderRadius: "12px",
