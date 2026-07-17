@@ -270,8 +270,7 @@
     grid-template-columns: 1fr !important;
     gap: 20px !important;
   }
-  .heedup-simplicite > div[style*="width: 1px"],
-  .heedup-simplicite > div:not([style*="backgroundColor"]):empty { display: none !important; }
+  .heedup-simplicite > div:nth-child(2) { display: none !important; }
 
   /* Pourquoi : 1 col, nav en haut, grille 2x3 */
   .heedup-pourquoi {
