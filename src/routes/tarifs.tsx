@@ -742,7 +742,7 @@ function SectionPricingCards({
       )}
 
       <div
-        className="grid"
+        className="grid heedup-pricing-cards"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
