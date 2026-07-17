@@ -65,6 +65,7 @@ export function CostCalculatorModal({ isOpen, onClose }: Props) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
+        className="calc-modal-scope"
         style={{
           background: "var(--bg-main)",
           borderRadius: 16,
