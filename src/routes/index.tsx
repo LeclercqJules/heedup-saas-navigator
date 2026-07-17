@@ -16,6 +16,39 @@ import { FloatingNav } from "@/components/FloatingNav";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "HeedUp — Pilotez votre équipe sans devenir RH" },
+      {
+        name: "description",
+        content:
+          "HeedUp pilote votre équipe avec 5 questions anonymes chaque vendredi et un rapport d'équipe IA chaque lundi. Conçu pour les PME de 10 à 50 salariés, sans équipe RH.",
+      },
+      {
+        property: "og:title",
+        content: "HeedUp — Pilotez votre équipe sans devenir RH",
+      },
+      {
+        property: "og:description",
+        content:
+          "5 questions anonymes chaque vendredi. Un rapport d'équipe actionnable chaque lundi. Opérationnel en 10 minutes. À partir de 50€/mois.",
+      },
+      { property: "og:url", content: "https://heedup.fr" },
+      { property: "og:type", content: "website" },
+      { property: "og:locale", content: "fr_FR" },
+      { name: "twitter:card", content: "summary" },
+      {
+        name: "twitter:title",
+        content: "HeedUp — Pilotez votre équipe sans devenir RH",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "5 questions anonymes chaque vendredi. Un rapport d'équipe actionnable chaque lundi.",
+      },
+    ],
+    links: [{ rel: "canonical", href: "https://heedup.fr" }],
+  }),
 });
 
 const whyItems = [
