@@ -256,7 +256,7 @@
     grid-template-columns: 1fr 1fr !important;
     gap: 4px !important;
   }
-  .heedup-steps > div[style*="width: 1px"] { display: none !important; }
+  .heedup-steps > div { display: none !important; }
   .heedup-step-panel {
     grid-template-columns: 1fr !important;
   }
