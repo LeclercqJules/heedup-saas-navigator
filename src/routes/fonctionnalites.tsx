@@ -812,7 +812,7 @@ function Page() {
         <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", color: "var(--text-muted)", textAlign: "center", marginBottom: "40px" }}>
           Six différences concrètes avec les outils conçus pour les équipes RH.
         </p>
-        <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+        <div className="heedup-comparatif" style={{ maxWidth: "900px", margin: "0 auto" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "16px", marginBottom: "12px" }}>
             <div style={{ fontSize: "11px", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.7px", color: "rgba(13,27,62,0.35)", textAlign: "left" }}>Sans HeedUp</div>
             <div />
