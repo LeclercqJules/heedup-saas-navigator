@@ -156,6 +156,7 @@ function PricingSimulator({ isAnnual }: { isAnnual: boolean }) {
 
   return (
     <div
+      className="heedup-sim"
       style={{
         background: "var(--bg-card)",
         borderRadius: 16,
@@ -265,6 +266,7 @@ function PricingSimulator({ isAnnual }: { isAnnual: boolean }) {
 
       {/* Result bar */}
       <div
+        className="heedup-sim-result"
         style={{
           background: "var(--midnight)",
           borderRadius: 12,
@@ -740,7 +742,7 @@ function SectionPricingCards({
       )}
 
       <div
-        className="grid"
+        className="grid heedup-pricing-cards"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
@@ -1065,6 +1067,7 @@ function Page() {
           </p>
 
           <div
+            className="heedup-tarifs-metrics"
             style={{
               display: "flex",
               justifyContent: "center",

@@ -496,6 +496,7 @@ function VisualOnboard() {
 function Panel({ visible, children }: { visible: boolean; children: React.ReactNode }) {
   return (
     <div
+      className="feature-panel"
       style={{
         display: visible ? "grid" : "none",
         gridTemplateColumns: "1fr 1fr",
@@ -629,7 +630,7 @@ function Page() {
             border-color: rgba(67,56,202,0.4) !important;
           }
         `}</style>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", justifyContent: "center", marginBottom: "16px" }}>
+        <div className="heedup-feature-tabs" style={{ display: "flex", flexWrap: "wrap", gap: "8px", justifyContent: "center", marginBottom: "16px" }}>
           {tabs.map(({ id, label, Icon }) => {
             const isActive = id === active;
             return (
@@ -765,7 +766,7 @@ function Page() {
 
       {/* Section 3 : Spotlight Rapport d'équipe */}
       <section style={{ background: "var(--midnight)", padding: "56px 5%" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "48px", alignItems: "center" }}>
+        <div className="heedup-spotlight" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "48px", alignItems: "center" }}>
           <div>
             <div style={{ fontFamily: "var(--font-sans)", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.9px", color: "rgba(255,255,255,0.35)", marginBottom: "12px", fontWeight: 700 }}>
               Ce que vous recevez chaque lundi
@@ -811,7 +812,7 @@ function Page() {
         <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", color: "var(--text-muted)", textAlign: "center", marginBottom: "40px" }}>
           Six différences concrètes avec les outils conçus pour les équipes RH.
         </p>
-        <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+        <div className="heedup-comparatif" style={{ maxWidth: "900px", margin: "0 auto" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "16px", marginBottom: "12px" }}>
             <div style={{ fontSize: "11px", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.7px", color: "rgba(13,27,62,0.35)", textAlign: "left" }}>Sans HeedUp</div>
             <div />

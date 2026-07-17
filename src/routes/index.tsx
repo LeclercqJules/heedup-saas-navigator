@@ -720,7 +720,7 @@ function Index() {
           </div>
 
           <div
-            className="grid grid-cols-1 gap-[14px] md:grid-cols-2 lg:grid-cols-4"
+            className="heedup-impact-grid grid grid-cols-1 gap-[14px] md:grid-cols-2 lg:grid-cols-4"
           >
             {[
               {
@@ -890,6 +890,7 @@ function Index() {
 
           {/* Stepper */}
           <div
+            className="heedup-steps"
             style={{
               backgroundColor: "var(--bg-card)",
               borderRadius: "12px",
@@ -960,6 +961,7 @@ function Index() {
 
           {/* Content card */}
           <div
+            className="heedup-step-panel"
             style={{
               backgroundColor: "var(--bg-card)",
               borderRadius: "12px",
@@ -1138,6 +1140,7 @@ function Index() {
 
           {/* Two columns */}
           <div
+            className="heedup-simplicite"
             style={{
               display: "grid",
               gridTemplateColumns: "1fr auto 1fr",
@@ -1452,6 +1455,7 @@ function Index() {
 
           {/* Layout */}
           <div
+            className="heedup-pourquoi"
             style={{
               display: "grid",
               gridTemplateColumns: "280px 1fr",
@@ -1461,6 +1465,7 @@ function Index() {
           >
             {/* Vertical nav */}
             <div
+              className="heedup-pourquoi-nav"
               style={{
                 backgroundColor: "var(--bg-card)",
                 borderRadius: "12px",
@@ -1706,6 +1711,7 @@ function Index() {
 
           {/* Grille 3 colonnes */}
           <div
+            className="heedup-testimonials"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
@@ -1901,6 +1907,7 @@ function Index() {
           </p>
         </div>
         <div
+          className="heedup-faq"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",

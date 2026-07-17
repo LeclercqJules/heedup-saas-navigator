@@ -228,15 +228,128 @@
 
   /* FOOTER */
   .heedup-footer-inner {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
     text-align: center !important;
-    gap: 20px !important;
+    gap: 24px !important;
   }
   .heedup-footer-links {
     justify-content: center !important;
-    flex-wrap: wrap !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
     gap: 12px !important;
   }
+
+  /* NAV — hamburger */
+  .heedup-nav-cta { display: none !important; }
+  .heedup-nav-burger { display: flex !important; }
+
+  /* HOMEPAGE — Impact stats : 2 colonnes */
+  .heedup-impact-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Comment ça marche : stepper 2x2, panel 1 col */
+  .heedup-steps {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 4px !important;
+  }
+  .heedup-steps > div { display: none !important; }
+  .heedup-step-panel {
+    grid-template-columns: 1fr !important;
+  }
+  .heedup-step-panel > div[style*="border-right"] {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(67,56,202,0.08) !important;
+  }
+
+  /* Simplicité : 1 colonne, séparateur masqué */
+  .heedup-simplicite {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .heedup-simplicite > div:nth-child(2) { display: none !important; }
+
+  /* Pourquoi : 1 col, nav en haut, grille 2x3 */
+  .heedup-pourquoi {
+    grid-template-columns: 1fr !important;
+  }
+  .heedup-pourquoi-nav {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    flex-direction: row !important;
+    gap: 6px !important;
+  }
+
+  /* Témoignages : 1 col */
+  .heedup-testimonials {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* FAQ : 1 col */
+  .heedup-faq {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+
+  /* TARIFS */
+  .heedup-tarifs-metrics {
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+  }
+  .heedup-pricing-cards {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .heedup-pricing-cards .pricing-card { transform: none !important; }
+  .heedup-sim {
+    padding: 20px 16px !important;
+  }
+  .heedup-sim-result {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+    text-align: center !important;
+    padding: 20px 16px !important;
+  }
+  .heedup-sim-result > div:nth-child(2) { display: none !important; }
+  .heedup-sim-result button { width: 100% !important; }
+
+  /* FONCTIONNALITÉS */
+  .heedup-feature-tabs button {
+    flex: 1 1 calc(50% - 8px) !important;
+    justify-content: center !important;
+  }
+  .feature-panel[style*="grid"] {
+    grid-template-columns: 1fr !important;
+  }
+  .heedup-spotlight {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .heedup-comparatif {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .heedup-comparatif > div {
+    min-width: 640px !important;
+  }
+
+  /* PAGES LEGAL */
+  .heedup-legal {
+    padding: 40px 5% !important;
+  }
+  .heedup-legal h1 {
+    font-size: 32px !important;
+  }
+  .heedup-legal h2 {
+    font-size: 20px !important;
+  }
+
+  /* Anti overflow global */
+  html, body { overflow-x: hidden !important; }
 }
+
 
