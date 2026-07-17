@@ -822,12 +822,14 @@ function SectionPricingCards({
                 </span>
 
                 {/* 2 mois offerts badge */}
-                {isAnnual && featured && (
+                {isAnnual && (
                   <span
                     style={{
                       display: "inline-block",
-                      background: "rgba(34,197,94,0.15)",
-                      color: "#4ade80",
+                      background: featured
+                        ? "rgba(34,197,94,0.15)"
+                        : "rgba(34,197,94,0.10)",
+                      color: featured ? "#4ade80" : "#15803d",
                       fontFamily: "var(--font-sans)",
                       fontSize: "11px",
                       fontWeight: 700,
@@ -868,7 +870,7 @@ function SectionPricingCards({
                     whiteSpace: "nowrap",
                   }}
                 >
-                  / siège · par mois
+                  / siège par mois
                 </div>
 
                 {/* Separator */}
