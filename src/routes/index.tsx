@@ -890,6 +890,7 @@ function Index() {
 
           {/* Stepper */}
           <div
+            className="heedup-steps"
             style={{
               backgroundColor: "var(--bg-card)",
               borderRadius: "12px",
