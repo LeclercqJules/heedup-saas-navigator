@@ -11,6 +11,7 @@ import {
   IconCheck,
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
+import { CostCalculatorModal } from "@/components/CostCalculatorModal";
 import { FloatingNav } from "@/components/FloatingNav";
 
 
@@ -142,6 +143,7 @@ function Index() {
   const [activeStep, setActiveStep] = useState(0);
   const [activeWhy, setActiveWhy] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
 
   const renderFaqAnswer = (text: string, boldPart: string) => {
     const idx = text.indexOf(boldPart);
@@ -858,8 +860,9 @@ function Index() {
             >
               Combien vous coûte réellement le désengagement dans votre équipe ?
             </p>
-            <a
-              href="#waitlist"
+            <button
+              type="button"
+              onClick={() => setIsCalculatorOpen(true)}
               className="inline-flex items-center gap-2"
               style={{
                 backgroundColor: "var(--indigo)",
@@ -869,11 +872,13 @@ function Index() {
                 borderRadius: "8px",
                 padding: "14px 32px",
                 fontFamily: "var(--font-sans)",
+                border: "none",
+                cursor: "pointer",
               }}
             >
               <Calculator size={18} strokeWidth={2} />
               Estimer le coût pour mon équipe
-            </a>
+            </button>
           </div>
         </div>
       </section>
@@ -2010,6 +2015,7 @@ function Index() {
       </section>
 
       <FloatingNav />
+      <CostCalculatorModal isOpen={isCalculatorOpen} onClose={() => setIsCalculatorOpen(false)} />
     </SiteLayout>
   );
 }
