@@ -1161,6 +1161,41 @@ function Page() {
         ))}
       </section>
 
+      {/* BANDE CALCULATEUR */}
+      <section
+        style={{
+          padding: "24px 5%",
+          background: "var(--bg-card)",
+          borderTop: "1px solid rgba(67,56,202,0.08)",
+          borderBottom: "1px solid rgba(67,56,202,0.08)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "16px",
+          flexWrap: "wrap",
+        }}
+      >
+        <span style={{ fontFamily: "var(--font-sans)", fontSize: 14, color: "var(--text-muted)" }}>
+          Vous vous demandez si c'est rentable ?
+        </span>
+        <button
+          onClick={() => setIsCalculatorOpen(true)}
+          style={{
+            background: "transparent",
+            border: "1.5px solid var(--midnight)",
+            color: "var(--midnight)",
+            padding: "9px 20px",
+            borderRadius: 7,
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: "pointer",
+            fontFamily: "var(--font-sans)",
+          }}
+        >
+          Calculer le coût du désengagement →
+        </button>
+      </section>
+
       {/* SIMULATEUR */}
       <section
         style={{
