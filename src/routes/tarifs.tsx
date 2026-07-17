@@ -266,6 +266,7 @@ function PricingSimulator({ isAnnual }: { isAnnual: boolean }) {
 
       {/* Result bar */}
       <div
+        className="heedup-sim-result"
         style={{
           background: "var(--midnight)",
           borderRadius: 12,
