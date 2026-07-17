@@ -76,7 +76,7 @@ const sections: { title: string; content: string }[] = [
 function Page() {
   return (
     <SiteLayout>
-      <section style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
+      <section className="heedup-legal" style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
         <div style={{ maxWidth: "680px", margin: "0 auto" }}>
           <h1
             style={{
