@@ -996,6 +996,7 @@ function SectionCta() {
 
 function Page() {
   const [isAnnual, setIsAnnual] = useState(false);
+  const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   return (
     <SiteLayout>
       <style>{`
