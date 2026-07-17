@@ -496,6 +496,7 @@ function VisualOnboard() {
 function Panel({ visible, children }: { visible: boolean; children: React.ReactNode }) {
   return (
     <div
+      className="feature-panel"
       style={{
         display: visible ? "grid" : "none",
         gridTemplateColumns: "1fr 1fr",
