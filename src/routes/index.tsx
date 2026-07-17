@@ -1711,6 +1711,7 @@ function Index() {
 
           {/* Grille 3 colonnes */}
           <div
+            className="heedup-testimonials"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
