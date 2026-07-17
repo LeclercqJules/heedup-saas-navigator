@@ -314,7 +314,7 @@
     text-align: center !important;
     padding: 20px 16px !important;
   }
-  .heedup-sim-result > div[style*="width: 1px"] { display: none !important; }
+  .heedup-sim-result > div:not([style*="background"]) { display: none !important; }
   .heedup-sim-result button { width: 100% !important; }
 
   /* FONCTIONNALITÉS */
