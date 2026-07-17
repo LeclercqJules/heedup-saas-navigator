@@ -11,6 +11,7 @@ import {
   IconCheck,
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
+import { CostCalculatorModal } from "@/components/CostCalculatorModal";
 import { FloatingNav } from "@/components/FloatingNav";
 
 
