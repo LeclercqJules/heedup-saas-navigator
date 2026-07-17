@@ -766,7 +766,7 @@ function Page() {
 
       {/* Section 3 : Spotlight Rapport d'équipe */}
       <section style={{ background: "var(--midnight)", padding: "56px 5%" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "48px", alignItems: "center" }}>
+        <div className="heedup-spotlight" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "48px", alignItems: "center" }}>
           <div>
             <div style={{ fontFamily: "var(--font-sans)", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.9px", color: "rgba(255,255,255,0.35)", marginBottom: "12px", fontWeight: 700 }}>
               Ce que vous recevez chaque lundi
