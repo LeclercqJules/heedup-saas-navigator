@@ -143,6 +143,7 @@ function Index() {
   const [activeStep, setActiveStep] = useState(0);
   const [activeWhy, setActiveWhy] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
 
   const renderFaqAnswer = (text: string, boldPart: string) => {
     const idx = text.indexOf(boldPart);
