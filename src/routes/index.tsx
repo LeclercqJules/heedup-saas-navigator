@@ -961,6 +961,7 @@ function Index() {
 
           {/* Content card */}
           <div
+            className="heedup-step-panel"
             style={{
               backgroundColor: "var(--bg-card)",
               borderRadius: "12px",
