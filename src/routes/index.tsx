@@ -2015,6 +2015,7 @@ function Index() {
       </section>
 
       <FloatingNav />
+      <CostCalculatorModal isOpen={isCalculatorOpen} onClose={() => setIsCalculatorOpen(false)} />
     </SiteLayout>
   );
 }
