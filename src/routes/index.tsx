@@ -1140,6 +1140,7 @@ function Index() {
 
           {/* Two columns */}
           <div
+            className="heedup-simplicite"
             style={{
               display: "grid",
               gridTemplateColumns: "1fr auto 1fr",
