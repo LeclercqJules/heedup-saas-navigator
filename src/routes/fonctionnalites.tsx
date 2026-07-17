@@ -630,7 +630,7 @@ function Page() {
             border-color: rgba(67,56,202,0.4) !important;
           }
         `}</style>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", justifyContent: "center", marginBottom: "16px" }}>
+        <div className="heedup-feature-tabs" style={{ display: "flex", flexWrap: "wrap", gap: "8px", justifyContent: "center", marginBottom: "16px" }}>
           {tabs.map(({ id, label, Icon }) => {
             const isActive = id === active;
             return (
