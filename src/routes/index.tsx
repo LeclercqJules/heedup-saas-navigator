@@ -1907,6 +1907,7 @@ function Index() {
           </p>
         </div>
         <div
+          className="heedup-faq"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
