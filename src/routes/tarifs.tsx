@@ -45,23 +45,23 @@ const cards: Card[] = [
   {
     range: "10-24 salariés",
     monthly: { price: "5,00€", total: "À partir de 50€/mois" },
-    annual: { price: "4,17€", total: "500€/an · 2 mois offerts", economy: "100" },
+    annual: { price: "4,17€", total: "À partir de 500€/an", economy: "100" },
   },
   {
     range: "25-49 salariés",
     featured: true,
     monthly: { price: "4,50€", total: "À partir de 112,50€/mois" },
-    annual: { price: "3,75€", total: "1 125€/an", economy: "225" },
+    annual: { price: "3,75€", total: "À partir de 1 125€/an", economy: "225" },
   },
   {
     range: "50-99 salariés",
     monthly: { price: "4,00€", total: "À partir de 200€/mois" },
-    annual: { price: "3,33€", total: "2 000€/an · 2 mois offerts", economy: "400" },
+    annual: { price: "3,33€", total: "À partir de 2 000€/an", economy: "400" },
   },
   {
     range: "100+ salariés",
     monthly: { price: "3,50€", total: "À partir de 350€/mois" },
-    annual: { price: "2,92€", total: "3 500€/an · 2 mois offerts", economy: "700" },
+    annual: { price: "2,92€", total: "À partir de 3 500€/an", economy: "700" },
   },
 ];
 
@@ -821,6 +821,25 @@ function SectionPricingCards({
                   {c.range}
                 </span>
 
+                {/* 2 mois offerts badge */}
+                {isAnnual && featured && (
+                  <span
+                    style={{
+                      display: "inline-block",
+                      background: "rgba(34,197,94,0.15)",
+                      color: "#4ade80",
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "11px",
+                      fontWeight: 700,
+                      padding: "4px 10px",
+                      borderRadius: "4px",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    2 mois offerts
+                  </span>
+                )}
+
                 {/* Price */}
                 <div
                   style={{
@@ -839,18 +858,17 @@ function SectionPricingCards({
                 <div
                   style={{
                     fontFamily: "var(--font-sans)",
-                    fontSize: "14px",
+                    fontSize: "13px",
                     color: featured
-                      ? "rgba(255,255,255,0.55)"
+                      ? "rgba(255,255,255,0.5)"
                       : "var(--text-muted)",
                     textAlign: "center",
-                    lineHeight: 1.6,
+                    lineHeight: 1,
                     marginBottom: "16px",
+                    whiteSpace: "nowrap",
                   }}
                 >
-                  / siège
-                  <br />
-                  par mois
+                  / siège · par mois
                 </div>
 
                 {/* Separator */}
