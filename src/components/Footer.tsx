@@ -97,7 +97,7 @@ export function Footer() {
           <div
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "22px",
+              fontSize: "28px",
               color: "#FFFFFF",
               fontStyle: "italic",
               marginBottom: "8px",
@@ -135,7 +135,7 @@ export function Footer() {
         className="heedup-footer-bottom"
         style={{
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "flex-start",
           alignItems: "center",
         }}
       >
@@ -146,16 +146,7 @@ export function Footer() {
             color: "rgba(255,255,255,0.25)",
           }}
         >
-          © 2025 HeedUp · Jules Leclercq
-        </div>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: "12px",
-            color: "rgba(255,255,255,0.25)",
-          }}
-        >
-          Fait en France 🇫🇷
+          © 2026 HeedUp
         </div>
       </div>
 
