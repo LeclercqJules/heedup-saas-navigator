@@ -45,7 +45,7 @@ const TICKS: Tick[] = [
   { value: 25, left: "calc(10px + 0.1667 * (100% - 20px))", transform: "translateX(-50%)" },
   { value: 50, left: "calc(10px + 0.4444 * (100% - 20px))", transform: "translateX(-50%)" },
   { value: 75, left: "calc(10px + 0.7222 * (100% - 20px))", transform: "translateX(-50%)" },
-  { value: 100, left: "calc(100% - 10px)", transform: "translateX(-100%)" },
+  { value: 100, left: "calc(100% - 10px)", transform: "translateX(-50%)" },
 ];
 
 function activeTick(n: number): number {
