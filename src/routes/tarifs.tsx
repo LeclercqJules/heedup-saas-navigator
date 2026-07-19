@@ -1198,22 +1198,24 @@ function Page() {
         <span style={{ fontFamily: "var(--font-sans)", fontSize: 14, color: "var(--text-muted)" }}>
           Vous vous demandez si c'est rentable ?
         </span>
-        <button
-          onClick={() => setIsCalculatorOpen(true)}
+        <a
+          href="/estimer-cout"
           style={{
-            background: "transparent",
-            border: "1.5px solid var(--midnight)",
-            color: "var(--midnight)",
+            background: "var(--indigo)",
+            border: "none",
+            color: "#FFFFFF",
             padding: "9px 20px",
             borderRadius: 7,
             fontSize: 13,
             fontWeight: 600,
             cursor: "pointer",
             fontFamily: "var(--font-sans)",
+            textDecoration: "none",
+            display: "inline-block",
           }}
         >
           Calculer le coût du désengagement →
-        </button>
+        </a>
       </section>
 
       {/* SIMULATEUR */}

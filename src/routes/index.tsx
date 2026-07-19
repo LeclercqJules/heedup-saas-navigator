@@ -860,9 +860,8 @@ function Index() {
             >
               Combien vous coûte réellement le désengagement dans votre équipe ?
             </p>
-            <button
-              type="button"
-              onClick={() => setIsCalculatorOpen(true)}
+            <a
+              href="/estimer-cout"
               className="inline-flex items-center gap-2"
               style={{
                 backgroundColor: "var(--indigo)",
@@ -874,11 +873,12 @@ function Index() {
                 fontFamily: "var(--font-sans)",
                 border: "none",
                 cursor: "pointer",
+                textDecoration: "none",
               }}
             >
               <Calculator size={18} strokeWidth={2} />
               Estimer le coût pour mon équipe
-            </button>
+            </a>
           </div>
         </div>
       </section>

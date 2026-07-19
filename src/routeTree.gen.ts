@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TarifsRouteImport } from './routes/tarifs'
 import { Route as FonctionnalitesRouteImport } from './routes/fonctionnalites'
+import { Route as EstimerCoutRouteImport } from './routes/estimer-cout'
 import { Route as ConfidentialiteRouteImport } from './routes/confidentialite'
 import { Route as CguRouteImport } from './routes/cgu'
 import { Route as BlogRouteImport } from './routes/blog'
@@ -24,6 +25,11 @@ const TarifsRoute = TarifsRouteImport.update({
 const FonctionnalitesRoute = FonctionnalitesRouteImport.update({
   id: '/fonctionnalites',
   path: '/fonctionnalites',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EstimerCoutRoute = EstimerCoutRouteImport.update({
+  id: '/estimer-cout',
+  path: '/estimer-cout',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConfidentialiteRoute = ConfidentialiteRouteImport.update({
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRoute
   '/cgu': typeof CguRoute
   '/confidentialite': typeof ConfidentialiteRoute
+  '/estimer-cout': typeof EstimerCoutRoute
   '/fonctionnalites': typeof FonctionnalitesRoute
   '/tarifs': typeof TarifsRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRoute
   '/cgu': typeof CguRoute
   '/confidentialite': typeof ConfidentialiteRoute
+  '/estimer-cout': typeof EstimerCoutRoute
   '/fonctionnalites': typeof FonctionnalitesRoute
   '/tarifs': typeof TarifsRoute
 }
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/blog': typeof BlogRoute
   '/cgu': typeof CguRoute
   '/confidentialite': typeof ConfidentialiteRoute
+  '/estimer-cout': typeof EstimerCoutRoute
   '/fonctionnalites': typeof FonctionnalitesRoute
   '/tarifs': typeof TarifsRoute
 }
@@ -79,6 +88,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/cgu'
     | '/confidentialite'
+    | '/estimer-cout'
     | '/fonctionnalites'
     | '/tarifs'
   fileRoutesByTo: FileRoutesByTo
@@ -87,6 +97,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/cgu'
     | '/confidentialite'
+    | '/estimer-cout'
     | '/fonctionnalites'
     | '/tarifs'
   id:
@@ -95,6 +106,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/cgu'
     | '/confidentialite'
+    | '/estimer-cout'
     | '/fonctionnalites'
     | '/tarifs'
   fileRoutesById: FileRoutesById
@@ -104,6 +116,7 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRoute
   CguRoute: typeof CguRoute
   ConfidentialiteRoute: typeof ConfidentialiteRoute
+  EstimerCoutRoute: typeof EstimerCoutRoute
   FonctionnalitesRoute: typeof FonctionnalitesRoute
   TarifsRoute: typeof TarifsRoute
 }
@@ -122,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/fonctionnalites'
       fullPath: '/fonctionnalites'
       preLoaderRoute: typeof FonctionnalitesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/estimer-cout': {
+      id: '/estimer-cout'
+      path: '/estimer-cout'
+      fullPath: '/estimer-cout'
+      preLoaderRoute: typeof EstimerCoutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/confidentialite': {
@@ -160,6 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRoute,
   CguRoute: CguRoute,
   ConfidentialiteRoute: ConfidentialiteRoute,
+  EstimerCoutRoute: EstimerCoutRoute,
   FonctionnalitesRoute: FonctionnalitesRoute,
   TarifsRoute: TarifsRoute,
 }
