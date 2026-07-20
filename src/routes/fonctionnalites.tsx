@@ -744,20 +744,21 @@ function Page() {
           <Panel visible={active === "rgpd"}>
             <div style={leftColStyle}>
               <span style={tagStyle}>RGPD et données</span>
-              <h2 style={titleStyle}>La documentation contractuelle. Pas juste le badge.</h2>
+              <h2 style={titleStyle}>Conforme RGPD. Hébergé en France.</h2>
               <p style={descStyle}>
-                Beaucoup d'outils affichent Conforme RGPD. HeedUp vous fournit la documentation contractuelle complète avant même votre premier survey : DPA, registre de traitement, politique de confidentialité employé prête à transmettre.
+                HeedUp est conçu pour être conforme au RGPD par architecture, pas par paramètre. Les données de vos salariés sont hébergées en France, minimisées au strict nécessaire, et l'anonymat est garanti par conception. La documentation contractuelle est disponible sur demande.
               </p>
-              <Detail label="Ce qui est collecté. Rien d'autre." text="Scores entiers de 1 à 5 et token aléatoire non-traçable. Aucune donnée sensible, aucun commentaire libre, aucune donnée de profil salarié." />
+              <Detail label="CE QUI EST COLLECTÉ. RIEN D'AUTRE." text="Scores numériques de 1 à 5 et token aléatoire non-traçable. Aucune donnée nominative, aucun commentaire libre, aucune donnée de profil salarié." />
               <Bullets items={[
                 "Hébergement exclusivement en France",
-                "DPA fourni à la signature, sans supplément",
+                "Aucune donnée nominative côté salariés",
                 "Durée de conservation : 12 mois glissants",
-                "Politique de confidentialité employé incluse et prête",
+                "Documentation RGPD disponible sur demande",
               ]} />
             </div>
             <div style={rightColStyle}><VisualRgpd /></div>
           </Panel>
+
 
           {/* Panel 6 : Onboarding */}
           <Panel visible={active === "onboard"}>
