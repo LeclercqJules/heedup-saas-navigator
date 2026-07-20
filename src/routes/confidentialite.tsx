@@ -24,8 +24,9 @@ const sections: { title: string; content: string }[] = [
   {
     title: "Données collectées",
     content:
-      "Côté manager : email, nom, entreprise, taille d'équipe. Les paiements sont traités par Stripe et ne sont jamais stockés par HeedUp.\n\nCôté salarié : aucune donnée nominative. Les réponses sont associées à un token aléatoire non-traçable, régénéré chaque semaine. Il est techniquement impossible de relier une réponse à un salarié identifié.",
+      "Côté manager : email, nom, entreprise, taille d'équipe. Les paiements sont traités par Stripe et ne sont jamais stockés par HeedUp.\n\nCôté salarié : aucune donnée nominative. Les réponses sont associées à un token aléatoire non-traçable, régénéré chaque semaine. Il est techniquement impossible de relier une réponse à un salarié identifié.\n\nLa documentation contractuelle (DPA et registre) est disponible sur demande à contact@heedup.fr.",
   },
+
   {
     title: "Anonymat des réponses",
     content:
