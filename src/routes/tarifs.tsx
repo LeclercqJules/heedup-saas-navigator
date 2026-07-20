@@ -12,7 +12,7 @@ import {
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
-import { useWaitlistCount } from "@/hooks/use-waitlist-count";
+import { useTallyCount } from "@/hooks/useTallyCount";
 
 export const Route = createFileRoute("/tarifs")({
   head: () => ({
@@ -965,7 +965,7 @@ function SectionPricingCards({
 }
 
 function SectionCta() {
-  const waitlistCount = useWaitlistCount();
+  const count = useTallyCount();
   return (
     <section
       style={{
@@ -994,7 +994,7 @@ function SectionCta() {
           lineHeight: 1.6,
         }}
       >
-        Rejoignez les {waitlistCount} dirigeants déjà sur la liste d'attente. Lancement dans les prochaines semaines.
+        Rejoignez les {count} dirigeants déjà sur la liste d'attente. Lancement dans les prochaines semaines.
       </p>
       <button
         type="button"
