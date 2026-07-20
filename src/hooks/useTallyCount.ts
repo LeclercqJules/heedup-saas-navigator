@@ -29,7 +29,7 @@ async function fetchTallyCount(): Promise<number> {
 }
 
 export function useTallyCount() {
-  const [count, setCount] = useState(cachedCount ?? BASE_COUNT);
+  const [count, setCount] = useState<number>(cachedCount ?? BASE_COUNT);
 
   useEffect(() => {
     fetchTallyCount().then(n => setCount(n));

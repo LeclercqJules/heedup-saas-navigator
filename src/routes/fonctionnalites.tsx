@@ -18,6 +18,7 @@ import {
   X,
 } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
+import { useTallyCount } from "@/hooks/useTallyCount";
 
 export const Route = createFileRoute("/fonctionnalites")({
   head: () => ({
