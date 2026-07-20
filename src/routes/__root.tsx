@@ -109,7 +109,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     scripts: [
       { src: "https://tally.so/widgets/embed.js", async: true },
+      { src: "https://plausible.io/js/pa-CIDeiK1v6ZROoW7xZv8u9.js", async: true },
+      {
+        children:
+          "window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()",
+      },
     ],
+
   }),
 
 
