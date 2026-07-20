@@ -13,6 +13,7 @@ import {
 import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
 import { FloatingNav } from "@/components/FloatingNav";
+import { useWaitlistCount } from "@/hooks/use-waitlist-count";
 
 
 export const Route = createFileRoute("/")({
@@ -144,6 +145,7 @@ function Index() {
   const [activeWhy, setActiveWhy] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
+  const waitlistCount = useWaitlistCount();
 
   const renderFaqAnswer = (text: string, boldPart: string) => {
     const idx = text.indexOf(boldPart);
@@ -462,7 +464,7 @@ function Index() {
                       color: "var(--midnight)",
                     }}
                   >
-                    27 dirigeants déjà sur la liste d'attente
+                    {waitlistCount} dirigeants déjà sur la liste d'attente
                   </span>
                 </div>
               </div>
@@ -1983,7 +1985,7 @@ function Index() {
             margin: "0 auto 32px",
           }}
         >
-          Rejoignez les 27 dirigeants déjà sur la liste d'attente. Lancement dans les prochaines semaines.
+          Rejoignez les {waitlistCount} dirigeants déjà sur la liste d'attente. Lancement dans les prochaines semaines.
         </p>
         <button
           type="button"
