@@ -18,6 +18,7 @@ import {
   X,
 } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
+import { useTallyCount } from "@/hooks/useTallyCount";
 
 export const Route = createFileRoute("/fonctionnalites")({
   head: () => ({
@@ -602,6 +603,7 @@ function SpotlightCard() {
 
 function Page() {
   const [active, setActive] = useState<TabId>("q12");
+  const count = useTallyCount();
 
   return (
     <SiteLayout>
@@ -855,7 +857,7 @@ function Page() {
           Prêt à piloter votre équipe autrement ?
         </h2>
         <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", color: "var(--text-muted)", marginBottom: "26px", lineHeight: 1.6 }}>
-          Rejoignez les 27 dirigeants déjà sur la liste d'attente. Lancement dans les prochaines semaines.
+          Rejoignez les {count} dirigeants déjà sur la liste d'attente. Lancement dans les prochaines semaines.
         </p>
         <button
           type="button"
