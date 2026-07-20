@@ -13,6 +13,7 @@ import {
 import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
 import { FloatingNav } from "@/components/FloatingNav";
+import { useWaitlistCount } from "@/hooks/use-waitlist-count";
 
 
 export const Route = createFileRoute("/")({
