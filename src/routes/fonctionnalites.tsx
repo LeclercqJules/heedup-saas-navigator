@@ -448,18 +448,35 @@ function DocCard({ Icon, title, sub }: { Icon: typeof FileText; title: string; s
   );
 }
 
-function VisualRgpd() {
+function ComplianceItem({ Icon, title, sub }: { Icon: typeof IconShieldCheck; title: string; sub: string }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "100%", maxWidth: "380px" }}>
-      <div style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.6px", color: "rgba(13,27,62,0.4)", fontWeight: 700, marginBottom: "2px" }}>
-        Documents fournis à la signature
+    <div style={{ display: "flex", gap: "10px", alignItems: "center", background: "#FFFFFF", border: "1px solid rgba(67,56,202,0.10)", borderRadius: "8px", padding: "9px 12px" }}>
+      <div style={{ width: "20px", height: "20px", borderRadius: "5px", background: "var(--indigo)", color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+        <Icon size={12} stroke={2.5} />
       </div>
-      <DocCard Icon={FileText} title="DPA : Data Processing Agreement" sub="Responsabilités de traitement, sous-traitance, procédures en cas de violation." />
-      <DocCard Icon={ListChecks} title="Registre de traitement" sub="Finalités, catégories de données, durées de conservation." />
-      <DocCard Icon={Users} title="Politique de confidentialité employé" sub="Document prêt à transmettre à vos salariés avant le premier survey." />
+      <div>
+        <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--midnight)" }}>{title}</div>
+        <div style={{ fontSize: "10.5px", color: "var(--text-muted)", lineHeight: 1.45 }}>{sub}</div>
+      </div>
     </div>
   );
 }
+
+function VisualRgpd() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "8px", width: "100%", maxWidth: "380px" }}>
+      <div style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.6px", color: "rgba(13,27,62,0.4)", fontWeight: 700, marginBottom: "8px" }}>
+        Conformité HeedUp
+      </div>
+      <ComplianceItem Icon={IconShieldCheck} title="Hébergement en France" sub="Serveurs région Paris" />
+      <ComplianceItem Icon={IconEyeOff} title="Anonymat architectural" sub="Réponses non-traçables par conception" />
+      <ComplianceItem Icon={IconDatabase} title="Données minimisées" sub="Scores 1-5 uniquement, aucune donnée sensible" />
+      <ComplianceItem Icon={IconClock} title="Conservation limitée" sub="12 mois glissants, puis suppression" />
+      <ComplianceItem Icon={IconFileText} title="Documentation sur demande" sub="DPA et registre disponibles sur demande" />
+    </div>
+  );
+}
+
 
 function OnboardStep({ n, title, sub, time }: { n: number; title: string; sub: string; time: string }) {
   return (
