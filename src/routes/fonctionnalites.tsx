@@ -17,8 +17,16 @@ import {
   Check,
   X,
 } from "lucide-react";
+import {
+  IconShieldCheck,
+  IconEyeOff,
+  IconDatabase,
+  IconClock,
+  IconFileText,
+} from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { useTallyCount } from "@/hooks/useTallyCount";
+
 
 export const Route = createFileRoute("/fonctionnalites")({
   head: () => ({
