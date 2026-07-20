@@ -21,7 +21,7 @@ async function fetchTallyCount(): Promise<number> {
     const data = await response.json();
     const submissions = data.totalNumberOfSubmissions ?? 0;
     cachedCount = BASE_COUNT + submissions;
-    return cachedCount;
+    return cachedCount as number;
   } catch {
     cachedCount = BASE_COUNT;
     return BASE_COUNT;
