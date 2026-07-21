@@ -35,20 +35,20 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "HeedUp — Pilotez votre équipe sans devenir RH" },
+      { title: "HeedUp · PME : pilotez votre équipe, prévenez le turnover" },
       {
         name: "description",
         content:
-          "HeedUp pilote votre équipe avec 5 questions anonymes chaque vendredi et un rapport d'équipe IA chaque lundi. Conçu pour les PME de 10 à 50 salariés, sans équipe RH.",
+          "Prévenez le turnover dans votre PME. HeedUp envoie 5 questions anonymes chaque vendredi et génère un rapport d'équipe IA chaque lundi. Sans équipe RH. Dès 50€/m",
       },
       {
         property: "og:title",
-        content: "HeedUp — Pilotez votre équipe sans devenir RH",
+        content: "HeedUp · PME : pilotez votre équipe, prévenez le turnover",
       },
       {
         property: "og:description",
         content:
-          "5 questions anonymes chaque vendredi. Un rapport d'équipe actionnable chaque lundi. Opérationnel en 10 minutes. À partir de 50€/mois.",
+          "Prévenez le turnover dans votre PME. HeedUp envoie 5 questions anonymes chaque vendredi et génère un rapport d'équipe IA chaque lundi. Sans équipe RH. Dès 50€/m",
       },
       { property: "og:url", content: "https://heedup.fr" },
       { property: "og:type", content: "website" },
@@ -56,12 +56,12 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary" },
       {
         name: "twitter:title",
-        content: "HeedUp — Pilotez votre équipe sans devenir RH",
+        content: "HeedUp · PME : pilotez votre équipe, prévenez le turnover",
       },
       {
         name: "twitter:description",
         content:
-          "5 questions anonymes chaque vendredi. Un rapport d'équipe actionnable chaque lundi.",
+          "Prévenez le turnover dans votre PME. HeedUp envoie 5 questions anonymes chaque vendredi et génère un rapport d'équipe IA chaque lundi. Sans équipe RH. Dès 50€/m",
       },
     ],
     links: [{ rel: "canonical", href: "https://heedup.fr" }],

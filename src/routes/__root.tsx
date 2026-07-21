@@ -125,21 +125,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "HeedUp — Système d'alerte précoce contre le turnover" },
+      { title: "HeedUp · PME : pilotez votre équipe, prévenez le turnover" },
       {
         name: "description",
         content:
-          "HeedUp aide les équipes RH à détecter les signaux faibles du désengagement avant qu'ils ne deviennent des départs.",
+          "Prévenez le turnover dans votre PME. HeedUp envoie 5 questions anonymes chaque vendredi et génère un rapport d'équipe IA chaque lundi. Sans équipe RH. Dès 50€/m",
       },
       { name: "author", content: "HeedUp" },
-      { property: "og:title", content: "HeedUp — Anticipez le turnover" },
+      { property: "og:title", content: "HeedUp · PME : pilotez votre équipe, prévenez le turnover" },
       {
         property: "og:description",
         content:
-          "Système d'alerte précoce contre le turnover. Fait en France.",
+          "Prévenez le turnover dans votre PME. HeedUp envoie 5 questions anonymes chaque vendredi et génère un rapport d'équipe IA chaque lundi. Sans équipe RH. Dès 50€/m",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "HeedUp · PME : pilotez votre équipe, prévenez le turnover" },
+      { name: "twitter:description", content: "Prévenez le turnover dans votre PME. HeedUp envoie 5 questions anonymes chaque vendredi et génère un rapport d'équipe IA chaque lundi. Sans équipe RH. Dès 50€/m" },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f41cc2e0-94d9-42d4-ad99-7cc08c9d9913/id-preview-493bea72--b890eb7b-6a90-4da1-a574-dc1e667673bf.lovable.app-1784641473692.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f41cc2e0-94d9-42d4-ad99-7cc08c9d9913/id-preview-493bea72--b890eb7b-6a90-4da1-a574-dc1e667673bf.lovable.app-1784641473692.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
