@@ -1138,7 +1138,8 @@ function Index() {
                 backgroundColor: "var(--bg-main)",
               }}
             >
-              {current.visual === "setup" && <SetupVisual />}
+            {current.visual === "setup" && <SetupVisual />}
+              {current.visual === "invite" && <InviteVisual />}
               {current.visual === "phone" && <PhoneVisual />}
               {current.visual === "scores" && <ScoresVisual />}
               {current.visual === "recos" && <RecosVisual />}
