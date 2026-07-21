@@ -924,7 +924,7 @@ function Page() {
         <button
           type="button"
           {...{
-            "data-tally-open": "obpYab",
+            "data-tally-open": "VLBY9E",
             "data-tally-overlay": "1",
             "data-tally-emoji-text": "👋",
             "data-tally-emoji-animation": "wave",
