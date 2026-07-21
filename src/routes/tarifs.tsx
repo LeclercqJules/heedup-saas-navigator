@@ -536,6 +536,7 @@ function SectionFaq() {
 
   return (
     <section
+      className="fade-up"
       style={{
         backgroundColor: "var(--bg-main)",
         padding: "52px 5%",
@@ -1225,6 +1226,7 @@ function Page() {
 
       {/* SIMULATEUR */}
       <section
+        className="fade-up"
         style={{
           backgroundColor: "var(--bg-main)",
           padding: "48px 5%",
