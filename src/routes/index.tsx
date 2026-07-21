@@ -233,7 +233,7 @@ function Index() {
   const renderFaqItem = (item: { q: string; a: string; b: string }, id: number) => {
     const isOpen = openFaq === id;
     return (
-      <div key={id} style={{ borderBottom: "1px solid rgba(67,56,202,0.08)", padding: 0 }}>
+      <div key={id} className="fade-up" style={{ borderBottom: "1px solid rgba(67,56,202,0.08)", padding: 0 }}>
         <button
           type="button"
           onClick={() => setOpenFaq(isOpen ? null : id)}
@@ -1807,9 +1807,10 @@ function Index() {
                 name: "Camille R.",
                 role: "Co-gérante, Nantes",
               },
-            ].map((t) => (
+            ].map((t, i) => (
               <div
                 key={t.name}
+                className={`fade-up fade-up-delay-${i + 1} card-hover`}
                 style={{
                   backgroundColor: "var(--bg-main)",
                   borderRadius: "12px",
@@ -1983,7 +1984,7 @@ function Index() {
       </section>
 
       {/* CTA final */}
-      <section id="rejoindre" style={{ backgroundColor: "#EEEEFF", padding: "80px 5%", textAlign: "center" }}>
+      <section id="rejoindre" className="fade-up" style={{ backgroundColor: "#EEEEFF", padding: "80px 5%", textAlign: "center" }}>
         <h2
           style={{
             fontFamily: "var(--font-display)",
