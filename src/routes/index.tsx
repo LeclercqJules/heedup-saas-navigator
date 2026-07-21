@@ -722,7 +722,7 @@ function Index() {
 
       {/* Impact business */}
       <section
-        className="heedup-impact"
+        className="heedup-impact fade-up"
         style={{
           backgroundColor: "var(--bg-main)",
           padding: "64px 5%",
@@ -907,7 +907,7 @@ function Index() {
       </section>
 
       {/* Comment ça marche */}
-      <section id="comment-ca-marche" style={{ backgroundColor: "#EEEEFF", padding: "64px 5%" }}>
+      <section id="comment-ca-marche" className="fade-up" style={{ backgroundColor: "#EEEEFF", padding: "64px 5%" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           {/* Intro */}
           <div className="text-center">
@@ -1154,7 +1154,7 @@ function Index() {
       </section>
 
       {/* Simple pour vous, simple pour eux */}
-      <section id="simplicite" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
+      <section id="simplicite" className="fade-up" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           {/* Intro */}
           <div className="text-center" style={{ marginBottom: "52px" }}>
@@ -1483,7 +1483,7 @@ function Index() {
       </section>
 
       {/* Pourquoi HeedUp */}
-      <section id="pourquoi" style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
+      <section id="pourquoi" className="fade-up" style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           {/* Intro */}
           <div className="text-center" style={{ marginBottom: "48px" }}>
@@ -1725,7 +1725,7 @@ function Index() {
       </section>
 
       {/* Témoignages */}
-      <section id="temoignages" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
+      <section id="temoignages" className="fade-up" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           {/* Intro */}
           <div className="text-center" style={{ marginBottom: "48px" }}>
@@ -1925,7 +1925,7 @@ function Index() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
+      <section id="faq" className="fade-up" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
         <div style={{ textAlign: "center", marginBottom: "48px" }}>
           <div
             style={{
