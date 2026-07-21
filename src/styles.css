@@ -280,7 +280,37 @@
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     flex-direction: row !important;
-    gap: 6px !important;
+    gap: 8px !important;
+  }
+  .heedup-pourquoi-nav button {
+    padding: 8px 10px !important;
+    text-align: center !important;
+    border-left: none !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+  .heedup-pourquoi-nav button > svg {
+    width: 12px !important;
+    height: 12px !important;
+    margin-top: 0 !important;
+  }
+  .heedup-pourquoi-nav button > div > div:first-child {
+    font-size: 11px !important;
+  }
+  .heedup-pourquoi-nav button > div > div:last-child {
+    display: none !important;
+  }
+  /* Panel actif : 1 colonne, padding réduit */
+  .heedup-pourquoi > div:nth-child(2) > div {
+    padding: 24px 20px !important;
+  }
+  .heedup-pourquoi > div:nth-child(2) div[style*="1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  .heedup-pourquoi > div:nth-child(2) div[style*="1fr 1fr"] > div {
+    padding: 12px 0 !important;
+    border-right: none !important;
   }
 
   /* Témoignages : 1 col */
@@ -329,12 +359,11 @@
     grid-template-columns: 1fr !important;
     gap: 32px !important;
   }
-  .heedup-comparatif {
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
+  .heedup-comparatif-desktop {
+    display: none !important;
   }
-  .heedup-comparatif > div {
-    min-width: 640px !important;
+  .heedup-comparatif-mobile {
+    display: block !important;
   }
 
   /* PAGES LEGAL */

@@ -840,7 +840,7 @@ function Page() {
         <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", color: "var(--text-muted)", textAlign: "center", marginBottom: "40px" }}>
           Six différences concrètes avec les outils conçus pour les équipes RH.
         </p>
-        <div className="heedup-comparatif" style={{ maxWidth: "900px", margin: "0 auto" }}>
+        <div className="heedup-comparatif-desktop" style={{ maxWidth: "900px", margin: "0 auto" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "16px", marginBottom: "12px" }}>
             <div style={{ fontSize: "11px", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.7px", color: "rgba(13,27,62,0.35)", textAlign: "left" }}>Sans HeedUp</div>
             <div />
@@ -874,6 +874,42 @@ function Page() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Mobile stacked comparison */}
+        <div className="heedup-comparatif-mobile" style={{ display: "none", maxWidth: "560px", margin: "0 auto" }}>
+          {[
+            { criterion: "Temps de démarrage", heedup: "10 minutes", other: "4 à 12 semaines" },
+            { criterion: "Fréquence de mesure", heedup: "Hebdomadaire", other: "Mensuel ou trimestriel" },
+            { criterion: "Prix d'entrée (25 salariés)", heedup: "112,50€/mois", other: "Dès 667€/mois" },
+            { criterion: "Engagement", heedup: "Mensuel, libre", other: "12 mois minimum" },
+            { criterion: "Appel commercial requis", heedup: "Non", other: "Systématiquement" },
+            { criterion: "Anonymat", heedup: "Architectural (by design)", other: "Paramètre désactivable" },
+            { criterion: "Compte salarié requis", heedup: "Non, lien direct", other: "Oui, inscription requise" },
+          ].map((row) => (
+            <div
+              key={row.criterion}
+              style={{
+                background: "var(--bg-card)",
+                borderRadius: "10px",
+                border: "1px solid rgba(67,56,202,0.08)",
+                padding: "14px 16px",
+                marginBottom: "10px",
+              }}
+            >
+              <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--midnight)", marginBottom: "10px" }}>
+                {row.criterion}
+              </div>
+              <div style={{ display: "flex", alignItems: "flex-start", gap: "8px", marginBottom: "6px" }}>
+                <span style={{ background: "var(--indigo)", color: "#fff", fontSize: "9px", fontWeight: 700, padding: "2px 7px", borderRadius: "4px", flexShrink: 0 }}>HeedUp</span>
+                <span style={{ fontSize: "12px", color: "#15803d", fontWeight: 600 }}>{row.heedup}</span>
+              </div>
+              <div style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}>
+                <span style={{ background: "rgba(13,27,62,0.08)", color: "rgba(13,27,62,0.4)", fontSize: "9px", fontWeight: 700, padding: "2px 7px", borderRadius: "4px", flexShrink: 0 }}>Autres</span>
+                <span style={{ fontSize: "12px", color: "rgba(13,27,62,0.35)" }}>{row.other}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
