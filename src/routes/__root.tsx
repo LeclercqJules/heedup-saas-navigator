@@ -11,26 +11,74 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { SiteLayout } from "../components/SiteLayout";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
+    <SiteLayout>
+      <section
+        style={{
+          background: "var(--bg-main)",
+          padding: "80px 5%",
+          textAlign: "center",
+        }}
+      >
+        <div style={{ maxWidth: "620px", margin: "0 auto" }}>
+          <div
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "96px",
+              color: "var(--indigo)",
+              opacity: 0.3,
+              lineHeight: 1,
+              marginBottom: 0,
+            }}
+          >
+            404
+          </div>
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "36px",
+              color: "var(--midnight)",
+              letterSpacing: "-0.5px",
+              marginBottom: "12px",
+            }}
+          >
+            Cette page n'existe pas.
+          </h1>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "16px",
+              color: "var(--text-muted)",
+              marginBottom: "32px",
+              lineHeight: 1.6,
+            }}
+          >
+            Vous avez peut-être suivi un lien incorrect. La page que vous cherchez a peut-être bougé.
+          </p>
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            style={{
+              display: "inline-block",
+              background: "var(--indigo)",
+              color: "#FFFFFF",
+              padding: "12px 28px",
+              borderRadius: "8px",
+              fontSize: "14px",
+              fontWeight: 700,
+              border: "none",
+              cursor: "pointer",
+              fontFamily: "var(--font-sans)",
+              textDecoration: "none",
+            }}
           >
-            Go home
+            Retour à l'accueil →
           </Link>
         </div>
-      </div>
-    </div>
+      </section>
+    </SiteLayout>
   );
 }
 
