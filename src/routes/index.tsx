@@ -2141,6 +2141,69 @@ function SetupVisual() {
   );
 }
 
+function InviteVisual() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div
+        style={{
+          backgroundColor: "#FFFFFF",
+          borderRadius: "10px",
+          border: "1px solid rgba(67,56,202,0.1)",
+          padding: "18px",
+          width: "220px",
+          fontFamily: "var(--font-sans)",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+          <div
+            style={{
+              width: "28px",
+              height: "28px",
+              borderRadius: "6px",
+              backgroundColor: "var(--midnight)",
+              color: "#EEEEFF",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "12px",
+              fontWeight: 700,
+            }}
+          >
+            H
+          </div>
+          <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--midnight)" }}>
+            HeedUp · Invitation survey
+          </div>
+        </div>
+        <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--midnight)", lineHeight: 1.4, marginBottom: "12px" }}>
+          Rejoignez le baromètre anonyme de votre équipe
+        </div>
+        <button
+          type="button"
+          style={{
+            width: "100%",
+            backgroundColor: "var(--indigo)",
+            color: "#FFFFFF",
+            fontSize: "12px",
+            fontWeight: 700,
+            padding: "10px 0",
+            borderRadius: "6px",
+            border: "none",
+            cursor: "default",
+            marginBottom: "12px",
+            fontFamily: "var(--font-sans)",
+          }}
+        >
+          Je rejoins le survey
+        </button>
+        <div style={{ fontSize: "10px", color: "var(--text-muted)", textAlign: "center", lineHeight: 1.5 }}>
+          Anonyme · 2 min/semaine · Résiliable à tout moment
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function PhoneVisual() {
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
