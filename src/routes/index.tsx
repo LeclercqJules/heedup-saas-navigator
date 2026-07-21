@@ -14,6 +14,21 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
 import { FloatingNav } from "@/components/FloatingNav";
 import { useTallyCount } from "@/hooks/useTallyCount";
+import { useCountUp } from "@/hooks/useCountUp";
+
+function CountUp({ target, format, suffix }: { target: number; format?: (n: number) => string; suffix?: string }) {
+  const { count, ref } = useCountUp(target);
+  return (
+    <span ref={ref}>
+      {format ? format(count) : count}
+      {suffix ?? ""}
+    </span>
+  );
+}
+
+function fmtThousands(n: number): string {
+  return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
 
 
 export const Route = createFileRoute("/")({
