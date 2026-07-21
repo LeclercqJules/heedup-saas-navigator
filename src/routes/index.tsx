@@ -375,6 +375,7 @@ function Index() {
             {/* Colonne gauche : texte */}
             <div>
               <span
+                className="hero-anim-1"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -394,7 +395,7 @@ function Index() {
               </span>
 
               <h1
-                className="heedup-hero-h1"
+                className="heedup-hero-h1 hero-anim-2"
                 style={{
                   fontFamily: "var(--font-display)",
                 fontSize: "58px",
@@ -410,7 +411,7 @@ function Index() {
               </h1>
 
               <p
-                className="heedup-hero-sub"
+                className="heedup-hero-sub hero-anim-3"
                 style={{
                   fontFamily: "var(--font-sans)",
                   maxWidth: "460px",
@@ -424,7 +425,7 @@ function Index() {
               </p>
 
               <div
-                className="heedup-hero-actions"
+                className="heedup-hero-actions hero-anim-4"
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -487,7 +488,7 @@ function Index() {
 
             {/* Colonne droite : carte */}
             <div
-              className="heedup-hero-card"
+              className="heedup-hero-card hero-anim-5"
               style={{
                 backgroundColor: "var(--bg-card)",
                 borderRadius: "12px",
