@@ -700,9 +700,10 @@ function Page() {
               </p>
               <Detail label="Pourquoi des questions fixes ?" text="Des questions identiques d'une semaine à l'autre permettent de comparer les données dans le temps. Si vous changez les questions, vous perdez la tendance. C'est le principe de base de la psychométrie appliquée." />
               <Bullets items={[
-                "Lien unique par salarié, token régénéré chaque semaine",
+                "Opt-in volontaire : chaque salarié confirme sa participation avant le premier survey",
                 "Réponse sur téléphone ou ordinateur, sans compte",
                 "Taux de réponse moyen observé en bêta : 76%",
+                "Vous voyez le nombre de participants, jamais leur identité",
               ]} />
             </div>
             <div style={rightColStyle}><VisualQ12 /></div>
