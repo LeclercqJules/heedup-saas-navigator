@@ -382,3 +382,71 @@
 }
 
 
+
+/* ============================================================
+ * Animations (scroll fade, hover lift, page transition, hero)
+ * ============================================================ */
+
+.page-transition {
+  animation: pageIn 0.3s ease forwards;
+}
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  will-change: transform, opacity;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-up-delay-1 { transition-delay: 0.1s; }
+.fade-up-delay-2 { transition-delay: 0.2s; }
+.fade-up-delay-3 { transition-delay: 0.3s; }
+.fade-up-delay-4 { transition-delay: 0.4s; }
+
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  will-change: transform;
+}
+
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(67, 56, 202, 0.12);
+  border-color: rgba(67, 56, 202, 0.25);
+}
+
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-anim-1 { animation: heroFadeIn 0.5s ease 0.1s both; will-change: transform, opacity; }
+.hero-anim-2 { animation: heroFadeIn 0.5s ease 0.25s both; will-change: transform, opacity; }
+.hero-anim-3 { animation: heroFadeIn 0.5s ease 0.4s both; will-change: transform, opacity; }
+.hero-anim-4 { animation: heroFadeIn 0.5s ease 0.55s both; will-change: transform, opacity; }
+.hero-anim-5 { animation: heroFadeIn 0.5s ease 0.7s both; will-change: transform, opacity; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up,
+  .card-hover,
+  .page-transition,
+  .hero-anim-1,
+  .hero-anim-2,
+  .hero-anim-3,
+  .hero-anim-4,
+  .hero-anim-5 {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

@@ -14,6 +14,21 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
 import { FloatingNav } from "@/components/FloatingNav";
 import { useTallyCount } from "@/hooks/useTallyCount";
+import { useCountUp } from "@/hooks/useCountUp";
+
+function CountUp({ target, format, suffix }: { target: number; format?: (n: number) => string; suffix?: string }) {
+  const { count, ref } = useCountUp(target);
+  return (
+    <span ref={ref}>
+      {format ? format(count) : count}
+      {suffix ?? ""}
+    </span>
+  );
+}
+
+function fmtThousands(n: number): string {
+  return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
 
 
 export const Route = createFileRoute("/")({
@@ -218,7 +233,7 @@ function Index() {
   const renderFaqItem = (item: { q: string; a: string; b: string }, id: number) => {
     const isOpen = openFaq === id;
     return (
-      <div key={id} style={{ borderBottom: "1px solid rgba(67,56,202,0.08)", padding: 0 }}>
+      <div key={id} className="fade-up" style={{ borderBottom: "1px solid rgba(67,56,202,0.08)", padding: 0 }}>
         <button
           type="button"
           onClick={() => setOpenFaq(isOpen ? null : id)}
@@ -360,6 +375,7 @@ function Index() {
             {/* Colonne gauche : texte */}
             <div>
               <span
+                className="hero-anim-1"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -379,7 +395,7 @@ function Index() {
               </span>
 
               <h1
-                className="heedup-hero-h1"
+                className="heedup-hero-h1 hero-anim-2"
                 style={{
                   fontFamily: "var(--font-display)",
                 fontSize: "58px",
@@ -395,7 +411,7 @@ function Index() {
               </h1>
 
               <p
-                className="heedup-hero-sub"
+                className="heedup-hero-sub hero-anim-3"
                 style={{
                   fontFamily: "var(--font-sans)",
                   maxWidth: "460px",
@@ -409,7 +425,7 @@ function Index() {
               </p>
 
               <div
-                className="heedup-hero-actions"
+                className="heedup-hero-actions hero-anim-4"
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -472,7 +488,7 @@ function Index() {
 
             {/* Colonne droite : carte */}
             <div
-              className="heedup-hero-card"
+              className="heedup-hero-card hero-anim-5"
               style={{
                 backgroundColor: "var(--bg-card)",
                 borderRadius: "12px",
@@ -706,7 +722,7 @@ function Index() {
 
       {/* Impact business */}
       <section
-        className="heedup-impact"
+        className="heedup-impact fade-up"
         style={{
           backgroundColor: "var(--bg-main)",
           padding: "64px 5%",
@@ -761,32 +777,37 @@ function Index() {
           >
             {[
               {
+                key: "engagement",
                 eyebrow: "TAUX D'ENGAGEMENT",
-                figure: "13 %",
+                figureNode: <><CountUp target={13} /> %</>,
                 label: "des salariés français réellement engagés dans leur travail, l'un des taux les plus bas en Europe.",
                 source: "Gallup, 2024",
               },
               {
+                key: "cout-chronique",
                 eyebrow: "COÛT CHRONIQUE",
-                figure: "~14 300 €",
+                figureNode: <>~<CountUp target={14300} format={fmtThousands} /> €</>,
                 label: "par salarié et par an, le coût du désengagement en France, avant même le moindre départ.",
                 source: "IBET, 2024",
               },
               {
+                key: "cout-depart",
                 eyebrow: "COÛT D'UN DÉPART",
-                figure: "15–30 K€",
+                figureNode: <><CountUp target={15} />–<CountUp target={30} /> K€</>,
                 label: "le coût réel d'un départ en PME, recrutement, formation et désorganisation compris.",
                 source: "Deloitte, 2024",
               },
               {
+                key: "levier",
                 eyebrow: "LE LEVIER MANAGER",
-                figure: "70 %",
+                figureNode: <><CountUp target={70} /> %</>,
                 label: "du climat d'équipe dépend directement du manager, pas de la politique RH globale.",
                 source: "Gallup, 2024",
               },
-            ].map((c) => (
+            ].map((c, i) => (
               <div
-                key={c.figure}
+                key={c.key}
+                className={`fade-up fade-up-delay-${i + 1} card-hover`}
                 style={{
                   backgroundColor: "var(--bg-card)",
                   border: "1px solid rgba(67,56,202,0.10)",
@@ -818,7 +839,7 @@ function Index() {
                     color: "var(--midnight)",
                   }}
                 >
-                  {c.figure}
+                  {c.figureNode}
                 </div>
                 <p
                   style={{
@@ -886,7 +907,7 @@ function Index() {
       </section>
 
       {/* Comment ça marche */}
-      <section id="comment-ca-marche" style={{ backgroundColor: "#EEEEFF", padding: "64px 5%" }}>
+      <section id="comment-ca-marche" className="fade-up" style={{ backgroundColor: "#EEEEFF", padding: "64px 5%" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           {/* Intro */}
           <div className="text-center">
@@ -1133,7 +1154,7 @@ function Index() {
       </section>
 
       {/* Simple pour vous, simple pour eux */}
-      <section id="simplicite" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
+      <section id="simplicite" className="fade-up" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           {/* Intro */}
           <div className="text-center" style={{ marginBottom: "52px" }}>
@@ -1462,7 +1483,7 @@ function Index() {
       </section>
 
       {/* Pourquoi HeedUp */}
-      <section id="pourquoi" style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
+      <section id="pourquoi" className="fade-up" style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           {/* Intro */}
           <div className="text-center" style={{ marginBottom: "48px" }}>
@@ -1704,7 +1725,7 @@ function Index() {
       </section>
 
       {/* Témoignages */}
-      <section id="temoignages" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
+      <section id="temoignages" className="fade-up" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           {/* Intro */}
           <div className="text-center" style={{ marginBottom: "48px" }}>
@@ -1786,9 +1807,10 @@ function Index() {
                 name: "Camille R.",
                 role: "Co-gérante, Nantes",
               },
-            ].map((t) => (
+            ].map((t, i) => (
               <div
                 key={t.name}
+                className={`fade-up fade-up-delay-${i + 1} card-hover`}
                 style={{
                   backgroundColor: "var(--bg-main)",
                   borderRadius: "12px",
@@ -1903,7 +1925,7 @@ function Index() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
+      <section id="faq" className="fade-up" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
         <div style={{ textAlign: "center", marginBottom: "48px" }}>
           <div
             style={{
@@ -1962,7 +1984,7 @@ function Index() {
       </section>
 
       {/* CTA final */}
-      <section id="rejoindre" style={{ backgroundColor: "#EEEEFF", padding: "80px 5%", textAlign: "center" }}>
+      <section id="rejoindre" className="fade-up" style={{ backgroundColor: "#EEEEFF", padding: "80px 5%", textAlign: "center" }}>
         <h2
           style={{
             fontFamily: "var(--font-display)",
