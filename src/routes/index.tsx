@@ -310,6 +310,18 @@ function Index() {
     },
     {
       num: "02",
+      label: "Vos salariés\nconfirment",
+      badge: "Dans les 24h",
+      title: "Vos salariés confirment leur participation.",
+      description: (
+        <>Chaque salarié reçoit une invitation par email et choisit de rejoindre le survey. Vous voyez combien ont rejoint. Jamais qui.</>
+      ),
+      calloutLabel: "OPT-IN ET ANONYMAT",
+      calloutText: "La participation est volontaire. Ce choix libre est ce qui rend les réponses honnêtes. Vos salariés répondent parce qu'ils veulent, pas parce qu'ils y sont obligés.",
+      visual: "invite" as const,
+    },
+    {
+      num: "03",
       label: "5 questions\nanonymes",
       badge: "Vendredi · 9h00",
       title: "5 questions anonymes",
@@ -321,7 +333,7 @@ function Index() {
       visual: "phone" as const,
     },
     {
-      num: "03",
+      num: "04",
       label: "Votre Rapport\nd'équipe",
       badge: "Lundi · 8h00",
       title: "Votre Rapport d'équipe",
@@ -333,7 +345,7 @@ function Index() {
       visual: "scores" as const,
     },
     {
-      num: "04",
+      num: "05",
       label: "Vous agissez,\nvous mesurez",
       badge: "Dans la semaine",
       title: "Vous agissez, vous mesurez",
@@ -1126,7 +1138,8 @@ function Index() {
                 backgroundColor: "var(--bg-main)",
               }}
             >
-              {current.visual === "setup" && <SetupVisual />}
+            {current.visual === "setup" && <SetupVisual />}
+              {current.visual === "invite" && <InviteVisual />}
               {current.visual === "phone" && <PhoneVisual />}
               {current.visual === "scores" && <ScoresVisual />}
               {current.visual === "recos" && <RecosVisual />}
@@ -2124,6 +2137,69 @@ function SetupVisual() {
         title="Premier survey planifié"
         subtitle="Vendredi 13 juin · 9h00"
       />
+    </div>
+  );
+}
+
+function InviteVisual() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div
+        style={{
+          backgroundColor: "#FFFFFF",
+          borderRadius: "10px",
+          border: "1px solid rgba(67,56,202,0.1)",
+          padding: "18px",
+          width: "220px",
+          fontFamily: "var(--font-sans)",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+          <div
+            style={{
+              width: "28px",
+              height: "28px",
+              borderRadius: "6px",
+              backgroundColor: "var(--midnight)",
+              color: "#EEEEFF",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "12px",
+              fontWeight: 700,
+            }}
+          >
+            H
+          </div>
+          <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--midnight)" }}>
+            HeedUp · Invitation survey
+          </div>
+        </div>
+        <div style={{ fontSize: "14px", fontWeight: 700, color: "var(--midnight)", lineHeight: 1.4, marginBottom: "12px" }}>
+          Rejoignez le baromètre anonyme de votre équipe
+        </div>
+        <button
+          type="button"
+          style={{
+            width: "100%",
+            backgroundColor: "var(--indigo)",
+            color: "#FFFFFF",
+            fontSize: "12px",
+            fontWeight: 700,
+            padding: "10px 0",
+            borderRadius: "6px",
+            border: "none",
+            cursor: "default",
+            marginBottom: "12px",
+            fontFamily: "var(--font-sans)",
+          }}
+        >
+          Je rejoins le survey
+        </button>
+        <div style={{ fontSize: "10px", color: "var(--text-muted)", textAlign: "center", lineHeight: 1.5 }}>
+          Anonyme · 2 min/semaine · Résiliable à tout moment
+        </div>
+      </div>
     </div>
   );
 }

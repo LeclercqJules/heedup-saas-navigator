@@ -700,9 +700,10 @@ function Page() {
               </p>
               <Detail label="Pourquoi des questions fixes ?" text="Des questions identiques d'une semaine à l'autre permettent de comparer les données dans le temps. Si vous changez les questions, vous perdez la tendance. C'est le principe de base de la psychométrie appliquée." />
               <Bullets items={[
-                "Lien unique par salarié, token régénéré chaque semaine",
+                "Opt-in volontaire : chaque salarié confirme sa participation avant le premier survey",
                 "Réponse sur téléphone ou ordinateur, sans compte",
                 "Taux de réponse moyen observé en bêta : 76%",
+                "Vous voyez le nombre de participants, jamais leur identité",
               ]} />
             </div>
             <div style={rightColStyle}><VisualQ12 /></div>
@@ -727,7 +728,7 @@ function Page() {
               <span style={tagStyle}>Anonymat</span>
               <h2 style={titleStyle}>Ce que vous ne pouvez pas voir. Même si vous le voulez.</h2>
               <p style={descStyle}>
-                L'anonymat de HeedUp est une contrainte d'architecture, pas un paramètre. Le système ne stocke jamais de lien entre une réponse et un salarié. Techniquement, même si vous demandiez à notre équipe qui a répondu quoi, nous ne pourrions pas vous répondre.
+                L'anonymat de HeedUp est une contrainte d'architecture, pas un paramètre. La participation est volontaire : vos salariés choisissent de rejoindre, ce qui renforce la qualité des réponses. Le système ne stocke jamais de lien entre une réponse et un salarié. Techniquement, même si vous demandiez à notre équipe qui a répondu quoi, nous ne pourrions pas vous répondre.
               </p>
               <Detail label="Seuil de protection statistique" text="Si moins de 5 salariés ont répondu cette semaine, aucun score n'est affiché. Ce seuil protège l'anonymat dans les petites équipes où un score pourrait trahir un répondant." />
               <Bullets items={[
