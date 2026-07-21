@@ -16,21 +16,37 @@ export function FloatingNav() {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+    const sections = [
+      'hero',
+      'impact',
+      'comment-ca-marche',
+      'simplicite',
+      'pourquoi',
+      'temoignages',
+      'faq',
+      'rejoindre'
+    ];
+    const observers: IntersectionObserver[] = [];
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => {
           if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
+            setActiveSection(id);
           }
-        });
-      },
-      { threshold: 0.3, rootMargin: "-84px 0px -40% 0px" }
-    );
-    items.forEach((it) => {
-      const el = document.getElementById(it.id);
-      if (el) observer.observe(el);
+        },
+        {
+          threshold: 0,
+          rootMargin: '-40% 0px -55% 0px'
+        }
+      );
+      observer.observe(el);
+      observers.push(observer);
     });
-    return () => observer.disconnect();
+    return () => {
+      observers.forEach(obs => obs.disconnect());
+    };
   }, []);
 
   const handleClick = (e: React.MouseEvent, id: string) => {
