@@ -777,32 +777,37 @@ function Index() {
           >
             {[
               {
+                key: "engagement",
                 eyebrow: "TAUX D'ENGAGEMENT",
-                figure: "13 %",
+                figureNode: <><CountUp target={13} /> %</>,
                 label: "des salariés français réellement engagés dans leur travail, l'un des taux les plus bas en Europe.",
                 source: "Gallup, 2024",
               },
               {
+                key: "cout-chronique",
                 eyebrow: "COÛT CHRONIQUE",
-                figure: "~14 300 €",
+                figureNode: <>~<CountUp target={14300} format={fmtThousands} /> €</>,
                 label: "par salarié et par an, le coût du désengagement en France, avant même le moindre départ.",
                 source: "IBET, 2024",
               },
               {
+                key: "cout-depart",
                 eyebrow: "COÛT D'UN DÉPART",
-                figure: "15–30 K€",
+                figureNode: <><CountUp target={15} />–<CountUp target={30} /> K€</>,
                 label: "le coût réel d'un départ en PME, recrutement, formation et désorganisation compris.",
                 source: "Deloitte, 2024",
               },
               {
+                key: "levier",
                 eyebrow: "LE LEVIER MANAGER",
-                figure: "70 %",
+                figureNode: <><CountUp target={70} /> %</>,
                 label: "du climat d'équipe dépend directement du manager, pas de la politique RH globale.",
                 source: "Gallup, 2024",
               },
-            ].map((c) => (
+            ].map((c, i) => (
               <div
-                key={c.figure}
+                key={c.key}
+                className={`fade-up fade-up-delay-${i + 1} card-hover`}
                 style={{
                   backgroundColor: "var(--bg-card)",
                   border: "1px solid rgba(67,56,202,0.10)",
@@ -834,7 +839,7 @@ function Index() {
                     color: "var(--midnight)",
                   }}
                 >
-                  {c.figure}
+                  {c.figureNode}
                 </div>
                 <p
                   style={{
