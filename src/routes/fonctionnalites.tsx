@@ -648,7 +648,7 @@ function Page() {
       </section>
 
       {/* Section 2 : Feature Explorer */}
-      <section style={{ background: "var(--bg-card)", padding: "52px 5%", borderTop: "1px solid rgba(67,56,202,0.08)" }}>
+      <section className="fade-up" style={{ background: "var(--bg-card)", padding: "52px 5%", borderTop: "1px solid rgba(67,56,202,0.08)" }}>
         <style>{`
           .feature-tab {
             transition: all 0.15s;
@@ -793,7 +793,7 @@ function Page() {
       </section>
 
       {/* Section 3 : Spotlight Rapport d'équipe */}
-      <section style={{ background: "var(--midnight)", padding: "56px 5%" }}>
+      <section className="fade-up" style={{ background: "var(--midnight)", padding: "56px 5%" }}>
         <div className="heedup-spotlight" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "48px", alignItems: "center" }}>
           <div>
             <div style={{ fontFamily: "var(--font-sans)", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.9px", color: "rgba(255,255,255,0.35)", marginBottom: "12px", fontWeight: 700 }}>
@@ -833,7 +833,7 @@ function Page() {
       </section>
 
       {/* Section 4 : Comparatif */}
-      <section style={{ background: "var(--bg-main)", padding: "56px 5%", borderTop: "1px solid rgba(67,56,202,0.08)" }}>
+      <section className="fade-up" style={{ background: "var(--bg-main)", padding: "56px 5%", borderTop: "1px solid rgba(67,56,202,0.08)" }}>
         <h2 style={{ fontFamily: "var(--font-display)", fontSize: "42px", color: "var(--midnight)", letterSpacing: "-0.8px", textAlign: "center", marginBottom: "8px" }}>
           Ce qui change vraiment avec HeedUp
         </h2>

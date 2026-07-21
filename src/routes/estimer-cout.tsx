@@ -234,6 +234,7 @@ function EstimerCoutPage() {
 
           <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 20 }}>
             <div
+              className="fade-up fade-up-delay-1 card-hover"
               style={{
                 background: "rgba(239,68,68,0.05)",
                 border: "1px solid rgba(239,68,68,0.15)",
@@ -256,6 +257,7 @@ function EstimerCoutPage() {
             </div>
 
             <div
+              className="fade-up fade-up-delay-2 card-hover"
               style={{
                 background: "rgba(239,68,68,0.05)",
                 border: "1px solid rgba(239,68,68,0.15)",
@@ -277,7 +279,7 @@ function EstimerCoutPage() {
               </div>
             </div>
 
-            <div style={{ background: "var(--midnight)", borderRadius: 10, padding: "16px 18px" }}>
+            <div className="fade-up fade-up-delay-3" style={{ background: "var(--midnight)", borderRadius: 10, padding: "16px 18px" }}>
               <div style={{ fontSize: 10, textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.7px", color: "rgba(255,255,255,0.4)", marginBottom: 8 }}>
                 Coût annuel HeedUp
               </div>
@@ -293,6 +295,7 @@ function EstimerCoutPage() {
             </div>
 
             <div
+              className="fade-up fade-up-delay-4 card-hover"
               style={{
                 background: "rgba(34,197,94,0.06)",
                 border: "1px solid rgba(34,197,94,0.2)",
