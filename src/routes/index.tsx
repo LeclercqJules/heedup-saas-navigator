@@ -310,6 +310,18 @@ function Index() {
     },
     {
       num: "02",
+      label: "Vos salariés\nconfirment",
+      badge: "Dans les 24h",
+      title: "Vos salariés confirment leur participation.",
+      description: (
+        <>Chaque salarié reçoit une invitation par email et choisit de rejoindre le survey. Vous voyez combien ont rejoint. Jamais qui.</>
+      ),
+      calloutLabel: "OPT-IN ET ANONYMAT",
+      calloutText: "La participation est volontaire. Ce choix libre est ce qui rend les réponses honnêtes. Vos salariés répondent parce qu'ils veulent, pas parce qu'ils y sont obligés.",
+      visual: "invite" as const,
+    },
+    {
+      num: "03",
       label: "5 questions\nanonymes",
       badge: "Vendredi · 9h00",
       title: "5 questions anonymes",
@@ -321,7 +333,7 @@ function Index() {
       visual: "phone" as const,
     },
     {
-      num: "03",
+      num: "04",
       label: "Votre Rapport\nd'équipe",
       badge: "Lundi · 8h00",
       title: "Votre Rapport d'équipe",
@@ -333,7 +345,7 @@ function Index() {
       visual: "scores" as const,
     },
     {
-      num: "04",
+      num: "05",
       label: "Vous agissez,\nvous mesurez",
       badge: "Dans la semaine",
       title: "Vous agissez, vous mesurez",
