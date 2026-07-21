@@ -409,6 +409,7 @@ const features = [
 function SectionFeatures() {
   return (
     <section
+      className="fade-up"
       style={{
         backgroundColor: "#EEEEFF",
         padding: "52px 5%",
@@ -451,6 +452,7 @@ function SectionFeatures() {
           return (
             <div
               key={f.title}
+              className="card-hover"
               style={{
                 backgroundColor: "var(--bg-card)",
                 borderRadius: 12,
@@ -634,6 +636,7 @@ function SectionPricingCards({
 }) {
   return (
     <section
+      className="fade-up"
       style={{
         backgroundColor: "var(--bg-card)",
         padding: "48px 5%",
@@ -787,7 +790,7 @@ function SectionPricingCards({
               </div>
 
               <article
-                className={`pricing-card ${featured ? "featured" : ""}`}
+                className={`pricing-card ${featured ? "featured" : "card-hover"}`}
                 style={{
                   background: featured ? "var(--midnight)" : "var(--bg-card)",
                   borderRadius: "16px",
