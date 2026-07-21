@@ -29,7 +29,7 @@ export const Route = createFileRoute("/tarifs")({
 });
 
 const TALLY_ATTRS = {
-  "data-tally-open": "obpYab",
+  "data-tally-open": "VLBY9E",
   "data-tally-overlay": "1",
   "data-tally-emoji-text": "👋",
   "data-tally-emoji-animation": "wave",

@@ -7,7 +7,7 @@ async function fetchTallyCount(): Promise<number> {
   if (cachedCount !== null) return cachedCount;
   try {
     const response = await fetch(
-      'https://api.tally.so/forms/obpYab/submissions',
+      'https://api.tally.so/forms/VLBY9E/submissions',
       {
         headers: {
           'Authorization': `Bearer ${import.meta.env.VITE_TALLY_API_KEY}`
