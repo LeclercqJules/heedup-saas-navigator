@@ -27,27 +27,29 @@ export function FloatingNav() {
       'rejoindre'
     ];
 
+    const getScrollY = () =>
+      window.scrollY ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+
     const handleScroll = () => {
-      const scrollY = window.scrollY;
+      const scrollY = getScrollY();
       const windowHeight = window.innerHeight;
       const viewportCenter = scrollY + windowHeight * 0.4;
-
-      function getPageTop(el: HTMLElement): number {
-        let top = 0;
-        let element: HTMLElement | null = el;
-        while (element) {
-          top += element.offsetTop;
-          element = element.offsetParent as HTMLElement | null;
-        }
-        return top;
-      }
 
       let activeId = sectionIds[0];
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const el = document.getElementById(sectionIds[i]);
         if (!el) continue;
 
-        const top = getPageTop(el);
+        let top = 0;
+        let node: HTMLElement | null = el;
+        while (node) {
+          top += node.offsetTop;
+          node = node.offsetParent as HTMLElement | null;
+        }
+
         if (viewportCenter >= top) {
           activeId = sectionIds[i];
           break;
@@ -57,11 +59,19 @@ export function FloatingNav() {
       setActiveSection(activeId);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll,
+      { passive: true });
+    document.addEventListener('scroll', handleScroll,
+      { passive: true });
+    document.documentElement.addEventListener(
+      'scroll', handleScroll, { passive: true });
     handleScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('scroll', handleScroll);
+      document.documentElement.removeEventListener(
+        'scroll', handleScroll);
     };
   }, []);
 
