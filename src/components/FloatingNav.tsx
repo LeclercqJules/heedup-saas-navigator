@@ -32,12 +32,22 @@ export function FloatingNav() {
       const windowHeight = window.innerHeight;
       const viewportCenter = scrollY + windowHeight * 0.4;
 
+      function getPageTop(el: HTMLElement): number {
+        let top = 0;
+        let element: HTMLElement | null = el;
+        while (element) {
+          top += element.offsetTop;
+          element = element.offsetParent as HTMLElement | null;
+        }
+        return top;
+      }
+
       let activeId = sectionIds[0];
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const el = document.getElementById(sectionIds[i]);
         if (!el) continue;
 
-        const top = el.getBoundingClientRect().top + scrollY;
+        const top = getPageTop(el);
         if (viewportCenter >= top) {
           activeId = sectionIds[i];
           break;
