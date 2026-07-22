@@ -27,51 +27,30 @@ export function FloatingNav() {
       'rejoindre'
     ];
 
-    const getScrollY = () =>
-      window.scrollY ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop ||
-      0;
-
-    const handleScroll = () => {
-      const scrollY = getScrollY();
-      const windowHeight = window.innerHeight;
-      const viewportCenter = scrollY + windowHeight * 0.4;
+    let rafId = 0;
+    const check = () => {
+      const threshold = window.innerHeight * 0.55;
 
       let activeId = sectionIds[0];
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const el = document.getElementById(sectionIds[i]);
         if (!el) continue;
 
-        let top = 0;
-        let node: HTMLElement | null = el;
-        while (node) {
-          top += node.offsetTop;
-          node = node.offsetParent as HTMLElement | null;
-        }
-
-        if (viewportCenter >= top) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < threshold) {
           activeId = sectionIds[i];
           break;
         }
       }
 
       setActiveSection(activeId);
+      rafId = requestAnimationFrame(check);
     };
 
-    window.addEventListener('scroll', handleScroll,
-      { passive: true });
-    document.addEventListener('scroll', handleScroll,
-      { passive: true });
-    document.documentElement.addEventListener(
-      'scroll', handleScroll, { passive: true });
-    handleScroll();
+    rafId = requestAnimationFrame(check);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('scroll', handleScroll);
-      document.documentElement.removeEventListener(
-        'scroll', handleScroll);
+      cancelAnimationFrame(rafId);
     };
   }, []);
 
