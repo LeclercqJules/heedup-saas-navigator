@@ -12,7 +12,7 @@ import {
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
-import { FloatingNav } from "@/components/FloatingNav";
+
 import { useTallyCount } from "@/hooks/useTallyCount";
 import { useCountUp } from "@/hooks/useCountUp";
 
@@ -2051,7 +2051,7 @@ function Index() {
 
       </section>
 
-      <FloatingNav />
+      
       <CostCalculatorModal isOpen={isCalculatorOpen} onClose={() => setIsCalculatorOpen(false)} />
     </SiteLayout>
   );
