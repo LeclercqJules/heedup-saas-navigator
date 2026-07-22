@@ -16,7 +16,7 @@ export function FloatingNav() {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    const sections = [
+    const sectionIds = [
       'hero',
       'impact',
       'comment-ca-marche',
@@ -26,26 +26,36 @@ export function FloatingNav() {
       'faq',
       'rejoindre'
     ];
-    const observers: IntersectionObserver[] = [];
-    sections.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveSection(id);
-          }
-        },
-        {
-          threshold: 0,
-          rootMargin: '-40% 0px -55% 0px'
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const center = scrollY + windowHeight * 0.4;
+
+      let currentSection = sectionIds[0];
+      let minDistance = Infinity;
+
+      sectionIds.forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+
+        const top = el.getBoundingClientRect().top + window.scrollY;
+        const distance = Math.abs(top - center);
+
+        if (distance < minDistance) {
+          minDistance = distance;
+          currentSection = id;
         }
-      );
-      observer.observe(el);
-      observers.push(observer);
-    });
+      });
+
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
     return () => {
-      observers.forEach(obs => obs.disconnect());
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
