@@ -30,25 +30,21 @@ export function FloatingNav() {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
-      const center = scrollY + windowHeight * 0.4;
+      const viewportCenter = scrollY + windowHeight * 0.4;
 
-      let currentSection = sectionIds[0];
-      let minDistance = Infinity;
+      let activeId = sectionIds[0];
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sectionIds[i]);
+        if (!el) continue;
 
-      sectionIds.forEach((id) => {
-        const el = document.getElementById(id);
-        if (!el) return;
-
-        const top = el.getBoundingClientRect().top + window.scrollY;
-        const distance = Math.abs(top - center);
-
-        if (distance < minDistance) {
-          minDistance = distance;
-          currentSection = id;
+        const top = el.getBoundingClientRect().top + scrollY;
+        if (viewportCenter >= top) {
+          activeId = sectionIds[i];
+          break;
         }
-      });
+      }
 
-      setActiveSection(currentSection);
+      setActiveSection(activeId);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
