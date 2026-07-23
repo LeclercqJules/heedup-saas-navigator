@@ -998,7 +998,7 @@ function SectionCta() {
           lineHeight: 1.6,
         }}
       >
-        Rejoignez les {count} dirigeants déjà sur la liste d'attente. Lancement dans les prochaines semaines.
+        Rejoignez les {count} dirigeants déjà sur la liste d'attente. Lancement prévu début septembre 2026.
       </p>
       <button
         type="button"
@@ -1014,7 +1014,7 @@ function SectionCta() {
           cursor: "pointer",
         }}
       >
-        Rejoindre la liste d'attente →
+        Accéder dès le lancement →
       </button>
     </section>
   );

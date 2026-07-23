@@ -466,7 +466,7 @@ function Index() {
                     cursor: "pointer",
                   }}
                 >
-                  Rejoindre la liste d'attente →
+                  Accéder dès le lancement →
                 </button>
 
 
@@ -1861,7 +1861,7 @@ function Index() {
             margin: "0 auto 32px",
           }}
         >
-          Rejoignez les {count} dirigeants déjà sur la liste d'attente. Lancement dans les prochaines semaines.
+          Rejoignez les {count} dirigeants déjà sur la liste d'attente. Lancement prévu début septembre 2026.
         </p>
         <button
           type="button"
@@ -1887,7 +1887,7 @@ function Index() {
             cursor: "pointer",
           }}
         >
-          Rejoindre la liste d'attente →
+          Accéder dès le lancement →
         </button>
 
       </section>

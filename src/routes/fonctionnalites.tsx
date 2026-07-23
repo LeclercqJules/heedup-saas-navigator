@@ -920,7 +920,7 @@ function Page() {
           Prêt à piloter votre équipe autrement ?
         </h2>
         <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", color: "var(--text-muted)", marginBottom: "26px", lineHeight: 1.6 }}>
-          Rejoignez les {count} dirigeants déjà sur la liste d'attente. Lancement dans les prochaines semaines.
+          Rejoignez les {count} dirigeants déjà sur la liste d'attente. Lancement prévu début septembre 2026.
         </p>
         <button
           type="button"
@@ -942,7 +942,7 @@ function Page() {
             fontFamily: "var(--font-sans)",
           }}
         >
-          Rejoindre la liste d'attente →
+          Accéder dès le lancement →
         </button>
       </section>
     </SiteLayout>
