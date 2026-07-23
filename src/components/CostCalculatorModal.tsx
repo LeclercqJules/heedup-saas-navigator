@@ -365,7 +365,7 @@ export function CostCalculatorModal({ isOpen, onClose }: Props) {
             fontFamily: "var(--font-sans)",
           }}
         >
-          Rejoindre la liste d'attente →
+          Accéder dès le lancement →
         </button>
         <div
           style={{

@@ -466,7 +466,7 @@ function Index() {
                     cursor: "pointer",
                   }}
                 >
-                  Rejoindre la liste d'attente →
+                  Accéder dès le lancement →
                 </button>
 
 
@@ -1887,7 +1887,7 @@ function Index() {
             cursor: "pointer",
           }}
         >
-          Rejoindre la liste d'attente →
+          Accéder dès le lancement →
         </button>
 
       </section>

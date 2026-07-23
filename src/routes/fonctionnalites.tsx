@@ -942,7 +942,7 @@ function Page() {
             fontFamily: "var(--font-sans)",
           }}
         >
-          Rejoindre la liste d'attente →
+          Accéder dès le lancement →
         </button>
       </section>
     </SiteLayout>

@@ -48,7 +48,7 @@ export function StickyCTA() {
           fontFamily: "Inter, var(--font-sans)",
         }}
       >
-        Rejoindre la liste d'attente →
+        Accéder dès le lancement →
       </button>
     </div>
   );

@@ -1014,7 +1014,7 @@ function SectionCta() {
           cursor: "pointer",
         }}
       >
-        Rejoindre la liste d'attente →
+        Accéder dès le lancement →
       </button>
     </section>
   );
