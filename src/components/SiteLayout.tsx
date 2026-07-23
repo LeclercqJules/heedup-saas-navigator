@@ -2,6 +2,7 @@ import { useEffect, type ReactNode } from "react";
 import { Nav } from "./Nav";
 import { Footer } from "./Footer";
 import { ScrollToTop } from "./ScrollToTop";
+import { StickyCTA } from "./StickyCTA";
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   useEffect(() => {
