@@ -377,6 +377,9 @@
     font-size: 20px !important;
   }
 
+  /* Sticky CTA visible mobile only */
+  .heedup-sticky-cta { display: block !important; }
+
   /* Anti overflow global */
   html, body { overflow-x: hidden !important; }
 }

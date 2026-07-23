@@ -2,6 +2,7 @@ import { useEffect, type ReactNode } from "react";
 import { Nav } from "./Nav";
 import { Footer } from "./Footer";
 import { ScrollToTop } from "./ScrollToTop";
+import { StickyCTA } from "./StickyCTA";
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   useEffect(() => {
@@ -42,6 +43,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <main className="flex-1">{children}</main>
       <Footer />
       <ScrollToTop />
+      <StickyCTA />
     </div>
   );
 }
