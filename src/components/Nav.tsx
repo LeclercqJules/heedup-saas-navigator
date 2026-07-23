@@ -77,18 +77,18 @@ export function Nav() {
             "data-tally-width": "500",
           }}
           style={{
-            backgroundColor: "var(--indigo)",
-            color: "#FFFFFF",
-            fontWeight: 700,
-            fontSize: "16px",
-            borderRadius: "8px",
-            padding: "14px 32px",
             fontFamily: "var(--font-sans)",
+            fontSize: "16px",
+            color: "var(--text-primary)",
+            fontWeight: 600,
+            opacity: 0.6,
+            background: "transparent",
             border: "none",
             cursor: "pointer",
+            padding: 0,
           }}
         >
-          Rejoindre la liste d'attente
+          Accéder au lancement
         </button>
 
         <button
