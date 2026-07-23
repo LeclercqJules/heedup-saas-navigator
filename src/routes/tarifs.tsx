@@ -1014,7 +1014,7 @@ function SectionCta() {
           cursor: "pointer",
         }}
       >
-        Accéder dès le lancement →
+        Accéder au lancement →
       </button>
     </section>
   );

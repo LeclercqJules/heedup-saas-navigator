@@ -466,7 +466,7 @@ function Index() {
                     cursor: "pointer",
                   }}
                 >
-                  Accéder dès le lancement →
+                  Accéder au lancement →
                 </button>
 
 
@@ -1887,7 +1887,7 @@ function Index() {
             cursor: "pointer",
           }}
         >
-          Accéder dès le lancement →
+          Accéder au lancement →
         </button>
 
       </section>

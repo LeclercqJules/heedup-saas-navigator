@@ -942,7 +942,7 @@ function Page() {
             fontFamily: "var(--font-sans)",
           }}
         >
-          Accéder dès le lancement →
+          Accéder au lancement →
         </button>
       </section>
     </SiteLayout>
