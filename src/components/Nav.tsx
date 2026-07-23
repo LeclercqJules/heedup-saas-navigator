@@ -199,7 +199,7 @@ export function Nav() {
               marginTop: "24px",
             }}
           >
-            Rejoindre la liste d'attente
+            Accéder au lancement
           </button>
         </div>
       )}
