@@ -48,7 +48,7 @@ export function StickyCTA() {
           fontFamily: "Inter, var(--font-sans)",
         }}
       >
-        Accéder dès le lancement →
+        Accéder au lancement →
       </button>
     </div>
   );

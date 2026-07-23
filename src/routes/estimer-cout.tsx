@@ -331,7 +331,7 @@ function EstimerCoutPage() {
               fontFamily: "var(--font-sans)",
             }}
           >
-            Accéder dès le lancement →
+            Accéder au lancement →
           </button>
           <div
             style={{
