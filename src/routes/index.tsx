@@ -823,9 +823,11 @@ function Index() {
                 >
                   <div
                     style={{
-                      width: "80%",
+                      width: responseWidth,
                       height: "100%",
                       backgroundColor: "var(--indigo)",
+                      transition: "width 0.8s ease",
+                      willChange: "width",
                     }}
                   />
                 </div>
