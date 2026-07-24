@@ -77,15 +77,15 @@ export function Nav() {
             "data-tally-width": "500",
           }}
           style={{
-            fontFamily: "var(--font-sans)",
+            backgroundColor: "var(--indigo)",
+            color: "#FFFFFF",
+            fontWeight: 700,
             fontSize: "16px",
-            color: "var(--text-primary)",
-            fontWeight: 600,
-            opacity: 0.6,
-            background: "transparent",
+            borderRadius: "8px",
+            padding: "14px 32px",
+            fontFamily: "var(--font-sans)",
             border: "none",
             cursor: "pointer",
-            padding: 0,
           }}
         >
           Accéder au lancement
