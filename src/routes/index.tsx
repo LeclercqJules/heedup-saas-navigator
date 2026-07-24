@@ -689,7 +689,16 @@ function Index() {
                     >
                       {s.value}
                     </div>
-                    <div style={{ fontSize: "12px", color: s.changeColor, marginTop: "4px" }}>
+                    <div
+                      style={{
+                        fontSize: "12px",
+                        color: s.changeColor,
+                        marginTop: "4px",
+                        opacity: showDeltas ? 1 : 0,
+                        transition: "opacity 0.4s ease",
+                        willChange: "opacity",
+                      }}
+                    >
                       {s.change}
                     </div>
                   </div>
