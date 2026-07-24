@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Upload, Clock, Rocket, Check, Calculator, Mail, User, Users } from "lucide-react";
 import {
   IconPlayerPlay,
@@ -161,6 +161,71 @@ function Index() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   const count = useTallyCount();
+
+  // Animations de la carte Rapport d'équipe
+  const [score1, setScore1] = useState("0.0");
+  const [score2, setScore2] = useState("0.0");
+  const [score3, setScore3] = useState("0.0");
+  const [showDeltas, setShowDeltas] = useState(false);
+  const [reco1, setReco1] = useState(false);
+  const [reco2, setReco2] = useState(false);
+  const [reco3, setReco3] = useState(false);
+  const [responseWidth, setResponseWidth] = useState("0%");
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      setScore1("3.6");
+      setScore2("4.1");
+      setScore3("4.3");
+      setShowDeltas(true);
+      setReco1(true);
+      setReco2(true);
+      setReco3(true);
+      setResponseWidth("80%");
+      return;
+    }
+
+    const animateScore = (
+      target: number,
+      setter: (v: string) => void,
+      duration: number = 1000
+    ) => {
+      const start = Date.now();
+      const tick = () => {
+        const elapsed = Date.now() - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = (eased * target).toFixed(1);
+        setter(current);
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+
+    const timer = setTimeout(() => {
+      animateScore(3.6, setScore1, 1200);
+      setTimeout(() => animateScore(4.1, setScore2, 1000), 200);
+      setTimeout(() => animateScore(4.3, setScore3, 900), 400);
+    }, 800);
+
+    const deltaTimer = setTimeout(() => setShowDeltas(true), 2200);
+    const reco1Timer = setTimeout(() => setReco1(true), 2600);
+    const reco2Timer = setTimeout(() => setReco2(true), 3100);
+    const reco3Timer = setTimeout(() => setReco3(true), 3600);
+    const progressTimer = setTimeout(() => setResponseWidth("80%"), 4000);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(deltaTimer);
+      clearTimeout(reco1Timer);
+      clearTimeout(reco2Timer);
+      clearTimeout(reco3Timer);
+      clearTimeout(progressTimer);
+    };
+  }, []);
 
   const renderFaqAnswer = (text: string, boldPart: string) => {
     const idx = text.indexOf(boldPart);
@@ -594,9 +659,9 @@ function Index() {
                 style={{ backgroundColor: "var(--bg-main)" }}
               >
                 {[
-                  { label: "Charge", value: "3.6", change: "▼ 0.3", changeColor: "var(--semantic-red)" },
-                  { label: "Ambiance", value: "4.1", change: "▲ 0.2", changeColor: "var(--semantic-green)" },
-                  { label: "Motivation", value: "4.3", change: "—", changeColor: "var(--text-muted)" },
+                  { label: "Charge", value: score1, change: "▼ 0.3", changeColor: "var(--semantic-red)" },
+                  { label: "Ambiance", value: score2, change: "▲ 0.2", changeColor: "var(--semantic-green)" },
+                  { label: "Motivation", value: score3, change: "—", changeColor: "var(--text-muted)" },
                 ].map((s) => (
                   <div
                     key={s.label}
@@ -624,7 +689,16 @@ function Index() {
                     >
                       {s.value}
                     </div>
-                    <div style={{ fontSize: "12px", color: s.changeColor, marginTop: "4px" }}>
+                    <div
+                      style={{
+                        fontSize: "12px",
+                        color: s.changeColor,
+                        marginTop: "4px",
+                        opacity: showDeltas ? 1 : 0,
+                        transition: "opacity 0.4s ease",
+                        willChange: "opacity",
+                      }}
+                    >
                       {s.change}
                     </div>
                   </div>
@@ -650,6 +724,10 @@ function Index() {
                   style={{
                     backgroundColor: "rgba(239,68,68,0.08)",
                     border: "1px solid rgba(239,68,68,0.18)",
+                    opacity: reco1 ? 1 : 0,
+                    transform: reco1 ? "translateY(0)" : "translateY(8px)",
+                    transition: "opacity 0.4s ease, transform 0.4s ease",
+                    willChange: "opacity, transform",
                   }}
                 >
                   <div
@@ -673,6 +751,10 @@ function Index() {
                   style={{
                     backgroundColor: "rgba(34,197,94,0.08)",
                     border: "1px solid rgba(34,197,94,0.18)",
+                    opacity: reco2 ? 1 : 0,
+                    transform: reco2 ? "translateY(0)" : "translateY(8px)",
+                    transition: "opacity 0.4s ease, transform 0.4s ease",
+                    willChange: "opacity, transform",
                   }}
                 >
                   <div
@@ -696,6 +778,10 @@ function Index() {
                   style={{
                     backgroundColor: "rgba(239,68,68,0.08)",
                     border: "1px solid rgba(239,68,68,0.18)",
+                    opacity: reco3 ? 1 : 0,
+                    transform: reco3 ? "translateY(0)" : "translateY(8px)",
+                    transition: "opacity 0.4s ease, transform 0.4s ease",
+                    willChange: "opacity, transform",
                   }}
                 >
                   <div
@@ -737,9 +823,11 @@ function Index() {
                 >
                   <div
                     style={{
-                      width: "80%",
+                      width: responseWidth,
                       height: "100%",
                       backgroundColor: "var(--indigo)",
+                      transition: "width 0.8s ease",
+                      willChange: "width",
                     }}
                   />
                 </div>
