@@ -49,9 +49,9 @@ export function Nav() {
               style={{
                 fontFamily: "var(--font-sans)",
                 fontSize: "16px",
-                color: "var(--text-primary)",
+                color: "var(--midnight)",
                 fontWeight: 600,
-                opacity: 0.6,
+                opacity: 1,
               }}
               activeProps={{
                 style: {
