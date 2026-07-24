@@ -659,9 +659,9 @@ function Index() {
                 style={{ backgroundColor: "var(--bg-main)" }}
               >
                 {[
-                  { label: "Charge", value: "3.6", change: "▼ 0.3", changeColor: "var(--semantic-red)" },
-                  { label: "Ambiance", value: "4.1", change: "▲ 0.2", changeColor: "var(--semantic-green)" },
-                  { label: "Motivation", value: "4.3", change: "—", changeColor: "var(--text-muted)" },
+                  { label: "Charge", value: score1, change: "▼ 0.3", changeColor: "var(--semantic-red)" },
+                  { label: "Ambiance", value: score2, change: "▲ 0.2", changeColor: "var(--semantic-green)" },
+                  { label: "Motivation", value: score3, change: "—", changeColor: "var(--text-muted)" },
                 ].map((s) => (
                   <div
                     key={s.label}
