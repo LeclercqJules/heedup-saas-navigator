@@ -724,6 +724,10 @@ function Index() {
                   style={{
                     backgroundColor: "rgba(239,68,68,0.08)",
                     border: "1px solid rgba(239,68,68,0.18)",
+                    opacity: reco1 ? 1 : 0,
+                    transform: reco1 ? "translateY(0)" : "translateY(8px)",
+                    transition: "opacity 0.4s ease, transform 0.4s ease",
+                    willChange: "opacity, transform",
                   }}
                 >
                   <div
