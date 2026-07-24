@@ -162,6 +162,71 @@ function Index() {
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   const count = useTallyCount();
 
+  // Animations de la carte Rapport d'équipe
+  const [score1, setScore1] = useState("0.0");
+  const [score2, setScore2] = useState("0.0");
+  const [score3, setScore3] = useState("0.0");
+  const [showDeltas, setShowDeltas] = useState(false);
+  const [reco1, setReco1] = useState(false);
+  const [reco2, setReco2] = useState(false);
+  const [reco3, setReco3] = useState(false);
+  const [responseWidth, setResponseWidth] = useState("0%");
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      setScore1("3.6");
+      setScore2("4.1");
+      setScore3("4.3");
+      setShowDeltas(true);
+      setReco1(true);
+      setReco2(true);
+      setReco3(true);
+      setResponseWidth("80%");
+      return;
+    }
+
+    const animateScore = (
+      target: number,
+      setter: (v: string) => void,
+      duration: number = 1000
+    ) => {
+      const start = Date.now();
+      const tick = () => {
+        const elapsed = Date.now() - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = (eased * target).toFixed(1);
+        setter(current);
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+
+    const timer = setTimeout(() => {
+      animateScore(3.6, setScore1, 1200);
+      setTimeout(() => animateScore(4.1, setScore2, 1000), 200);
+      setTimeout(() => animateScore(4.3, setScore3, 900), 400);
+    }, 800);
+
+    const deltaTimer = setTimeout(() => setShowDeltas(true), 2200);
+    const reco1Timer = setTimeout(() => setReco1(true), 2600);
+    const reco2Timer = setTimeout(() => setReco2(true), 3100);
+    const reco3Timer = setTimeout(() => setReco3(true), 3600);
+    const progressTimer = setTimeout(() => setResponseWidth("80%"), 4000);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(deltaTimer);
+      clearTimeout(reco1Timer);
+      clearTimeout(reco2Timer);
+      clearTimeout(reco3Timer);
+      clearTimeout(progressTimer);
+    };
+  }, []);
+
   const renderFaqAnswer = (text: string, boldPart: string) => {
     const idx = text.indexOf(boldPart);
     if (idx === -1) return text;
