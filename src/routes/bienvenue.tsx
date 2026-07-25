@@ -134,6 +134,7 @@ function BienvenuePage() {
       >
         <div style={{ maxWidth: 680, margin: "0 auto", textAlign: "center" }}>
           <div
+            className="fade-up"
             style={{
               background: "var(--indigo-pale)",
               color: "var(--indigo)",
@@ -151,6 +152,7 @@ function BienvenuePage() {
             Vous venez de LinkedIn
           </div>
           <h1
+            className="fade-up fade-up-delay-1"
             style={{
               fontFamily: "var(--font-display)",
               fontSize: 44,
@@ -164,6 +166,7 @@ function BienvenuePage() {
             Vous avez cliqué depuis LinkedIn, merci pour ça.
           </h1>
           <p
+            className="fade-up fade-up-delay-2"
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: 18,
@@ -188,6 +191,7 @@ function BienvenuePage() {
       >
         <div style={{ maxWidth: 720, margin: "0 auto" }}>
           <h2
+            className="fade-up"
             style={{
               fontFamily: "var(--font-display)",
               fontSize: 32,
@@ -200,6 +204,7 @@ function BienvenuePage() {
             Le problème n'est pas le départ.
           </h2>
           <p
+            className="fade-up fade-up-delay-1"
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: 16,
@@ -219,9 +224,10 @@ function BienvenuePage() {
               gap: 16,
             }}
           >
-            {problems.map(({ Icon, title, text }) => (
+            {problems.map(({ Icon, title, text }, idx) => (
               <div
                 key={title}
+                className={`fade-up fade-up-delay-${idx + 1}`}
                 style={{
                   background: "var(--bg-main)",
                   border: "1px solid rgba(67,56,202,0.10)",
@@ -267,6 +273,7 @@ function BienvenuePage() {
       >
         <div style={{ maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
           <div
+            className="fade-up"
             style={{
               background: "rgba(255,255,255,0.08)",
               color: "rgba(255,255,255,0.5)",
@@ -284,6 +291,7 @@ function BienvenuePage() {
             La réponse
           </div>
           <h2
+            className="fade-up fade-up-delay-1"
             style={{
               fontFamily: "var(--font-display)",
               fontSize: 32,
@@ -295,6 +303,7 @@ function BienvenuePage() {
             HeedUp est un pouls d'équipe anonyme.
           </h2>
           <p
+            className="fade-up fade-up-delay-2"
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: 16,
@@ -315,9 +324,10 @@ function BienvenuePage() {
               textAlign: "left",
             }}
           >
-            {solutions.map(({ Icon, title, text }) => (
+            {solutions.map(({ Icon, title, text }, idx) => (
               <div
                 key={title}
+                className={`fade-up fade-up-delay-${idx + 1}`}
                 style={{
                   background: "rgba(255,255,255,0.05)",
                   border: "1px solid rgba(255,255,255,0.08)",
@@ -373,6 +383,7 @@ function BienvenuePage() {
         }}
       >
         <div
+          className="fade-up"
           style={{
             fontFamily: "var(--font-display)",
             fontStyle: "italic",
@@ -384,6 +395,7 @@ function BienvenuePage() {
           Avant de décider quoi que ce soit, estimez ce que le désengagement vous coûte réellement.
         </div>
         <button
+          className="fade-up fade-up-delay-1"
           onClick={() => navigate({ to: "/estimer-cout" })}
           style={{
             background: "var(--midnight)",
@@ -412,6 +424,7 @@ function BienvenuePage() {
       >
         <div style={{ maxWidth: 560, margin: "0 auto" }}>
           <h2
+            className="fade-up"
             style={{
               fontFamily: "var(--font-display)",
               fontSize: 36,
@@ -424,6 +437,7 @@ function BienvenuePage() {
             Rejoignez les premiers managers.
           </h2>
           <p
+            className="fade-up fade-up-delay-1"
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: 16,
@@ -436,6 +450,7 @@ function BienvenuePage() {
             HeedUp vous donnera accès en priorité dès le lancement. Aucun engagement, résiliable à tout moment.
           </p>
           <button
+            className="fade-up fade-up-delay-2"
             {...TALLY}
             style={{
               width: "100%",
@@ -457,6 +472,7 @@ function BienvenuePage() {
           </button>
 
           <div
+            className="fade-up fade-up-delay-3"
             style={{
               marginTop: 20,
               display: "flex",
