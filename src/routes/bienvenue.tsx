@@ -689,15 +689,48 @@ function BienvenuePage() {
               fontFamily: "var(--font-sans)",
               fontSize: 16,
               color: "var(--text-muted)",
-              marginBottom: 32,
-              margin: "0 0 32px",
+              marginBottom: 24,
+              margin: "0 0 24px",
               lineHeight: 1.6,
             }}
           >
             HeedUp vous donnera accès en priorité dès le lancement. Aucun engagement, résiliable à tout moment.
           </p>
-          <button
+          <div
             className="fade-up fade-up-delay-2"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 6,
+              flexWrap: "wrap",
+              marginBottom: 24,
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 13,
+                color: "var(--text-muted)",
+              }}
+            >
+              À partir de 50€/mois · Sans engagement · Résiliable à tout moment
+            </span>
+            <Link
+              to="/tarifs"
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 13,
+                fontWeight: 600,
+                color: "var(--indigo)",
+                textDecoration: "none",
+              }}
+            >
+              Voir les tarifs détaillés →
+            </Link>
+          </div>
+          <button
+            className="fade-up fade-up-delay-3"
             {...TALLY}
             style={{
               width: "100%",
