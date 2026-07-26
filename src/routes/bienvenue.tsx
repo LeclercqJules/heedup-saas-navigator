@@ -463,7 +463,123 @@ function BienvenuePage() {
         </div>
       </section>
 
-      {/* 4. BANDE CALCULATEUR */}
+      {/* 4. COMMENT ÇA MARCHE */}
+      <section
+        className="fade-up"
+        style={{
+          background: "var(--bg-main)",
+          padding: "56px 5%",
+        }}
+      >
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <div
+            className="fade-up"
+            style={{
+              background: "var(--indigo-pale)",
+              color: "var(--indigo)",
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: "0.8px",
+              textTransform: "uppercase",
+              padding: "5px 14px",
+              borderRadius: 20,
+              display: "flex",
+              justifyContent: "center",
+              width: "fit-content",
+              margin: "0 auto 16px",
+              fontFamily: "var(--font-sans)",
+            }}
+          >
+            EN PRATIQUE
+          </div>
+          <h2
+            className="fade-up fade-up-delay-1"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: 32,
+              color: "var(--midnight)",
+              textAlign: "center",
+              marginBottom: 8,
+              margin: "0 0 8px",
+            }}
+          >
+            3 étapes. Dès cette semaine.
+          </h2>
+          <p
+            className="fade-up fade-up-delay-2"
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 15,
+              color: "var(--text-muted)",
+              textAlign: "center",
+              marginBottom: 36,
+              margin: "0 0 36px",
+            }}
+          >
+            Sans formation, sans appel, sans installation côté salarié.
+          </p>
+          <div
+            className="bienvenue-grid-3"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: 16,
+            }}
+          >
+            {steps.map(({ number, title, text }, idx) => (
+              <div
+                key={number}
+                className={`fade-up fade-up-delay-${idx + 1}`}
+                style={{
+                  background: "var(--bg-card)",
+                  border: "1px solid rgba(67,56,202,0.10)",
+                  borderRadius: 12,
+                  padding: 24,
+                  textAlign: "center",
+                  position: "relative",
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontStyle: "italic",
+                    fontSize: 48,
+                    color: "var(--indigo)",
+                    opacity: 0.15,
+                    lineHeight: 1,
+                    marginBottom: 12,
+                  }}
+                >
+                  {number}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 14,
+                    fontWeight: 700,
+                    color: "var(--midnight)",
+                    marginBottom: 8,
+                  }}
+                >
+                  {title}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 13,
+                    color: "var(--text-muted)",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {text}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. BANDE CALCULATEUR */}
       <section
         className="fade-up bienvenue-calc-band"
         style={{
