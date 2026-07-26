@@ -119,6 +119,100 @@ const solutions = [
   },
 ];
 
+const steps = [
+  {
+    number: "01",
+    title: "Vous importez votre équipe",
+    text: "Un fichier CSV suffit. Chaque salarié reçoit une invitation et choisit de participer. Vous voyez combien ont rejoint. Jamais qui.",
+  },
+  {
+    number: "02",
+    title: "5 questions chaque vendredi",
+    text: "Anonymes, courtes, validées sur les standards Gallup Q12. 2 minutes pour vos salariés. Aucun compte à créer, aucune app à installer.",
+  },
+  {
+    number: "03",
+    title: "Votre rapport arrive le lundi",
+    text: "Pas un score à interpréter. Une recommandation concrète, formulée pour un manager, pas un DRH.",
+  },
+];
+
+const faqItems = [
+  {
+    question: "Mes salariés vont-ils vraiment répondre ?",
+    answer: "La participation est volontaire et anonyme par conception. Les salariés répondent parce qu'ils le choisissent, pas parce qu'ils y sont obligés. C'est précisément ce qui rend les réponses honnêtes et le signal fiable.",
+  },
+  {
+    question: "Est-ce vraiment anonyme ?",
+    answer: "Oui, par architecture. Les réponses sont structurellement détachées de l'identité. Vous voyez combien de personnes ont répondu. Jamais qui a répondu quoi. Ce n'est pas un paramètre que vous pouvez désactiver.",
+  },
+  {
+    question: "Est-ce que je peux arrêter quand je veux ?",
+    answer: "Oui. Aucun engagement annuel obligatoire. Vous résiliez en un clic, sans frais, sans préavis. L'option annuelle existe mais reste un choix, pas une contrainte.",
+  },
+  {
+    question: "Mes salariés doivent-ils créer un compte ?",
+    answer: "Non. Chaque salarié reçoit un lien unique par email. Aucune inscription, aucune application à installer. Deux minutes par semaine, pas plus.",
+  },
+  {
+    question: "Combien de temps pour démarrer ?",
+    answer: "Moins de 10 minutes. Vous importez les emails de votre équipe, HeedUp envoie les invitations. Le premier rapport arrive le lundi suivant votre premier vendredi actif.",
+  },
+];
+
+function AccordionItem({ item, index }: { item: { question: string; answer: string }; index: number }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div
+      className={`fade-up fade-up-delay-${index + 1}`}
+      style={{
+        background: "var(--bg-main)",
+        border: "1px solid rgba(67,56,202,0.10)",
+        borderRadius: 10,
+        padding: "16px 20px",
+      }}
+    >
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: 14,
+          fontWeight: 600,
+          color: "var(--midnight)",
+          cursor: "pointer",
+          background: "none",
+          border: "none",
+          padding: 0,
+          width: "100%",
+          textAlign: "left",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 12,
+        }}
+      >
+        {item.question}
+        <span style={{ fontSize: 12, color: "var(--indigo)", flexShrink: 0 }}>{open ? "−" : "+"}</span>
+      </button>
+      <div
+        style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: 13,
+          color: "var(--text-muted)",
+          lineHeight: 1.6,
+          marginTop: open ? 10 : 0,
+          maxHeight: open ? 400 : 0,
+          overflow: "hidden",
+          opacity: open ? 1 : 0,
+          transition: "all 0.25s ease",
+        }}
+      >
+        {item.answer}
+      </div>
+    </div>
+  );
+}
+
 function BienvenuePage() {
   const count = useTallyCount();
   const navigate = useNavigate();
