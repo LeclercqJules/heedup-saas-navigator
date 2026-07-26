@@ -1,4 +1,5 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import {
   IconEyeOff,
   IconClock,
@@ -117,6 +118,100 @@ const solutions = [
     text: "Les réponses sont structurellement détachées de l'identité. Pas un paramètre, une conception.",
   },
 ];
+
+const steps = [
+  {
+    number: "01",
+    title: "Vous importez votre équipe",
+    text: "Un fichier CSV suffit. Chaque salarié reçoit une invitation et choisit de participer. Vous voyez combien ont rejoint. Jamais qui.",
+  },
+  {
+    number: "02",
+    title: "5 questions chaque vendredi",
+    text: "Anonymes, courtes, validées sur les standards Gallup Q12. 2 minutes pour vos salariés. Aucun compte à créer, aucune app à installer.",
+  },
+  {
+    number: "03",
+    title: "Votre rapport arrive le lundi",
+    text: "Pas un score à interpréter. Une recommandation concrète, formulée pour un manager, pas un DRH.",
+  },
+];
+
+const faqItems = [
+  {
+    question: "Mes salariés vont-ils vraiment répondre ?",
+    answer: "La participation est volontaire et anonyme par conception. Les salariés répondent parce qu'ils le choisissent, pas parce qu'ils y sont obligés. C'est précisément ce qui rend les réponses honnêtes et le signal fiable.",
+  },
+  {
+    question: "Est-ce vraiment anonyme ?",
+    answer: "Oui, par architecture. Les réponses sont structurellement détachées de l'identité. Vous voyez combien de personnes ont répondu. Jamais qui a répondu quoi. Ce n'est pas un paramètre que vous pouvez désactiver.",
+  },
+  {
+    question: "Est-ce que je peux arrêter quand je veux ?",
+    answer: "Oui. Aucun engagement annuel obligatoire. Vous résiliez en un clic, sans frais, sans préavis. L'option annuelle existe mais reste un choix, pas une contrainte.",
+  },
+  {
+    question: "Mes salariés doivent-ils créer un compte ?",
+    answer: "Non. Chaque salarié reçoit un lien unique par email. Aucune inscription, aucune application à installer. Deux minutes par semaine, pas plus.",
+  },
+  {
+    question: "Combien de temps pour démarrer ?",
+    answer: "Moins de 10 minutes. Vous importez les emails de votre équipe, HeedUp envoie les invitations. Le premier rapport arrive le lundi suivant votre premier vendredi actif.",
+  },
+];
+
+function AccordionItem({ item, index }: { item: { question: string; answer: string }; index: number }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div
+      className={`fade-up fade-up-delay-${index + 1}`}
+      style={{
+        background: "var(--bg-main)",
+        border: "1px solid rgba(67,56,202,0.10)",
+        borderRadius: 10,
+        padding: "16px 20px",
+      }}
+    >
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: 14,
+          fontWeight: 600,
+          color: "var(--midnight)",
+          cursor: "pointer",
+          background: "none",
+          border: "none",
+          padding: 0,
+          width: "100%",
+          textAlign: "left",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 12,
+        }}
+      >
+        {item.question}
+        <span style={{ fontSize: 12, color: "var(--indigo)", flexShrink: 0 }}>{open ? "−" : "+"}</span>
+      </button>
+      <div
+        style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: 13,
+          color: "var(--text-muted)",
+          lineHeight: 1.6,
+          marginTop: open ? 10 : 0,
+          maxHeight: open ? 400 : 0,
+          overflow: "hidden",
+          opacity: open ? 1 : 0,
+          transition: "all 0.25s ease",
+        }}
+      >
+        {item.answer}
+      </div>
+    </div>
+  );
+}
 
 function BienvenuePage() {
   const count = useTallyCount();
@@ -368,7 +463,123 @@ function BienvenuePage() {
         </div>
       </section>
 
-      {/* 4. BANDE CALCULATEUR */}
+      {/* 4. COMMENT ÇA MARCHE */}
+      <section
+        className="fade-up"
+        style={{
+          background: "var(--bg-main)",
+          padding: "56px 5%",
+        }}
+      >
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <div
+            className="fade-up"
+            style={{
+              background: "var(--indigo-pale)",
+              color: "var(--indigo)",
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: "0.8px",
+              textTransform: "uppercase",
+              padding: "5px 14px",
+              borderRadius: 20,
+              display: "flex",
+              justifyContent: "center",
+              width: "fit-content",
+              margin: "0 auto 16px",
+              fontFamily: "var(--font-sans)",
+            }}
+          >
+            EN PRATIQUE
+          </div>
+          <h2
+            className="fade-up fade-up-delay-1"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: 32,
+              color: "var(--midnight)",
+              textAlign: "center",
+              marginBottom: 8,
+              margin: "0 0 8px",
+            }}
+          >
+            3 étapes. Dès cette semaine.
+          </h2>
+          <p
+            className="fade-up fade-up-delay-2"
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 15,
+              color: "var(--text-muted)",
+              textAlign: "center",
+              marginBottom: 36,
+              margin: "0 0 36px",
+            }}
+          >
+            Sans formation, sans appel, sans installation côté salarié.
+          </p>
+          <div
+            className="bienvenue-grid-3"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: 16,
+            }}
+          >
+            {steps.map(({ number, title, text }, idx) => (
+              <div
+                key={number}
+                className={`fade-up fade-up-delay-${idx + 1}`}
+                style={{
+                  background: "var(--bg-card)",
+                  border: "1px solid rgba(67,56,202,0.10)",
+                  borderRadius: 12,
+                  padding: 24,
+                  textAlign: "center",
+                  position: "relative",
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontStyle: "italic",
+                    fontSize: 48,
+                    color: "var(--indigo)",
+                    opacity: 0.15,
+                    lineHeight: 1,
+                    marginBottom: 12,
+                  }}
+                >
+                  {number}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 14,
+                    fontWeight: 700,
+                    color: "var(--midnight)",
+                    marginBottom: 8,
+                  }}
+                >
+                  {title}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 13,
+                    color: "var(--text-muted)",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {text}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. BANDE CALCULATEUR */}
       <section
         className="fade-up bienvenue-calc-band"
         style={{
@@ -413,7 +624,43 @@ function BienvenuePage() {
         </button>
       </section>
 
-      {/* 5. CTA FINAL */}
+      {/* 6. MINI-FAQ */}
+      <section
+        className="fade-up"
+        style={{
+          background: "var(--bg-card)",
+          padding: "56px 5%",
+        }}
+      >
+        <div style={{ maxWidth: 640, margin: "0 auto" }}>
+          <h2
+            className="fade-up"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: 28,
+              color: "var(--midnight)",
+              textAlign: "center",
+              marginBottom: 32,
+              margin: "0 0 32px",
+            }}
+          >
+            Les questions que vous vous posez.
+          </h2>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 10,
+            }}
+          >
+            {faqItems.map((item, idx) => (
+              <AccordionItem key={idx} item={item} index={idx} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 7. CTA FINAL */}
       <section
         className="fade-up"
         style={{
@@ -442,15 +689,48 @@ function BienvenuePage() {
               fontFamily: "var(--font-sans)",
               fontSize: 16,
               color: "var(--text-muted)",
-              marginBottom: 32,
-              margin: "0 0 32px",
+              marginBottom: 24,
+              margin: "0 0 24px",
               lineHeight: 1.6,
             }}
           >
             HeedUp vous donnera accès en priorité dès le lancement. Aucun engagement, résiliable à tout moment.
           </p>
-          <button
+          <div
             className="fade-up fade-up-delay-2"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 6,
+              flexWrap: "wrap",
+              marginBottom: 24,
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 13,
+                color: "var(--text-muted)",
+              }}
+            >
+              À partir de 50€/mois · Sans engagement · Résiliable à tout moment
+            </span>
+            <Link
+              to="/tarifs"
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 13,
+                fontWeight: 600,
+                color: "var(--indigo)",
+                textDecoration: "none",
+              }}
+            >
+              Voir les tarifs détaillés →
+            </Link>
+          </div>
+          <button
+            className="fade-up fade-up-delay-3"
             {...TALLY}
             style={{
               width: "100%",
@@ -472,7 +752,7 @@ function BienvenuePage() {
           </button>
 
           <div
-            className="fade-up fade-up-delay-3"
+            className="fade-up fade-up-delay-4"
             style={{
               marginTop: 20,
               display: "flex",
