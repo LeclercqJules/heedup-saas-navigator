@@ -99,43 +99,30 @@ const problems = [
 const solutions = [
   {
     Icon: IconUserCheck,
-    title: "Opt-in anonyme",
-    text: "Vos salariés choisissent de participer. Vous voyez combien ont rejoint. Jamais qui.",
+    title: "Opt-in volontaire",
+    text: "Vos salariés reçoivent une invitation et choisissent de participer librement. Vous voyez combien ont rejoint. Jamais qui.",
+    practical: "Invitations envoyées automatiquement dès la mise en place.",
   },
   {
     Icon: IconClock,
     title: "Actif en 10 minutes",
-    text: "Import CSV, aucune installation côté salarié, aucun appel commercial requis.",
+    text: "Import CSV, aucune installation côté salarié, aucun appel commercial requis. Le premier survey part le vendredi suivant.",
+    practical: "Moins de temps qu'une réunion d'équipe.",
   },
   {
     Icon: IconBrain,
-    title: "Rapport IA actionnable",
-    text: "Pas un score à interpréter. Une action à faire cette semaine, formulée pour un manager, pas un DRH.",
+    title: "Rapport IA le lundi matin",
+    text: "Pas un score à interpréter. Une recommandation concrète formulée pour un manager, pas un DRH.",
+    practical: "Dans votre boîte mail avant votre première réunion de la semaine.",
   },
   {
     Icon: IconLock,
     title: "Anonymat architectural",
-    text: "Les réponses sont structurellement détachées de l'identité. Pas un paramètre, une conception.",
+    text: "Les réponses sont structurellement détachées de l'identité. Pas un paramètre, une conception. Personne ne peut désactiver l'anonymat, pas même vous.",
+    practical: "Ce qui rend les réponses honnêtes, pas juste récoltées.",
   },
 ];
 
-const steps = [
-  {
-    number: "01",
-    title: "Vous importez votre équipe",
-    text: "Un fichier CSV suffit. Chaque salarié reçoit une invitation et choisit de participer. Vous voyez combien ont rejoint. Jamais qui.",
-  },
-  {
-    number: "02",
-    title: "5 questions chaque vendredi",
-    text: "Anonymes, courtes, validées sur les standards Gallup Q12. 2 minutes pour vos salariés. Aucun compte à créer, aucune app à installer.",
-  },
-  {
-    number: "03",
-    title: "Votre rapport arrive le lundi",
-    text: "Pas un score à interpréter. Une recommandation concrète, formulée pour un manager, pas un DRH.",
-  },
-];
 
 const faqItems = [
   {
@@ -408,7 +395,7 @@ function BienvenuePage() {
               margin: "0 0 40px",
             }}
           >
-            5 questions chaque vendredi. Un rapport d'équipe actionnable chaque lundi matin.
+            5 questions chaque vendredi. Un rapport d'équipe chaque lundi. Voici comment ça fonctionne.
           </p>
           <div
             className="bienvenue-grid-2"
@@ -419,7 +406,7 @@ function BienvenuePage() {
               textAlign: "left",
             }}
           >
-            {solutions.map(({ Icon, title, text }, idx) => (
+            {solutions.map(({ Icon, title, text, practical }, idx) => (
               <div
                 key={title}
                 className={`fade-up fade-up-delay-${idx + 1}`}
@@ -456,6 +443,20 @@ function BienvenuePage() {
                   >
                     {text}
                   </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: 11,
+                      color: "rgba(255,255,255,0.35)",
+                      fontStyle: "italic",
+                      borderTop: "1px solid rgba(255,255,255,0.06)",
+                      marginTop: 10,
+                      paddingTop: 10,
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    En pratique : {practical}
+                  </div>
                 </div>
               </div>
             ))}
@@ -463,121 +464,6 @@ function BienvenuePage() {
         </div>
       </section>
 
-      {/* 4. COMMENT ÇA MARCHE */}
-      <section
-        className="fade-up"
-        style={{
-          background: "var(--bg-main)",
-          padding: "56px 5%",
-        }}
-      >
-        <div style={{ maxWidth: 720, margin: "0 auto" }}>
-          <div
-            className="fade-up"
-            style={{
-              background: "var(--indigo-pale)",
-              color: "var(--indigo)",
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: "0.8px",
-              textTransform: "uppercase",
-              padding: "5px 14px",
-              borderRadius: 20,
-              display: "flex",
-              justifyContent: "center",
-              width: "fit-content",
-              margin: "0 auto 16px",
-              fontFamily: "var(--font-sans)",
-            }}
-          >
-            EN PRATIQUE
-          </div>
-          <h2
-            className="fade-up fade-up-delay-1"
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: 32,
-              color: "var(--midnight)",
-              textAlign: "center",
-              marginBottom: 8,
-              margin: "0 0 8px",
-            }}
-          >
-            3 étapes. Dès cette semaine.
-          </h2>
-          <p
-            className="fade-up fade-up-delay-2"
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: 15,
-              color: "var(--text-muted)",
-              textAlign: "center",
-              marginBottom: 36,
-              margin: "0 0 36px",
-            }}
-          >
-            Sans formation, sans appel, sans installation côté salarié.
-          </p>
-          <div
-            className="bienvenue-grid-3"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 16,
-            }}
-          >
-            {steps.map(({ number, title, text }, idx) => (
-              <div
-                key={number}
-                className={`fade-up fade-up-delay-${idx + 1}`}
-                style={{
-                  background: "var(--bg-card)",
-                  border: "1px solid rgba(67,56,202,0.10)",
-                  borderRadius: 12,
-                  padding: 24,
-                  textAlign: "center",
-                  position: "relative",
-                }}
-              >
-                <div
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontStyle: "italic",
-                    fontSize: 48,
-                    color: "var(--indigo)",
-                    opacity: 0.15,
-                    lineHeight: 1,
-                    marginBottom: 12,
-                  }}
-                >
-                  {number}
-                </div>
-                <div
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: 14,
-                    fontWeight: 700,
-                    color: "var(--midnight)",
-                    marginBottom: 8,
-                  }}
-                >
-                  {title}
-                </div>
-                <div
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: 13,
-                    color: "var(--text-muted)",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  {text}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* 5. BANDE CALCULATEUR */}
       <section
