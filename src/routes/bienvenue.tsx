@@ -752,7 +752,7 @@ function BienvenuePage() {
           </button>
 
           <div
-            className="fade-up fade-up-delay-3"
+            className="fade-up fade-up-delay-4"
             style={{
               marginTop: 20,
               display: "flex",
