@@ -412,7 +412,7 @@ function BienvenuePage() {
               margin: "0 0 40px",
             }}
           >
-            5 questions chaque vendredi. Un rapport d'équipe actionnable chaque lundi matin.
+            5 questions chaque vendredi. Un rapport d'équipe chaque lundi. Voici comment ça fonctionne.
           </p>
           <div
             className="bienvenue-grid-2"
@@ -423,7 +423,7 @@ function BienvenuePage() {
               textAlign: "left",
             }}
           >
-            {solutions.map(({ Icon, title, text }, idx) => (
+            {solutions.map(({ Icon, title, text, practical }, idx) => (
               <div
                 key={title}
                 className={`fade-up fade-up-delay-${idx + 1}`}
@@ -459,6 +459,20 @@ function BienvenuePage() {
                     }}
                   >
                     {text}
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: 11,
+                      color: "rgba(255,255,255,0.35)",
+                      fontStyle: "italic",
+                      borderTop: "1px solid rgba(255,255,255,0.06)",
+                      marginTop: 10,
+                      paddingTop: 10,
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    En pratique : {practical}
                   </div>
                 </div>
               </div>
