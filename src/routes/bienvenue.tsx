@@ -624,7 +624,43 @@ function BienvenuePage() {
         </button>
       </section>
 
-      {/* 5. CTA FINAL */}
+      {/* 6. MINI-FAQ */}
+      <section
+        className="fade-up"
+        style={{
+          background: "var(--bg-card)",
+          padding: "56px 5%",
+        }}
+      >
+        <div style={{ maxWidth: 640, margin: "0 auto" }}>
+          <h2
+            className="fade-up"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: 28,
+              color: "var(--midnight)",
+              textAlign: "center",
+              marginBottom: 32,
+              margin: "0 0 32px",
+            }}
+          >
+            Les questions que vous vous posez.
+          </h2>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 10,
+            }}
+          >
+            {faqItems.map((item, idx) => (
+              <AccordionItem key={idx} item={item} index={idx} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 7. CTA FINAL */}
       <section
         className="fade-up"
         style={{
