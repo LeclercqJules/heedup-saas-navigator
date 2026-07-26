@@ -99,23 +99,27 @@ const problems = [
 const solutions = [
   {
     Icon: IconUserCheck,
-    title: "Opt-in anonyme",
-    text: "Vos salariés choisissent de participer. Vous voyez combien ont rejoint. Jamais qui.",
+    title: "Opt-in volontaire",
+    text: "Vos salariés reçoivent une invitation et choisissent de participer librement. Vous voyez combien ont rejoint. Jamais qui.",
+    practical: "Invitations envoyées automatiquement dès la mise en place.",
   },
   {
     Icon: IconClock,
     title: "Actif en 10 minutes",
-    text: "Import CSV, aucune installation côté salarié, aucun appel commercial requis.",
+    text: "Import CSV, aucune installation côté salarié, aucun appel commercial requis. Le premier survey part le vendredi suivant.",
+    practical: "Moins de temps qu'une réunion d'équipe.",
   },
   {
     Icon: IconBrain,
-    title: "Rapport IA actionnable",
-    text: "Pas un score à interpréter. Une action à faire cette semaine, formulée pour un manager, pas un DRH.",
+    title: "Rapport IA le lundi matin",
+    text: "Pas un score à interpréter. Une recommandation concrète formulée pour un manager, pas un DRH.",
+    practical: "Dans votre boîte mail avant votre première réunion de la semaine.",
   },
   {
     Icon: IconLock,
     title: "Anonymat architectural",
-    text: "Les réponses sont structurellement détachées de l'identité. Pas un paramètre, une conception.",
+    text: "Les réponses sont structurellement détachées de l'identité. Pas un paramètre, une conception. Personne ne peut désactiver l'anonymat, pas même vous.",
+    practical: "Ce qui rend les réponses honnêtes, pas juste récoltées.",
   },
 ];
 
