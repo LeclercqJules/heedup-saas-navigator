@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Fragment, useState, useEffect } from "react";
 import { Upload, Clock, Rocket, Check, Calculator, Mail, User, Users } from "lucide-react";
 import {
@@ -1055,6 +1055,100 @@ function Index() {
             </a>
           </div>
         </div>
+      </section>
+
+      {/* Bande calculateur */}
+      <section className="calc-band fade-up" style={{ backgroundColor: "var(--indigo-pale)", textAlign: "center" }}>
+        <div
+          style={{
+            maxWidth: "640px",
+            margin: "0 auto",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "16px",
+          }}
+        >
+          <span
+            style={{
+              display: "inline-block",
+              backgroundColor: "rgba(67,56,202,0.12)",
+              color: "var(--indigo)",
+              fontSize: "11px",
+              fontWeight: 700,
+              letterSpacing: "0.8px",
+              textTransform: "uppercase",
+              padding: "5px 14px",
+              borderRadius: "20px",
+              marginBottom: "4px",
+            }}
+          >
+            CALCULATEUR GRATUIT
+          </span>
+          <h2
+            className="calc-band-heading"
+            style={{
+              fontFamily: "var(--font-display)",
+              letterSpacing: "-0.5px",
+              lineHeight: 1.2,
+              color: "var(--midnight)",
+              marginBottom: "8px",
+            }}
+          >
+            Un départ non anticipé coûte en moyenne 22 500€.
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "16px",
+              color: "var(--text-muted)",
+              lineHeight: 1.6,
+              marginBottom: "8px",
+            }}
+          >
+            Estimez ce que le désengagement coûte réellement à votre équipe.
+          </p>
+          <Link
+            to="/estimer-cout"
+            className="calc-band-btn"
+            style={{
+              backgroundColor: "var(--midnight)",
+              color: "#FFFFFF",
+              padding: "14px 32px",
+              borderRadius: "8px",
+              fontSize: "15px",
+              fontWeight: 700,
+              border: "none",
+              cursor: "pointer",
+              fontFamily: "var(--font-sans)",
+              textDecoration: "none",
+              transition: "transform 0.2s ease",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+          >
+            Calculer pour mon équipe →
+          </Link>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "12px",
+              color: "var(--text-muted)",
+            }}
+          >
+            Basé sur les données IBET 2024 et Deloitte 2024. Gratuit, sans inscription.
+          </p>
+        </div>
+        <style>{`
+          .calc-band { padding: 48px 5%; }
+          .calc-band-heading { font-size: 32px; }
+          .calc-band-btn { display: inline-block; }
+          @media (max-width: 768px) {
+            .calc-band { padding: 36px 5%; }
+            .calc-band-heading { font-size: 26px; }
+            .calc-band-btn { width: 100%; }
+          }
+        `}</style>
       </section>
 
       {/* Comment ça marche */}
