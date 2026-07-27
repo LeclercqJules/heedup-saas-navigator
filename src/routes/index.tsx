@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Fragment, useState, useEffect } from "react";
-import { Upload, Clock, Rocket, Check, Calculator, Mail, User, Users } from "lucide-react";
+import { Upload, Clock, Rocket, Check, Mail, User, Users } from "lucide-react";
 import {
   IconPlayerPlay,
   IconBrain,
@@ -1023,37 +1023,6 @@ function Index() {
             ))}
           </div>
 
-          <div className="text-center" style={{ marginTop: "32px" }}>
-            <p
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "13px",
-                color: "var(--text-muted)",
-                marginBottom: "14px",
-              }}
-            >
-              Combien vous coûte réellement le désengagement dans votre équipe ?
-            </p>
-            <a
-              href="/estimer-cout"
-              className="inline-flex items-center gap-2"
-              style={{
-                backgroundColor: "var(--indigo)",
-                color: "#FFFFFF",
-                fontWeight: 700,
-                fontSize: "16px",
-                borderRadius: "8px",
-                padding: "14px 32px",
-                fontFamily: "var(--font-sans)",
-                border: "none",
-                cursor: "pointer",
-                textDecoration: "none",
-              }}
-            >
-              <Calculator size={18} strokeWidth={2} />
-              Estimer le coût pour mon équipe
-            </a>
-          </div>
         </div>
       </section>
 
@@ -1069,22 +1038,6 @@ function Index() {
             gap: "16px",
           }}
         >
-          <span
-            style={{
-              display: "inline-block",
-              backgroundColor: "rgba(67,56,202,0.12)",
-              color: "var(--indigo)",
-              fontSize: "11px",
-              fontWeight: 700,
-              letterSpacing: "0.8px",
-              textTransform: "uppercase",
-              padding: "5px 14px",
-              borderRadius: "20px",
-              marginBottom: "4px",
-            }}
-          >
-            CALCULATEUR GRATUIT
-          </span>
           <h2
             className="calc-band-heading"
             style={{
@@ -1136,7 +1089,7 @@ function Index() {
               color: "var(--text-muted)",
             }}
           >
-            Basé sur les données IBET 2024 et Deloitte 2024. Gratuit, sans inscription.
+            Basé sur les données IBET 2024 et Deloitte 2024.
           </p>
         </div>
         <style>{`
