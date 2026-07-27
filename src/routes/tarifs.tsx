@@ -637,6 +637,7 @@ function SectionPricingCards({
 }) {
   return (
     <section
+      id="tarifs"
       className="fade-up"
       style={{
         backgroundColor: "var(--bg-card)",
@@ -1226,6 +1227,7 @@ function Page() {
 
       {/* SIMULATEUR */}
       <section
+        id="simulateur"
         className="fade-up"
         style={{
           backgroundColor: "var(--bg-main)",

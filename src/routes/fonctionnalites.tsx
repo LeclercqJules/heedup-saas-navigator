@@ -648,7 +648,7 @@ function Page() {
       </section>
 
       {/* Section 2 : Feature Explorer */}
-      <section className="fade-up" style={{ background: "var(--bg-card)", padding: "52px 5%", borderTop: "1px solid rgba(67,56,202,0.08)" }}>
+      <section id="fonctionnalites" className="fade-up" style={{ background: "var(--bg-card)", padding: "52px 5%", borderTop: "1px solid rgba(67,56,202,0.08)" }}>
         <style>{`
           .feature-tab {
             transition: all 0.15s;
@@ -834,7 +834,7 @@ function Page() {
       </section>
 
       {/* Section 4 : Comparatif */}
-      <section className="fade-up" style={{ background: "var(--bg-main)", padding: "56px 5%", borderTop: "1px solid rgba(67,56,202,0.08)" }}>
+      <section id="comparatif" className="fade-up" style={{ background: "var(--bg-main)", padding: "56px 5%", borderTop: "1px solid rgba(67,56,202,0.08)" }}>
         <h2 style={{ fontFamily: "var(--font-display)", fontSize: "42px", color: "var(--midnight)", letterSpacing: "-0.8px", textAlign: "center", marginBottom: "8px" }}>
           Ce qui change vraiment avec HeedUp
         </h2>
