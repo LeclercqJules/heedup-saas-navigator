@@ -1027,7 +1027,7 @@ function Index() {
       </section>
 
       {/* Bande calculateur */}
-      <section className="calc-band fade-up" style={{ backgroundColor: "var(--indigo-pale)", textAlign: "center" }}>
+      <section id="calculateur" className="calc-band fade-up" style={{ backgroundColor: "var(--bg-card)", textAlign: "center" }}>
         <div
           style={{
             maxWidth: "640px",
@@ -1065,7 +1065,7 @@ function Index() {
             to="/estimer-cout"
             className="calc-band-btn"
             style={{
-              backgroundColor: "var(--midnight)",
+              backgroundColor: "var(--indigo)",
               color: "#FFFFFF",
               padding: "14px 32px",
               borderRadius: "8px",
