@@ -548,120 +548,66 @@ function Index() {
 
 
                 <div
+                  className="heedup-hero-social"
                   style={{
-                    display: "inline-flex",
-                    flexDirection: "column",
-                    alignItems: "flex-start",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "12px",
+                    marginTop: "20px",
                   }}
                 >
-                  <div
-                    className="heedup-hero-social"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "12px",
-                      marginTop: "20px",
-                      alignSelf: "flex-start",
-                    }}
-                  >
-                    <div style={{ display: "flex", alignItems: "center", flexDirection: "row-reverse" }}>
-                      {[
-                        { initials: "AC", bg: "#2d4a6e" },
-                        { initials: "SP", bg: "#5b4c8a" },
-                        { initials: "JB", bg: "#1e3a5f" },
-                        { initials: "CR", bg: "#374151" },
-                        { initials: "TD", bg: "#4338CA" },
-                        { initials: "ML", bg: "#0D1B3E" },
-                      ].map((a, i, arr) => (
-                        <div
-                          key={a.initials}
-                          style={{
-                            width: "36px",
-                            height: "36px",
-                            borderRadius: "50%",
-                            background: a.bg,
-                            border: "2px solid var(--bg-main)",
-                            marginLeft: i === arr.length - 1 ? 0 : "-10px",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            fontFamily: "var(--font-display)",
-                            fontSize: "13px",
-                            color: "#FFFFFF",
-                            fontStyle: "italic",
-                          }}
-                        >
-                          {a.initials}
-                        </div>
-                      ))}
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
+                  <div style={{ display: "flex", alignItems: "center", flexDirection: "row-reverse" }}>
+                    {[
+                      { initials: "AC", bg: "#2d4a6e" },
+                      { initials: "SP", bg: "#5b4c8a" },
+                      { initials: "JB", bg: "#1e3a5f" },
+                      { initials: "CR", bg: "#374151" },
+                      { initials: "TD", bg: "#4338CA" },
+                      { initials: "ML", bg: "#0D1B3E" },
+                    ].map((a, i, arr) => (
                       <div
+                        key={a.initials}
                         style={{
-                          fontFamily: "var(--font-sans)",
-                          fontSize: "14px",
-                          color: "var(--midnight)",
-                          fontWeight: 500,
-                          lineHeight: 1.3,
-                        }}
-                      >
-                        <span style={{ fontWeight: 700 }}>{count}</span> dirigeants
-                      </div>
-                      <div
-                        style={{
-                          fontFamily: "var(--font-sans)",
+                          width: "36px",
+                          height: "36px",
+                          borderRadius: "50%",
+                          background: a.bg,
+                          border: "2px solid var(--bg-main)",
+                          marginLeft: i === arr.length - 1 ? 0 : "-10px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontFamily: "var(--font-display)",
                           fontSize: "13px",
-                          color: "var(--text-muted)",
-                          lineHeight: 1.3,
+                          color: "#FFFFFF",
+                          fontStyle: "italic",
                         }}
                       >
-                        déjà sur la liste d'attente
+                        {a.initials}
                       </div>
-                    </div>
+                    ))}
                   </div>
-
-                  <div className="hero-sectors-scroll" style={{ marginTop: "10px" }}>
-                    <div className="hero-sectors-track">
-                      {[
-                        "Restauration",
-                        "BTP",
-                        "Logistique",
-                        "Commerce de détail",
-                        "Conseil",
-                        "Marketing",
-                        "IT",
-                        "Design",
-                        "Événementiel",
-                        "Comptabilité",
-                        "Architecture",
-                        "RP",
-                        "Immobilier",
-                        "Santé",
-                      ].map((sector) => (
-                        <span key={sector} className="hero-sector-pill">
-                          {sector}
-                        </span>
-                      ))}
-                      {[
-                        "Restauration",
-                        "BTP",
-                        "Logistique",
-                        "Commerce de détail",
-                        "Conseil",
-                        "Marketing",
-                        "IT",
-                        "Design",
-                        "Événementiel",
-                        "Comptabilité",
-                        "Architecture",
-                        "RP",
-                        "Immobilier",
-                        "Santé",
-                      ].map((sector) => (
-                        <span key={`${sector}-dup`} className="hero-sector-pill">
-                          {sector}
-                        </span>
-                      ))}
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "14px",
+                        color: "var(--midnight)",
+                        fontWeight: 500,
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      <span style={{ fontWeight: 700 }}>{count}</span> dirigeants
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "13px",
+                        color: "var(--text-muted)",
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      déjà sur la liste d'attente
                     </div>
                   </div>
                 </div>

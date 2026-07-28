@@ -452,66 +452,6 @@ body {
 .hero-anim-4 { animation: heroFadeIn 0.5s ease 0.55s both; will-change: transform, opacity; }
 .hero-anim-5 { animation: heroFadeIn 0.5s ease 0.7s both; will-change: transform, opacity; }
 
-/* ============================================================
- * Hero sectors scroll marquee
- * ============================================================ */
-
-.hero-sectors-scroll {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  align-self: stretch;
-}
-
-.hero-sectors-scroll::before,
-.hero-sectors-scroll::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 32px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.hero-sectors-scroll::before {
-  left: 0;
-  background: linear-gradient(to right, var(--bg-main), transparent);
-}
-
-.hero-sectors-scroll::after {
-  right: 0;
-  background: linear-gradient(to left, var(--bg-main), transparent);
-}
-
-.hero-sectors-track {
-  display: flex;
-  gap: 8px;
-  animation: scroll-sectors 22s linear infinite;
-  width: max-content;
-}
-
-.hero-sectors-scroll:hover .hero-sectors-track {
-  animation-play-state: paused;
-}
-
-.hero-sector-pill {
-  background: var(--indigo-pale);
-  color: var(--indigo);
-  font-size: 11px;
-  font-weight: 600;
-  padding: 4px 12px;
-  border-radius: 20px;
-  white-space: nowrap;
-  flex-shrink: 0;
-  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
-}
-
-@keyframes scroll-sectors {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .fade-up,
   .card-hover,
@@ -520,8 +460,7 @@ body {
   .hero-anim-2,
   .hero-anim-3,
   .hero-anim-4,
-  .hero-anim-5,
-  .hero-sectors-track {
+  .hero-anim-5 {
     animation: none !important;
     transition: none !important;
     opacity: 1 !important;
