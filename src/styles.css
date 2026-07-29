@@ -398,8 +398,83 @@ body {
   .heedup-sectors-label,
   .heedup-sectors-separator { display: none !important; }
 
+  /* Tableau comparatif : empilement en blocs */
+  .heedup-comparison-table {
+    display: none !important;
+  }
+
+  .heedup-comparison-mobile {
+    display: block !important;
+  }
+
+  .heedup-comparison-mobile-block {
+    background-color: var(--bg-card);
+    border: 1px solid rgba(67, 56, 202, 0.08);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+
+  .heedup-comparison-mobile-block:last-child {
+    margin-bottom: 0;
+  }
+
+  .heedup-comparison-mobile-crit {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--midnight);
+    margin-bottom: 10px;
+  }
+
+  .heedup-comparison-mobile-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .heedup-comparison-mobile-line:last-child {
+    margin-bottom: 0;
+  }
+
+  .heedup-comparison-mobile-badge {
+    font-family: var(--font-sans);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .heedup-comparison-mobile-badge.heedup {
+    background-color: var(--midnight);
+    color: #fff;
+  }
+
+  .heedup-comparison-mobile-badge.autres {
+    background-color: rgba(13, 27, 62, 0.08);
+    color: rgba(13, 27, 62, 0.4);
+  }
+
+  .heedup-comparison-mobile-value {
+    font-family: var(--font-sans);
+    font-size: 12px;
+  }
+
+  .heedup-comparison-mobile-value.heedup {
+    font-weight: 700;
+    color: #15803d;
+  }
+
+  .heedup-comparison-mobile-value.autres {
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+
   /* Anti overflow global */
   html, body { overflow-x: hidden !important; }
+
 
 }
 
