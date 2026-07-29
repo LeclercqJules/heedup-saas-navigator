@@ -2015,7 +2015,150 @@ function Index() {
         </div>
       </section>
 
-      {/* Témoignages retirés */}
+      {/* Tableau comparatif */}
+      <section
+        id="comparatif"
+        className="heedup-comparison fade-up"
+        style={{
+          backgroundColor: "var(--bg-card)",
+          padding: "64px 5%",
+        }}
+      >
+        <div style={{ maxWidth: "720px", margin: "0 auto" }}>
+          <div
+            style={{
+              backgroundColor: "var(--indigo-pale)",
+              color: "var(--indigo)",
+              fontSize: "11px",
+              fontWeight: 700,
+              letterSpacing: "0.8px",
+              textTransform: "uppercase",
+              padding: "5px 14px",
+              borderRadius: "20px",
+              display: "flex",
+              justifyContent: "center",
+              width: "fit-content",
+              margin: "0 auto 16px",
+              fontFamily: "var(--font-sans)",
+            }}
+          >
+            COMPARAISON
+          </div>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "36px",
+              color: "var(--midnight)",
+              textAlign: "center",
+              letterSpacing: "-0.5px",
+              marginBottom: "8px",
+              lineHeight: 1.15,
+            }}
+          >
+            Conçu pour ceux que les autres ont ignorés.
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "16px",
+              color: "var(--text-muted)",
+              textAlign: "center",
+              marginBottom: "40px",
+              lineHeight: 1.6,
+            }}
+          >
+            Les outils RH existants visent les grandes entreprises. HeedUp est construit pour les PME de 10 à 50 salariés sans équipe RH.
+          </p>
+
+          <table className="heedup-comparison-table">
+            <thead>
+              <tr>
+                <th style={{ width: "40%" }} />
+                <th
+                  style={{
+                    width: "30%",
+                    backgroundColor: "var(--midnight)",
+                    padding: "16px 20px",
+                    textAlign: "center",
+                  }}
+                >
+                  <div style={{ fontFamily: "var(--font-display)", fontStyle: "italic", fontSize: "15px", color: "#FFFFFF" }}>
+                    HeedUp
+                  </div>
+                  <div style={{ fontFamily: "var(--font-sans)", fontSize: "10px", color: "rgba(255,255,255,0.4)", marginTop: "2px" }}>
+                    Votre solution
+                  </div>
+                </th>
+                <th
+                  style={{
+                    width: "30%",
+                    backgroundColor: "var(--bg-main)",
+                    padding: "16px 20px",
+                    textAlign: "center",
+                  }}
+                >
+                  <div style={{ fontFamily: "var(--font-sans)", fontSize: "13px", fontWeight: 700, color: "var(--text-muted)" }}>
+                    Outils RH classiques
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                { crit: "Temps de démarrage", heedup: "10 minutes", autres: "4 à 12 semaines" },
+                { crit: "Prix d'entrée", heedup: "Dès 50€/mois", autres: "Tarification sur devis" },
+                { crit: "Appel commercial requis", heedup: "Non", autres: "Systématiquement" },
+                { crit: "Anonymat", heedup: "Architectural, non désactivable", autres: "Paramètre désactivable" },
+              ].map((row, i) => (
+                <tr key={row.crit}>
+                  <td>{row.crit}</td>
+                  <td>{row.heedup}</td>
+                  <td>{row.autres}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          <div className="heedup-comparison-mobile">
+            {[
+              { crit: "Temps de démarrage", heedup: "10 minutes", autres: "4 à 12 semaines" },
+              { crit: "Prix d'entrée", heedup: "Dès 50€/mois", autres: "Tarification sur devis" },
+              { crit: "Appel commercial requis", heedup: "Non", autres: "Systématiquement" },
+              { crit: "Anonymat", heedup: "Architectural, non désactivable", autres: "Paramètre désactivable" },
+            ].map((row) => (
+              <div key={row.crit} className="heedup-comparison-mobile-block">
+                <div className="heedup-comparison-mobile-crit">{row.crit}</div>
+                <div className="heedup-comparison-mobile-line">
+                  <span className="heedup-comparison-mobile-badge heedup">HeedUp</span>
+                  <span className="heedup-comparison-mobile-value heedup">{row.heedup}</span>
+                </div>
+                <div className="heedup-comparison-mobile-line">
+                  <span className="heedup-comparison-mobile-badge autres">Autres</span>
+                  <span className="heedup-comparison-mobile-value autres">{row.autres}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p
+            style={{
+              textAlign: "center",
+              marginTop: "20px",
+              fontFamily: "var(--font-sans)",
+              fontSize: "13px",
+              color: "var(--text-muted)",
+            }}
+          >
+            Comparaison détaillée disponible sur{" "}
+            <Link
+              to="/fonctionnalites"
+              style={{ color: "var(--indigo)", fontWeight: 600, textDecoration: "none" }}
+            >
+              la page fonctionnalités →
+            </Link>
+          </p>
+        </div>
+      </section>
 
       {/* FAQ */}
       <section id="faq" className="fade-up" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
