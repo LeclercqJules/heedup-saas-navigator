@@ -871,6 +871,98 @@ function Index() {
         </div>
       </section>
 
+      {/* Secteurs représentés */}
+      <div
+        className="heedup-sectors"
+        style={{
+          backgroundColor: "var(--indigo-pale)",
+          padding: "12px 5%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "16px",
+        }}
+      >
+        <span
+          className="heedup-sectors-label"
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "11px",
+            fontWeight: 700,
+            letterSpacing: "0.7px",
+            textTransform: "uppercase",
+            color: "var(--indigo)",
+            whiteSpace: "nowrap",
+            flexShrink: 0,
+          }}
+        >
+          Secteurs représentés
+        </span>
+        <span
+          className="heedup-sectors-separator"
+          style={{
+            width: "1px",
+            height: "16px",
+            backgroundColor: "rgba(67,56,202,0.2)",
+            flexShrink: 0,
+          }}
+        />
+        <div
+          className="heedup-sectors-scroll"
+          style={{
+            flex: 1,
+            overflow: "hidden",
+            position: "relative",
+          }}
+        >
+          <div
+            className="heedup-sectors-track"
+            style={{
+              display: "flex",
+              gap: "8px",
+            }}
+          >
+            {[...Array(2)].map((_, loopIndex) => (
+              <Fragment key={loopIndex}>
+                {[
+                  "Restauration",
+                  "BTP",
+                  "Logistique",
+                  "Commerce de détail",
+                  "Conseil",
+                  "Marketing",
+                  "IT",
+                  "Design",
+                  "Événementiel",
+                  "Comptabilité",
+                  "Architecture",
+                  "RP",
+                  "Immobilier",
+                  "Santé",
+                ].map((sector) => (
+                  <span
+                    key={`${loopIndex}-${sector}`}
+                    style={{
+                      backgroundColor: "rgba(67,56,202,0.08)",
+                      color: "var(--indigo)",
+                      fontSize: "11px",
+                      fontWeight: 600,
+                      padding: "3px 10px",
+                      borderRadius: "20px",
+                      whiteSpace: "nowrap",
+                      flexShrink: 0,
+                      fontFamily: "var(--font-sans)",
+                    }}
+                  >
+                    {sector}
+                  </span>
+                ))}
+              </Fragment>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Impact business */}
       <section
         className="heedup-impact fade-up"
