@@ -394,8 +394,13 @@ body {
   /* Sticky CTA visible mobile only */
   .heedup-sticky-cta { display: block !important; }
 
+  /* Secteurs représentés : label et séparateur masqués */
+  .heedup-sectors-label,
+  .heedup-sectors-separator { display: none !important; }
+
   /* Anti overflow global */
   html, body { overflow-x: hidden !important; }
+
 }
 
 
@@ -451,6 +456,46 @@ body {
 .hero-anim-3 { animation: heroFadeIn 0.5s ease 0.4s both; will-change: transform, opacity; }
 .hero-anim-4 { animation: heroFadeIn 0.5s ease 0.55s both; will-change: transform, opacity; }
 .hero-anim-5 { animation: heroFadeIn 0.5s ease 0.7s both; will-change: transform, opacity; }
+
+/* Secteurs représentés scroll band */
+.heedup-sectors {
+  width: 100%;
+}
+
+.heedup-sectors-scroll::before,
+.heedup-sectors-scroll::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.heedup-sectors-scroll::before {
+  left: 0;
+  background: linear-gradient(to right, var(--indigo-pale), transparent);
+}
+
+.heedup-sectors-scroll::after {
+  right: 0;
+  background: linear-gradient(to left, var(--indigo-pale), transparent);
+}
+
+.heedup-sectors-track {
+  animation: scroll-sectors 28s linear infinite;
+}
+
+.heedup-sectors:hover .heedup-sectors-track {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-sectors {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 
 @media (prefers-reduced-motion: reduce) {
   .fade-up,
