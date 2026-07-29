@@ -964,6 +964,7 @@ function Index() {
 
       {/* Impact business */}
       <section
+        id="impact"
         className="heedup-impact fade-up"
         style={{
           backgroundColor: "var(--bg-main)",
