@@ -835,45 +835,44 @@ function Index() {
             </div>
           </div>
         </div>
-
-        {/* Trust bar */}
-        <div
-          id="impact"
-          className="heedup-trust"
-          style={{
-            backgroundColor: "var(--midnight)",
-            padding: "16px 5%",
-          }}
-        >
-          <div className="heedup-trust-inner flex flex-wrap items-center justify-center" style={{ gap: "36px" }}>
-            {[
-              "RGPD natif",
-              "Hébergé en France",
-              "Réponses anonymes",
-              "Actif en 10 minutes",
-              "Sans engagement",
-            ].map((item) => (
-              <div
-                key={item}
-                className="flex items-center gap-2"
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "13px",
-                  fontWeight: 500,
-                  color: "rgba(255,255,255,0.7)",
-                }}
-              >
-                <span style={{ color: "var(--indigo-pale)" }}>✓</span>
-                <span>{item}</span>
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
+
+      {/* Trust bar */}
+      <div
+        className="heedup-trust"
+        style={{
+          backgroundColor: "var(--midnight)",
+          padding: "16px 5%",
+        }}
+      >
+        <div className="heedup-trust-inner flex flex-wrap items-center justify-center" style={{ gap: "36px" }}>
+          {[
+            "RGPD natif",
+            "Hébergé en France",
+            "Réponses anonymes",
+            "Actif en 10 minutes",
+            "Sans engagement",
+          ].map((item) => (
+            <div
+              key={item}
+              className="flex items-center gap-2"
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "13px",
+                fontWeight: 500,
+                color: "rgba(255,255,255,0.7)",
+              }}
+            >
+              <span style={{ color: "var(--indigo-pale)" }}>✓</span>
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Secteurs représentés */}
       <div
-        className="heedup-sectors"
+        className="heedup-sectors sectors-ticker"
         style={{
           backgroundColor: "var(--indigo-pale)",
           padding: "12px 5%",
@@ -965,6 +964,7 @@ function Index() {
 
       {/* Impact business */}
       <section
+        id="impact"
         className="heedup-impact fade-up"
         style={{
           backgroundColor: "var(--bg-main)",
