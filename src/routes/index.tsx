@@ -491,7 +491,7 @@ function Index() {
                 className="heedup-hero-sub hero-anim-3"
                 style={{
                   fontFamily: "var(--font-sans)",
-                  maxWidth: "460px",
+                  maxWidth: "480px",
                   fontSize: "17px",
                   lineHeight: 1.7,
                   color: "var(--text-muted)",
@@ -500,6 +500,7 @@ function Index() {
               >
                 Pilotez votre équipe sans devenir RH. 5 questions anonymes chaque vendredi, un rapport d'équipe actionnable chaque lundi.
               </p>
+
 
               <div
                 className="heedup-hero-actions hero-anim-4"
