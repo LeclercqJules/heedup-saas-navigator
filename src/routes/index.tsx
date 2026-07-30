@@ -1081,10 +1081,13 @@ function Index() {
                     fontSize: "52px",
                     lineHeight: 1,
                     color: "var(--midnight)",
+                    minHeight: "1.2em",
+                    display: "block",
                   }}
                 >
                   {c.figureNode}
                 </div>
+
                 <p
                   style={{
                     fontFamily: "var(--font-sans)",
