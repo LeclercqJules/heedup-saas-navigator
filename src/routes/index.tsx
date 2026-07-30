@@ -491,7 +491,7 @@ function Index() {
                 className="heedup-hero-sub hero-anim-3"
                 style={{
                   fontFamily: "var(--font-sans)",
-                  maxWidth: "460px",
+                  maxWidth: "480px",
                   fontSize: "17px",
                   lineHeight: 1.7,
                   color: "var(--text-muted)",
@@ -500,6 +500,7 @@ function Index() {
               >
                 Pilotez votre équipe sans devenir RH. 5 questions anonymes chaque vendredi, un rapport d'équipe actionnable chaque lundi.
               </p>
+
 
               <div
                 className="heedup-hero-actions hero-anim-4"
@@ -1080,10 +1081,13 @@ function Index() {
                     fontSize: "52px",
                     lineHeight: 1,
                     color: "var(--midnight)",
+                    minHeight: "1.2em",
+                    display: "block",
                   }}
                 >
                   {c.figureNode}
                 </div>
+
                 <p
                   style={{
                     fontFamily: "var(--font-sans)",
@@ -1140,8 +1144,9 @@ function Index() {
               marginBottom: "8px",
             }}
           >
-            Un départ non anticipé coûte en moyenne 22 500€.
+            Un départ non anticipé coûte en moyenne <span style={{ whiteSpace: "nowrap" }}>22 500€.</span>
           </h2>
+
           <p
             style={{
               fontFamily: "var(--font-sans)",
@@ -2189,9 +2194,10 @@ function Index() {
           >
             Les questions que{" "}
             <span style={{ fontStyle: "italic", color: "var(--indigo)" }}>
-              vous posez sûrement.
+              vous vous posez sûrement.
             </span>
           </h2>
+
           <p
             style={{
               fontFamily: "var(--font-sans)",
