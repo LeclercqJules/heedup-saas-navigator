@@ -451,27 +451,6 @@ function Index() {
           <div className="heedup-hero-grid grid w-full items-center md:grid-cols-2" style={{ gap: "64px" }}>
             {/* Colonne gauche : texte */}
             <div>
-              <span
-                className="hero-anim-1"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  backgroundColor: "var(--indigo-pale)",
-                  color: "var(--midnight)",
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "10px",
-                  fontWeight: 600,
-                  padding: "5px 12px",
-                  borderRadius: "5px",
-                  letterSpacing: "0.04em",
-                  textTransform: "uppercase",
-                }}
-              >
-                Votre équipe, enfin lisible.
-              </span>
-
-              <h1
                 className="heedup-hero-h1 hero-anim-2"
                 style={{
                   fontFamily: "var(--font-display)",
