@@ -2194,9 +2194,10 @@ function Index() {
           >
             Les questions que{" "}
             <span style={{ fontStyle: "italic", color: "var(--indigo)" }}>
-              vous posez sûrement.
+              vous vous posez sûrement.
             </span>
           </h2>
+
           <p
             style={{
               fontFamily: "var(--font-sans)",
