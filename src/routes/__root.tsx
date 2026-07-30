@@ -172,10 +172,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children:
           "(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src=\"https://www.clarity.ms/tag/\"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, \"clarity\", \"script\", \"xr0pguqyur\");",
       },
-      {
-        children:
-          "window.$crisp=[];window.CRISP_WEBSITE_ID=\"4dc24f6f-52b5-43fa-8081-d49903035565\";(function(){var d=document;var s=d.createElement(\"script\");s.src=\"https://client.crisp.chat/l.js\";s.async=1;d.getElementsByTagName(\"head\")[0].appendChild(s);})();",
-      },
     ],
 
   }),
