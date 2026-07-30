@@ -451,26 +451,6 @@ function Index() {
           <div className="heedup-hero-grid grid w-full items-center md:grid-cols-2" style={{ gap: "64px" }}>
             {/* Colonne gauche : texte */}
             <div>
-              <span
-                className="hero-anim-1"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  backgroundColor: "var(--indigo-pale)",
-                  color: "var(--midnight)",
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "10px",
-                  fontWeight: 600,
-                  padding: "5px 12px",
-                  borderRadius: "5px",
-                  letterSpacing: "0.04em",
-                  textTransform: "uppercase",
-                }}
-              >
-                Votre équipe, enfin lisible.
-              </span>
-
               <h1
                 className="heedup-hero-h1 hero-anim-2"
                 style={{
@@ -491,14 +471,14 @@ function Index() {
                 className="heedup-hero-sub hero-anim-3"
                 style={{
                   fontFamily: "var(--font-sans)",
-                  maxWidth: "480px",
+                  maxWidth: "420px",
                   fontSize: "17px",
                   lineHeight: 1.7,
                   color: "var(--text-muted)",
                   marginBottom: "32px",
                 }}
               >
-                Pilotez votre équipe sans devenir RH. 5 questions anonymes chaque vendredi, un rapport d'équipe actionnable chaque lundi.
+                Vos salariés vous diront ce qui ne va pas. Encore faut-il leur poser la question.
               </p>
 
 
@@ -1058,6 +1038,7 @@ function Index() {
                   borderTop: "3px solid var(--midnight)",
                   borderRadius: "12px",
                   padding: "32px 28px",
+                  minHeight: "200px",
                   display: "flex",
                   flexDirection: "column",
                   gap: "12px",
