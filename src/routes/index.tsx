@@ -471,14 +471,14 @@ function Index() {
                 className="heedup-hero-sub hero-anim-3"
                 style={{
                   fontFamily: "var(--font-sans)",
-                  maxWidth: "480px",
+                  maxWidth: "420px",
                   fontSize: "17px",
                   lineHeight: 1.7,
                   color: "var(--text-muted)",
                   marginBottom: "32px",
                 }}
               >
-                Pilotez votre équipe sans devenir RH. 5 questions anonymes chaque vendredi, un rapport d'équipe actionnable chaque lundi.
+                Vos salariés vous diront ce qui ne va pas. Encore faut-il leur poser la question.
               </p>
 
 
