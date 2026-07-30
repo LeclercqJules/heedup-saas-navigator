@@ -451,6 +451,7 @@ function Index() {
           <div className="heedup-hero-grid grid w-full items-center md:grid-cols-2" style={{ gap: "64px" }}>
             {/* Colonne gauche : texte */}
             <div>
+              <h1
                 className="heedup-hero-h1 hero-anim-2"
                 style={{
                   fontFamily: "var(--font-display)",
