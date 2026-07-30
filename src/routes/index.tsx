@@ -1038,6 +1038,7 @@ function Index() {
                   borderTop: "3px solid var(--midnight)",
                   borderRadius: "12px",
                   padding: "32px 28px",
+                  minHeight: "200px",
                   display: "flex",
                   flexDirection: "column",
                   gap: "12px",
