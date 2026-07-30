@@ -6,6 +6,9 @@ import { ScrollToTop } from "./ScrollToTop";
 import { StickyCTA } from "./StickyCTA";
 
 export function SiteLayout({ children }: { children: ReactNode }) {
+  const router = useRouter();
+  const isHome = router.state.location.pathname === "/";
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (typeof IntersectionObserver === "undefined") return;
