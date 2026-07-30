@@ -144,6 +144,13 @@ body {
 
 /* --- MOBILE (< 768px) --- */
 @media (max-width: 767px) {
+  /* Announcement bar */
+  .heedup-announcement-bar {
+    flex-direction: column !important;
+    gap: 4px !important;
+    padding: 8px 5% !important;
+  }
+
   /* NAV */
   .heedup-nav {
     height: 64px !important;
