@@ -397,7 +397,7 @@ const features = [
   {
     icon: IconHeadset,
     title: "Support en français",
-    desc: "Réponse sous 24h ouvrées par email, en français, sans chatbot.",
+    desc: "Réponse sous 24h ouvrées par email ou chat, en français.",
   },
   {
     icon: IconCreditCardOff,
