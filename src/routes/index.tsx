@@ -1144,8 +1144,9 @@ function Index() {
               marginBottom: "8px",
             }}
           >
-            Un départ non anticipé coûte en moyenne 22 500€.
+            Un départ non anticipé coûte en moyenne <span style={{ whiteSpace: "nowrap" }}>22 500€.</span>
           </h2>
+
           <p
             style={{
               fontFamily: "var(--font-sans)",
