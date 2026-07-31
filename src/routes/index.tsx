@@ -837,8 +837,6 @@ function Index() {
         </div>
       </section>
 
-      <CalloutStatement text="Voir venir. Pas subir." />
-
       {/* Trust bar */}
       <div
         className="heedup-trust"
@@ -1123,8 +1121,6 @@ function Index() {
 
         </div>
       </section>
-
-      <CalloutStatement text="Prêt ce vendredi. Rapport lundi matin." />
 
       {/* Bande calculateur */}
       <section id="calculateur" className="calc-band fade-up" style={{ backgroundColor: "var(--bg-card)", textAlign: "center" }}>
@@ -1458,8 +1454,6 @@ function Index() {
           </div>
         </div>
       </section>
-
-      <CalloutStatement text="Pas d'IT. Pas de formation. Pas de consultant." />
 
       {/* Simple pour vous, simple pour eux */}
       <section id="simplicite" className="fade-up" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
@@ -2032,8 +2026,6 @@ function Index() {
         </div>
       </section>
 
-      <CalloutStatement text="Anonyme par conception. Honnête par nature." />
-
       {/* Tableau comparatif */}
       <section
         id="comparatif"
@@ -2178,8 +2170,6 @@ function Index() {
           </p>
         </div>
       </section>
-
-      <CalloutStatement text="Un signal faible aujourd'hui. Un départ évité demain." />
 
       {/* FAQ */}
       <section id="faq" className="fade-up" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
