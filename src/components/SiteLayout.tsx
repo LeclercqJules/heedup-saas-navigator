@@ -9,43 +9,34 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
   const isHome = router.state.location.pathname === "/";
   const [visible, setVisible] = useState(true);
-  const lastScrollY = useRef(0);
+  const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const getScrollY = () =>
-      window.scrollY ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop ||
-      0;
-
-    const check = () => {
-      const currentScrollY = getScrollY();
-      let newVisible: boolean;
-      if (currentScrollY < 10) {
-        newVisible = true;
-      } else if (currentScrollY > lastScrollY.current) {
-        newVisible = false;
-      } else {
-        newVisible = true;
+    let rafId = 0;
+    let lastTop = 0;
+    let initialized = false;
+    const tick = () => {
+      const el = sentinelRef.current;
+      if (el) {
+        const top = el.getBoundingClientRect().top;
+        if (!initialized) {
+          lastTop = top;
+          initialized = true;
+        }
+        const delta = top - lastTop;
+        if (top > -10) {
+          setVisible(true);
+        } else if (delta < -2) {
+          setVisible(false);
+        } else if (delta > 2) {
+          setVisible(true);
+        }
+        lastTop = top;
       }
-      setVisible(newVisible);
-      lastScrollY.current = currentScrollY;
+      rafId = requestAnimationFrame(tick);
     };
-
-    window.addEventListener('scroll', check,
-      { passive: true });
-    document.addEventListener('scroll', check,
-      { passive: true });
-    document.documentElement.addEventListener(
-      'scroll', check, { passive: true });
-    check();
-
-    return () => {
-      window.removeEventListener('scroll', check);
-      document.removeEventListener('scroll', check);
-      document.documentElement.removeEventListener(
-        'scroll', check);
-    };
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
   }, []);
 
   useEffect(() => {
@@ -151,7 +142,17 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         )}
         <Nav />
       </div>
-      <main className="flex-1" style={{ paddingTop: isHome ? "120px" : "84px" }}>
+      <main className="flex-1" style={{ position: "relative", paddingTop: isHome ? "120px" : "84px" }}>
+        <div
+          ref={sentinelRef}
+          style={{
+            position: "absolute",
+            top: 0,
+            height: "1px",
+            width: "1px",
+            pointerEvents: "none",
+          }}
+        />
         {children}
       </main>
       <Footer />

@@ -557,6 +557,7 @@ function Index() {
                     alignItems: "center",
                     gap: "12px",
                     marginTop: "20px",
+                    marginBottom: "48px",
                   }}
                 >
                   <div style={{ display: "flex", alignItems: "center", flexDirection: "row-reverse" }}>
