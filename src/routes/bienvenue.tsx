@@ -245,7 +245,9 @@ function BienvenuePage() {
               margin: "0 0 16px",
             }}
           >
-            Vous avez cliqué depuis LinkedIn, merci pour ça.
+            5 questions chaque vendredi.
+            <br />
+            Un rapport d'équipe chaque lundi.
           </h1>
           <p
             className="fade-up fade-up-delay-2"
@@ -258,8 +260,30 @@ function BienvenuePage() {
               margin: 0,
             }}
           >
-            Voici ce que 400 caractères ne permettaient pas de dire.
+            Ce que 400 caractères ne permettaient pas de dire : comment HeedUp vous fait voir venir un départ, avant qu'il ne soit trop tard.
           </p>
+
+          <button
+            className="fade-up fade-up-delay-3"
+            {...TALLY}
+            style={{
+              width: "100%",
+              maxWidth: 400,
+              padding: 16,
+              borderRadius: 8,
+              fontSize: 16,
+              fontWeight: 700,
+              background: "var(--indigo)",
+              color: "#FFFFFF",
+              border: "none",
+              cursor: "pointer",
+              fontFamily: "var(--font-sans)",
+              margin: "0 auto",
+              display: "block",
+            }}
+          >
+            Accéder au lancement →
+          </button>
         </div>
       </section>
 
