@@ -482,8 +482,11 @@ function Index() {
                   marginBottom: "20px",
                 }}
               >
-                Votre prochain départ surprise, vous l'aurez{" "}
-                <span style={{ fontStyle: "italic", color: "var(--indigo)" }}>vu venir</span>.
+                Un pouls d'équipe chaque semaine.
+                <br />
+                <span style={{ color: "var(--indigo)", fontStyle: "italic" }}>
+                  Un plan d'action chaque lundi.
+                </span>
               </h1>
 
               <p
@@ -497,7 +500,7 @@ function Index() {
                   marginBottom: "32px",
                 }}
               >
-                Vos salariés vous diront ce qui ne va pas. Encore faut-il leur poser la question.
+                5 questions anonymes envoyées chaque vendredi. HeedUp analyse les réponses et vous envoie, chaque lundi, ce qu'il faut faire cette semaine.
               </p>
 
 
