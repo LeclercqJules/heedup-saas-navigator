@@ -12,7 +12,7 @@ import {
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
-import { CalloutStatement } from "@/components/CalloutStatement";
+
 
 import { useTallyCount } from "@/hooks/useTallyCount";
 import { useCountUp } from "@/hooks/useCountUp";
@@ -1032,7 +1032,7 @@ function Index() {
                 key: "cout-chronique",
                 eyebrow: "COÛT CHRONIQUE",
                 figureNode: <span style={{ whiteSpace: "nowrap" }}>~<CountUp target={14300} format={fmtThousands} /> €</span>,
-                label: "par salarié et par an, le coût du désengagement en France, avant même le moindre départ.",
+                label: "par salarié et par an, le coût du désengagement — des salariés présents mais qui ont décroché — avant même le moindre départ.",
                 source: "IBET, 2024",
               },
               {
