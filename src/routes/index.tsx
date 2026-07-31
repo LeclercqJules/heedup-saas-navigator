@@ -12,7 +12,7 @@ import {
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
-import { CalloutStatement } from "@/components/CalloutStatement";
+
 
 import { useTallyCount } from "@/hooks/useTallyCount";
 import { useCountUp } from "@/hooks/useCountUp";
@@ -837,8 +837,6 @@ function Index() {
         </div>
       </section>
 
-      <CalloutStatement text="Voir venir. Pas subir." />
-
       {/* Trust bar */}
       <div
         className="heedup-trust"
@@ -1032,7 +1030,7 @@ function Index() {
                 key: "cout-chronique",
                 eyebrow: "COÛT CHRONIQUE",
                 figureNode: <span style={{ whiteSpace: "nowrap" }}>~<CountUp target={14300} format={fmtThousands} /> €</span>,
-                label: "par salarié et par an, le coût du désengagement en France, avant même le moindre départ.",
+                label: "par salarié et par an, le coût du désengagement — des salariés présents mais qui ont décroché — avant même le moindre départ.",
                 source: "IBET, 2024",
               },
               {
@@ -1123,8 +1121,6 @@ function Index() {
 
         </div>
       </section>
-
-      <CalloutStatement text="Prêt ce vendredi. Rapport lundi matin." />
 
       {/* Bande calculateur */}
       <section id="calculateur" className="calc-band fade-up" style={{ backgroundColor: "var(--bg-card)", textAlign: "center" }}>
@@ -1458,8 +1454,6 @@ function Index() {
           </div>
         </div>
       </section>
-
-      <CalloutStatement text="Pas d'IT. Pas de formation. Pas de consultant." />
 
       {/* Simple pour vous, simple pour eux */}
       <section id="simplicite" className="fade-up" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
@@ -2032,8 +2026,6 @@ function Index() {
         </div>
       </section>
 
-      <CalloutStatement text="Anonyme par conception. Honnête par nature." />
-
       {/* Tableau comparatif */}
       <section
         id="comparatif"
@@ -2178,8 +2170,6 @@ function Index() {
           </p>
         </div>
       </section>
-
-      <CalloutStatement text="Un signal faible aujourd'hui. Un départ évité demain." />
 
       {/* FAQ */}
       <section id="faq" className="fade-up" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>

@@ -249,7 +249,7 @@ function EstimerCoutPage() {
                 {fmtEuro(disengaged)}
               </div>
               <div style={{ fontSize: 12, color: "rgba(185,28,28,0.7)", marginTop: 4 }}>
-                13% de vos salariés sont activement désengagés. Chacun coûte en moyenne 14 300€/an.
+                13% de vos salariés sont activement désengagés — impliqués en apparence, mais plus vraiment investis dans leur travail. Chacun coûte en moyenne 14 300€/an.
               </div>
               <div style={{ fontSize: 10, color: "rgba(185,28,28,0.4)", marginTop: 6 }}>
                 Source : IBET 2024 · Gallup 2024

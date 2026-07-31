@@ -12,19 +12,40 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+    const getScrollY = () =>
+      window.scrollY ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+
+    const check = () => {
+      const currentScrollY = getScrollY();
+      let newVisible: boolean;
       if (currentScrollY < 10) {
-        setVisible(true);
+        newVisible = true;
       } else if (currentScrollY > lastScrollY.current) {
-        setVisible(false);
+        newVisible = false;
       } else {
-        setVisible(true);
+        newVisible = true;
       }
+      setVisible(newVisible);
       lastScrollY.current = currentScrollY;
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    window.addEventListener('scroll', check,
+      { passive: true });
+    document.addEventListener('scroll', check,
+      { passive: true });
+    document.documentElement.addEventListener(
+      'scroll', check, { passive: true });
+    check();
+
+    return () => {
+      window.removeEventListener('scroll', check);
+      document.removeEventListener('scroll', check);
+      document.documentElement.removeEventListener(
+        'scroll', check);
+    };
   }, []);
 
   useEffect(() => {
