@@ -1010,7 +1010,7 @@ function Index() {
               {
                 key: "cout-chronique",
                 eyebrow: "COÛT CHRONIQUE",
-                figureNode: <>~<CountUp target={14300} format={fmtThousands} /> €</>,
+                figureNode: <span style={{ whiteSpace: "nowrap" }}>~<CountUp target={14300} format={fmtThousands} /> €</span>,
                 label: "par salarié et par an, le coût du désengagement en France, avant même le moindre départ.",
                 source: "IBET, 2024",
               },
@@ -1107,7 +1107,7 @@ function Index() {
       <section id="calculateur" className="calc-band fade-up" style={{ backgroundColor: "var(--bg-card)", textAlign: "center" }}>
         <div
           style={{
-            maxWidth: "640px",
+            maxWidth: "900px",
             margin: "0 auto",
             display: "flex",
             flexDirection: "column",
@@ -1172,11 +1172,17 @@ function Index() {
         </div>
         <style>{`
           .calc-band { padding: 48px 5%; }
-          .calc-band-heading { font-size: 32px; }
+          .calc-band-heading {
+            font-size: 28px;
+            white-space: nowrap;
+          }
           .calc-band-btn { display: inline-block; }
           @media (max-width: 768px) {
             .calc-band { padding: 36px 5%; }
-            .calc-band-heading { font-size: 26px; }
+            .calc-band-heading {
+              font-size: 18px;
+              white-space: normal;
+            }
             .calc-band-btn { width: 100%; }
           }
         `}</style>
