@@ -664,3 +664,33 @@ body {
     transform: none !important;
   }
 }
+
+.callout-statement {
+  background: transparent;
+  padding: 32px 5%;
+  text-align: center;
+}
+
+.callout-statement-text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 28px;
+  color: var(--midnight);
+  letter-spacing: -0.3px;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .callout-statement-text {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 767px) {
+  .callout-statement {
+    padding: 24px 5%;
+  }
+  .callout-statement-text {
+    font-size: 20px;
+  }
+}

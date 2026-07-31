@@ -12,6 +12,7 @@ import {
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
+import { CalloutStatement } from "@/components/CalloutStatement";
 
 import { useTallyCount } from "@/hooks/useTallyCount";
 import { useCountUp } from "@/hooks/useCountUp";
@@ -432,7 +433,7 @@ function Index() {
         id="hero"
         className="heedup-hero"
         style={{
-          height: "calc(100vh - 84px)",
+          minHeight: "calc(100vh - 204px)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
@@ -451,6 +452,24 @@ function Index() {
           <div className="heedup-hero-grid grid w-full items-center md:grid-cols-2" style={{ gap: "64px" }}>
             {/* Colonne gauche : texte */}
             <div>
+              <span
+                className="hero-anim-1"
+                style={{
+                  display: "inline-block",
+                  background: "var(--indigo-pale)",
+                  color: "var(--indigo)",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  letterSpacing: "0.8px",
+                  textTransform: "uppercase",
+                  padding: "5px 14px",
+                  borderRadius: "20px",
+                  marginBottom: "16px",
+                }}
+              >
+                Votre équipe, enfin lisible.
+              </span>
               <h1
                 className="heedup-hero-h1 hero-anim-2"
                 style={{
@@ -818,6 +837,8 @@ function Index() {
         </div>
       </section>
 
+      <CalloutStatement text="Voir venir. Pas subir." />
+
       {/* Trust bar */}
       <div
         className="heedup-trust"
@@ -1102,6 +1123,8 @@ function Index() {
 
         </div>
       </section>
+
+      <CalloutStatement text="Prêt ce vendredi. Rapport lundi matin." />
 
       {/* Bande calculateur */}
       <section id="calculateur" className="calc-band fade-up" style={{ backgroundColor: "var(--bg-card)", textAlign: "center" }}>
@@ -1435,6 +1458,8 @@ function Index() {
           </div>
         </div>
       </section>
+
+      <CalloutStatement text="Pas d'IT. Pas de formation. Pas de consultant." />
 
       {/* Simple pour vous, simple pour eux */}
       <section id="simplicite" className="fade-up" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
@@ -2007,6 +2032,8 @@ function Index() {
         </div>
       </section>
 
+      <CalloutStatement text="Anonyme par conception. Honnête par nature." />
+
       {/* Tableau comparatif */}
       <section
         id="comparatif"
@@ -2151,6 +2178,8 @@ function Index() {
           </p>
         </div>
       </section>
+
+      <CalloutStatement text="Un signal faible aujourd'hui. Un départ évité demain." />
 
       {/* FAQ */}
       <section id="faq" className="fade-up" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
