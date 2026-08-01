@@ -433,7 +433,7 @@ function Index() {
         id="hero"
         className="heedup-hero"
         style={{
-          minHeight: "calc(100vh - 204px)",
+          height: "calc(100vh - 120px)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
@@ -829,40 +829,40 @@ function Index() {
             </div>
           </div>
         </div>
-      </section>
 
-      {/* Trust bar */}
-      <div
-        className="heedup-trust"
-        style={{
-          backgroundColor: "var(--midnight)",
-          padding: "16px 5%",
-        }}
-      >
-        <div className="heedup-trust-inner flex flex-wrap items-center justify-center" style={{ gap: "36px" }}>
-          {[
-            "RGPD natif",
-            "Hébergé en France",
-            "Réponses anonymes",
-            "Actif en 10 minutes",
-            "Sans engagement",
-          ].map((item) => (
-            <div
-              key={item}
-              className="flex items-center gap-2"
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "13px",
-                fontWeight: 500,
-                color: "rgba(255,255,255,0.7)",
-              }}
-            >
-              <span style={{ color: "var(--indigo-pale)" }}>✓</span>
-              <span>{item}</span>
-            </div>
-          ))}
+        {/* Trust bar */}
+        <div
+          className="heedup-trust"
+          style={{
+            backgroundColor: "var(--midnight)",
+            padding: "16px 5%",
+          }}
+        >
+          <div className="heedup-trust-inner flex flex-wrap items-center justify-center" style={{ gap: "36px" }}>
+            {[
+              "RGPD natif",
+              "Hébergé en France",
+              "Réponses anonymes",
+              "Actif en 10 minutes",
+              "Sans engagement",
+            ].map((item) => (
+              <div
+                key={item}
+                className="flex items-center gap-2"
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "13px",
+                  fontWeight: 500,
+                  color: "rgba(255,255,255,0.7)",
+                }}
+              >
+                <span style={{ color: "var(--indigo-pale)" }}>✓</span>
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* Secteurs représentés */}
       <div
