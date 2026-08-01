@@ -433,7 +433,7 @@ function Index() {
         id="hero"
         className="heedup-hero"
         style={{
-          minHeight: "calc(100vh - 204px)",
+          height: "calc(100vh - 120px)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
