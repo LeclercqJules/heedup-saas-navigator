@@ -501,7 +501,7 @@ function Index() {
                   marginBottom: "32px",
                 }}
               >
-                5 questions anonymes envoyées chaque vendredi. HeedUp analyse les réponses et vous envoie, chaque lundi, ce qu'il faut faire cette semaine.
+                Zéro configuration RH. Zéro compétence technique. Actif en quelques minutes.
               </p>
 
 
