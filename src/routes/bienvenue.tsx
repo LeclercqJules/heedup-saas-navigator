@@ -1,14 +1,9 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  IconEyeOff,
-  IconClock,
-  IconCurrencyEuro,
-  IconUserCheck,
-  IconBrain,
-  IconLock,
-} from "@tabler/icons-react";
+import { IconMail, IconDeviceLaptopOff, IconEyeOff } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
+import { RapportCard } from "@/components/RapportCard";
+import { useTallyCount } from "@/hooks/useTallyCount";
 
 export const Route = createFileRoute("/bienvenue")({
   head: () => ({
@@ -17,13 +12,12 @@ export const Route = createFileRoute("/bienvenue")({
       {
         name: "description",
         content:
-          "Vous venez de LinkedIn. Voici pourquoi HeedUp existe : un pouls d'équipe anonyme pour prévenir le turnover dans les PME.",
+          "Le détail concret du rapport d'équipe HeedUp, l'anonymat par conception et la mise en route en 10 minutes.",
       },
       { property: "og:title", content: "Bienvenue depuis LinkedIn — HeedUp" },
       {
         property: "og:description",
-        content:
-          "Un pouls d'équipe anonyme pour prévenir le turnover dans les PME françaises.",
+        content: "Le rapport d'équipe HeedUp en détail, et comment démarrer.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -39,72 +33,66 @@ const TALLY = {
   "data-tally-emoji-animation": "wave",
 } as const;
 
-const problems = [
+const ctaStyle: React.CSSProperties = {
+  width: "100%",
+  maxWidth: 400,
+  padding: 16,
+  borderRadius: 8,
+  fontSize: 16,
+  fontWeight: 700,
+  background: "var(--indigo)",
+  color: "#FFFFFF",
+  border: "none",
+  cursor: "pointer",
+  fontFamily: "var(--font-sans)",
+  margin: "0 auto",
+  display: "block",
+};
+
+const textLink: React.CSSProperties = {
+  fontFamily: "var(--font-sans)",
+  fontSize: 13,
+  fontWeight: 600,
+  color: "var(--indigo)",
+  textDecoration: "none",
+};
+
+const employeePoints = [
+  {
+    Icon: IconMail,
+    text: "Un email le vendredi matin. 5 questions, une échelle de 1 à 5, 2 minutes.",
+  },
+  {
+    Icon: IconDeviceLaptopOff,
+    text: "Aucun compte à créer, aucune application à installer.",
+  },
   {
     Icon: IconEyeOff,
-    title: "Les signaux sont invisibles",
-    text: "Un salarié qui décroche ne le dit pas en réunion. Il répond moins, s'investit moins, et part quand vous ne l'attendez plus.",
-  },
-  {
-    Icon: IconClock,
-    title: "Vous l'apprenez trop tard",
-    text: "La démission arrive en moyenne 3 à 6 mois après les premiers signes. Sans outil de mesure hebdomadaire, ces signes passent inaperçus.",
-  },
-  {
-    Icon: IconCurrencyEuro,
-    title: "Le coût est réel",
-    text: "Chaque départ non anticipé coûte en moyenne 22 500€ en recrutement, formation et perte de productivité. (Source : Deloitte 2024)",
+    text: "La participation est volontaire. Vous voyez combien ont répondu, jamais qui.",
   },
 ];
 
-const solutions = [
-  {
-    Icon: IconUserCheck,
-    title: "Opt-in volontaire",
-    text: "Vos salariés reçoivent une invitation et choisissent de participer librement. Vous voyez combien ont rejoint. Jamais qui.",
-    practical: "Invitations envoyées automatiquement dès la mise en place.",
-  },
-  {
-    Icon: IconClock,
-    title: "Actif en 10 minutes",
-    text: "Import CSV, aucune installation côté salarié, aucun appel commercial requis. Le premier survey part le vendredi suivant.",
-    practical: "Moins de temps qu'une réunion d'équipe.",
-  },
-  {
-    Icon: IconBrain,
-    title: "Rapport IA le lundi matin",
-    text: "Pas un score à interpréter. Une recommandation concrète formulée pour un manager, pas un DRH.",
-    practical: "Dans votre boîte mail avant votre première réunion de la semaine.",
-  },
-  {
-    Icon: IconLock,
-    title: "Anonymat architectural",
-    text: "Les réponses sont structurellement détachées de l'identité. Pas un paramètre, une conception. Personne ne peut désactiver l'anonymat, pas même vous.",
-    practical: "Ce qui rend les réponses honnêtes, pas juste récoltées.",
-  },
+const steps = [
+  { num: "01", text: "Vous importez les emails de votre équipe (CSV)" },
+  { num: "02", text: "HeedUp envoie le premier questionnaire le vendredi suivant" },
+  { num: "03", text: "Votre premier rapport arrive le lundi matin" },
 ];
-
 
 const faqItems = [
   {
     question: "Mes salariés vont-ils vraiment répondre ?",
-    answer: "La participation est volontaire et anonyme par conception. Les salariés répondent parce qu'ils le choisissent, pas parce qu'ils y sont obligés. C'est précisément ce qui rend les réponses honnêtes et le signal fiable.",
-  },
-  {
-    question: "Est-ce vraiment anonyme ?",
-    answer: "Oui, par architecture. Les réponses sont structurellement détachées de l'identité. Vous voyez combien de personnes ont répondu. Jamais qui a répondu quoi. Ce n'est pas un paramètre que vous pouvez désactiver.",
+    answer:
+      "La participation est volontaire et anonyme par conception. Les salariés répondent parce qu'ils le choisissent, pas parce qu'ils y sont obligés. C'est précisément ce qui rend les réponses honnêtes et le signal fiable.",
   },
   {
     question: "Est-ce que je peux arrêter quand je veux ?",
-    answer: "Oui. Aucun engagement annuel obligatoire. Vous résiliez en un clic, sans frais, sans préavis. L'option annuelle existe mais reste un choix, pas une contrainte.",
-  },
-  {
-    question: "Mes salariés doivent-ils créer un compte ?",
-    answer: "Non. Chaque salarié reçoit un lien unique par email. Aucune inscription, aucune application à installer. Deux minutes par semaine, pas plus.",
+    answer:
+      "Oui. Aucun engagement annuel obligatoire. Vous résiliez en un clic, sans frais, sans préavis. L'option annuelle existe mais reste un choix, pas une contrainte.",
   },
   {
     question: "Combien de temps pour démarrer ?",
-    answer: "Moins de 10 minutes. Vous importez les emails de votre équipe, HeedUp envoie les invitations. Le premier rapport arrive le lundi suivant votre premier vendredi actif.",
+    answer:
+      "Moins de 10 minutes une fois l'outil ouvert. Vous importez les emails de votre équipe, HeedUp envoie les invitations, et le rapport arrive le lundi suivant le premier vendredi actif.",
   },
 ];
 
@@ -162,22 +150,14 @@ function AccordionItem({ item, index }: { item: { question: string; answer: stri
 }
 
 function BienvenuePage() {
-  const anonymityCard = solutions.find((s) => s.title === "Anonymat architectural")!;
-  const otherSolutions = solutions.filter((s) => s.title !== "Anonymat architectural");
+  const count = useTallyCount();
 
   return (
     <SiteLayout>
       {/* 1. HERO */}
-      <section
-        className="fade-up"
-        style={{
-          background: "var(--bg-main)",
-          padding: "72px 5% 56px",
-        }}
-      >
+      <section className="fade-up" style={{ background: "var(--bg-main)", padding: "64px 5% 48px" }}>
         <div style={{ maxWidth: 680, margin: "0 auto", textAlign: "center" }}>
           <div
-            className="fade-up"
             style={{
               background: "var(--indigo-pale)",
               color: "var(--indigo)",
@@ -202,13 +182,10 @@ function BienvenuePage() {
               color: "var(--midnight)",
               letterSpacing: "-1px",
               lineHeight: 1.15,
-              marginBottom: 16,
               margin: "0 0 16px",
             }}
           >
-            5 questions chaque vendredi.
-            <br />
-            Un rapport d'équipe chaque lundi.
+            Ce que vous recevrez, chaque lundi matin.
           </h1>
           <p
             className="fade-up fade-up-delay-2"
@@ -217,108 +194,174 @@ function BienvenuePage() {
               fontSize: 18,
               color: "var(--text-muted)",
               lineHeight: 1.6,
-              marginBottom: 40,
-              margin: 0,
+              maxWidth: 460,
+              margin: "0 auto 36px",
             }}
           >
-            Ce qu'une note de connexion ne permet pas de dire : comment HeedUp vous fait voir venir un départ, avant qu'il ne soit trop tard.
+            Vous savez déjà de quoi il s'agit. Voici le détail concret, et comment démarrer.
           </p>
-
-          <button
-            className="fade-up fade-up-delay-3"
-            {...TALLY}
-            style={{
-              width: "100%",
-              maxWidth: 400,
-              padding: 16,
-              borderRadius: 8,
-              fontSize: 16,
-              fontWeight: 700,
-              background: "var(--indigo)",
-              color: "#FFFFFF",
-              border: "none",
-              cursor: "pointer",
-              fontFamily: "var(--font-sans)",
-              margin: "0 auto",
-              display: "block",
-            }}
-          >
+          <button className="fade-up fade-up-delay-3" {...TALLY} style={ctaStyle}>
             Accéder au lancement →
           </button>
         </div>
       </section>
 
-      {/* 2. PROBLÈME */}
-      <section
-        className="fade-up"
-        style={{
-          background: "var(--bg-card)",
-          padding: "56px 5%",
-        }}
-      >
+      {/* 2. LE RAPPORT D'ÉQUIPE, EN DÉTAIL */}
+      <section className="fade-up" style={{ background: "var(--bg-card)", padding: "56px 5%" }}>
         <div style={{ maxWidth: 720, margin: "0 auto" }}>
           <h2
-            className="fade-up"
             style={{
               fontFamily: "var(--font-display)",
               fontSize: 32,
               color: "var(--midnight)",
               textAlign: "center",
-              marginBottom: 8,
-              margin: "0 0 8px",
+              margin: "0 0 10px",
             }}
           >
-            Le problème n'est pas le départ.
+            Le rapport d'équipe, en détail.
           </h2>
           <p
-            className="fade-up fade-up-delay-1"
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: 16,
               color: "var(--text-muted)",
               textAlign: "center",
-              marginBottom: 36,
-              margin: "0 0 36px",
+              lineHeight: 1.6,
+              maxWidth: 520,
+              margin: "0 auto 32px",
             }}
           >
-            C'est de ne pas l'avoir vu venir.
+            Pas un tableau de bord à interpréter. Une lecture de 30 secondes, et trois actions pour la semaine.
           </p>
+
+          <RapportCard className="fade-up fade-up-delay-1" />
+
+          <div style={{ textAlign: "center", marginTop: 20 }}>
+            <Link to="/fonctionnalites" style={textLink}>
+              Voir toutes les fonctionnalités →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. CE QUE VIVENT VOS SALARIÉS */}
+      <section className="fade-up" style={{ background: "var(--bg-main)", padding: "56px 5%" }}>
+        <div style={{ maxWidth: 620, margin: "0 auto" }}>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: 28,
+              color: "var(--midnight)",
+              textAlign: "center",
+              margin: "0 0 28px",
+            }}
+          >
+            Ce que vivent vos salariés.
+          </h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+            {employeePoints.map(({ Icon, text }, idx) => (
+              <div
+                key={text}
+                className={`fade-up fade-up-delay-${idx + 1}`}
+                style={{ display: "flex", alignItems: "flex-start", gap: 12 }}
+              >
+                <Icon size={18} color="var(--indigo)" style={{ flexShrink: 0, marginTop: 2 }} />
+                <span
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 15,
+                    color: "var(--text-primary)",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {text}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. ANONYMAT */}
+      <section className="fade-up" style={{ background: "var(--midnight)", padding: "56px 5%" }}>
+        <div style={{ maxWidth: 620, margin: "0 auto", textAlign: "center" }}>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: 30,
+              color: "#FFFFFF",
+              margin: "0 0 16px",
+              lineHeight: 1.25,
+            }}
+          >
+            L'anonymat est dans le code, pas dans la charte.
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 15,
+              color: "rgba(255,255,255,0.55)",
+              lineHeight: 1.7,
+              margin: "0 0 20px",
+            }}
+          >
+            Les réponses sont structurellement détachées de l'identité au niveau de la base de données. Ce n'est pas un
+            paramètre que quelqu'un peut désactiver, pas même moi. C'est ce qui rend les réponses honnêtes, pas juste
+            récoltées.
+          </p>
+          <Link to="/confidentialite" style={{ ...textLink, color: "var(--indigo-pale)" }}>
+            Comment les données sont traitées →
+          </Link>
+        </div>
+      </section>
+
+      {/* 5. DÉMARRAGE */}
+      <section className="fade-up" style={{ background: "var(--bg-card)", padding: "56px 5%" }}>
+        <div style={{ maxWidth: 860, margin: "0 auto" }}>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: 28,
+              color: "var(--midnight)",
+              textAlign: "center",
+              margin: "0 0 28px",
+            }}
+          >
+            Vous démarrez en 10 minutes.
+          </h2>
           <div
             className="bienvenue-grid-3"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 16,
-            }}
+            style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}
           >
-            {problems.map(({ Icon, title, text }, idx) => (
+            {steps.map(({ num, text }, idx) => (
               <div
-                key={title}
+                key={num}
                 className={`fade-up fade-up-delay-${idx + 1}`}
                 style={{
                   background: "var(--bg-main)",
                   border: "1px solid rgba(67,56,202,0.10)",
+                  borderLeft: "3px solid var(--midnight)",
                   borderRadius: 12,
-                  padding: 22,
+                  padding: "18px 20px",
                 }}
               >
-                <Icon size={20} color="var(--indigo)" style={{ marginBottom: 10 }} />
                 <div
                   style={{
                     fontFamily: "var(--font-sans)",
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: 700,
-                    color: "var(--midnight)",
-                    marginBottom: 6,
+                    letterSpacing: "0.9px",
+                    color: "var(--indigo)",
+                    marginBottom: 8,
                   }}
                 >
-                  {title}
+                  {num}
                 </div>
                 <div
                   style={{
                     fontFamily: "var(--font-sans)",
-                    fontSize: 13,
-                    color: "var(--text-muted)",
+                    fontSize: 14,
+                    color: "var(--text-primary)",
                     lineHeight: 1.6,
                   }}
                 >
@@ -327,255 +370,149 @@ function BienvenuePage() {
               </div>
             ))}
           </div>
-          <div
-            className="fade-up fade-up-delay-3"
+          <p
             style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 13,
+              color: "var(--text-muted)",
               textAlign: "center",
-              marginTop: 24,
+              margin: "20px 0 0",
             }}
           >
-            <Link
-              to="/estimer-cout"
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: 13,
-                fontWeight: 600,
-                color: "var(--indigo)",
-                textDecoration: "none",
-              }}
-            >
-              Estimez ce que le désengagement coûte à votre équipe →
-            </Link>
-          </div>
+            Aucun appel commercial, aucune démo, aucun déploiement IT.
+          </p>
         </div>
       </section>
 
-      {/* 3. SOLUTION */}
-      <section
-        className="fade-up"
-        style={{
-          background: "var(--midnight)",
-          padding: "56px 5%",
-        }}
-      >
-        <div style={{ maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
-          <div
-            className="fade-up"
-            style={{
-              background: "rgba(255,255,255,0.08)",
-              color: "rgba(255,255,255,0.5)",
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: "0.8px",
-              textTransform: "uppercase",
-              padding: "5px 14px",
-              borderRadius: 20,
-              display: "inline-block",
-              marginBottom: 20,
-              fontFamily: "var(--font-sans)",
-            }}
-          >
-            La réponse
-          </div>
+      {/* 6. CLOSING */}
+      <section className="fade-up" style={{ background: "var(--bg-main)", padding: "64px 5%" }}>
+        <div style={{ maxWidth: 560, margin: "0 auto", textAlign: "center" }}>
           <h2
-            className="fade-up fade-up-delay-1"
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: 32,
-              color: "#FFFFFF",
-              marginBottom: 12,
+              fontSize: 34,
+              color: "var(--midnight)",
+              letterSpacing: "-0.5px",
               margin: "0 0 12px",
             }}
           >
-            HeedUp est un pouls d'équipe anonyme.
+            Vous êtes prévenu en premier.
           </h2>
           <p
-            className="fade-up fade-up-delay-2"
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: 16,
-              color: "rgba(255,255,255,0.55)",
+              color: "var(--text-muted)",
               lineHeight: 1.6,
-              marginBottom: 40,
-              margin: "0 0 40px",
+              margin: "0 0 28px",
             }}
           >
-            Voici comment HeedUp change ça.
+            Lancement prévu début septembre 2026. Les inscrits accèdent à l'outil avant l'ouverture publique.
           </p>
 
-          {/* Anonymat architectural — pleine largeur */}
           <div
-            className="fade-up fade-up-delay-3"
             style={{
-              background: "rgba(255,255,255,0.05)",
-              border: "1px solid rgba(255,255,255,0.08)",
-              borderRadius: 10,
-              padding: "24px 28px",
               display: "flex",
-              alignItems: "flex-start",
+              alignItems: "center",
+              justifyContent: "center",
               gap: 12,
-              marginBottom: 16,
-              textAlign: "left",
+              marginBottom: 24,
             }}
           >
-            <anonymityCard.Icon size={18} color="var(--indigo)" style={{ flexShrink: 0, marginTop: 2 }} />
-            <div>
-              <div
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: 13,
-                  fontWeight: 700,
-                  color: "#FFFFFF",
-                  marginBottom: 4,
-                }}
-              >
-                {anonymityCard.title}
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: 12,
-                  color: "rgba(255,255,255,0.45)",
-                  lineHeight: 1.5,
-                }}
-              >
-                {anonymityCard.text}
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: 11,
-                  color: "rgba(255,255,255,0.35)",
-                  fontStyle: "italic",
-                  borderTop: "1px solid rgba(255,255,255,0.06)",
-                  marginTop: 10,
-                  paddingTop: 10,
-                  lineHeight: 1.5,
-                }}
-              >
-                En pratique : {anonymityCard.practical}
-              </div>
+            <div style={{ display: "flex", alignItems: "center", flexDirection: "row-reverse" }}>
+              {[
+                { initials: "AC", bg: "#2d4a6e" },
+                { initials: "SP", bg: "#5b4c8a" },
+                { initials: "JB", bg: "#1e3a5f" },
+                { initials: "CR", bg: "#374151" },
+                { initials: "TD", bg: "#4338CA" },
+                { initials: "ML", bg: "#0D1B3E" },
+              ].map((a, i, arr) => (
+                <div
+                  key={a.initials}
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: "50%",
+                    background: a.bg,
+                    border: "2px solid var(--bg-main)",
+                    marginLeft: i === arr.length - 1 ? 0 : -10,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontFamily: "var(--font-display)",
+                    fontSize: 13,
+                    color: "#FFFFFF",
+                    fontStyle: "italic",
+                  }}
+                >
+                  {a.initials}
+                </div>
+              ))}
+            </div>
+            <div
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 14,
+                color: "var(--midnight)",
+                fontWeight: 500,
+              }}
+            >
+              <span style={{ fontWeight: 700 }}>{count}</span> dirigeants ont déjà rejoint
             </div>
           </div>
 
-          <div
-            className="bienvenue-grid-3"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 16,
-              textAlign: "left",
-            }}
-          >
-            {otherSolutions.map(({ Icon, title, text, practical }, idx) => (
-              <div
-                key={title}
-                className={`fade-up fade-up-delay-${idx + 1}`}
-                style={{
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  borderRadius: 10,
-                  padding: "18px 20px",
-                  display: "flex",
-                  alignItems: "flex-start",
-                  gap: 12,
-                }}
-              >
-                <Icon size={18} color="var(--indigo)" style={{ flexShrink: 0, marginTop: 2 }} />
-                <div>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: 13,
-                      fontWeight: 700,
-                      color: "#FFFFFF",
-                      marginBottom: 4,
-                    }}
-                  >
-                    {title}
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: 12,
-                      color: "rgba(255,255,255,0.45)",
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    {text}
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: 11,
-                      color: "rgba(255,255,255,0.35)",
-                      fontStyle: "italic",
-                      borderTop: "1px solid rgba(255,255,255,0.06)",
-                      marginTop: 10,
-                      paddingTop: 10,
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    En pratique : {practical}
-                  </div>
-                </div>
-              </div>
-            ))}
+          <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 28 }}>
+            <div
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 13,
+                color: "var(--text-muted)",
+                lineHeight: 1.6,
+              }}
+            >
+              À partir de 50€/mois, sans engagement, résiliable à tout moment.{" "}
+              <Link to="/tarifs" style={textLink}>
+                Voir les tarifs →
+              </Link>
+            </div>
+            <div
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 12,
+                color: "var(--text-muted)",
+                opacity: 0.75,
+                lineHeight: 1.6,
+              }}
+            >
+              Un départ non anticipé coûte en moyenne 22 500€. (Deloitte, 2024){" "}
+              <Link to="/estimer-cout" style={{ ...textLink, fontSize: 12 }}>
+                Estimer le coût pour mon équipe →
+              </Link>
+            </div>
           </div>
 
-          <button
-            className="fade-up fade-up-delay-3"
-            {...TALLY}
-            style={{
-              width: "100%",
-              maxWidth: 400,
-              padding: 16,
-              borderRadius: 8,
-              fontSize: 16,
-              fontWeight: 700,
-              background: "var(--indigo)",
-              color: "#FFFFFF",
-              border: "none",
-              cursor: "pointer",
-              fontFamily: "var(--font-sans)",
-              margin: "32px auto 0",
-              display: "block",
-            }}
-          >
+          <button {...TALLY} style={ctaStyle}>
             Accéder au lancement →
           </button>
         </div>
       </section>
 
-      {/* 4. MINI-FAQ */}
-      <section
-        className="fade-up"
-        style={{
-          background: "var(--bg-card)",
-          padding: "56px 5%",
-        }}
-      >
+      {/* 7. FAQ */}
+      <section className="fade-up" style={{ background: "var(--bg-card)", padding: "56px 5%" }}>
         <div style={{ maxWidth: 640, margin: "0 auto" }}>
           <h2
-            className="fade-up"
             style={{
               fontFamily: "var(--font-display)",
               fontSize: 28,
               color: "var(--midnight)",
               textAlign: "center",
-              marginBottom: 32,
               margin: "0 0 32px",
             }}
           >
             Les questions que vous vous posez.
           </h2>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 10,
-            }}
-          >
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {faqItems.map((item, idx) => (
               <AccordionItem key={idx} item={item} index={idx} />
             ))}
@@ -583,102 +520,10 @@ function BienvenuePage() {
         </div>
       </section>
 
-      {/* 5. CTA FINAL */}
-      <section
-        className="fade-up"
-        style={{
-          background: "var(--bg-main)",
-          padding: "72px 5%",
-          textAlign: "center",
-        }}
-      >
-        <div style={{ maxWidth: 560, margin: "0 auto" }}>
-          <h2
-            className="fade-up"
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: 36,
-              color: "var(--midnight)",
-              letterSpacing: "-0.5px",
-              marginBottom: 12,
-              margin: "0 0 12px",
-            }}
-          >
-            Rejoignez les premiers managers.
-          </h2>
-          <p
-            className="fade-up fade-up-delay-1"
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: 16,
-              color: "var(--text-muted)",
-              marginBottom: 24,
-              margin: "0 0 24px",
-              lineHeight: 1.6,
-            }}
-          >
-            HeedUp vous donnera accès en priorité dès le lancement. Aucun engagement, résiliable à tout moment.
-          </p>
-          <div
-            className="fade-up fade-up-delay-2"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 6,
-              flexWrap: "wrap",
-              marginBottom: 24,
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: 13,
-                color: "var(--text-muted)",
-              }}
-            >
-              À partir de 50€/mois · Sans engagement · Résiliable à tout moment
-            </span>
-            <Link
-              to="/tarifs"
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: 13,
-                fontWeight: 600,
-                color: "var(--indigo)",
-                textDecoration: "none",
-              }}
-            >
-              Voir les tarifs détaillés →
-            </Link>
-          </div>
-          <button
-            className="fade-up fade-up-delay-3"
-            {...TALLY}
-            style={{
-              width: "100%",
-              maxWidth: 400,
-              padding: 16,
-              borderRadius: 8,
-              fontSize: 16,
-              fontWeight: 700,
-              background: "var(--indigo)",
-              color: "#FFFFFF",
-              border: "none",
-              cursor: "pointer",
-              fontFamily: "var(--font-sans)",
-              margin: "0 auto",
-              display: "block",
-            }}
-          >
-            Accéder au lancement →
-          </button>
-        </div>
-      </section>
-
       <style>{`
         @media (max-width: 768px) {
           .bienvenue-grid-3 { grid-template-columns: 1fr !important; }
+          .heedup-nav-minimal .heedup-nav-cta { display: inline-flex !important; }
         }
       `}</style>
     </SiteLayout>
