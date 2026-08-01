@@ -465,6 +465,7 @@ function Index() {
                   textTransform: "uppercase",
                   padding: "5px 14px",
                   borderRadius: "20px",
+                  marginTop: "32px",
                   marginBottom: "16px",
                 }}
               >
