@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   IconEyeOff,
   IconClock,
@@ -9,7 +9,6 @@ import {
   IconLock,
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
-import { useTallyCount } from "@/hooks/useTallyCount";
 
 export const Route = createFileRoute("/bienvenue")({
   head: () => ({
@@ -39,44 +38,6 @@ const TALLY = {
   "data-tally-emoji-text": "👋",
   "data-tally-emoji-animation": "wave",
 } as const;
-
-const AVATARS = [
-  { initials: "AC", bg: "#2d4a6e" },
-  { initials: "SP", bg: "#5b4c8a" },
-  { initials: "JB", bg: "#1e3a5f" },
-  { initials: "CR", bg: "#374151" },
-  { initials: "TD", bg: "#4338CA" },
-  { initials: "ML", bg: "#0D1B3E" },
-];
-
-function AvatarStack() {
-  return (
-    <div style={{ display: "flex", alignItems: "center", flexDirection: "row-reverse" }}>
-      {AVATARS.map((a, i, arr) => (
-        <div
-          key={a.initials}
-          style={{
-            width: "36px",
-            height: "36px",
-            borderRadius: "50%",
-            background: a.bg,
-            border: "2px solid var(--bg-main)",
-            marginLeft: i === arr.length - 1 ? 0 : "-10px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontFamily: "var(--font-display)",
-            fontSize: "13px",
-            color: "#FFFFFF",
-            fontStyle: "italic",
-          }}
-        >
-          {a.initials}
-        </div>
-      ))}
-    </div>
-  );
-}
 
 const problems = [
   {
@@ -201,8 +162,8 @@ function AccordionItem({ item, index }: { item: { question: string; answer: stri
 }
 
 function BienvenuePage() {
-  const count = useTallyCount();
-  const navigate = useNavigate();
+  const anonymityCard = solutions.find((s) => s.title === "Anonymat architectural")!;
+  const otherSolutions = solutions.filter((s) => s.title !== "Anonymat architectural");
 
   return (
     <SiteLayout>
@@ -260,7 +221,7 @@ function BienvenuePage() {
               margin: 0,
             }}
           >
-            Ce que 400 caractères ne permettaient pas de dire : comment HeedUp vous fait voir venir un départ, avant qu'il ne soit trop tard.
+            Ce qu'une note de connexion ne permet pas de dire : comment HeedUp vous fait voir venir un départ, avant qu'il ne soit trop tard.
           </p>
 
           <button
@@ -287,7 +248,109 @@ function BienvenuePage() {
         </div>
       </section>
 
-      {/* 2. SOLUTION */}
+      {/* 2. PROBLÈME */}
+      <section
+        className="fade-up"
+        style={{
+          background: "var(--bg-card)",
+          padding: "56px 5%",
+        }}
+      >
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <h2
+            className="fade-up"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: 32,
+              color: "var(--midnight)",
+              textAlign: "center",
+              marginBottom: 8,
+              margin: "0 0 8px",
+            }}
+          >
+            Le problème n'est pas le départ.
+          </h2>
+          <p
+            className="fade-up fade-up-delay-1"
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 16,
+              color: "var(--text-muted)",
+              textAlign: "center",
+              marginBottom: 36,
+              margin: "0 0 36px",
+            }}
+          >
+            C'est de ne pas l'avoir vu venir.
+          </p>
+          <div
+            className="bienvenue-grid-3"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: 16,
+            }}
+          >
+            {problems.map(({ Icon, title, text }, idx) => (
+              <div
+                key={title}
+                className={`fade-up fade-up-delay-${idx + 1}`}
+                style={{
+                  background: "var(--bg-main)",
+                  border: "1px solid rgba(67,56,202,0.10)",
+                  borderRadius: 12,
+                  padding: 22,
+                }}
+              >
+                <Icon size={20} color="var(--indigo)" style={{ marginBottom: 10 }} />
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 14,
+                    fontWeight: 700,
+                    color: "var(--midnight)",
+                    marginBottom: 6,
+                  }}
+                >
+                  {title}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 13,
+                    color: "var(--text-muted)",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {text}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div
+            className="fade-up fade-up-delay-3"
+            style={{
+              textAlign: "center",
+              marginTop: 24,
+            }}
+          >
+            <Link
+              to="/estimer-cout"
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 13,
+                fontWeight: 600,
+                color: "var(--indigo)",
+                textDecoration: "none",
+              }}
+            >
+              Estimez ce que le désengagement coûte à votre équipe →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. SOLUTION */}
       <section
         className="fade-up"
         style={{
@@ -337,18 +400,74 @@ function BienvenuePage() {
               margin: "0 0 40px",
             }}
           >
-            5 questions chaque vendredi. Un rapport d'équipe chaque lundi. Voici comment ça fonctionne.
+            Voici comment HeedUp change ça.
           </p>
+
+          {/* Anonymat architectural — pleine largeur */}
           <div
-            className="bienvenue-grid-2"
+            className="fade-up fade-up-delay-3"
+            style={{
+              background: "rgba(255,255,255,0.05)",
+              border: "1px solid rgba(255,255,255,0.08)",
+              borderRadius: 10,
+              padding: "24px 28px",
+              display: "flex",
+              alignItems: "flex-start",
+              gap: 12,
+              marginBottom: 16,
+              textAlign: "left",
+            }}
+          >
+            <anonymityCard.Icon size={18} color="var(--indigo)" style={{ flexShrink: 0, marginTop: 2 }} />
+            <div>
+              <div
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: "#FFFFFF",
+                  marginBottom: 4,
+                }}
+              >
+                {anonymityCard.title}
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: 12,
+                  color: "rgba(255,255,255,0.45)",
+                  lineHeight: 1.5,
+                }}
+              >
+                {anonymityCard.text}
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: 11,
+                  color: "rgba(255,255,255,0.35)",
+                  fontStyle: "italic",
+                  borderTop: "1px solid rgba(255,255,255,0.06)",
+                  marginTop: 10,
+                  paddingTop: 10,
+                  lineHeight: 1.5,
+                }}
+              >
+                En pratique : {anonymityCard.practical}
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="bienvenue-grid-3"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)",
+              gridTemplateColumns: "repeat(3, 1fr)",
               gap: 16,
               textAlign: "left",
             }}
           >
-            {solutions.map(({ Icon, title, text, practical }, idx) => (
+            {otherSolutions.map(({ Icon, title, text, practical }, idx) => (
               <div
                 key={title}
                 className={`fade-up fade-up-delay-${idx + 1}`}
@@ -428,190 +547,7 @@ function BienvenuePage() {
         </div>
       </section>
 
-      {/* 3. PREUVE SOCIALE */}
-      <section
-        className="fade-up"
-        style={{
-          background: "var(--bg-card)",
-          padding: "40px 5%",
-          textAlign: "center",
-        }}
-      >
-        <div
-          className="fade-up"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 12,
-            flexWrap: "wrap",
-          }}
-        >
-          <AvatarStack />
-          <div style={{ display: "flex", flexDirection: "column", textAlign: "left" }}>
-            <div
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: 14,
-                fontWeight: 700,
-                color: "var(--midnight)",
-                lineHeight: 1.3,
-              }}
-            >
-              {count} dirigeants
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: 13,
-                color: "var(--text-muted)",
-                lineHeight: 1.3,
-              }}
-            >
-              déjà sur la liste d'attente
-            </div>
-          </div>
-        </div>
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: 12,
-            color: "var(--text-muted)",
-            marginTop: 10,
-          }}
-        >
-          Lancement prévu début septembre 2026
-        </div>
-      </section>
-
-      {/* 4. PROBLÈME */}
-      <section
-        className="fade-up"
-        style={{
-          background: "var(--bg-card)",
-          padding: "56px 5%",
-        }}
-      >
-        <div style={{ maxWidth: 720, margin: "0 auto" }}>
-          <h2
-            className="fade-up"
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: 32,
-              color: "var(--midnight)",
-              textAlign: "center",
-              marginBottom: 8,
-              margin: "0 0 8px",
-            }}
-          >
-            Le problème n'est pas le départ.
-          </h2>
-          <p
-            className="fade-up fade-up-delay-1"
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: 16,
-              color: "var(--text-muted)",
-              textAlign: "center",
-              marginBottom: 36,
-              margin: "0 0 36px",
-            }}
-          >
-            C'est de ne pas l'avoir vu venir.
-          </p>
-          <div
-            className="bienvenue-grid-3"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 16,
-            }}
-          >
-            {problems.map(({ Icon, title, text }, idx) => (
-              <div
-                key={title}
-                className={`fade-up fade-up-delay-${idx + 1}`}
-                style={{
-                  background: "var(--bg-main)",
-                  border: "1px solid rgba(67,56,202,0.10)",
-                  borderRadius: 12,
-                  padding: 22,
-                }}
-              >
-                <Icon size={20} color="var(--indigo)" style={{ marginBottom: 10 }} />
-                <div
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: 14,
-                    fontWeight: 700,
-                    color: "var(--midnight)",
-                    marginBottom: 6,
-                  }}
-                >
-                  {title}
-                </div>
-                <div
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: 13,
-                    color: "var(--text-muted)",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  {text}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 5. BANDE CALCULATEUR */}
-      <section
-        className="fade-up bienvenue-calc-band"
-        style={{
-          background: "var(--indigo-pale)",
-          padding: "36px 5%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 24,
-          flexWrap: "wrap",
-          textAlign: "center",
-        }}
-      >
-        <div
-          className="fade-up"
-          style={{
-            fontFamily: "var(--font-display)",
-            fontStyle: "italic",
-            fontSize: 22,
-            color: "var(--midnight)",
-            maxWidth: 560,
-          }}
-        >
-          Avant de décider quoi que ce soit, estimez ce que le désengagement vous coûte réellement.
-        </div>
-        <button
-          className="fade-up fade-up-delay-1"
-          onClick={() => navigate({ to: "/estimer-cout" })}
-          style={{
-            background: "var(--midnight)",
-            color: "#FFFFFF",
-            padding: "12px 28px",
-            borderRadius: 8,
-            fontSize: 14,
-            fontWeight: 700,
-            border: "none",
-            cursor: "pointer",
-            fontFamily: "var(--font-sans)",
-          }}
-        >
-          Calculer mon coût →
-        </button>
-      </section>
-
-      {/* 6. MINI-FAQ */}
+      {/* 4. MINI-FAQ */}
       <section
         className="fade-up"
         style={{
@@ -647,7 +583,7 @@ function BienvenuePage() {
         </div>
       </section>
 
-      {/* 7. CTA FINAL */}
+      {/* 5. CTA FINAL */}
       <section
         className="fade-up"
         style={{
@@ -743,8 +679,6 @@ function BienvenuePage() {
       <style>{`
         @media (max-width: 768px) {
           .bienvenue-grid-3 { grid-template-columns: 1fr !important; }
-          .bienvenue-grid-2 { grid-template-columns: 1fr !important; }
-          .bienvenue-calc-band { flex-direction: column !important; gap: 16px !important; }
         }
       `}</style>
     </SiteLayout>
