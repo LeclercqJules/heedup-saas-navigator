@@ -94,12 +94,12 @@ export function Nav() {
           Accéder au lancement
         </button>
 
+        {!minimal && (
         <button
           type="button"
           aria-label="Ouvrir le menu"
           aria-expanded={open}
           className="heedup-nav-burger"
-          hidden={minimal}
           onClick={() => setOpen(true)}
           style={{
             display: "none",
@@ -116,6 +116,8 @@ export function Nav() {
           <span style={{ display: "block", height: "2px", background: "var(--midnight)", borderRadius: "2px" }} />
           <span style={{ display: "block", height: "2px", background: "var(--midnight)", borderRadius: "2px" }} />
         </button>
+        )}
+
       </div>
 
       {open && (
