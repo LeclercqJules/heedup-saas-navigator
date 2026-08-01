@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouter } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 const links = [
@@ -8,6 +8,9 @@ const links = [
 ] as const;
 
 export function Nav() {
+  const router = useRouter();
+  const minimal = router.state.location.pathname === "/bienvenue";
+  const navLinks = minimal ? [] : links;
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -41,7 +44,7 @@ export function Nav() {
         </Link>
 
         <nav className="heedup-nav-links hidden items-center md:flex" style={{ gap: "40px" }}>
-          {links.map((l) => (
+          {navLinks.map((l) => (
             <Link
               key={l.to}
               to={l.to}
@@ -96,6 +99,7 @@ export function Nav() {
           aria-label="Ouvrir le menu"
           aria-expanded={open}
           className="heedup-nav-burger"
+          hidden={minimal}
           onClick={() => setOpen(true)}
           style={{
             display: "none",
@@ -156,7 +160,7 @@ export function Nav() {
           </div>
 
           <nav style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-            {links.map((l) => (
+            {navLinks.map((l) => (
               <Link
                 key={l.to}
                 to={l.to}
