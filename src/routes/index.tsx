@@ -538,17 +538,6 @@ function Index() {
                   Accéder au lancement →
                 </button>
 
-                <div
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "12px",
-                    color: "var(--text-muted)",
-                    textAlign: "left",
-                    marginTop: "8px",
-                  }}
-                >
-                  Lancement prévu début septembre 2026
-                </div>
 
 
                 <div
