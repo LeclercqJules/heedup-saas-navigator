@@ -492,9 +492,6 @@ function BienvenuePage() {
             </div>
           </div>
 
-          <button {...TALLY} style={ctaStyle}>
-            Accéder au lancement →
-          </button>
         </div>
       </section>
 
@@ -517,6 +514,37 @@ function BienvenuePage() {
               <AccordionItem key={idx} item={item} index={idx} />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* 8. CTA FINAL */}
+      <section className="fade-up" style={{ background: "var(--bg-main)", padding: "64px 5%", textAlign: "center" }}>
+        <div style={{ maxWidth: 560, margin: "0 auto" }}>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: 36,
+              color: "var(--midnight)",
+              letterSpacing: "-0.5px",
+              margin: "0 0 12px",
+            }}
+          >
+            Rejoignez les premiers managers.
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 16,
+              color: "var(--text-muted)",
+              lineHeight: 1.6,
+              margin: "0 0 24px",
+            }}
+          >
+            HeedUp vous donnera accès en priorité dès le lancement. Aucun engagement, résiliable à tout moment.
+          </p>
+          <button {...TALLY} style={ctaStyle}>
+            Accéder au lancement →
+          </button>
         </div>
       </section>
 

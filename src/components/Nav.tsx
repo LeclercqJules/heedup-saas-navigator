@@ -23,7 +23,7 @@ export function Nav() {
 
   return (
     <header
-      className="heedup-nav w-full"
+      className={`heedup-nav w-full${minimal ? " heedup-nav-minimal" : ""}`}
       style={{
         backgroundColor: "#FFFFFF",
         borderBottom: "3px solid var(--midnight)",
