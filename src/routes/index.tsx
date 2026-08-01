@@ -501,7 +501,7 @@ function Index() {
                   marginBottom: "32px",
                 }}
               >
-                5 questions anonymes envoyées chaque vendredi. HeedUp analyse les réponses et vous envoie, chaque lundi, ce qu'il faut faire cette semaine.
+                Zéro configuration RH. Zéro compétence technique. Actif en quelques minutes.
               </p>
 
 
@@ -538,17 +538,6 @@ function Index() {
                   Accéder au lancement →
                 </button>
 
-                <div
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "12px",
-                    color: "var(--text-muted)",
-                    textAlign: "left",
-                    marginTop: "8px",
-                  }}
-                >
-                  Lancement prévu début septembre 2026
-                </div>
 
 
                 <div
