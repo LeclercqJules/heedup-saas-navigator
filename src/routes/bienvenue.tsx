@@ -77,7 +77,7 @@ const employeeCards = [
   {
     Icon: IconMail,
     title: "2 minutes, le vendredi",
-    text: "Un email le vendredi matin. 5 questions, une échelle de 1 à 5. C'est tout.",
+    text: "Un email le vendredi matin. 5 questions notées de 1 à 5, et un champ libre facultatif.",
   },
   {
     Icon: IconDeviceLaptopOff,
@@ -91,27 +91,69 @@ const employeeCards = [
   },
 ];
 
-const anonymityPoints = [
-  "Le lien de réponse est détruit à la soumission. Il ne reste aucun moyen technique de remonter à une personne.",
-  "Aucun rapport n'est généré en dessous de 5 réponses. Sur une petite équipe, un chiffre isolé serait identifiable.",
-  "Aucune donnée ne quitte l'Union européenne. Hébergement à Paris, aucun sous-traitant américain.",
+const anonymityCards = [
+  {
+    title: "Un token, pas une identité",
+    text: "Chaque réponse est associée à un token aléatoire non traçable, régénéré chaque semaine. Aucune donnée nominative n'est collectée côté salarié.",
+  },
+  {
+    title: "Aucun rapport sous 5 réponses",
+    text: "Sur une petite équipe, un chiffre isolé serait identifiable. En dessous du seuil, rien n'est généré : ni scores, ni synthèse.",
+  },
+  {
+    title: "Rien ne quitte l'Europe",
+    text: "Hébergement en France, région Paris. Réponses conservées 12 mois glissants, puis supprimées.",
+  },
 ];
+
+const dimensions = [
+  {
+    num: "01",
+    title: "Charge de travail",
+    text: "Le rythme est-il tenable dans la durée ? Premier facteur de burnout, et le plus simple à corriger : on redistribue.",
+  },
+  {
+    num: "02",
+    title: "Reconnaissance",
+    text: "Le levier le plus sous-investi par les managers, et le plus rapide à activer. La fenêtre de sept jours a un sens naturel ici.",
+  },
+  {
+    num: "03",
+    title: "Clarté",
+    text: "Chacun sait-il ce qu'on attend de lui ? Quand ce score chute, c'est presque toujours un problème de communication, pas d'organisation.",
+  },
+  {
+    num: "04",
+    title: "Soutien",
+    text: "Peut-on demander de l'aide sans crainte ? C'est ce qui distingue un problème de manager d'un problème collectif.",
+  },
+  {
+    num: "05",
+    title: "Sens",
+    text: "Le signal le plus prédictif de l'intention de rester. Il bouge en premier quand quelqu'un commence à regarder ailleurs.",
+  },
+];
+
+const trustBadges = ["RGPD natif", "Hébergé en France", "Réponses anonymes", "Actif en 10 minutes"];
 
 const steps = [
   {
     num: "01",
-    text: "Vous importez les emails de votre équipe (CSV)",
-    detail: "Un fichier, pas d'intégration SIRH.",
+    hook: "Vous importez un CSV",
+    text: "Les emails de votre équipe, en une fois.",
+    badge: "10 minutes",
   },
   {
     num: "02",
-    text: "HeedUp envoie le premier questionnaire le vendredi suivant",
-    detail: "Automatiquement, chaque semaine, sans que vous y pensiez.",
+    hook: "Le vendredi part tout seul",
+    text: "HeedUp envoie le premier questionnaire le vendredi suivant, puis chaque semaine automatiquement.",
+    badge: "Automatique",
   },
   {
     num: "03",
-    text: "Votre premier rapport arrive le lundi matin",
-    detail: "Dans votre boîte mail, avant votre première réunion.",
+    hook: "Le rapport arrive lundi",
+    text: "Dans votre boîte mail, avant votre première réunion de la semaine.",
+    badge: "Lecture 30 secondes",
   },
 ];
 
@@ -144,7 +186,7 @@ const faqItems = [
   {
     question: "Puis-je personnaliser les questions ?",
     answer:
-      "Non, et c'est délibéré. Les questions sont fixes pour que les scores restent comparables d'une semaine à l'autre. C'est cette stabilité qui rend une variation lisible.",
+      "Non, et c'est volontaire. Les 5 questions sont identiques chaque semaine : c'est ce qui rend les courbes lisibles et les comparaisons possibles d'une semaine sur l'autre. Des questions qui changent donneraient une photo ponctuelle, pas une tendance. Le champ libre facultatif est là pour tout ce qui sort du cadre.",
   },
 ];
 
