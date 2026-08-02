@@ -1,4 +1,4 @@
-import { Link, useRouter } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 const links = [
@@ -8,9 +8,8 @@ const links = [
 ] as const;
 
 export function Nav() {
-  const router = useRouter();
-  const minimal = router.state.location.pathname === "/bienvenue";
-  const navLinks = minimal ? [] : links;
+  const minimal = false;
+  const navLinks = links;
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
