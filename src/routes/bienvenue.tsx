@@ -491,10 +491,10 @@ function BienvenuePage() {
       </section>
 
 
-      {/* 2. CE QUE VIVENT VOS SALARIÉS */}
-      <section className="fade-up" style={{ background: "var(--bg-card)", padding: "40px 5%" }}>
+      {/* 3. DU CÔTÉ DE VOS SALARIÉS */}
+      <section className="fade-up" style={{ background: "var(--bg-main)", padding: "40px 5%" }}>
         <div style={{ maxWidth: 1040, margin: "0 auto" }}>
-          <h2 style={sectionTitle}>Ce que vivent vos salariés.</h2>
+          <h2 style={sectionTitle}>Du côté de vos salariés.</h2>
           <div
             className="bienvenue-grid-3"
             style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}
@@ -529,82 +529,83 @@ function BienvenuePage() {
         </div>
       </section>
 
-      {/* 3. ANONYMAT */}
+      {/* 4. ANONYMAT */}
       <section className="fade-up" style={{ background: "var(--midnight)", padding: "40px 5%" }}>
-        <div
-          className="bienvenue-grid-2"
-          style={{
-            maxWidth: 1040,
-            margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 40,
-            alignItems: "start",
-            textAlign: "left",
-          }}
-        >
-          <div>
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: 30,
-                color: "#FFFFFF",
-                margin: "0 0 16px",
-                lineHeight: 1.25,
-              }}
-            >
-              L'anonymat est dans le code, pas dans la charte.
-            </h2>
-            <p
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: 15,
-                color: "rgba(255,255,255,0.55)",
-                lineHeight: 1.7,
-                margin: "0 0 18px",
-              }}
-            >
-              Les réponses sont structurellement détachées de l'identité au niveau de la base de données. Ce n'est pas
-              un paramètre que quelqu'un peut désactiver, pas même moi. C'est ce qui rend les réponses honnêtes, pas
-              juste récoltées.
-            </p>
+        <div style={{ maxWidth: 1040, margin: "0 auto", textAlign: "center" }}>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: 30,
+              color: "#FFFFFF",
+              margin: "0 0 14px",
+              lineHeight: 1.25,
+            }}
+          >
+            L'anonymat est dans le code, pas dans la charte.
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 15,
+              color: "rgba(255,255,255,0.6)",
+              lineHeight: 1.7,
+              maxWidth: 660,
+              margin: "0 auto 26px",
+            }}
+          >
+            La plupart des outils promettent l'anonymat par engagement : ils choisissent de ne pas regarder. Chez
+            HeedUp, la réponse n'est reliée à aucune identité dans la base. Même nous ne pouvons pas savoir qui a
+            répondu quoi.
+          </p>
+
+          <div
+            className="bienvenue-grid-3"
+            style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, textAlign: "left" }}
+          >
+            {anonymityCards.map(({ title, text }, idx) => (
+              <div
+                key={title}
+                className={`fade-up fade-up-delay-${idx + 1}`}
+                style={{
+                  background: "rgba(255,255,255,0.05)",
+                  border: "1px solid rgba(255,255,255,0.14)",
+                  borderRadius: 12,
+                  padding: "18px 20px",
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 15,
+                    fontWeight: 700,
+                    color: "#FFFFFF",
+                    marginBottom: 6,
+                  }}
+                >
+                  {title}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 14,
+                    color: "rgba(255,255,255,0.72)",
+                    lineHeight: 1.65,
+                  }}
+                >
+                  {text}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ marginTop: 22 }}>
             <Link to="/confidentialite" style={{ ...textLink, color: "var(--indigo-pale)" }}>
               Comment les données sont traitées →
             </Link>
           </div>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            {anonymityPoints.map((p, idx) => (
-              <div
-                key={p}
-                className={`fade-up fade-up-delay-${idx + 1}`}
-                style={{ display: "flex", alignItems: "flex-start", gap: 12 }}
-              >
-                <span
-                  style={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: "50%",
-                    background: "var(--indigo-pale)",
-                    flexShrink: 0,
-                    marginTop: 8,
-                  }}
-                />
-                <span
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: 14,
-                    color: "rgba(255,255,255,0.75)",
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {p}
-                </span>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
+
 
       {/* 4. DÉMARRAGE */}
       <section className="fade-up" style={{ background: "var(--bg-card)", padding: "40px 5%" }}>
