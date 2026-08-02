@@ -615,16 +615,20 @@ function BienvenuePage() {
             className="bienvenue-grid-3"
             style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}
           >
-            {steps.map(({ num, text, detail }, idx) => (
-              <div key={num} className={`fade-up fade-up-delay-${idx + 1}`} style={cardStyle}>
+            {steps.map(({ num, hook, text, badge }, idx) => (
+              <div
+                key={num}
+                className={`fade-up fade-up-delay-${idx + 1}`}
+                style={{ ...cardStyle, display: "flex", flexDirection: "column" }}
+              >
                 <div
                   style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: 12,
-                    fontWeight: 700,
-                    letterSpacing: "0.9px",
+                    fontFamily: "var(--font-display)",
+                    fontSize: 40,
+                    fontWeight: 400,
                     color: "var(--indigo)",
-                    marginBottom: 8,
+                    lineHeight: 1,
+                    marginBottom: 12,
                   }}
                 >
                   {num}
@@ -632,26 +636,45 @@ function BienvenuePage() {
                 <div
                   style={{
                     fontFamily: "var(--font-sans)",
-                    fontSize: 14,
-                    color: "var(--text-primary)",
-                    lineHeight: 1.6,
+                    fontSize: 16,
+                    fontWeight: 700,
+                    color: "var(--midnight)",
+                    marginBottom: 6,
                   }}
                 >
-                  {text}
+                  {hook}
                 </div>
                 <div
                   style={{
                     fontFamily: "var(--font-sans)",
-                    fontSize: 13,
-                    color: "var(--text-muted)",
+                    fontSize: 14,
+                    color: "var(--text-primary)",
                     lineHeight: 1.6,
-                    marginTop: 6,
+                    marginBottom: 14,
                   }}
                 >
-                  {detail}
+                  {text}
                 </div>
+                <span
+                  style={{
+                    marginTop: "auto",
+                    alignSelf: "flex-start",
+                    background: "var(--indigo-pale)",
+                    color: "var(--indigo)",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 11,
+                    fontWeight: 700,
+                    letterSpacing: "0.6px",
+                    textTransform: "uppercase",
+                    padding: "5px 12px",
+                    borderRadius: 20,
+                  }}
+                >
+                  {badge}
+                </span>
               </div>
             ))}
+
           </div>
           <p
             style={{
