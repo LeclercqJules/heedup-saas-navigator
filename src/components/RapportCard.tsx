@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 
+const DIMENSIONS = [
+  { label: "Charge de travail", target: 3.6, change: "▼ 0.3", changeColor: "var(--semantic-red)" },
+  { label: "Reconnaissance", target: 3.2, change: "▼ 0.4", changeColor: "var(--semantic-red)" },
+  { label: "Clarté", target: 4.0, change: "▲ 0.2", changeColor: "var(--semantic-green)" },
+  { label: "Soutien", target: 4.1, change: "=", changeColor: "var(--text-muted)" },
+  { label: "Sens", target: 4.3, change: "▲ 0.1", changeColor: "var(--semantic-green)" },
+];
+
 export function RapportCard({ className }: { className?: string }) {
-  const [score1, setScore1] = useState("0.0");
-  const [score2, setScore2] = useState("0.0");
-  const [score3, setScore3] = useState("0.0");
+  const [scores, setScores] = useState<string[]>(() => DIMENSIONS.map(() => "0.0"));
   const [showDeltas, setShowDeltas] = useState(false);
   const [reco1, setReco1] = useState(false);
   const [reco2, setReco2] = useState(false);
@@ -15,9 +21,7 @@ export function RapportCard({ className }: { className?: string }) {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (prefersReducedMotion) {
-      setScore1("3.6");
-      setScore2("4.1");
-      setScore3("4.3");
+      setScores(DIMENSIONS.map((d) => d.target.toFixed(1)));
       setShowDeltas(true);
       setReco1(true);
       setReco2(true);
@@ -26,39 +30,42 @@ export function RapportCard({ className }: { className?: string }) {
       return;
     }
 
-    const animateScore = (target: number, setter: (v: string) => void, duration = 1000) => {
+    const setScoreAt = (index: number, value: string) =>
+      setScores((prev) => {
+        const next = [...prev];
+        next[index] = value;
+        return next;
+      });
+
+    const animateScore = (target: number, index: number, duration: number) => {
       const start = Date.now();
       const tick = () => {
         const elapsed = Date.now() - start;
         const progress = Math.min(elapsed / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 3);
-        setter((eased * target).toFixed(1));
+        setScoreAt(index, (eased * target).toFixed(1));
         if (progress < 1) requestAnimationFrame(tick);
-        else setter(target.toFixed(1));
+        else setScoreAt(index, target.toFixed(1));
       };
       requestAnimationFrame(tick);
     };
 
-    const timer = setTimeout(() => {
-      animateScore(3.6, setScore1, 1200);
-      setTimeout(() => animateScore(4.1, setScore2, 1000), 200);
-      setTimeout(() => animateScore(4.3, setScore3, 900), 400);
-    }, 400);
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    timers.push(
+      setTimeout(() => {
+        DIMENSIONS.forEach((d, i) => {
+          timers.push(setTimeout(() => animateScore(d.target, i, 1200 - i * 60), i * 150));
+        });
+      }, 400)
+    );
 
-    const deltaTimer = setTimeout(() => setShowDeltas(true), 1800);
-    const reco1Timer = setTimeout(() => setReco1(true), 2200);
-    const reco2Timer = setTimeout(() => setReco2(true), 2700);
-    const reco3Timer = setTimeout(() => setReco3(true), 3200);
-    const progressTimer = setTimeout(() => setResponseWidth("80%"), 3600);
+    timers.push(setTimeout(() => setShowDeltas(true), 1800));
+    timers.push(setTimeout(() => setReco1(true), 2200));
+    timers.push(setTimeout(() => setReco2(true), 2700));
+    timers.push(setTimeout(() => setReco3(true), 3200));
+    timers.push(setTimeout(() => setResponseWidth("80%"), 3600));
 
-    return () => {
-      clearTimeout(timer);
-      clearTimeout(deltaTimer);
-      clearTimeout(reco1Timer);
-      clearTimeout(reco2Timer);
-      clearTimeout(reco3Timer);
-      clearTimeout(progressTimer);
-    };
+    return () => timers.forEach(clearTimeout);
   }, []);
 
   return (
@@ -97,43 +104,53 @@ export function RapportCard({ className }: { className?: string }) {
         <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)" }}>Semaine 24</div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 p-5" style={{ backgroundColor: "var(--bg-main)" }}>
-        {[
-          { label: "Charge", value: score1, change: "▼ 0.3", changeColor: "var(--semantic-red)" },
-          { label: "Ambiance", value: score2, change: "▲ 0.2", changeColor: "var(--semantic-green)" },
-          { label: "Motivation", value: score3, change: "=", changeColor: "var(--text-muted)" },
-        ].map((s) => (
-          <div key={s.label} className="rounded-lg p-4 text-center" style={{ backgroundColor: "var(--bg-card)" }}>
+      <div
+        className="rapport-scores"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "10px",
+          padding: "16px",
+          backgroundColor: "var(--bg-main)",
+        }}
+      >
+        {DIMENSIONS.map((d, i) => (
+          <div
+            key={d.label}
+            className="rounded-lg text-center"
+            style={{ backgroundColor: "var(--bg-card)", padding: "10px 6px" }}
+          >
             <div
               style={{
-                fontSize: "12px",
+                fontSize: "10px",
                 color: "var(--text-muted)",
                 textTransform: "uppercase",
-                letterSpacing: "0.06em",
+                letterSpacing: "0.05em",
                 marginBottom: "4px",
+                lineHeight: 1.3,
               }}
             >
-              {s.label}
+              {d.label}
             </div>
-            <div style={{ fontSize: "26px", fontWeight: 600, color: "var(--text-primary)", lineHeight: 1 }}>
-              {s.value}
+            <div style={{ fontSize: "20px", fontWeight: 600, color: "var(--text-primary)", lineHeight: 1 }}>
+              {scores[i]}
             </div>
             <div
               style={{
-                fontSize: "12px",
-                color: s.changeColor,
-                marginTop: "4px",
+                fontSize: "11px",
+                color: d.changeColor,
+                marginTop: "3px",
                 opacity: showDeltas ? 1 : 0,
                 transition: "opacity 0.4s ease",
               }}
             >
-              {s.change}
+              {d.change}
             </div>
           </div>
         ))}
       </div>
 
-      <div className="px-6 pt-5 pb-2">
+      <div className="px-6 pt-4 pb-2">
         <div
           style={{
             fontSize: "11.5px",
@@ -153,7 +170,7 @@ export function RapportCard({ className }: { className?: string }) {
             border: "1px solid rgba(239,68,68,0.18)",
             icon: "↓",
             iconBg: "var(--semantic-red)",
-            text: "Charge en baisse 2 semaines. Organisez un point d'équipe avant vendredi.",
+            text: "Reconnaissance en baisse 2 semaines. Prenez 10 minutes pour un retour individuel à chacun avant vendredi.",
           },
           {
             shown: reco2,
@@ -161,7 +178,7 @@ export function RapportCard({ className }: { className?: string }) {
             border: "1px solid rgba(34,197,94,0.18)",
             icon: "↑",
             iconBg: "var(--semantic-green)",
-            text: "Ambiance en hausse. Bon moment pour lancer un projet à forte visibilité.",
+            text: "Clarté en hausse. Le point de lundi dernier a eu de l'effet, gardez ce format.",
           },
           {
             shown: reco3,
@@ -174,7 +191,7 @@ export function RapportCard({ className }: { className?: string }) {
         ].map((r) => (
           <div
             key={r.text}
-            className="mb-4 flex items-start gap-3 rounded-lg p-4"
+            className="mb-3 flex items-start gap-3 rounded-lg p-3"
             style={{
               backgroundColor: r.bg,
               border: r.border,
