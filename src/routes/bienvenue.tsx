@@ -312,11 +312,184 @@ function BienvenuePage() {
             <Link to="/fonctionnalites" style={textLink}>
               Voir toutes les fonctionnalités →
             </Link>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "8px 18px",
+                marginTop: 18,
+              }}
+            >
+              {trustBadges.map((b) => (
+                <span
+                  key={b}
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 12,
+                    color: "var(--text-muted)",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 5,
+                  }}
+                >
+                  <span style={{ color: "var(--indigo)" }}>✓</span>
+                  {b}
+                </span>
+              ))}
+            </div>
           </div>
 
           <RapportCard className="fade-up fade-up-delay-2" />
         </div>
       </section>
+
+      {/* 2. CE QUE HEEDUP MESURE */}
+      <section className="fade-up" style={{ background: "var(--bg-card)", padding: "40px 5%" }}>
+        <div style={{ maxWidth: 1040, margin: "0 auto" }}>
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 10,
+              fontWeight: 700,
+              letterSpacing: "0.9px",
+              textTransform: "uppercase",
+              color: "rgba(13,27,62,0.4)",
+              textAlign: "center",
+              marginBottom: 10,
+            }}
+          >
+            5 dimensions, 1 champ libre
+          </div>
+          <h2 style={{ ...sectionTitle, margin: "0 0 10px" }}>Ce que HeedUp mesure.</h2>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 15,
+              color: "var(--text-muted)",
+              textAlign: "center",
+              lineHeight: 1.6,
+              maxWidth: 520,
+              margin: "0 auto 24px",
+            }}
+          >
+            Les mêmes 5 questions chaque vendredi, notées de 1 à 5. Deux minutes.
+          </p>
+
+          <div
+            className="bienvenue-grid-3"
+            style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}
+          >
+            {dimensions.map(({ num, title, text }, idx) => (
+              <div
+                key={num}
+                className={`fade-up fade-up-delay-${(idx % 3) + 1}`}
+                style={{
+                  ...cardStyle,
+                  gridColumn: idx === 3 ? "1 / span 1" : undefined,
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 12,
+                    fontWeight: 700,
+                    letterSpacing: "0.9px",
+                    color: "var(--indigo)",
+                    marginBottom: 8,
+                  }}
+                >
+                  {num}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 15,
+                    fontWeight: 700,
+                    color: "var(--midnight)",
+                    marginBottom: 6,
+                  }}
+                >
+                  {title}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 14,
+                    color: "var(--text-primary)",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {text}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div
+            style={{
+              background: "var(--indigo-pale)",
+              border: "1px solid rgba(67,56,202,0.15)",
+              borderRadius: 12,
+              padding: "22px 24px",
+              marginTop: 20,
+            }}
+          >
+            <div
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 16,
+                fontWeight: 700,
+                color: "var(--midnight)",
+                marginBottom: 8,
+              }}
+            >
+              Et un champ libre, facultatif.
+            </div>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 14,
+                color: "var(--text-primary)",
+                lineHeight: 1.65,
+                margin: 0,
+              }}
+            >
+              Les scores disent qu'il se passe quelque chose. Le champ libre dit quoi. Vous ne recevez jamais les
+              messages, ni cités, ni reformulés : uniquement une synthèse des thèmes qui reviennent dans l'ensemble des
+              retours.
+            </p>
+          </div>
+
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 13,
+              color: "var(--text-muted)",
+              textAlign: "center",
+              lineHeight: 1.7,
+              maxWidth: 600,
+              margin: "20px auto 0",
+            }}
+          >
+            Les 5 scores sont affichés séparément, avec leur évolution. Vous savez quel levier tirer, pas seulement que
+            quelque chose ne va pas.
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 13,
+              color: "var(--text-muted)",
+              textAlign: "center",
+              lineHeight: 1.7,
+              maxWidth: 600,
+              margin: "8px auto 0",
+            }}
+          >
+            Un score isolé ne veut rien dire. C'est la répétition hebdomadaire qui fait apparaître les tendances.
+          </p>
+        </div>
+      </section>
+
 
       {/* 2. CE QUE VIVENT VOS SALARIÉS */}
       <section className="fade-up" style={{ background: "var(--bg-card)", padding: "40px 5%" }}>
