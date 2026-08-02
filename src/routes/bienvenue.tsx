@@ -376,16 +376,16 @@ function BienvenuePage() {
           </p>
 
           <div
-            className="bienvenue-grid-3"
-            style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}
+            className="bienvenue-grid-dim"
+            style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 16 }}
           >
             {dimensions.map(({ num, title, text }, idx) => (
               <div
                 key={num}
-                className={`fade-up fade-up-delay-${(idx % 3) + 1}`}
+                className={`dim-card fade-up fade-up-delay-${(idx % 3) + 1}`}
                 style={{
                   ...cardStyle,
-                  gridColumn: idx === 3 ? "1 / span 1" : undefined,
+                  gridColumn: idx === 3 ? "2 / span 2" : "span 2",
                 }}
               >
                 <div
@@ -723,6 +723,19 @@ function BienvenuePage() {
             textAlign: "center",
           }}
         >
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 17,
+              color: "var(--text-primary)",
+              lineHeight: 1.6,
+              maxWidth: 480,
+              margin: "0 auto 18px",
+            }}
+          >
+            Un désengagement repéré tôt se règle en une conversation de quinze minutes. Repéré trop tard, il se règle
+            en recrutant.
+          </p>
           <h2
             style={{
               fontFamily: "var(--font-display)",
@@ -839,6 +852,8 @@ function BienvenuePage() {
       <style>{`
         @media (max-width: 768px) {
           .bienvenue-grid-3 { grid-template-columns: 1fr !important; }
+          .bienvenue-grid-dim { grid-template-columns: 1fr !important; }
+          .dim-card { grid-column: auto !important; }
           .bienvenue-grid-2 { grid-template-columns: 1fr !important; }
           .bienvenue-hero { grid-template-columns: 1fr !important; gap: 32px !important; }
           .heedup-nav-minimal .heedup-nav-cta { display: inline-flex !important; }
