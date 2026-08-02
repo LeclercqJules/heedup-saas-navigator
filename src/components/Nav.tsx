@@ -1,4 +1,4 @@
-import { Link, useRouter } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 const links = [
@@ -8,9 +8,7 @@ const links = [
 ] as const;
 
 export function Nav() {
-  const router = useRouter();
-  const minimal = router.state.location.pathname === "/bienvenue";
-  const navLinks = minimal ? [] : links;
+  const navLinks = links;
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -23,7 +21,7 @@ export function Nav() {
 
   return (
     <header
-      className={`heedup-nav w-full${minimal ? " heedup-nav-minimal" : ""}`}
+      className="heedup-nav w-full"
       style={{
         backgroundColor: "#FFFFFF",
         borderBottom: "3px solid var(--midnight)",
@@ -94,7 +92,6 @@ export function Nav() {
           Accéder au lancement
         </button>
 
-        {!minimal && (
         <button
           type="button"
           aria-label="Ouvrir le menu"
@@ -116,7 +113,6 @@ export function Nav() {
           <span style={{ display: "block", height: "2px", background: "var(--midnight)", borderRadius: "2px" }} />
           <span style={{ display: "block", height: "2px", background: "var(--midnight)", borderRadius: "2px" }} />
         </button>
-        )}
 
       </div>
 

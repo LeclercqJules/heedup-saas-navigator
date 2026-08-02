@@ -77,7 +77,7 @@ const employeeCards = [
   {
     Icon: IconMail,
     title: "2 minutes, le vendredi",
-    text: "Un email le vendredi matin. 5 questions, une échelle de 1 à 5. C'est tout.",
+    text: "Un email le vendredi matin. 5 questions notées de 1 à 5, et un champ libre facultatif.",
   },
   {
     Icon: IconDeviceLaptopOff,
@@ -91,27 +91,69 @@ const employeeCards = [
   },
 ];
 
-const anonymityPoints = [
-  "Le lien de réponse est détruit à la soumission. Il ne reste aucun moyen technique de remonter à une personne.",
-  "Aucun rapport n'est généré en dessous de 5 réponses. Sur une petite équipe, un chiffre isolé serait identifiable.",
-  "Aucune donnée ne quitte l'Union européenne. Hébergement à Paris, aucun sous-traitant américain.",
+const anonymityCards = [
+  {
+    title: "Un token, pas une identité",
+    text: "Chaque réponse est associée à un token aléatoire non traçable, régénéré chaque semaine. Aucune donnée nominative n'est collectée côté salarié.",
+  },
+  {
+    title: "Aucun rapport sous 5 réponses",
+    text: "Sur une petite équipe, un chiffre isolé serait identifiable. En dessous du seuil, rien n'est généré : ni scores, ni synthèse.",
+  },
+  {
+    title: "Rien ne quitte l'Europe",
+    text: "Hébergement en France, région Paris. Réponses conservées 12 mois glissants, puis supprimées.",
+  },
 ];
+
+const dimensions = [
+  {
+    num: "01",
+    title: "Charge de travail",
+    text: "Le rythme est-il tenable dans la durée ? Premier facteur de burnout, et le plus simple à corriger : on redistribue.",
+  },
+  {
+    num: "02",
+    title: "Reconnaissance",
+    text: "Le levier le plus sous-investi par les managers, et le plus rapide à activer. La fenêtre de sept jours a un sens naturel ici.",
+  },
+  {
+    num: "03",
+    title: "Clarté",
+    text: "Chacun sait-il ce qu'on attend de lui ? Quand ce score chute, c'est presque toujours un problème de communication, pas d'organisation.",
+  },
+  {
+    num: "04",
+    title: "Soutien",
+    text: "Peut-on demander de l'aide sans crainte ? C'est ce qui distingue un problème de manager d'un problème collectif.",
+  },
+  {
+    num: "05",
+    title: "Sens",
+    text: "Le signal le plus prédictif de l'intention de rester. Il bouge en premier quand quelqu'un commence à regarder ailleurs.",
+  },
+];
+
+const trustBadges = ["RGPD natif", "Hébergé en France", "Réponses anonymes", "Actif en 10 minutes"];
 
 const steps = [
   {
     num: "01",
-    text: "Vous importez les emails de votre équipe (CSV)",
-    detail: "Un fichier, pas d'intégration SIRH.",
+    hook: "Vous importez un CSV",
+    text: "Les emails de votre équipe, en une fois.",
+    badge: "10 minutes",
   },
   {
     num: "02",
-    text: "HeedUp envoie le premier questionnaire le vendredi suivant",
-    detail: "Automatiquement, chaque semaine, sans que vous y pensiez.",
+    hook: "Le vendredi part tout seul",
+    text: "HeedUp envoie le premier questionnaire le vendredi suivant, puis chaque semaine automatiquement.",
+    badge: "Automatique",
   },
   {
     num: "03",
-    text: "Votre premier rapport arrive le lundi matin",
-    detail: "Dans votre boîte mail, avant votre première réunion.",
+    hook: "Le rapport arrive lundi",
+    text: "Dans votre boîte mail, avant votre première réunion de la semaine.",
+    badge: "Lecture 30 secondes",
   },
 ];
 
@@ -144,7 +186,7 @@ const faqItems = [
   {
     question: "Puis-je personnaliser les questions ?",
     answer:
-      "Non, et c'est délibéré. Les questions sont fixes pour que les scores restent comparables d'une semaine à l'autre. C'est cette stabilité qui rend une variation lisible.",
+      "Non, et c'est volontaire. Les 5 questions sont identiques chaque semaine : c'est ce qui rend les courbes lisibles et les comparaisons possibles d'une semaine sur l'autre. Des questions qui changent donneraient une photo ponctuelle, pas une tendance. Le champ libre facultatif est là pour tout ce qui sort du cadre.",
   },
 ];
 
@@ -270,16 +312,189 @@ function BienvenuePage() {
             <Link to="/fonctionnalites" style={textLink}>
               Voir toutes les fonctionnalités →
             </Link>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "8px 18px",
+                marginTop: 18,
+              }}
+            >
+              {trustBadges.map((b) => (
+                <span
+                  key={b}
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 12,
+                    color: "var(--text-muted)",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 5,
+                  }}
+                >
+                  <span style={{ color: "var(--indigo)" }}>✓</span>
+                  {b}
+                </span>
+              ))}
+            </div>
           </div>
 
           <RapportCard className="fade-up fade-up-delay-2" />
         </div>
       </section>
 
-      {/* 2. CE QUE VIVENT VOS SALARIÉS */}
+      {/* 2. CE QUE HEEDUP MESURE */}
       <section className="fade-up" style={{ background: "var(--bg-card)", padding: "40px 5%" }}>
         <div style={{ maxWidth: 1040, margin: "0 auto" }}>
-          <h2 style={sectionTitle}>Ce que vivent vos salariés.</h2>
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 10,
+              fontWeight: 700,
+              letterSpacing: "0.9px",
+              textTransform: "uppercase",
+              color: "rgba(13,27,62,0.4)",
+              textAlign: "center",
+              marginBottom: 10,
+            }}
+          >
+            5 dimensions, 1 champ libre
+          </div>
+          <h2 style={{ ...sectionTitle, margin: "0 0 10px" }}>Ce que HeedUp mesure.</h2>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 15,
+              color: "var(--text-muted)",
+              textAlign: "center",
+              lineHeight: 1.6,
+              maxWidth: 520,
+              margin: "0 auto 24px",
+            }}
+          >
+            Les mêmes 5 questions chaque vendredi, notées de 1 à 5. Deux minutes.
+          </p>
+
+          <div
+            className="bienvenue-grid-dim"
+            style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 16 }}
+          >
+            {dimensions.map(({ num, title, text }, idx) => (
+              <div
+                key={num}
+                className={`dim-card fade-up fade-up-delay-${(idx % 3) + 1}`}
+                style={{
+                  ...cardStyle,
+                  gridColumn: idx === 3 ? "2 / span 2" : "span 2",
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 12,
+                    fontWeight: 700,
+                    letterSpacing: "0.9px",
+                    color: "var(--indigo)",
+                    marginBottom: 8,
+                  }}
+                >
+                  {num}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 15,
+                    fontWeight: 700,
+                    color: "var(--midnight)",
+                    marginBottom: 6,
+                  }}
+                >
+                  {title}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 14,
+                    color: "var(--text-primary)",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {text}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div
+            style={{
+              background: "var(--indigo-pale)",
+              border: "1px solid rgba(67,56,202,0.15)",
+              borderRadius: 12,
+              padding: "22px 24px",
+              marginTop: 20,
+            }}
+          >
+            <div
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 16,
+                fontWeight: 700,
+                color: "var(--midnight)",
+                marginBottom: 8,
+              }}
+            >
+              Et un champ libre, facultatif.
+            </div>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 14,
+                color: "var(--text-primary)",
+                lineHeight: 1.65,
+                margin: 0,
+              }}
+            >
+              Les scores disent qu'il se passe quelque chose. Le champ libre dit quoi. Vous ne recevez jamais les
+              messages, ni cités, ni reformulés : uniquement une synthèse des thèmes qui reviennent dans l'ensemble des
+              retours.
+            </p>
+          </div>
+
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 13,
+              color: "var(--text-muted)",
+              textAlign: "center",
+              lineHeight: 1.7,
+              maxWidth: 600,
+              margin: "20px auto 0",
+            }}
+          >
+            Les 5 scores sont affichés séparément, avec leur évolution. Vous savez quel levier tirer, pas seulement que
+            quelque chose ne va pas.
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 13,
+              color: "var(--text-muted)",
+              textAlign: "center",
+              lineHeight: 1.7,
+              maxWidth: 600,
+              margin: "8px auto 0",
+            }}
+          >
+            Un score isolé ne veut rien dire. C'est la répétition hebdomadaire qui fait apparaître les tendances.
+          </p>
+        </div>
+      </section>
+
+
+      {/* 3. DU CÔTÉ DE VOS SALARIÉS */}
+      <section className="fade-up" style={{ background: "var(--bg-main)", padding: "40px 5%" }}>
+        <div style={{ maxWidth: 1040, margin: "0 auto" }}>
+          <h2 style={sectionTitle}>Du côté de vos salariés.</h2>
           <div
             className="bienvenue-grid-3"
             style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}
@@ -314,82 +529,83 @@ function BienvenuePage() {
         </div>
       </section>
 
-      {/* 3. ANONYMAT */}
+      {/* 4. ANONYMAT */}
       <section className="fade-up" style={{ background: "var(--midnight)", padding: "40px 5%" }}>
-        <div
-          className="bienvenue-grid-2"
-          style={{
-            maxWidth: 1040,
-            margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 40,
-            alignItems: "start",
-            textAlign: "left",
-          }}
-        >
-          <div>
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: 30,
-                color: "#FFFFFF",
-                margin: "0 0 16px",
-                lineHeight: 1.25,
-              }}
-            >
-              L'anonymat est dans le code, pas dans la charte.
-            </h2>
-            <p
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: 15,
-                color: "rgba(255,255,255,0.55)",
-                lineHeight: 1.7,
-                margin: "0 0 18px",
-              }}
-            >
-              Les réponses sont structurellement détachées de l'identité au niveau de la base de données. Ce n'est pas
-              un paramètre que quelqu'un peut désactiver, pas même moi. C'est ce qui rend les réponses honnêtes, pas
-              juste récoltées.
-            </p>
+        <div style={{ maxWidth: 1040, margin: "0 auto", textAlign: "center" }}>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: 30,
+              color: "#FFFFFF",
+              margin: "0 0 14px",
+              lineHeight: 1.25,
+            }}
+          >
+            L'anonymat est dans le code, pas dans la charte.
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 15,
+              color: "rgba(255,255,255,0.6)",
+              lineHeight: 1.7,
+              maxWidth: 660,
+              margin: "0 auto 26px",
+            }}
+          >
+            La plupart des outils promettent l'anonymat par engagement : ils choisissent de ne pas regarder. Chez
+            HeedUp, la réponse n'est reliée à aucune identité dans la base. Même nous ne pouvons pas savoir qui a
+            répondu quoi.
+          </p>
+
+          <div
+            className="bienvenue-grid-3"
+            style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, textAlign: "left" }}
+          >
+            {anonymityCards.map(({ title, text }, idx) => (
+              <div
+                key={title}
+                className={`fade-up fade-up-delay-${idx + 1}`}
+                style={{
+                  background: "rgba(255,255,255,0.05)",
+                  border: "1px solid rgba(255,255,255,0.14)",
+                  borderRadius: 12,
+                  padding: "18px 20px",
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 15,
+                    fontWeight: 700,
+                    color: "#FFFFFF",
+                    marginBottom: 6,
+                  }}
+                >
+                  {title}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 14,
+                    color: "rgba(255,255,255,0.72)",
+                    lineHeight: 1.65,
+                  }}
+                >
+                  {text}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ marginTop: 22 }}>
             <Link to="/confidentialite" style={{ ...textLink, color: "var(--indigo-pale)" }}>
               Comment les données sont traitées →
             </Link>
           </div>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            {anonymityPoints.map((p, idx) => (
-              <div
-                key={p}
-                className={`fade-up fade-up-delay-${idx + 1}`}
-                style={{ display: "flex", alignItems: "flex-start", gap: 12 }}
-              >
-                <span
-                  style={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: "50%",
-                    background: "var(--indigo-pale)",
-                    flexShrink: 0,
-                    marginTop: 8,
-                  }}
-                />
-                <span
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: 14,
-                    color: "rgba(255,255,255,0.75)",
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {p}
-                </span>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
+
 
       {/* 4. DÉMARRAGE */}
       <section className="fade-up" style={{ background: "var(--bg-card)", padding: "40px 5%" }}>
@@ -399,16 +615,20 @@ function BienvenuePage() {
             className="bienvenue-grid-3"
             style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}
           >
-            {steps.map(({ num, text, detail }, idx) => (
-              <div key={num} className={`fade-up fade-up-delay-${idx + 1}`} style={cardStyle}>
+            {steps.map(({ num, hook, text, badge }, idx) => (
+              <div
+                key={num}
+                className={`fade-up fade-up-delay-${idx + 1}`}
+                style={{ ...cardStyle, display: "flex", flexDirection: "column" }}
+              >
                 <div
                   style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: 12,
-                    fontWeight: 700,
-                    letterSpacing: "0.9px",
+                    fontFamily: "var(--font-display)",
+                    fontSize: 40,
+                    fontWeight: 400,
                     color: "var(--indigo)",
-                    marginBottom: 8,
+                    lineHeight: 1,
+                    marginBottom: 12,
                   }}
                 >
                   {num}
@@ -416,26 +636,45 @@ function BienvenuePage() {
                 <div
                   style={{
                     fontFamily: "var(--font-sans)",
-                    fontSize: 14,
-                    color: "var(--text-primary)",
-                    lineHeight: 1.6,
+                    fontSize: 16,
+                    fontWeight: 700,
+                    color: "var(--midnight)",
+                    marginBottom: 6,
                   }}
                 >
-                  {text}
+                  {hook}
                 </div>
                 <div
                   style={{
                     fontFamily: "var(--font-sans)",
-                    fontSize: 13,
-                    color: "var(--text-muted)",
+                    fontSize: 14,
+                    color: "var(--text-primary)",
                     lineHeight: 1.6,
-                    marginTop: 6,
+                    marginBottom: 14,
                   }}
                 >
-                  {detail}
+                  {text}
                 </div>
+                <span
+                  style={{
+                    marginTop: "auto",
+                    alignSelf: "flex-start",
+                    background: "var(--indigo-pale)",
+                    color: "var(--indigo)",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: 11,
+                    fontWeight: 700,
+                    letterSpacing: "0.6px",
+                    textTransform: "uppercase",
+                    padding: "5px 12px",
+                    borderRadius: 20,
+                  }}
+                >
+                  {badge}
+                </span>
               </div>
             ))}
+
           </div>
           <p
             style={{
@@ -484,6 +723,19 @@ function BienvenuePage() {
             textAlign: "center",
           }}
         >
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 17,
+              color: "var(--text-primary)",
+              lineHeight: 1.6,
+              maxWidth: 480,
+              margin: "0 auto 18px",
+            }}
+          >
+            Un désengagement repéré tôt se règle en une conversation de quinze minutes. Repéré trop tard, il se règle
+            en recrutant.
+          </p>
           <h2
             style={{
               fontFamily: "var(--font-display)",
@@ -600,6 +852,8 @@ function BienvenuePage() {
       <style>{`
         @media (max-width: 768px) {
           .bienvenue-grid-3 { grid-template-columns: 1fr !important; }
+          .bienvenue-grid-dim { grid-template-columns: 1fr !important; }
+          .dim-card { grid-column: auto !important; }
           .bienvenue-grid-2 { grid-template-columns: 1fr !important; }
           .bienvenue-hero { grid-template-columns: 1fr !important; gap: 32px !important; }
           .heedup-nav-minimal .heedup-nav-cta { display: inline-flex !important; }
