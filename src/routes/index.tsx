@@ -167,6 +167,8 @@ function Index() {
   const [score1, setScore1] = useState("0.0");
   const [score2, setScore2] = useState("0.0");
   const [score3, setScore3] = useState("0.0");
+  const [score4, setScore4] = useState("0.0");
+  const [score5, setScore5] = useState("0.0");
   const [showDeltas, setShowDeltas] = useState(false);
   const [reco1, setReco1] = useState(false);
   const [reco2, setReco2] = useState(false);
@@ -179,8 +181,10 @@ function Index() {
 
     if (prefersReducedMotion) {
       setScore1("3.6");
-      setScore2("4.1");
-      setScore3("4.3");
+      setScore2("3.2");
+      setScore3("4.0");
+      setScore4("4.1");
+      setScore5("4.3");
       setShowDeltas(true);
       setReco1(true);
       setReco2(true);
@@ -208,8 +212,10 @@ function Index() {
 
     const timer = setTimeout(() => {
       animateScore(3.6, setScore1, 1200);
-      setTimeout(() => animateScore(4.1, setScore2, 1000), 200);
-      setTimeout(() => animateScore(4.3, setScore3, 900), 400);
+      setTimeout(() => animateScore(3.2, setScore2, 1100), 150);
+      setTimeout(() => animateScore(4.0, setScore3, 1000), 300);
+      setTimeout(() => animateScore(4.1, setScore4, 950), 450);
+      setTimeout(() => animateScore(4.3, setScore5, 900), 600);
     }, 800);
 
     const deltaTimer = setTimeout(() => setShowDeltas(true), 2200);
@@ -253,7 +259,7 @@ function Index() {
     },
     {
       q: "Que reçoit exactement le manager chaque lundi ?",
-      a: "Un email avec votre Rapport d'équipe : 3 scores agrégés (charge, ambiance, motivation), le delta par rapport à la semaine précédente, le taux de réponse, et 2 à 3 recommandations managériales concrètes générées par IA. Vous comprenez l'état de votre équipe en moins de 2 minutes.",
+      a: "Un email avec votre Rapport d'équipe : 5 scores affichés séparément (charge de travail, reconnaissance, clarté, soutien, sens), le delta par rapport à la semaine précédente, le taux de réponse, et 2 à 3 recommandations managériales concrètes générées par IA. Vous comprenez l'état de votre équipe en moins de 2 minutes.",
       b: "Rapport d'équipe",
     },
     {
@@ -286,12 +292,12 @@ function Index() {
     },
     {
       q: "Puis-je personnaliser les questions ?",
-      a: "Dans la V1, les 5 questions sont fixes et ancrées sur le modèle Gallup Q12, validé scientifiquement sur des milliers d'équipes. Elles couvrent charge, ambiance, motivation, clarté des missions et relation au travail. La personnalisation est prévue dans les prochaines versions.",
-      b: "Gallup Q12",
+      a: "Non, et c'est volontaire. Les 5 questions sont identiques chaque semaine : c'est ce qui rend les courbes lisibles et les comparaisons possibles d'une semaine sur l'autre. Elles couvrent la charge de travail, la reconnaissance, la clarté, le soutien et le sens. Un champ libre facultatif est là pour tout ce qui sort du cadre.",
+      b: "identiques chaque semaine",
     },
     {
       q: "Où sont hébergées les données de mes employés ?",
-      a: "En France. HeedUp utilise Supabase sur la région Paris (eu-west-3), ce qui garantit que vos données ne quittent pas le territoire français. HeedUp fournit un DPA contractualisé à la signature et un registre de traitement sur demande. Conforme RGPD par conception.",
+      a: "En France. HeedUp utilise Supabase sur la région Paris (eu-west-3), ce qui garantit que vos données ne quittent pas le territoire français. La documentation RGPD, dont le DPA et le registre de traitement, est disponible sur demande. Conforme RGPD par conception.",
       b: "En France",
     },
   ];
@@ -647,35 +653,38 @@ function Index() {
                 </div>
               </div>
 
-              {/* 3 scores */}
+              {/* 5 dimensions */}
               <div
-                className="grid grid-cols-3 gap-4 p-5"
+                className="grid grid-cols-6 gap-2.5 p-4"
                 style={{ backgroundColor: "var(--bg-main)" }}
               >
                 {[
-                  { label: "Charge", value: score1, change: "▼ 0.3", changeColor: "var(--semantic-red)" },
-                  { label: "Ambiance", value: score2, change: "▲ 0.2", changeColor: "var(--semantic-green)" },
-                  { label: "Motivation", value: score3, change: "—", changeColor: "var(--text-muted)" },
+                  { label: "Charge de travail", value: score1, change: "▼ 0.3", changeColor: "var(--semantic-red)", cls: "col-span-2" },
+                  { label: "Reconnaissance", value: score2, change: "▼ 0.4", changeColor: "var(--semantic-red)", cls: "col-span-2" },
+                  { label: "Clarté", value: score3, change: "▲ 0.2", changeColor: "var(--semantic-green)", cls: "col-span-2" },
+                  { label: "Soutien", value: score4, change: "=", changeColor: "var(--text-muted)", cls: "col-span-2 col-start-2" },
+                  { label: "Sens", value: score5, change: "▲ 0.1", changeColor: "var(--semantic-green)", cls: "col-span-2" },
                 ].map((s) => (
                   <div
                     key={s.label}
-                    className="rounded-lg p-4 text-center"
+                    className={`rounded-lg px-2 py-2.5 text-center ${s.cls}`}
                     style={{ backgroundColor: "var(--bg-card)" }}
                   >
                     <div
                       style={{
-                        fontSize: "12px",
+                        fontSize: "10px",
                         color: "var(--text-muted)",
                         textTransform: "uppercase",
-                        letterSpacing: "0.06em",
+                        letterSpacing: "0.05em",
                         marginBottom: "4px",
+                        lineHeight: 1.3,
                       }}
                     >
                       {s.label}
                     </div>
                     <div
                       style={{
-                        fontSize: "26px",
+                        fontSize: "20px",
                         fontWeight: 600,
                         color: "var(--text-primary)",
                         lineHeight: 1,
@@ -685,7 +694,7 @@ function Index() {
                     </div>
                     <div
                       style={{
-                        fontSize: "12px",
+                        fontSize: "11px",
                         color: s.changeColor,
                         marginTop: "4px",
                         opacity: showDeltas ? 1 : 0,
@@ -737,7 +746,7 @@ function Index() {
                       color: "var(--text-primary)",
                     }}
                   >
-                    Charge en baisse 2 semaines. Organisez un point d'équipe avant vendredi.
+                    Reconnaissance en baisse 2 semaines. Prenez 10 minutes pour un retour individuel à chacun avant vendredi.
                   </p>
                 </div>
                 <div
@@ -764,7 +773,7 @@ function Index() {
                       color: "var(--text-primary)",
                     }}
                   >
-                    Ambiance en hausse. Bon moment pour lancer un projet à forte visibilité.
+                    Clarté en hausse. Le point de lundi dernier a eu de l'effet, gardez ce format.
                   </p>
                 </div>
                 <div
@@ -2617,14 +2626,14 @@ function RecosVisual() {
     {
       bg: "var(--semantic-red)",
       symbol: "↓",
-      title: "Charge en baisse 2 semaines consécutives",
-      sub: "Planifiez un point collectif avant vendredi pour identifier les blocages.",
+      title: "Reconnaissance en baisse 2 semaines",
+      sub: "Prenez 10 minutes pour un retour individuel à chacun avant vendredi.",
     },
     {
       bg: "var(--semantic-green)",
       symbol: "↑",
-      title: "Ambiance en hausse",
-      sub: "Bon moment pour lancer un projet à forte visibilité.",
+      title: "Clarté en hausse",
+      sub: "Le point de lundi dernier a eu de l'effet, gardez ce format.",
     },
     {
       bg: "var(--indigo)",
