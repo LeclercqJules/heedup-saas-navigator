@@ -185,6 +185,8 @@ function Index() {
       setScore3("4.0");
       setScore4("4.1");
       setScore5("4.3");
+      setShowDeltas(true);
+      setReco1(true);
       setReco2(true);
       setReco3(true);
       setResponseWidth("80%");
