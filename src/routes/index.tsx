@@ -653,15 +653,17 @@ function Index() {
                 </div>
               </div>
 
-              {/* 3 scores */}
+              {/* 5 dimensions */}
               <div
-                className="grid grid-cols-3 gap-4 p-5"
+                className="grid grid-cols-6 gap-2.5 p-4"
                 style={{ backgroundColor: "var(--bg-main)" }}
               >
                 {[
-                  { label: "Charge", value: score1, change: "▼ 0.3", changeColor: "var(--semantic-red)" },
-                  { label: "Ambiance", value: score2, change: "▲ 0.2", changeColor: "var(--semantic-green)" },
-                  { label: "Motivation", value: score3, change: "—", changeColor: "var(--text-muted)" },
+                  { label: "Charge de travail", value: score1, change: "▼ 0.3", changeColor: "var(--semantic-red)", cls: "col-span-2" },
+                  { label: "Reconnaissance", value: score2, change: "▼ 0.4", changeColor: "var(--semantic-red)", cls: "col-span-2" },
+                  { label: "Clarté", value: score3, change: "▲ 0.2", changeColor: "var(--semantic-green)", cls: "col-span-2" },
+                  { label: "Soutien", value: score4, change: "=", changeColor: "var(--text-muted)", cls: "col-span-2 col-start-2" },
+                  { label: "Sens", value: score5, change: "▲ 0.1", changeColor: "var(--semantic-green)", cls: "col-span-2" },
                 ].map((s) => (
                   <div
                     key={s.label}
