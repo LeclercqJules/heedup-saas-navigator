@@ -29,17 +29,17 @@ const sections: { title: string; content: string }[] = [
   {
     title: "Ce que HeedUp fournit",
     content:
-      "Envoi automatique de 5 questions anonymes aux salariés chaque vendredi. Rapport d'équipe hebdomadaire chaque lundi avec scores agrégés et recommandations générées par IA. Tableau de bord présentant l'historique des scores. Support inclus dans tous les abonnements.",
+      "Envoi automatique de 5 questions anonymes aux salariés chaque vendredi, notées de 1 à 5, accompagnées d'un champ de commentaire libre facultatif. Rapport d'équipe hebdomadaire chaque lundi présentant les cinq scores séparément, leur évolution, une synthèse des thèmes issus des commentaires libres, et des recommandations générées par IA. Tableau de bord présentant l'historique des scores. Support inclus dans tous les abonnements.\n\nAucun rapport n'est généré en dessous de 5 réponses sur la semaine.",
   },
   {
     title: "Ce que HeedUp ne fournit pas",
     content:
-      "HeedUp n'est pas un outil de diagnostic médical, psychologique ou juridique. Les recommandations générées par IA sont indicatives et ne remplacent pas un conseil professionnel RH ou managérial. HeedUp ne garantit pas un résultat particulier en matière de turnover ou d'engagement.",
+      "HeedUp n'est pas un outil de diagnostic médical, psychologique ou juridique. Les recommandations générées par IA sont indicatives et ne remplacent pas un conseil professionnel RH ou managérial. HeedUp ne garantit pas un résultat particulier en matière de turnover ou d'engagement. HeedUp ne donne en aucun cas accès aux réponses ou commentaires individuels des salariés, y compris sur demande du client.",
   },
   {
     title: "Obligations de l'utilisateur",
     content:
-      "Utiliser le service dans un cadre professionnel uniquement. Informer les salariés de la mise en place des surveys avant le premier envoi. Ne pas tenter de désanonymiser les réponses individuelles. Maintenir la confidentialité de ses identifiants. Ne pas revendre ou partager l'accès au service.",
+      "Utiliser le service dans un cadre professionnel uniquement. Informer les salariés de la mise en place des questionnaires avant le premier envoi, et respecter les procédures d'information ou de consultation applicables au sein de l'entreprise. Ne pas tenter de désanonymiser les réponses individuelles. Maintenir la confidentialité de ses identifiants. Ne pas revendre ou partager l'accès au service.",
   },
   {
     title: "Tarifs",
