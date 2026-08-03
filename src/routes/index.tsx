@@ -259,7 +259,7 @@ function Index() {
     },
     {
       q: "Que reçoit exactement le manager chaque lundi ?",
-      a: "Un email avec votre Rapport d'équipe : 3 scores agrégés (charge, ambiance, motivation), le delta par rapport à la semaine précédente, le taux de réponse, et 2 à 3 recommandations managériales concrètes générées par IA. Vous comprenez l'état de votre équipe en moins de 2 minutes.",
+      a: "Un email avec votre Rapport d'équipe : 5 scores affichés séparément (charge de travail, reconnaissance, clarté, soutien, sens), le delta par rapport à la semaine précédente, le taux de réponse, et 2 à 3 recommandations managériales concrètes générées par IA. Vous comprenez l'état de votre équipe en moins de 2 minutes.",
       b: "Rapport d'équipe",
     },
     {
@@ -292,12 +292,12 @@ function Index() {
     },
     {
       q: "Puis-je personnaliser les questions ?",
-      a: "Dans la V1, les 5 questions sont fixes et ancrées sur le modèle Gallup Q12, validé scientifiquement sur des milliers d'équipes. Elles couvrent charge, ambiance, motivation, clarté des missions et relation au travail. La personnalisation est prévue dans les prochaines versions.",
-      b: "Gallup Q12",
+      a: "Non, et c'est volontaire. Les 5 questions sont identiques chaque semaine : c'est ce qui rend les courbes lisibles et les comparaisons possibles d'une semaine sur l'autre. Elles couvrent la charge de travail, la reconnaissance, la clarté, le soutien et le sens. Un champ libre facultatif est là pour tout ce qui sort du cadre.",
+      b: "identiques chaque semaine",
     },
     {
       q: "Où sont hébergées les données de mes employés ?",
-      a: "En France. HeedUp utilise Supabase sur la région Paris (eu-west-3), ce qui garantit que vos données ne quittent pas le territoire français. HeedUp fournit un DPA contractualisé à la signature et un registre de traitement sur demande. Conforme RGPD par conception.",
+      a: "En France. HeedUp utilise Supabase sur la région Paris (eu-west-3), ce qui garantit que vos données ne quittent pas le territoire français. La documentation RGPD, dont le DPA et le registre de traitement, est disponible sur demande. Conforme RGPD par conception.",
       b: "En France",
     },
   ];
@@ -746,7 +746,7 @@ function Index() {
                       color: "var(--text-primary)",
                     }}
                   >
-                    Charge en baisse 2 semaines. Organisez un point d'équipe avant vendredi.
+                    Reconnaissance en baisse 2 semaines. Prenez 10 minutes pour un retour individuel à chacun avant vendredi.
                   </p>
                 </div>
                 <div
@@ -773,7 +773,7 @@ function Index() {
                       color: "var(--text-primary)",
                     }}
                   >
-                    Ambiance en hausse. Bon moment pour lancer un projet à forte visibilité.
+                    Clarté en hausse. Le point de lundi dernier a eu de l'effet, gardez ce format.
                   </p>
                 </div>
                 <div
@@ -2626,14 +2626,14 @@ function RecosVisual() {
     {
       bg: "var(--semantic-red)",
       symbol: "↓",
-      title: "Charge en baisse 2 semaines consécutives",
-      sub: "Planifiez un point collectif avant vendredi pour identifier les blocages.",
+      title: "Reconnaissance en baisse 2 semaines",
+      sub: "Prenez 10 minutes pour un retour individuel à chacun avant vendredi.",
     },
     {
       bg: "var(--semantic-green)",
       symbol: "↑",
-      title: "Ambiance en hausse",
-      sub: "Bon moment pour lancer un projet à forte visibilité.",
+      title: "Clarté en hausse",
+      sub: "Le point de lundi dernier a eu de l'effet, gardez ce format.",
     },
     {
       bg: "var(--indigo)",
