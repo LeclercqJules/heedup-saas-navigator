@@ -181,10 +181,10 @@ function Index() {
 
     if (prefersReducedMotion) {
       setScore1("3.6");
-      setScore2("4.1");
-      setScore3("4.3");
-      setShowDeltas(true);
-      setReco1(true);
+      setScore2("3.2");
+      setScore3("4.0");
+      setScore4("4.1");
+      setScore5("4.3");
       setReco2(true);
       setReco3(true);
       setResponseWidth("80%");
