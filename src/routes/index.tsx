@@ -212,8 +212,10 @@ function Index() {
 
     const timer = setTimeout(() => {
       animateScore(3.6, setScore1, 1200);
-      setTimeout(() => animateScore(4.1, setScore2, 1000), 200);
-      setTimeout(() => animateScore(4.3, setScore3, 900), 400);
+      setTimeout(() => animateScore(3.2, setScore2, 1100), 150);
+      setTimeout(() => animateScore(4.0, setScore3, 1000), 300);
+      setTimeout(() => animateScore(4.1, setScore4, 950), 450);
+      setTimeout(() => animateScore(4.3, setScore5, 900), 600);
     }, 800);
 
     const deltaTimer = setTimeout(() => setShowDeltas(true), 2200);
