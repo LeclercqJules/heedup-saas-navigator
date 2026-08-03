@@ -24,13 +24,13 @@ const sections: { title: string; content: string }[] = [
   {
     title: "Données collectées",
     content:
-      "Côté manager : email, nom, entreprise, taille d'équipe. Les paiements sont traités par Stripe et ne sont jamais stockés par HeedUp.\n\nCôté salarié : aucune donnée nominative. Les réponses sont associées à un token aléatoire non-traçable, régénéré chaque semaine. Il est techniquement impossible de relier une réponse à un salarié identifié.\n\nLa documentation contractuelle (DPA et registre) est disponible sur demande à contact@heedup.fr.",
+      "Côté manager : email, nom, entreprise, taille d'équipe. Les paiements sont traités par Stripe et ne sont jamais stockés par HeedUp.\n\nCôté salarié : aucune donnée nominative. Sont collectés cinq scores numériques de 1 à 5 (charge de travail, reconnaissance, clarté, soutien, sens) et, de façon facultative, un commentaire en texte libre. Ces réponses sont associées à un token aléatoire non traçable, régénéré chaque semaine. Il est techniquement impossible de relier une réponse à un salarié identifié.\n\nTraitement du commentaire libre : le texte n'est jamais transmis au manager, ni cité, ni reformulé. Il est traité automatiquement pour produire une synthèse des thèmes récurrents à l'échelle de l'équipe. Cette synthèse exclut tout nom, projet, date ou détail attribuable à une seule personne. Le manager n'a aucun moyen d'accéder à un commentaire individuel : la donnée n'est pas exposée dans l'interface.\n\nLa documentation contractuelle (DPA et registre) est disponible sur demande à contact@heedup.fr.",
   },
 
   {
     title: "Anonymat des réponses",
     content:
-      "L'anonymat est une contrainte d'architecture, pas un paramètre désactivable. Même HeedUp ne peut pas identifier l'auteur d'une réponse individuelle. En dessous de 5 répondants, aucun score n'est affiché.",
+      "L'anonymat est une contrainte d'architecture, pas un paramètre désactivable. Même HeedUp ne peut pas identifier l'auteur d'une réponse individuelle. En dessous de 5 réponses sur la semaine, aucun rapport n'est généré : ni scores, ni synthèse. Sur une petite équipe, un chiffre isolé serait identifiable.",
   },
   {
     title: "Hébergement et sécurité",
@@ -38,15 +38,21 @@ const sections: { title: string; content: string }[] = [
       "Toutes les données sont hébergées en France, sur des serveurs situés en région parisienne. Les communications sont chiffrées via HTTPS. Aucune donnée personnelle ne transite hors de l'Union Européenne.",
   },
   {
+    title: "Sous-traitants",
+    content:
+      "Les données des salariés sont hébergées en France, région Paris. Les prestataires suivants interviennent dans le fonctionnement du service :\n\nSupabase, hébergement de la base de données, région Paris.\nVercel Inc., hébergement de l'interface web.\nStripe, traitement des paiements.\nResend, envoi des emails transactionnels.\nAnthropic, génération de la synthèse des commentaires libres.\n\nLa liste complète et à jour, ainsi que le registre de traitement, sont disponibles sur demande à contact@heedup.fr.",
+  },
+  {
     title: "Durée de conservation",
     content:
-      "Réponses anonymisées : 12 mois glissants.\nDonnées managers : durée de l'abonnement plus 12 mois après résiliation.\nDonnées de facturation : 10 ans (obligation légale comptable).",
+      "Réponses anonymisées et commentaires libres : 12 mois glissants, puis suppression.\nDonnées managers : durée de l'abonnement plus 12 mois après résiliation.\nDonnées de facturation : 10 ans (obligation légale comptable).",
   },
   {
     title: "Cookies",
     content:
-      "HeedUp utilisera Plausible Analytics, un outil sans cookie et sans donnée personnelle identifiable. Aucun consentement n'est requis. Aucun autre outil de tracking n'est utilisé.",
+      "HeedUp utilise Plausible Analytics pour la mesure d'audience, un outil sans cookie et sans donnée personnelle identifiable.\n\nHeedUp utilise également Microsoft Clarity pour analyser l'ergonomie du site. Cet outil enregistre les parcours de navigation et dépose des cookies. Il ne s'applique qu'aux visiteurs du site heedup.fr et jamais aux réponses des salariés au questionnaire.\n\nVous pouvez refuser ce dépôt via les paramètres de votre navigateur.",
   },
+
   {
     title: "Vos droits",
     content:
