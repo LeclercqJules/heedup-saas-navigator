@@ -667,23 +667,24 @@ function Index() {
                 ].map((s) => (
                   <div
                     key={s.label}
-                    className="rounded-lg p-4 text-center"
+                    className={`rounded-lg px-2 py-2.5 text-center ${s.cls}`}
                     style={{ backgroundColor: "var(--bg-card)" }}
                   >
                     <div
                       style={{
-                        fontSize: "12px",
+                        fontSize: "10px",
                         color: "var(--text-muted)",
                         textTransform: "uppercase",
-                        letterSpacing: "0.06em",
+                        letterSpacing: "0.05em",
                         marginBottom: "4px",
+                        lineHeight: 1.3,
                       }}
                     >
                       {s.label}
                     </div>
                     <div
                       style={{
-                        fontSize: "26px",
+                        fontSize: "20px",
                         fontWeight: 600,
                         color: "var(--text-primary)",
                         lineHeight: 1,
@@ -693,7 +694,7 @@ function Index() {
                     </div>
                     <div
                       style={{
-                        fontSize: "12px",
+                        fontSize: "11px",
                         color: s.changeColor,
                         marginTop: "4px",
                         opacity: showDeltas ? 1 : 0,
