@@ -167,6 +167,8 @@ function Index() {
   const [score1, setScore1] = useState("0.0");
   const [score2, setScore2] = useState("0.0");
   const [score3, setScore3] = useState("0.0");
+  const [score4, setScore4] = useState("0.0");
+  const [score5, setScore5] = useState("0.0");
   const [showDeltas, setShowDeltas] = useState(false);
   const [reco1, setReco1] = useState(false);
   const [reco2, setReco2] = useState(false);
