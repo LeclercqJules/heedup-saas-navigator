@@ -35,7 +35,7 @@ export const Route = createFileRoute("/fonctionnalites")({
       {
         name: "description",
         content:
-          "Questions Gallup Q12, recommandations IA, anonymat architectural, RGPD, onboarding en 10 minutes. Chaque mécanisme expliqué.",
+          "5 questions hebdomadaires, recommandations IA, anonymat architectural, RGPD, onboarding en 10 minutes. Chaque mécanisme expliqué.",
       },
       { property: "og:title", content: "Fonctionnalités HeedUp" },
       {
@@ -53,7 +53,7 @@ export const Route = createFileRoute("/fonctionnalites")({
 type TabId = "q12" | "ai" | "anon" | "dash" | "rgpd" | "onboard";
 
 const tabs: { id: TabId; label: string; Icon: typeof Send }[] = [
-  { id: "q12", label: "Questions Gallup Q12", Icon: Send },
+  { id: "q12", label: "5 questions hebdomadaires", Icon: Send },
   { id: "ai", label: "Recommandations IA", Icon: Brain },
   { id: "anon", label: "Anonymat architectural", Icon: EyeOff },
   { id: "dash", label: "Tableau de bord", Icon: LineChart },
@@ -176,12 +176,12 @@ function VisualQ12() {
         </div>
         <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
           <span style={{ background: "#EEEEFF", color: "var(--indigo)", fontSize: "9.5px", fontWeight: 700, padding: "2px 8px", borderRadius: "4px" }}>
-            Dimension : charge perçue
+            Dimension : Charge de travail
           </span>
-          <span style={{ fontSize: "10px", color: "var(--indigo)" }}>🔒 Réponse 100% anonyme</span>
+          <span style={{ fontSize: "10px", color: "var(--indigo)" }}>🔒 Réponse anonyme</span>
         </div>
         <div style={{ fontSize: "13.5px", color: "var(--midnight)", fontWeight: 600, lineHeight: 1.4 }}>
-          Votre charge de travail est-elle gérable cette semaine ?
+          Cette semaine, ma charge de travail était à un niveau que je peux tenir dans la durée.
         </div>
         <div style={{ display: "flex", gap: "6px" }}>
           {scale.map((n) => (
@@ -266,8 +266,8 @@ function VisualAI() {
       <div style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.6px", color: "rgba(13,27,62,0.4)", fontWeight: 700, marginBottom: "4px" }}>
         3 types de recommandations
       </div>
-      <RecoCard bg="rgba(239,68,68,0.06)" border="rgba(239,68,68,0.18)" iconBg="var(--semantic-red)" symbol="!" title="Alerte signal faible" text="Charge en baisse 2 semaines consécutives. Planifiez un point collectif avant vendredi pour identifier les blocages." />
-      <RecoCard bg="rgba(34,197,94,0.06)" border="rgba(34,197,94,0.18)" iconBg="var(--semantic-green)" symbol="↑" title="Opportunité à saisir" text="Ambiance en hausse. Bon moment pour lancer un projet à forte visibilité ou impliquer l'équipe dans une décision." />
+      <RecoCard bg="rgba(239,68,68,0.06)" border="rgba(239,68,68,0.18)" iconBg="var(--semantic-red)" symbol="!" title="Reconnaissance en baisse 2 semaines" text="Prenez 10 minutes pour un retour individuel à chacun avant vendredi." />
+      <RecoCard bg="rgba(34,197,94,0.06)" border="rgba(34,197,94,0.18)" iconBg="var(--semantic-green)" symbol="↑" title="Clarté en hausse" text="Le point de lundi dernier a eu de l'effet, gardez ce format." />
       <RecoCard bg="rgba(67,56,202,0.06)" border="rgba(67,56,202,0.18)" iconBg="var(--indigo)" symbol="·" title="Détection de silence" text="2 employés n'ont pas répondu cette semaine. Le silence est aussi un signal. Envoyez un rappel discret avant vendredi." />
     </div>
   );
@@ -424,7 +424,7 @@ function VisualDashboard() {
               color: "#991b1b",
               fontWeight: 600
             }}>
-              Charge en baisse depuis 3 semaines.
+              Reconnaissance en baisse depuis 3 semaines.
               Tendance à surveiller.
             </span>
           </div>
@@ -538,9 +538,11 @@ function Panel({ visible, children }: { visible: boolean; children: React.ReactN
 
 function SpotlightCard() {
   const scores = [
-    { label: "Charge", value: "3,2", delta: "▼ 0,3", color: "#EF4444" },
-    { label: "Ambiance", value: "4,1", delta: "▲ 0,2", color: "#22C55E" },
-    { label: "Motivation", value: "3,8", delta: "—", color: "#6B7280" },
+    { label: "Charge de travail", value: "3,6", delta: "▼ 0,3", color: "#EF4444" },
+    { label: "Reconnaissance", value: "3,2", delta: "▼ 0,4", color: "#EF4444" },
+    { label: "Clarté", value: "4,0", delta: "▲ 0,2", color: "#22C55E" },
+    { label: "Soutien", value: "4,1", delta: "=", color: "#6B7280" },
+    { label: "Sens", value: "4,3", delta: "▲ 0,1", color: "#22C55E" },
   ];
   const recoBox: React.CSSProperties = {
     background: "rgba(67,56,202,0.2)",
@@ -572,12 +574,12 @@ function SpotlightCard() {
         <span style={{ marginLeft: "auto", fontSize: "11px", color: "rgba(255,255,255,0.4)" }}>Semaine 24</span>
       </div>
       <div style={{ padding: "16px 18px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "6px", marginBottom: "14px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: "5px", marginBottom: "14px" }}>
           {scores.map((s) => (
-            <div key={s.label} style={{ background: "rgba(255,255,255,0.06)", borderRadius: "7px", padding: "9px 4px", textAlign: "center" }}>
-              <div style={{ fontSize: "9.5px", fontWeight: 700, color: s.color }}>{s.delta}</div>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: "20px", color: "#FFFFFF" }}>{s.value}</div>
-              <div style={{ fontSize: "9.5px", color: "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "0.5px" }}>{s.label}</div>
+            <div key={s.label} style={{ background: "rgba(255,255,255,0.06)", borderRadius: "7px", padding: "8px 3px", textAlign: "center" }}>
+              <div style={{ fontSize: "9px", fontWeight: 700, color: s.color }}>{s.delta}</div>
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "18px", color: "#FFFFFF" }}>{s.value}</div>
+              <div style={{ fontSize: "8px", color: "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "0.3px", lineHeight: 1.2 }}>{s.label}</div>
             </div>
           ))}
         </div>
@@ -588,7 +590,7 @@ function SpotlightCard() {
         <div style={{ ...recoBox, marginBottom: "12px" }}>
           <span style={recoIcon}>!</span>
           <span style={{ fontSize: "10.5px", color: "rgba(255,255,255,0.8)", lineHeight: 1.5 }}>
-            Charge en baisse depuis 3 semaines. Ce n'est plus un accident. Planifiez un point collectif avant vendredi pour identifier les blocages structurels.
+            Reconnaissance en baisse 2 semaines. Prenez 10 minutes pour un retour individuel à chacun avant vendredi.
           </span>
         </div>
 
@@ -599,7 +601,7 @@ function SpotlightCard() {
           <div style={recoBox}>
             <span style={recoIcon}>↑</span>
             <span style={{ fontSize: "10.5px", color: "rgba(255,255,255,0.8)", lineHeight: 1.5 }}>
-              Ambiance en hausse. Bon moment pour impliquer l'équipe dans une décision ou lancer un projet visible.
+              Clarté en hausse. Le point de lundi dernier a eu de l'effet, gardez ce format.
             </span>
           </div>
           <div style={recoBox}>
@@ -696,13 +698,13 @@ function Page() {
               <span style={tagStyle}>Questions hebdomadaires</span>
               <h2 style={titleStyle}>5 questions. Pas 50.</h2>
               <p style={descStyle}>
-                Les 5 questions HeedUp sont calibrées sur les 4 dimensions du modèle Gallup Q12 adaptées aux équipes de 10 à 50 salariés : charge perçue, ambiance, motivation et clarté des missions. Elles ne changent pas d'une semaine à l'autre, ce qui permet de mesurer des tendances réelles.
+                Les 5 questions couvrent cinq dimensions retenues sur deux critères : prédictives du départ, et actionnables par un manager sans formation RH dans la semaine. Charge de travail, reconnaissance, clarté, soutien, sens. Elles ne changent pas d'une semaine à l'autre, ce qui permet de mesurer des tendances réelles.
               </p>
-              <Detail label="Pourquoi des questions fixes ?" text="Des questions identiques d'une semaine à l'autre permettent de comparer les données dans le temps. Si vous changez les questions, vous perdez la tendance. C'est le principe de base de la psychométrie appliquée." />
+              <Detail label="Pourquoi des questions fixes ?" text="Des questions identiques d'une semaine à l'autre permettent de comparer les données dans le temps. Des questions qui changent donneraient une photo ponctuelle, pas une tendance." />
               <Bullets items={[
                 "Opt-in volontaire : chaque salarié confirme sa participation avant le premier survey",
                 "Réponse sur téléphone ou ordinateur, sans compte",
-                "Taux de réponse moyen observé en bêta : 76%",
+                "Un champ libre facultatif en fin de questionnaire, jamais transmis tel quel",
                 "Vous voyez le nombre de participants, jamais leur identité",
               ]} />
             </div>
@@ -751,7 +753,7 @@ function Page() {
               <Detail label="Alerte automatique" text="Si un score passe sous 3/5 deux semaines consécutives, une alerte est générée automatiquement dans votre rapport. Vous n'avez pas à surveiller le dashboard, il vous prévient." />
               <Bullets items={[
                 "Historique consultable sur 12 semaines",
-                "Courbes de tendance par catégorie (charge, ambiance, motivation)",
+                "Courbes de tendance par dimension (charge de travail, reconnaissance, clarté, soutien, sens)",
                 "Taux de réponse semaine par semaine",
               ]} />
             </div>
@@ -810,7 +812,7 @@ function Page() {
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
               {[
-                { t: "3 scores agrégés + deltas", s: "Charge, ambiance, motivation. La variation vs la semaine précédente en rouge ou vert." },
+                { t: "5 scores affichés séparément + deltas", s: "Charge de travail, reconnaissance, clarté, soutien, sens. La variation vs la semaine précédente en rouge ou vert." },
                 { t: "Le signal prioritaire", s: "L'IA identifie le signal qui mérite votre attention cette semaine, pas une liste de tout ce qui s'est passé." },
                 { t: "2 à 3 recommandations actionnables", s: "Formulées pour un manager qui pilote seul, pas pour un DRH avec une équipe de 5 personnes." },
                 { t: "Le taux de réponse + alertes silences", s: "Si un salarié n'a pas répondu 2 semaines de suite, HeedUp vous le signale." },
