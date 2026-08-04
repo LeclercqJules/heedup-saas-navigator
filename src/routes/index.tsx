@@ -12,6 +12,7 @@ import {
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
+import { RapportCard } from "@/components/RapportCard";
 
 
 import { useTallyCount } from "@/hooks/useTallyCount";
@@ -615,227 +616,7 @@ function Index() {
             </div>
 
             {/* Colonne droite : carte */}
-            <div
-              className="heedup-hero-card hero-anim-5"
-              style={{
-                backgroundColor: "var(--bg-card)",
-                borderRadius: "12px",
-                border: "1px solid rgba(67,56,202,0.12)",
-                overflow: "hidden",
-                fontFamily: "var(--font-sans)",
-              }}
-            >
-              {/* Header */}
-              <div
-                style={{
-                  backgroundColor: "var(--midnight)",
-                  padding: "14px 22px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: "13px",
-                    color: "#FFFFFF",
-                    fontWeight: 500,
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
-                  }}
-                >
-                  <span style={{ color: "var(--indigo)" }}>●</span>
-                  Rapport d'équipe — Lundi 16 juin
-                </div>
-                <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)" }}>
-                  Semaine 24
-                </div>
-              </div>
-
-              {/* 5 dimensions */}
-              <div
-                className="grid grid-cols-6 gap-2.5 p-4"
-                style={{ backgroundColor: "var(--bg-main)" }}
-              >
-                {[
-                  { label: "Charge de travail", value: score1, change: "▼ 0.3", changeColor: "var(--semantic-red)", cls: "col-span-2" },
-                  { label: "Reconnaissance", value: score2, change: "▼ 0.4", changeColor: "var(--semantic-red)", cls: "col-span-2" },
-                  { label: "Clarté", value: score3, change: "▲ 0.2", changeColor: "var(--semantic-green)", cls: "col-span-2" },
-                  { label: "Soutien", value: score4, change: "=", changeColor: "var(--text-muted)", cls: "col-span-2 col-start-2" },
-                  { label: "Sens", value: score5, change: "▲ 0.1", changeColor: "var(--semantic-green)", cls: "col-span-2" },
-                ].map((s) => (
-                  <div
-                    key={s.label}
-                    className={`rounded-lg px-2 py-2.5 text-center ${s.cls}`}
-                    style={{ backgroundColor: "var(--bg-card)" }}
-                  >
-                    <div
-                      style={{
-                        fontSize: "10px",
-                        color: "var(--text-muted)",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.05em",
-                        marginBottom: "4px",
-                        lineHeight: 1.3,
-                      }}
-                    >
-                      {s.label}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "20px",
-                        fontWeight: 600,
-                        color: "var(--text-primary)",
-                        lineHeight: 1,
-                      }}
-                    >
-                      {s.value}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "11px",
-                        color: s.changeColor,
-                        marginTop: "4px",
-                        opacity: showDeltas ? 1 : 0,
-                        transition: "opacity 0.4s ease",
-                        willChange: "opacity",
-                      }}
-                    >
-                      {s.change}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Recommandations */}
-              <div className="px-6 pt-5 pb-2">
-                <div
-                  style={{
-                    fontSize: "11.5px",
-                    color: "var(--text-muted)",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.1em",
-                    fontWeight: 600,
-                    marginBottom: "12px",
-                  }}
-                >
-                  Recommandations IA
-                </div>
-                <div
-                  className="mb-4 flex items-start gap-3 rounded-lg p-4"
-                  style={{
-                    backgroundColor: "rgba(239,68,68,0.08)",
-                    border: "1px solid rgba(239,68,68,0.18)",
-                    opacity: reco1 ? 1 : 0,
-                    transform: reco1 ? "translateY(0)" : "translateY(8px)",
-                    transition: "opacity 0.4s ease, transform 0.4s ease",
-                    willChange: "opacity, transform",
-                  }}
-                >
-                  <div
-                    className="flex flex-shrink-0 items-center justify-center"
-                    style={{ backgroundColor: "var(--semantic-red)", width: "18px", height: "18px" }}
-                  >
-                    <span style={{ fontSize: "11px", color: "#FFFFFF" }}>↓</span>
-                  </div>
-                  <p
-                    style={{
-                      fontSize: "12px",
-                      lineHeight: 1.5,
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    Reconnaissance en baisse 2 semaines. Prenez 10 minutes pour un retour individuel à chacun avant vendredi.
-                  </p>
-                </div>
-                <div
-                  className="mb-4 flex items-start gap-3 rounded-lg p-4"
-                  style={{
-                    backgroundColor: "rgba(34,197,94,0.08)",
-                    border: "1px solid rgba(34,197,94,0.18)",
-                    opacity: reco2 ? 1 : 0,
-                    transform: reco2 ? "translateY(0)" : "translateY(8px)",
-                    transition: "opacity 0.4s ease, transform 0.4s ease",
-                    willChange: "opacity, transform",
-                  }}
-                >
-                  <div
-                    className="flex flex-shrink-0 items-center justify-center"
-                    style={{ backgroundColor: "var(--semantic-green)", width: "18px", height: "18px" }}
-                  >
-                    <span style={{ fontSize: "11px", color: "#FFFFFF" }}>↑</span>
-                  </div>
-                  <p
-                    style={{
-                      fontSize: "12px",
-                      lineHeight: 1.5,
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    Clarté en hausse. Le point de lundi dernier a eu de l'effet, gardez ce format.
-                  </p>
-                </div>
-                <div
-                  className="mb-4 flex items-start gap-3 rounded-lg p-4"
-                  style={{
-                    backgroundColor: "rgba(239,68,68,0.08)",
-                    border: "1px solid rgba(239,68,68,0.18)",
-                    opacity: reco3 ? 1 : 0,
-                    transform: reco3 ? "translateY(0)" : "translateY(8px)",
-                    transition: "opacity 0.4s ease, transform 0.4s ease",
-                    willChange: "opacity, transform",
-                  }}
-                >
-                  <div
-                    className="flex flex-shrink-0 items-center justify-center"
-                    style={{ backgroundColor: "var(--semantic-red)", width: "18px", height: "18px" }}
-                  >
-                    <span style={{ fontSize: "11px", color: "#FFFFFF" }}>!</span>
-                  </div>
-                  <p
-                    style={{
-                      fontSize: "12px",
-                      lineHeight: 1.5,
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    2 employés n'ont pas répondu cette semaine. Envoie un rappel discret avant vendredi. Le silence est aussi un signal.
-                  </p>
-                </div>
-              </div>
-
-              {/* Footer carte */}
-              <div className="px-6 pb-6 pt-3">
-                <div
-                  style={{
-                    fontSize: "13px",
-                    color: "var(--text-muted)",
-                    marginBottom: "10px",
-                  }}
-                >
-                  Taux de réponse : 8 / 10 employés
-                </div>
-                <div
-                  style={{
-                    height: "7px",
-                    backgroundColor: "rgba(67,56,202,0.1)",
-                    borderRadius: "4px",
-                    overflow: "hidden",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: responseWidth,
-                      height: "100%",
-                      backgroundColor: "var(--indigo)",
-                      transition: "width 0.8s ease",
-                      willChange: "width",
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
+            <RapportCard className="heedup-hero-card hero-anim-5" />
           </div>
         </div>
 
@@ -2638,7 +2419,7 @@ function RecosVisual() {
     {
       bg: "var(--indigo)",
       symbol: "!",
-      title: "2 employés n'ont pas répondu",
+      title: "3 employés n'ont pas répondu",
       sub: "Le silence est aussi un signal. Envoyez un rappel discret avant vendredi.",
     },
   ];
@@ -2706,7 +2487,7 @@ function RecosVisual() {
         }}
       >
         <div style={{ fontSize: "10px", color: "var(--text-muted)", fontFamily: "var(--font-sans)" }}>
-          Taux de réponse · Semaine 24 · 8 / 10 employés
+          Taux de réponse · Semaine 24 · 18 / 21 employés
         </div>
         <div
           style={{
