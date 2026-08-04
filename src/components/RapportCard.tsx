@@ -4,8 +4,32 @@ const DIMENSIONS = [
   { label: "Charge de travail", target: 3.6, change: "▼ 0.3", changeColor: "var(--semantic-red)" },
   { label: "Reconnaissance", target: 3.2, change: "▼ 0.4", changeColor: "var(--semantic-red)" },
   { label: "Clarté", target: 4.0, change: "▲ 0.2", changeColor: "var(--semantic-green)" },
-  { label: "Soutien", target: 4.1, change: "=", changeColor: "var(--text-muted)" },
+  { label: "Soutien", target: 4.1, change: "—", changeColor: "var(--text-muted)" },
   { label: "Sens", target: 4.3, change: "▲ 0.1", changeColor: "var(--semantic-green)" },
+];
+
+const RECOS = [
+  {
+    bg: "#FEF2F2",
+    border: "1px solid rgba(239,68,68,0.18)",
+    icon: "↓",
+    iconBg: "var(--semantic-red)",
+    text: "Reconnaissance en baisse 2 semaines. Prenez 10 minutes pour un retour individuel à chacun avant vendredi.",
+  },
+  {
+    bg: "#F0FDF4",
+    border: "1px solid rgba(34,197,94,0.18)",
+    icon: "↑",
+    iconBg: "var(--semantic-green)",
+    text: "Clarté en hausse. Le point de lundi dernier a eu de l'effet, gardez ce format.",
+  },
+  {
+    bg: "#FEF2F2",
+    border: "1px solid rgba(239,68,68,0.18)",
+    icon: "!",
+    iconBg: "var(--semantic-red)",
+    text: "3 employés n'ont pas répondu cette semaine. Envoyez un rappel discret avant vendredi. Le silence est aussi un signal.",
+  },
 ];
 
 export function RapportCard({ className }: { className?: string }) {
@@ -26,7 +50,7 @@ export function RapportCard({ className }: { className?: string }) {
       setReco1(true);
       setReco2(true);
       setReco3(true);
-      setResponseWidth("80%");
+      setResponseWidth("86%");
       return;
     }
 
@@ -63,10 +87,12 @@ export function RapportCard({ className }: { className?: string }) {
     timers.push(setTimeout(() => setReco1(true), 2200));
     timers.push(setTimeout(() => setReco2(true), 2700));
     timers.push(setTimeout(() => setReco3(true), 3200));
-    timers.push(setTimeout(() => setResponseWidth("80%"), 3600));
+    timers.push(setTimeout(() => setResponseWidth("86%"), 3600));
 
     return () => timers.forEach(clearTimeout);
   }, []);
+
+  const shown = [reco1, reco2, reco3];
 
   return (
     <div
@@ -86,6 +112,7 @@ export function RapportCard({ className }: { className?: string }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          gap: "10px",
         }}
       >
         <div
@@ -99,47 +126,72 @@ export function RapportCard({ className }: { className?: string }) {
           }}
         >
           <span style={{ color: "var(--indigo)" }}>●</span>
-          Rapport d'équipe, lundi 16 juin
+          Rapport d'équipe — Lundi 16 juin
         </div>
-        <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)" }}>Semaine 24</div>
+        <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)" }}>Semaine 24</div>
       </div>
 
-      <div
-        className="rapport-scores"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "10px",
-          padding: "16px",
-          backgroundColor: "var(--bg-main)",
-        }}
-      >
+      <div className="rapport-scores" style={{ padding: "16px 22px 6px" }}>
         {DIMENSIONS.map((d, i) => (
           <div
             key={d.label}
-            className="rounded-lg text-center"
-            style={{ backgroundColor: "var(--bg-card)", padding: "10px 6px" }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              marginBottom: "10px",
+            }}
           >
             <div
+              className="rapport-label"
               style={{
-                fontSize: "10px",
+                width: "118px",
+                flexShrink: 0,
+                fontSize: "11.5px",
                 color: "var(--text-muted)",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
-                marginBottom: "4px",
                 lineHeight: 1.3,
               }}
             >
               {d.label}
             </div>
-            <div style={{ fontSize: "20px", fontWeight: 600, color: "var(--text-primary)", lineHeight: 1 }}>
+            <div
+              className="rapport-bar"
+              style={{
+                flex: 1,
+                height: "5px",
+                borderRadius: "3px",
+                backgroundColor: "var(--indigo-pale)",
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  width: `${(parseFloat(scores[i]) / 5) * 100}%`,
+                  height: "100%",
+                  backgroundColor: "var(--indigo)",
+                  borderRadius: "3px",
+                }}
+              />
+            </div>
+            <div
+              style={{
+                width: "30px",
+                flexShrink: 0,
+                textAlign: "right",
+                fontSize: "13.5px",
+                fontWeight: 700,
+                color: "var(--text-primary)",
+              }}
+            >
               {scores[i]}
             </div>
             <div
               style={{
-                fontSize: "11px",
+                width: "40px",
+                flexShrink: 0,
+                textAlign: "right",
+                fontSize: "11.5px",
                 color: d.changeColor,
-                marginTop: "3px",
                 opacity: showDeltas ? 1 : 0,
                 transition: "opacity 0.4s ease",
               }}
@@ -150,7 +202,7 @@ export function RapportCard({ className }: { className?: string }) {
         ))}
       </div>
 
-      <div className="px-6 pt-4 pb-2">
+      <div style={{ padding: "6px 22px 2px" }}>
         <div
           style={{
             fontSize: "11.5px",
@@ -158,45 +210,20 @@ export function RapportCard({ className }: { className?: string }) {
             textTransform: "uppercase",
             letterSpacing: "0.1em",
             fontWeight: 600,
-            marginBottom: "12px",
+            marginBottom: "10px",
           }}
         >
           Recommandations IA
         </div>
-        {[
-          {
-            shown: reco1,
-            bg: "rgba(239,68,68,0.08)",
-            border: "1px solid rgba(239,68,68,0.18)",
-            icon: "↓",
-            iconBg: "var(--semantic-red)",
-            text: "Reconnaissance en baisse 2 semaines. Prenez 10 minutes pour un retour individuel à chacun avant vendredi.",
-          },
-          {
-            shown: reco2,
-            bg: "rgba(34,197,94,0.08)",
-            border: "1px solid rgba(34,197,94,0.18)",
-            icon: "↑",
-            iconBg: "var(--semantic-green)",
-            text: "Clarté en hausse. Le point de lundi dernier a eu de l'effet, gardez ce format.",
-          },
-          {
-            shown: reco3,
-            bg: "rgba(239,68,68,0.08)",
-            border: "1px solid rgba(239,68,68,0.18)",
-            icon: "!",
-            iconBg: "var(--semantic-red)",
-            text: "2 employés n'ont pas répondu cette semaine. Envoyez un rappel discret avant vendredi. Le silence est aussi un signal.",
-          },
-        ].map((r) => (
+        {RECOS.map((r, i) => (
           <div
             key={r.text}
-            className="mb-3 flex items-start gap-3 rounded-lg p-3"
+            className="mb-2.5 flex items-start gap-3 rounded-lg p-3"
             style={{
               backgroundColor: r.bg,
               border: r.border,
-              opacity: r.shown ? 1 : 0,
-              transform: r.shown ? "translateY(0)" : "translateY(8px)",
+              opacity: shown[i] ? 1 : 0,
+              transform: shown[i] ? "translateY(0)" : "translateY(8px)",
               transition: "opacity 0.4s ease, transform 0.4s ease",
             }}
           >
@@ -206,19 +233,19 @@ export function RapportCard({ className }: { className?: string }) {
             >
               <span style={{ fontSize: "11px", color: "#FFFFFF" }}>{r.icon}</span>
             </div>
-            <p style={{ fontSize: "12px", lineHeight: 1.5, color: "var(--text-primary)" }}>{r.text}</p>
+            <p style={{ fontSize: "12.5px", lineHeight: 1.5, color: "var(--text-primary)" }}>{r.text}</p>
           </div>
         ))}
       </div>
 
-      <div className="px-6 pb-6 pt-3">
+      <div style={{ padding: "10px 22px 20px" }}>
         <div style={{ fontSize: "13px", color: "var(--text-muted)", marginBottom: "10px" }}>
-          Taux de réponse : 8 / 10 employés
+          Taux de réponse : 18 / 21 employés
         </div>
         <div
           style={{
             height: "7px",
-            backgroundColor: "rgba(67,56,202,0.1)",
+            backgroundColor: "var(--indigo-pale)",
             borderRadius: "4px",
             overflow: "hidden",
           }}
