@@ -694,3 +694,13 @@ body {
     font-size: 20px;
   }
 }
+
+@media (max-width: 480px) {
+  .rapport-scores .rapport-label {
+    width: auto;
+    flex: 1;
+  }
+  .rapport-scores .rapport-bar {
+    display: none;
+  }
+}
