@@ -25,6 +25,7 @@ import {
   IconFileText,
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
+import { RapportCard } from "@/components/RapportCard";
 import { useTallyCount } from "@/hooks/useTallyCount";
 
 
@@ -268,7 +269,7 @@ function VisualAI() {
       </div>
       <RecoCard bg="rgba(239,68,68,0.06)" border="rgba(239,68,68,0.18)" iconBg="var(--semantic-red)" symbol="!" title="Reconnaissance en baisse 2 semaines" text="Prenez 10 minutes pour un retour individuel à chacun avant vendredi." />
       <RecoCard bg="rgba(34,197,94,0.06)" border="rgba(34,197,94,0.18)" iconBg="var(--semantic-green)" symbol="↑" title="Clarté en hausse" text="Le point de lundi dernier a eu de l'effet, gardez ce format." />
-      <RecoCard bg="rgba(67,56,202,0.06)" border="rgba(67,56,202,0.18)" iconBg="var(--indigo)" symbol="·" title="Détection de silence" text="2 employés n'ont pas répondu cette semaine. Le silence est aussi un signal. Envoyez un rappel discret avant vendredi." />
+      <RecoCard bg="rgba(67,56,202,0.06)" border="rgba(67,56,202,0.18)" iconBg="var(--indigo)" symbol="·" title="Détection de silence" text="3 employés n'ont pas répondu cette semaine. Le silence est aussi un signal. Envoyez un rappel discret avant vendredi." />
     </div>
   );
 }
@@ -536,96 +537,6 @@ function Panel({ visible, children }: { visible: boolean; children: React.ReactN
 
 // ---------- Spotlight card ----------
 
-function SpotlightCard() {
-  const scores = [
-    { label: "Charge de travail", value: "3,6", delta: "▼ 0,3", color: "#EF4444" },
-    { label: "Reconnaissance", value: "3,2", delta: "▼ 0,4", color: "#EF4444" },
-    { label: "Clarté", value: "4,0", delta: "▲ 0,2", color: "#22C55E" },
-    { label: "Soutien", value: "4,1", delta: "=", color: "#6B7280" },
-    { label: "Sens", value: "4,3", delta: "▲ 0,1", color: "#22C55E" },
-  ];
-  const recoBox: React.CSSProperties = {
-    background: "rgba(67,56,202,0.2)",
-    border: "1px solid rgba(67,56,202,0.3)",
-    borderRadius: "7px",
-    padding: "9px 10px",
-    display: "flex",
-    gap: "8px",
-    alignItems: "flex-start",
-  };
-  const recoIcon: React.CSSProperties = {
-    width: "16px",
-    height: "16px",
-    borderRadius: "4px",
-    background: "var(--indigo)",
-    color: "#FFFFFF",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "10px",
-    fontWeight: 700,
-    flexShrink: 0,
-  };
-  return (
-    <div style={{ background: "#1a2545", borderRadius: "14px", overflow: "hidden" }}>
-      <div style={{ background: "#111d36", padding: "12px 18px", display: "flex", alignItems: "center", gap: "8px" }}>
-        <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--indigo)" }} />
-        <span style={{ fontSize: "12px", color: "#FFFFFF", fontWeight: 600 }}>Rapport d'équipe, Lundi 16 juin</span>
-        <span style={{ marginLeft: "auto", fontSize: "11px", color: "rgba(255,255,255,0.4)" }}>Semaine 24</span>
-      </div>
-      <div style={{ padding: "16px 18px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: "5px", marginBottom: "14px" }}>
-          {scores.map((s) => (
-            <div key={s.label} style={{ background: "rgba(255,255,255,0.06)", borderRadius: "7px", padding: "8px 3px", textAlign: "center" }}>
-              <div style={{ fontSize: "9px", fontWeight: 700, color: s.color }}>{s.delta}</div>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: "18px", color: "#FFFFFF" }}>{s.value}</div>
-              <div style={{ fontSize: "8px", color: "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "0.3px", lineHeight: 1.2 }}>{s.label}</div>
-            </div>
-          ))}
-        </div>
-
-        <div style={{ fontSize: "9.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.3)", fontWeight: 700, marginBottom: "8px", letterSpacing: "0.5px" }}>
-          Signal prioritaire cette semaine
-        </div>
-        <div style={{ ...recoBox, marginBottom: "12px" }}>
-          <span style={recoIcon}>!</span>
-          <span style={{ fontSize: "10.5px", color: "rgba(255,255,255,0.8)", lineHeight: 1.5 }}>
-            Reconnaissance en baisse 2 semaines. Prenez 10 minutes pour un retour individuel à chacun avant vendredi.
-          </span>
-        </div>
-
-        <div style={{ fontSize: "9.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.3)", fontWeight: 700, marginBottom: "8px", letterSpacing: "0.5px" }}>
-          Recommandations
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-          <div style={recoBox}>
-            <span style={recoIcon}>↑</span>
-            <span style={{ fontSize: "10.5px", color: "rgba(255,255,255,0.8)", lineHeight: 1.5 }}>
-              Clarté en hausse. Le point de lundi dernier a eu de l'effet, gardez ce format.
-            </span>
-          </div>
-          <div style={recoBox}>
-            <span style={recoIcon}>·</span>
-            <span style={{ fontSize: "10.5px", color: "rgba(255,255,255,0.8)", lineHeight: 1.5 }}>
-              2 employés n'ont pas répondu. Le silence est aussi un signal. Envoyez un rappel discret.
-            </span>
-          </div>
-        </div>
-      </div>
-      <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)", padding: "9px 18px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px" }}>
-        <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)" }}>Taux de réponse : 8 / 10</span>
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <span style={{ fontSize: "11px", color: "#22C55E", fontWeight: 700 }}>8/10</span>
-          <div style={{ width: "60px", height: "5px", background: "rgba(255,255,255,0.1)", borderRadius: "3px", overflow: "hidden" }}>
-            <div style={{ width: "80%", height: "100%", background: "var(--indigo)" }} />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-
 // ---------- Page ----------
 
 function Page() {
@@ -830,7 +741,7 @@ function Page() {
             </div>
           </div>
           <div>
-            <SpotlightCard />
+            <RapportCard />
           </div>
         </div>
       </section>
