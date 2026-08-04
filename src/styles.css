@@ -697,7 +697,8 @@ body {
 
 @media (max-width: 480px) {
   .rapport-scores .rapport-label {
-    width: 88px;
+    width: auto;
+    flex: 1;
   }
   .rapport-scores .rapport-bar {
     display: none;
