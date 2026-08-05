@@ -312,6 +312,8 @@ export function RapportDemo({ className }: { className?: string }) {
         </div>
 
         <div key={active} className="rapport-demo-body" style={{ padding: "24px 20px", animation: "rapportDemoFade 0.2s ease" }}>
+          <div className="rapport-demo-cols">
+          <div className="rapport-demo-left">
           <div style={{ fontSize: "12.5px", color: "var(--text-muted)", marginBottom: "20px" }}>
             {s.contexte} · {s.respondents} réponses sur {s.total} salariés
           </div>
