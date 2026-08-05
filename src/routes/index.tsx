@@ -1170,6 +1170,13 @@ function Index() {
         </div>
       </section>
 
+      {/* Démonstration interactive */}
+      <section style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
+        <RapportDemo className="fade-up" />
+      </section>
+
+
+
       {/* Simple pour vous, simple pour eux */}
       <section id="simplicite" className="fade-up" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
