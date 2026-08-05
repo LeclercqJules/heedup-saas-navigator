@@ -256,6 +256,7 @@ export function RapportDemo({ className }: { className?: string }) {
             </button>
           );
         })}
+        </div>
         <span
           style={{
             display: "inline-flex",
@@ -285,8 +286,7 @@ export function RapportDemo({ className }: { className?: string }) {
 
       <div
         style={{
-          maxWidth: "780px",
-          margin: "0 auto",
+          width: "100%",
           background: "var(--bg-card)",
           borderRadius: "20px",
           border: "1px solid rgba(13,27,62,0.08)",
