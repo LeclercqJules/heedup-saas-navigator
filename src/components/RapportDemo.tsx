@@ -218,17 +218,19 @@ export function RapportDemo({ className }: { className?: string }) {
         </p>
       </div>
 
+      <div style={{ maxWidth: "1080px", margin: "0 auto", width: "100%" }}>
       <div
         className="rapport-demo-tabs"
         style={{
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "space-between",
           alignItems: "center",
           gap: "8px",
           flexWrap: "wrap",
           marginBottom: "24px",
         }}
       >
+        <div className="rapport-demo-tablist" style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
         {scenarios.map((sc, i) => {
           const isActive = i === active;
           return (
@@ -254,6 +256,7 @@ export function RapportDemo({ className }: { className?: string }) {
             </button>
           );
         })}
+        </div>
         <span
           style={{
             display: "inline-flex",
@@ -283,8 +286,7 @@ export function RapportDemo({ className }: { className?: string }) {
 
       <div
         style={{
-          maxWidth: "780px",
-          margin: "0 auto",
+          width: "100%",
           background: "var(--bg-card)",
           borderRadius: "20px",
           border: "1px solid rgba(13,27,62,0.08)",
@@ -310,6 +312,8 @@ export function RapportDemo({ className }: { className?: string }) {
         </div>
 
         <div key={active} className="rapport-demo-body" style={{ padding: "24px 20px", animation: "rapportDemoFade 0.2s ease" }}>
+          <div className="rapport-demo-cols">
+          <div className="rapport-demo-left">
           <div style={{ fontSize: "12.5px", color: "var(--text-muted)", marginBottom: "20px" }}>
             {s.contexte} · {s.respondents} réponses sur {s.total} salariés
           </div>
@@ -414,17 +418,15 @@ export function RapportDemo({ className }: { className?: string }) {
               </div>
             </div>
           )}
+          </div>
 
+          <div className="rapport-demo-right">
           <div
             className="rapport-demo-transform"
             style={{
-              marginTop: "24px",
               paddingTop: "20px",
               borderTop: "1px solid rgba(13,27,62,0.08)",
-              display: "grid",
-              gridTemplateColumns: "1fr 80px 1fr",
-              gap: "16px",
-              alignItems: "start",
+              marginTop: "24px",
             }}
           >
             <div>
@@ -455,11 +457,9 @@ export function RapportDemo({ className }: { className?: string }) {
 
             <div
               className="rapport-demo-arrow"
-              style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px", paddingTop: "40px" }}
+              style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", margin: "12px 0" }}
             >
-              <span className="rapport-demo-arrow-glyph" style={{ fontSize: "20px", color: "var(--indigo)" }}>
-                →
-              </span>
+              <span style={{ fontSize: "18px", color: "var(--indigo)", lineHeight: 1 }}>↓</span>
               <span
                 style={{
                   fontSize: "10px",
@@ -516,7 +516,10 @@ export function RapportDemo({ className }: { className?: string }) {
               <div style={{ width: `${(s.respondents / s.total) * 100}%`, height: "100%", background: "var(--indigo)", borderRadius: "3px" }} />
             </div>
           </div>
+          </div>
+          </div>
         </div>
+      </div>
       </div>
 
       <div style={{ textAlign: "center", fontSize: "12px", color: "var(--text-muted)", marginTop: "16px" }}>
