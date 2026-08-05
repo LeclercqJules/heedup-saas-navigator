@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { IconMail, IconDeviceLaptopOff, IconEyeOff } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { RapportCard } from "@/components/RapportCard";
+import { RapportDemo } from "@/components/RapportDemo";
 import { useTallyCount } from "@/hooks/useTallyCount";
 
 export const Route = createFileRoute("/bienvenue")({
