@@ -416,17 +416,15 @@ export function RapportDemo({ className }: { className?: string }) {
               </div>
             </div>
           )}
+          </div>
 
+          <div className="rapport-demo-right">
           <div
             className="rapport-demo-transform"
             style={{
-              marginTop: "24px",
               paddingTop: "20px",
               borderTop: "1px solid rgba(13,27,62,0.08)",
-              display: "grid",
-              gridTemplateColumns: "1fr 80px 1fr",
-              gap: "16px",
-              alignItems: "start",
+              marginTop: "24px",
             }}
           >
             <div>
@@ -457,11 +455,9 @@ export function RapportDemo({ className }: { className?: string }) {
 
             <div
               className="rapport-demo-arrow"
-              style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px", paddingTop: "40px" }}
+              style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", margin: "12px 0" }}
             >
-              <span className="rapport-demo-arrow-glyph" style={{ fontSize: "20px", color: "var(--indigo)" }}>
-                →
-              </span>
+              <span style={{ fontSize: "18px", color: "var(--indigo)", lineHeight: 1 }}>↓</span>
               <span
                 style={{
                   fontSize: "10px",
@@ -518,7 +514,10 @@ export function RapportDemo({ className }: { className?: string }) {
               <div style={{ width: `${(s.respondents / s.total) * 100}%`, height: "100%", background: "var(--indigo)", borderRadius: "3px" }} />
             </div>
           </div>
+          </div>
+          </div>
         </div>
+      </div>
       </div>
 
       <div style={{ textAlign: "center", fontSize: "12px", color: "var(--text-muted)", marginTop: "16px" }}>
