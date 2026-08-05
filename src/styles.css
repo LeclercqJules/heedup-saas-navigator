@@ -757,10 +757,7 @@ body {
   }
 }
 
-  .rapport-demo-body .rapport-scores .rapport-label {
-    width: 90px !important;
-  }
-}
+
 
 @media (max-width: 480px) {
   .rapport-demo-body .rapport-scores .rapport-label {
