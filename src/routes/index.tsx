@@ -13,6 +13,7 @@ import {
 import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
 import { RapportCard } from "@/components/RapportCard";
+import { RapportDemo } from "@/components/RapportDemo";
 
 
 import { useTallyCount } from "@/hooks/useTallyCount";
