@@ -218,17 +218,19 @@ export function RapportDemo({ className }: { className?: string }) {
         </p>
       </div>
 
+      <div style={{ maxWidth: "1080px", margin: "0 auto", width: "100%" }}>
       <div
         className="rapport-demo-tabs"
         style={{
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "space-between",
           alignItems: "center",
           gap: "8px",
           flexWrap: "wrap",
           marginBottom: "24px",
         }}
       >
+        <div className="rapport-demo-tablist" style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
         {scenarios.map((sc, i) => {
           const isActive = i === active;
           return (
