@@ -704,3 +704,54 @@ body {
     display: none;
   }
 }
+
+@keyframes rapportDemoFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.rapport-demo-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.rapport-demo-tab:hover:not(.is-active) {
+  border-color: var(--indigo) !important;
+  color: var(--midnight) !important;
+}
+
+@media (max-width: 767px) {
+  .rapport-demo-tabs {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .rapport-demo-body {
+    padding: 20px 16px !important;
+  }
+  .rapport-demo-transform {
+    grid-template-columns: 1fr !important;
+  }
+  .rapport-demo-arrow {
+    padding-top: 0 !important;
+  }
+  .rapport-demo-arrow-glyph {
+    font-size: 0 !important;
+  }
+  .rapport-demo-arrow-glyph::after {
+    content: "↓";
+    font-size: 20px;
+  }
+  .rapport-demo-body .rapport-scores .rapport-label {
+    width: 90px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .rapport-demo-body .rapport-scores .rapport-label {
+    width: auto !important;
+    flex: 1;
+  }
+}

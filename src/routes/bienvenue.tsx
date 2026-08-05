@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { IconMail, IconDeviceLaptopOff, IconEyeOff } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { RapportCard } from "@/components/RapportCard";
+import { RapportDemo } from "@/components/RapportDemo";
 import { useTallyCount } from "@/hooks/useTallyCount";
 
 export const Route = createFileRoute("/bienvenue")({
@@ -606,8 +607,13 @@ function BienvenuePage() {
         </div>
       </section>
 
+      {/* Démonstration interactive */}
+      <section style={{ background: "var(--bg-main)", padding: "56px 5%" }}>
+        <RapportDemo className="fade-up" />
+      </section>
 
       {/* 4. DÉMARRAGE */}
+
       <section className="fade-up" style={{ background: "var(--bg-card)", padding: "40px 5%" }}>
         <div style={{ maxWidth: 1040, margin: "0 auto" }}>
           <h2 style={sectionTitle}>Vous démarrez en 10 minutes.</h2>

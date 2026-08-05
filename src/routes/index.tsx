@@ -13,6 +13,7 @@ import {
 import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
 import { RapportCard } from "@/components/RapportCard";
+import { RapportDemo } from "@/components/RapportDemo";
 
 
 import { useTallyCount } from "@/hooks/useTallyCount";
@@ -1169,6 +1170,13 @@ function Index() {
           </div>
         </div>
       </section>
+
+      {/* Démonstration interactive */}
+      <section style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
+        <RapportDemo className="fade-up" />
+      </section>
+
+
 
       {/* Simple pour vous, simple pour eux */}
       <section id="simplicite" className="fade-up" style={{ backgroundColor: "var(--bg-card)", padding: "64px 5%" }}>
