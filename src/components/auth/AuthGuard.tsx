@@ -44,6 +44,9 @@ export function AuthGuard({ children, requireAdmin = false }: { children: ReactN
       if (cancelled) return;
       const u = data?.user ?? null;
       if (error || !u) {
+        if (typeof window !== "undefined") {
+          rememberRedirect(window.location.pathname + window.location.search + window.location.hash);
+        }
         navigate({ to: "/connexion", replace: true });
         return;
       }
