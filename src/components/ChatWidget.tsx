@@ -246,7 +246,13 @@ export function ChatWidget() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  if (pathname === "/connexion" || pathname.startsWith("/admin")) return null;
+  if (
+    pathname === "/connexion" ||
+    pathname === "/reset-password" ||
+    pathname === "/dashboard" ||
+    pathname.startsWith("/admin")
+  )
+    return null;
 
   const toggle = () => {
     setMounted(true);
