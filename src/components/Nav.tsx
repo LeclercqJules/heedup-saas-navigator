@@ -1,5 +1,6 @@
-import { Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { Link, useRouter } from "@tanstack/react-router";
+import { useEffect, useMemo, useState } from "react";
+
 
 const links = [
   { to: "/", label: "Accueil" },
