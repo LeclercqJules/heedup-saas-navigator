@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useRouter } from "@tanstack/react-router";
+import { HEEDUP_SUPABASE_URL, HEEDUP_PUBLISHABLE_KEY } from "@/config/heedupBackend";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
-const ENDPOINT = "https://jinsjrmvwvbjmmidaipq.supabase.co/functions/v1/chat-widget";
+const ENDPOINT = `${HEEDUP_SUPABASE_URL}/functions/v1/chat-widget`;
 
 const WELCOME =
   "Bonjour, je suis Léo. Je réponds à vos questions sur HeedUp : fonctionnement, tarifs, confidentialité des réponses. Qu'est-ce qui vous amène ?";
@@ -47,7 +48,7 @@ function ChatPanel({ onClose }: { onClose: () => void }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          Authorization: `Bearer ${HEEDUP_PUBLISHABLE_KEY}`,
         },
         body: JSON.stringify({ message: text, history, session_id: sid }),
       });
