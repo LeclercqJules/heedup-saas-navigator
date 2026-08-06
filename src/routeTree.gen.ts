@@ -21,6 +21,7 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as BienvenueRouteImport } from './routes/bienvenue'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminConversationsRouteImport } from './routes/admin.conversations'
+import { Route as AdminConversationsIndexRouteImport } from './routes/admin.conversations.index'
 
 const TarifsRoute = TarifsRouteImport.update({
   id: '/tarifs',
@@ -82,6 +83,11 @@ const AdminConversationsRoute = AdminConversationsRouteImport.update({
   path: '/admin/conversations',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminConversationsIndexRoute = AdminConversationsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminConversationsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -95,7 +101,8 @@ export interface FileRoutesByFullPath {
   '/fonctionnalites': typeof FonctionnalitesRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
-  '/admin/conversations': typeof AdminConversationsRoute
+  '/admin/conversations': typeof AdminConversationsRouteWithChildren
+  '/admin/conversations/': typeof AdminConversationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -109,7 +116,7 @@ export interface FileRoutesByTo {
   '/fonctionnalites': typeof FonctionnalitesRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
-  '/admin/conversations': typeof AdminConversationsRoute
+  '/admin/conversations': typeof AdminConversationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -124,7 +131,8 @@ export interface FileRoutesById {
   '/fonctionnalites': typeof FonctionnalitesRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
-  '/admin/conversations': typeof AdminConversationsRoute
+  '/admin/conversations': typeof AdminConversationsRouteWithChildren
+  '/admin/conversations/': typeof AdminConversationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -141,6 +149,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/tarifs'
     | '/admin/conversations'
+    | '/admin/conversations/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -169,6 +178,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/tarifs'
     | '/admin/conversations'
+    | '/admin/conversations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -183,7 +193,7 @@ export interface RootRouteChildren {
   FonctionnalitesRoute: typeof FonctionnalitesRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TarifsRoute: typeof TarifsRoute
-  AdminConversationsRoute: typeof AdminConversationsRoute
+  AdminConversationsRoute: typeof AdminConversationsRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -272,8 +282,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminConversationsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/conversations/': {
+      id: '/admin/conversations/'
+      path: '/'
+      fullPath: '/admin/conversations/'
+      preLoaderRoute: typeof AdminConversationsIndexRouteImport
+      parentRoute: typeof AdminConversationsRoute
+    }
   }
 }
+
+interface AdminConversationsRouteChildren {
+  AdminConversationsIndexRoute: typeof AdminConversationsIndexRoute
+}
+
+const AdminConversationsRouteChildren: AdminConversationsRouteChildren = {
+  AdminConversationsIndexRoute: AdminConversationsIndexRoute,
+}
+
+const AdminConversationsRouteWithChildren =
+  AdminConversationsRoute._addFileChildren(AdminConversationsRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -287,18 +315,8 @@ const rootRouteChildren: RootRouteChildren = {
   FonctionnalitesRoute: FonctionnalitesRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TarifsRoute: TarifsRoute,
-  AdminConversationsRoute: AdminConversationsRoute,
+  AdminConversationsRoute: AdminConversationsRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
