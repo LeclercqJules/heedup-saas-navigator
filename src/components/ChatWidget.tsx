@@ -287,7 +287,7 @@ export function ChatWidget() {
 
   return (
     <div
-      className="heedup-chat-widget"
+      className={`heedup-chat-widget${open ? " is-open" : ""}`}
       style={{
         position: "fixed",
         right: "24px",
@@ -301,6 +301,7 @@ export function ChatWidget() {
       {mounted && open && <ChatPanel onClose={() => setOpen(false)} />}
       <button
         type="button"
+        className="heedup-chat-fab"
         aria-label={open ? "Fermer le chat avec Léo" : "Ouvrir le chat avec Léo"}
         aria-expanded={open}
         onClick={toggle}
