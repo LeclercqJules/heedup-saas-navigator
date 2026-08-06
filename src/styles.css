@@ -791,7 +791,7 @@ body {
     margin-bottom: 0 !important;
   }
   .heedup-chat-widget.is-open .heedup-chat-fab {
-    display: none;
+    display: none !important;
   }
 }
 
