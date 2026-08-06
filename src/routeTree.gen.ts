@@ -20,7 +20,8 @@ import { Route as CguRouteImport } from './routes/cgu'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as BienvenueRouteImport } from './routes/bienvenue'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminConversationsRouteImport } from './routes/admin.conversations'
+import { Route as AdminConversationsIndexRouteImport } from './routes/admin.conversations.index'
+import { Route as AdminConversationsSessionIdRouteImport } from './routes/admin.conversations.$sessionId'
 
 const TarifsRoute = TarifsRouteImport.update({
   id: '/tarifs',
@@ -77,11 +78,17 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminConversationsRoute = AdminConversationsRouteImport.update({
-  id: '/admin/conversations',
-  path: '/admin/conversations',
+const AdminConversationsIndexRoute = AdminConversationsIndexRouteImport.update({
+  id: '/admin/conversations/',
+  path: '/admin/conversations/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminConversationsSessionIdRoute =
+  AdminConversationsSessionIdRouteImport.update({
+    id: '/admin/conversations/$sessionId',
+    path: '/admin/conversations/$sessionId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -95,7 +102,8 @@ export interface FileRoutesByFullPath {
   '/fonctionnalites': typeof FonctionnalitesRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
-  '/admin/conversations': typeof AdminConversationsRoute
+  '/admin/conversations/$sessionId': typeof AdminConversationsSessionIdRoute
+  '/admin/conversations/': typeof AdminConversationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -109,7 +117,8 @@ export interface FileRoutesByTo {
   '/fonctionnalites': typeof FonctionnalitesRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
-  '/admin/conversations': typeof AdminConversationsRoute
+  '/admin/conversations/$sessionId': typeof AdminConversationsSessionIdRoute
+  '/admin/conversations': typeof AdminConversationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -124,7 +133,8 @@ export interface FileRoutesById {
   '/fonctionnalites': typeof FonctionnalitesRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
-  '/admin/conversations': typeof AdminConversationsRoute
+  '/admin/conversations/$sessionId': typeof AdminConversationsSessionIdRoute
+  '/admin/conversations/': typeof AdminConversationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -140,7 +150,8 @@ export interface FileRouteTypes {
     | '/fonctionnalites'
     | '/reset-password'
     | '/tarifs'
-    | '/admin/conversations'
+    | '/admin/conversations/$sessionId'
+    | '/admin/conversations/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -154,6 +165,7 @@ export interface FileRouteTypes {
     | '/fonctionnalites'
     | '/reset-password'
     | '/tarifs'
+    | '/admin/conversations/$sessionId'
     | '/admin/conversations'
   id:
     | '__root__'
@@ -168,7 +180,8 @@ export interface FileRouteTypes {
     | '/fonctionnalites'
     | '/reset-password'
     | '/tarifs'
-    | '/admin/conversations'
+    | '/admin/conversations/$sessionId'
+    | '/admin/conversations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -183,7 +196,8 @@ export interface RootRouteChildren {
   FonctionnalitesRoute: typeof FonctionnalitesRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TarifsRoute: typeof TarifsRoute
-  AdminConversationsRoute: typeof AdminConversationsRoute
+  AdminConversationsSessionIdRoute: typeof AdminConversationsSessionIdRoute
+  AdminConversationsIndexRoute: typeof AdminConversationsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -265,11 +279,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/conversations': {
-      id: '/admin/conversations'
+    '/admin/conversations/': {
+      id: '/admin/conversations/'
       path: '/admin/conversations'
-      fullPath: '/admin/conversations'
-      preLoaderRoute: typeof AdminConversationsRouteImport
+      fullPath: '/admin/conversations/'
+      preLoaderRoute: typeof AdminConversationsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/conversations/$sessionId': {
+      id: '/admin/conversations/$sessionId'
+      path: '/admin/conversations/$sessionId'
+      fullPath: '/admin/conversations/$sessionId'
+      preLoaderRoute: typeof AdminConversationsSessionIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -287,7 +308,8 @@ const rootRouteChildren: RootRouteChildren = {
   FonctionnalitesRoute: FonctionnalitesRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TarifsRoute: TarifsRoute,
-  AdminConversationsRoute: AdminConversationsRoute,
+  AdminConversationsSessionIdRoute: AdminConversationsSessionIdRoute,
+  AdminConversationsIndexRoute: AdminConversationsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
