@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { heedupClient } from "@/config/heedupClient";
 import { AuthShell, authButtonStyle, authInputStyle, authLabelStyle } from "@/components/auth/AuthShell";
+import { consumeRedirect } from "@/lib/redirectAfterLogin";
 
 export const Route = createFileRoute("/connexion")({
   ssr: false,
