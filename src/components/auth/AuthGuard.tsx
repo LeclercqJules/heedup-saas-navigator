@@ -3,6 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import type { User } from "@supabase/supabase-js";
 import { heedupClient } from "@/config/heedupClient";
 import { AuthLoading } from "./AuthShell";
+import { rememberRedirect } from "@/lib/redirectAfterLogin";
 
 type Status = "loading" | "denied" | "ok";
 
@@ -44,6 +45,9 @@ export function AuthGuard({ children, requireAdmin = false }: { children: ReactN
       if (cancelled) return;
       const u = data?.user ?? null;
       if (error || !u) {
+        if (typeof window !== "undefined") {
+          rememberRedirect(window.location.pathname + window.location.search + window.location.hash);
+        }
         navigate({ to: "/connexion", replace: true });
         return;
       }
