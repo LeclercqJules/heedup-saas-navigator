@@ -313,9 +313,9 @@ export function ChatWidget() {
           color: "#FFFFFF",
           border: "none",
           cursor: "pointer",
-          display: "flex",
           alignItems: "center",
           justifyContent: "center",
+
           boxShadow: "0 8px 24px rgba(13,27,62,0.22)",
           fontSize: "22px",
           lineHeight: 1,
