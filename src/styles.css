@@ -765,3 +765,28 @@ body {
     flex: 1;
   }
 }
+
+/* Chat widget (Léo) */
+.heedup-chat-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  display: inline-block;
+  animation: heedupChatDot 1.2s infinite ease-in-out;
+}
+@keyframes heedupChatDot {
+  0%, 60%, 100% { opacity: 0.25; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-3px); }
+}
+@media (max-width: 640px) {
+  .heedup-chat-widget {
+    right: 8px;
+    left: 8px;
+    align-items: flex-end;
+  }
+  .heedup-chat-panel {
+    width: 100%;
+    max-height: 70vh;
+  }
+}
