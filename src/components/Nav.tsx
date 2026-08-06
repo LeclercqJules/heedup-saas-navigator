@@ -9,8 +9,19 @@ const links = [
 ] as const;
 
 export function Nav() {
+  const router = useRouter();
   const navLinks = links;
   const [open, setOpen] = useState(false);
+
+  const currentPath = router.state.location.pathname;
+  const hideAuthButton = useMemo(
+    () =>
+      currentPath === "/connexion" ||
+      currentPath === "/reset-password" ||
+      currentPath === "/dashboard" ||
+      currentPath.startsWith("/admin"),
+    [currentPath]
+  );
 
   useEffect(() => {
     if (typeof document === "undefined") return;
