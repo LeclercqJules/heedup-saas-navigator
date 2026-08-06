@@ -4,6 +4,7 @@ import { Nav } from "./Nav";
 import { Footer } from "./Footer";
 import { ScrollToTop } from "./ScrollToTop";
 import { StickyCTA } from "./StickyCTA";
+import { ChatWidget } from "./ChatWidget";
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
@@ -158,6 +159,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <Footer />
       <ScrollToTop />
       <StickyCTA />
+      <ChatWidget />
     </div>
   );
 }
