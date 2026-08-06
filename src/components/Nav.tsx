@@ -215,6 +215,22 @@ export function Nav() {
                 {l.label}
               </Link>
             ))}
+            {!hideAuthButton && (
+              <Link
+                to="/connexion"
+                onClick={() => setOpen(false)}
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "18px",
+                  color: "var(--indigo)",
+                  padding: "14px 0",
+                  borderBottom: "1px solid rgba(255,255,255,0.08)",
+                  textDecoration: "none",
+                }}
+              >
+                Connexion
+              </Link>
+            )}
           </nav>
 
           <button
