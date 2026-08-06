@@ -42,6 +42,11 @@ function ConnexionPage() {
         return;
       }
       const accountType = (data.user.app_metadata as Record<string, unknown> | undefined)?.["account_type"];
+      const stored = consumeRedirect();
+      if (stored) {
+        navigate({ to: stored, replace: true });
+        return;
+      }
       navigate({ to: accountType === "admin" ? "/admin/conversations" : "/dashboard", replace: true });
     } catch {
       setError("Connexion impossible. Réessayez dans un instant.");
