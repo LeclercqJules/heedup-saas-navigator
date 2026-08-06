@@ -1,6 +1,31 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useRouter } from "@tanstack/react-router";
+import ReactMarkdown from "react-markdown";
 import { HEEDUP_SUPABASE_URL, HEEDUP_PUBLISHABLE_KEY } from "@/config/heedupBackend";
+
+const MD_ALLOWED = ["p", "strong", "em", "ul", "ol", "li", "a", "br"];
+
+function AssistantMarkdown({ content }: { content: string }) {
+  return (
+    <div className="heedup-chat-md">
+      <ReactMarkdown
+        skipHtml
+        allowedElements={MD_ALLOWED}
+        unwrapDisallowed
+        components={{
+          a: ({ href, children }) => (
+            <a href={href} target="_blank" rel="noopener noreferrer">
+              {children}
+            </a>
+          ),
+        }}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
+  );
+}
+
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
