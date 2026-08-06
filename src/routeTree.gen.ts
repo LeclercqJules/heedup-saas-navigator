@@ -79,15 +79,15 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminConversationsIndexRoute = AdminConversationsIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AdminConversationsRoute,
+  id: '/admin/conversations/',
+  path: '/admin/conversations/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminConversationsSessionIdRoute =
   AdminConversationsSessionIdRouteImport.update({
-    id: '/$sessionId',
-    path: '/$sessionId',
-    getParentRoute: () => AdminConversationsRoute,
+    id: '/admin/conversations/$sessionId',
+    path: '/admin/conversations/$sessionId',
+    getParentRoute: () => rootRouteImport,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -196,6 +196,8 @@ export interface RootRouteChildren {
   FonctionnalitesRoute: typeof FonctionnalitesRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TarifsRoute: typeof TarifsRoute
+  AdminConversationsSessionIdRoute: typeof AdminConversationsSessionIdRoute
+  AdminConversationsIndexRoute: typeof AdminConversationsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -279,17 +281,17 @@ declare module '@tanstack/react-router' {
     }
     '/admin/conversations/': {
       id: '/admin/conversations/'
-      path: '/'
+      path: '/admin/conversations'
       fullPath: '/admin/conversations/'
       preLoaderRoute: typeof AdminConversationsIndexRouteImport
-      parentRoute: typeof AdminConversationsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/admin/conversations/$sessionId': {
       id: '/admin/conversations/$sessionId'
-      path: '/$sessionId'
+      path: '/admin/conversations/$sessionId'
       fullPath: '/admin/conversations/$sessionId'
       preLoaderRoute: typeof AdminConversationsSessionIdRouteImport
-      parentRoute: typeof AdminConversationsRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -306,17 +308,9 @@ const rootRouteChildren: RootRouteChildren = {
   FonctionnalitesRoute: FonctionnalitesRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TarifsRoute: TarifsRoute,
+  AdminConversationsSessionIdRoute: AdminConversationsSessionIdRoute,
+  AdminConversationsIndexRoute: AdminConversationsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
