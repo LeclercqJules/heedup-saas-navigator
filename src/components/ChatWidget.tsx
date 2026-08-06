@@ -166,11 +166,12 @@ function ChatPanel({ onClose }: { onClose: () => void }) {
               fontSize: "14px",
               lineHeight: 1.55,
               maxWidth: "85%",
-              whiteSpace: "pre-wrap",
+              whiteSpace: m.role === "user" ? "pre-wrap" : "normal",
             }}
           >
-            {m.content}
+            {m.role === "user" ? m.content : <AssistantMarkdown content={m.content} />}
           </div>
+
         ))}
         {loading && (
           <div
