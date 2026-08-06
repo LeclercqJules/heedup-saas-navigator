@@ -10,17 +10,26 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TarifsRouteImport } from './routes/tarifs'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as FonctionnalitesRouteImport } from './routes/fonctionnalites'
 import { Route as EstimerCoutRouteImport } from './routes/estimer-cout'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as ConfidentialiteRouteImport } from './routes/confidentialite'
 import { Route as CguRouteImport } from './routes/cgu'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as BienvenueRouteImport } from './routes/bienvenue'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminConversationsRouteImport } from './routes/admin.conversations'
 
 const TarifsRoute = TarifsRouteImport.update({
   id: '/tarifs',
   path: '/tarifs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FonctionnalitesRoute = FonctionnalitesRouteImport.update({
@@ -31,6 +40,16 @@ const FonctionnalitesRoute = FonctionnalitesRouteImport.update({
 const EstimerCoutRoute = EstimerCoutRouteImport.update({
   id: '/estimer-cout',
   path: '/estimer-cout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConnexionRoute = ConnexionRouteImport.update({
+  id: '/connexion',
+  path: '/connexion',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConfidentialiteRoute = ConfidentialiteRouteImport.update({
@@ -58,6 +77,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminConversationsRoute = AdminConversationsRouteImport.update({
+  id: '/admin/conversations',
+  path: '/admin/conversations',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -65,9 +89,13 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRoute
   '/cgu': typeof CguRoute
   '/confidentialite': typeof ConfidentialiteRoute
+  '/connexion': typeof ConnexionRoute
+  '/dashboard': typeof DashboardRoute
   '/estimer-cout': typeof EstimerCoutRoute
   '/fonctionnalites': typeof FonctionnalitesRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
+  '/admin/conversations': typeof AdminConversationsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -75,9 +103,13 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRoute
   '/cgu': typeof CguRoute
   '/confidentialite': typeof ConfidentialiteRoute
+  '/connexion': typeof ConnexionRoute
+  '/dashboard': typeof DashboardRoute
   '/estimer-cout': typeof EstimerCoutRoute
   '/fonctionnalites': typeof FonctionnalitesRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
+  '/admin/conversations': typeof AdminConversationsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -86,9 +118,13 @@ export interface FileRoutesById {
   '/blog': typeof BlogRoute
   '/cgu': typeof CguRoute
   '/confidentialite': typeof ConfidentialiteRoute
+  '/connexion': typeof ConnexionRoute
+  '/dashboard': typeof DashboardRoute
   '/estimer-cout': typeof EstimerCoutRoute
   '/fonctionnalites': typeof FonctionnalitesRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
+  '/admin/conversations': typeof AdminConversationsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -98,9 +134,13 @@ export interface FileRouteTypes {
     | '/blog'
     | '/cgu'
     | '/confidentialite'
+    | '/connexion'
+    | '/dashboard'
     | '/estimer-cout'
     | '/fonctionnalites'
+    | '/reset-password'
     | '/tarifs'
+    | '/admin/conversations'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -108,9 +148,13 @@ export interface FileRouteTypes {
     | '/blog'
     | '/cgu'
     | '/confidentialite'
+    | '/connexion'
+    | '/dashboard'
     | '/estimer-cout'
     | '/fonctionnalites'
+    | '/reset-password'
     | '/tarifs'
+    | '/admin/conversations'
   id:
     | '__root__'
     | '/'
@@ -118,9 +162,13 @@ export interface FileRouteTypes {
     | '/blog'
     | '/cgu'
     | '/confidentialite'
+    | '/connexion'
+    | '/dashboard'
     | '/estimer-cout'
     | '/fonctionnalites'
+    | '/reset-password'
     | '/tarifs'
+    | '/admin/conversations'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -129,9 +177,13 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRoute
   CguRoute: typeof CguRoute
   ConfidentialiteRoute: typeof ConfidentialiteRoute
+  ConnexionRoute: typeof ConnexionRoute
+  DashboardRoute: typeof DashboardRoute
   EstimerCoutRoute: typeof EstimerCoutRoute
   FonctionnalitesRoute: typeof FonctionnalitesRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   TarifsRoute: typeof TarifsRoute
+  AdminConversationsRoute: typeof AdminConversationsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -141,6 +193,13 @@ declare module '@tanstack/react-router' {
       path: '/tarifs'
       fullPath: '/tarifs'
       preLoaderRoute: typeof TarifsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fonctionnalites': {
@@ -155,6 +214,20 @@ declare module '@tanstack/react-router' {
       path: '/estimer-cout'
       fullPath: '/estimer-cout'
       preLoaderRoute: typeof EstimerCoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/connexion': {
+      id: '/connexion'
+      path: '/connexion'
+      fullPath: '/connexion'
+      preLoaderRoute: typeof ConnexionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/confidentialite': {
@@ -192,6 +265,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/conversations': {
+      id: '/admin/conversations'
+      path: '/admin/conversations'
+      fullPath: '/admin/conversations'
+      preLoaderRoute: typeof AdminConversationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -201,9 +281,13 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRoute,
   CguRoute: CguRoute,
   ConfidentialiteRoute: ConfidentialiteRoute,
+  ConnexionRoute: ConnexionRoute,
+  DashboardRoute: DashboardRoute,
   EstimerCoutRoute: EstimerCoutRoute,
   FonctionnalitesRoute: FonctionnalitesRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   TarifsRoute: TarifsRoute,
+  AdminConversationsRoute: AdminConversationsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
