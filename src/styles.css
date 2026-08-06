@@ -795,6 +795,7 @@ body {
   }
 }
 
+.heedup-chat-fab { display: flex; }
 .heedup-chat-md > *:first-child { margin-top: 0; }
 .heedup-chat-md > *:last-child { margin-bottom: 0; }
 .heedup-chat-md p { margin: 0 0 8px; }
