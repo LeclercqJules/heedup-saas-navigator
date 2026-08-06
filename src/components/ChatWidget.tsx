@@ -309,6 +309,7 @@ export function ChatWidget() {
       }}
     >
       {mounted && open && <ChatPanel onClose={() => setOpen(false)} />}
+      {!(isNarrow && open) && (
       <button
         type="button"
         className="heedup-chat-fab"
