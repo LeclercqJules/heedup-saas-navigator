@@ -3,6 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import type { User } from "@supabase/supabase-js";
 import { heedupClient } from "@/config/heedupClient";
 import { AuthLoading } from "./AuthShell";
+import { rememberRedirect } from "@/lib/redirectAfterLogin";
 
 type Status = "loading" | "denied" | "ok";
 
