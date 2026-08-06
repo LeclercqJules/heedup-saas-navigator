@@ -262,6 +262,15 @@ export function ChatWidget() {
   const pathname = router.state.location.pathname;
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isNarrow, setIsNarrow] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 640px)");
+    const update = () => setIsNarrow(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -271,6 +280,7 @@ export function ChatWidget() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
+
 
   if (
     pathname === "/connexion" ||
