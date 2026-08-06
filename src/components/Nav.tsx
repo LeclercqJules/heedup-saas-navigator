@@ -79,30 +79,58 @@ export function Nav() {
           ))}
         </nav>
 
-        <button
-          type="button"
-          className="heedup-nav-cta"
-          {...{
-            "data-tally-open": "VLBY9E",
-            "data-tally-overlay": "1",
-            "data-tally-emoji-text": "👋",
-            "data-tally-emoji-animation": "wave",
-            "data-tally-width": "500",
-          }}
-          style={{
-            backgroundColor: "var(--indigo)",
-            color: "#FFFFFF",
-            fontWeight: 700,
-            fontSize: "16px",
-            borderRadius: "8px",
-            padding: "14px 32px",
-            fontFamily: "var(--font-sans)",
-            border: "none",
-            cursor: "pointer",
-          }}
-        >
-          Accéder au lancement
-        </button>
+        <div className="hidden items-center md:flex" style={{ gap: "12px" }}>
+          {!hideAuthButton && (
+            <Link
+              to="/connexion"
+              style={{
+                backgroundColor: "transparent",
+                color: "var(--indigo)",
+                fontWeight: 700,
+                fontSize: "16px",
+                borderRadius: "8px",
+                padding: "14px 20px",
+                fontFamily: "var(--font-sans)",
+                border: "1px solid var(--indigo)",
+                textDecoration: "none",
+                transition: "background-color 0.2s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "var(--indigo-pale)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "transparent";
+              }}
+            >
+              Connexion
+            </Link>
+          )}
+
+          <button
+            type="button"
+            className="heedup-nav-cta"
+            {...{
+              "data-tally-open": "VLBY9E",
+              "data-tally-overlay": "1",
+              "data-tally-emoji-text": "👋",
+              "data-tally-emoji-animation": "wave",
+              "data-tally-width": "500",
+            }}
+            style={{
+              backgroundColor: "var(--indigo)",
+              color: "#FFFFFF",
+              fontWeight: 700,
+              fontSize: "16px",
+              borderRadius: "8px",
+              padding: "14px 32px",
+              fontFamily: "var(--font-sans)",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            Accéder au lancement
+          </button>
+        </div>
 
         <button
           type="button"
