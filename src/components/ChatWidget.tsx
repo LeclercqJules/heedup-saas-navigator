@@ -334,6 +334,7 @@ export function ChatWidget() {
       >
         {open ? "✕" : "💬"}
       </button>
+      )}
     </div>
   );
 }
