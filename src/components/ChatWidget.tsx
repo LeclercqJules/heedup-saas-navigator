@@ -1,6 +1,31 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useRouter } from "@tanstack/react-router";
+import ReactMarkdown from "react-markdown";
 import { HEEDUP_SUPABASE_URL, HEEDUP_PUBLISHABLE_KEY } from "@/config/heedupBackend";
+
+const MD_ALLOWED = ["p", "strong", "em", "ul", "ol", "li", "a", "br"];
+
+function AssistantMarkdown({ content }: { content: string }) {
+  return (
+    <div className="heedup-chat-md">
+      <ReactMarkdown
+        skipHtml
+        allowedElements={MD_ALLOWED}
+        unwrapDisallowed
+        components={{
+          a: ({ href, children }) => (
+            <a href={href} target="_blank" rel="noopener noreferrer">
+              {children}
+            </a>
+          ),
+        }}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
+  );
+}
+
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
@@ -141,11 +166,12 @@ function ChatPanel({ onClose }: { onClose: () => void }) {
               fontSize: "14px",
               lineHeight: 1.55,
               maxWidth: "85%",
-              whiteSpace: "pre-wrap",
+              whiteSpace: m.role === "user" ? "pre-wrap" : "normal",
             }}
           >
-            {m.content}
+            {m.role === "user" ? m.content : <AssistantMarkdown content={m.content} />}
           </div>
+
         ))}
         {loading && (
           <div
@@ -236,6 +262,15 @@ export function ChatWidget() {
   const pathname = router.state.location.pathname;
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isNarrow, setIsNarrow] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 640px)");
+    const update = () => setIsNarrow(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -245,6 +280,7 @@ export function ChatWidget() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
+
 
   if (
     pathname === "/connexion" ||
@@ -261,7 +297,7 @@ export function ChatWidget() {
 
   return (
     <div
-      className="heedup-chat-widget"
+      className={`heedup-chat-widget${open ? " is-open" : ""}`}
       style={{
         position: "fixed",
         right: "24px",
@@ -273,8 +309,10 @@ export function ChatWidget() {
       }}
     >
       {mounted && open && <ChatPanel onClose={() => setOpen(false)} />}
+      {!(isNarrow && open) && (
       <button
         type="button"
+        className="heedup-chat-fab"
         aria-label={open ? "Fermer le chat avec Léo" : "Ouvrir le chat avec Léo"}
         aria-expanded={open}
         onClick={toggle}
@@ -286,9 +324,9 @@ export function ChatWidget() {
           color: "#FFFFFF",
           border: "none",
           cursor: "pointer",
-          display: "flex",
           alignItems: "center",
           justifyContent: "center",
+
           boxShadow: "0 8px 24px rgba(13,27,62,0.22)",
           fontSize: "22px",
           lineHeight: 1,
@@ -296,6 +334,7 @@ export function ChatWidget() {
       >
         {open ? "✕" : "💬"}
       </button>
+      )}
     </div>
   );
 }
