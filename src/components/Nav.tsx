@@ -1,5 +1,6 @@
-import { Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { Link, useRouter } from "@tanstack/react-router";
+import { useEffect, useMemo, useState } from "react";
+
 
 const links = [
   { to: "/", label: "Accueil" },
@@ -8,8 +9,19 @@ const links = [
 ] as const;
 
 export function Nav() {
+  const router = useRouter();
   const navLinks = links;
   const [open, setOpen] = useState(false);
+
+  const currentPath = router.state.location.pathname;
+  const hideAuthButton = useMemo(
+    () =>
+      currentPath === "/connexion" ||
+      currentPath === "/reset-password" ||
+      currentPath === "/dashboard" ||
+      currentPath.startsWith("/admin"),
+    [currentPath]
+  );
 
   useEffect(() => {
     if (typeof document === "undefined") return;
@@ -67,30 +79,58 @@ export function Nav() {
           ))}
         </nav>
 
-        <button
-          type="button"
-          className="heedup-nav-cta"
-          {...{
-            "data-tally-open": "VLBY9E",
-            "data-tally-overlay": "1",
-            "data-tally-emoji-text": "👋",
-            "data-tally-emoji-animation": "wave",
-            "data-tally-width": "500",
-          }}
-          style={{
-            backgroundColor: "var(--indigo)",
-            color: "#FFFFFF",
-            fontWeight: 700,
-            fontSize: "16px",
-            borderRadius: "8px",
-            padding: "14px 32px",
-            fontFamily: "var(--font-sans)",
-            border: "none",
-            cursor: "pointer",
-          }}
-        >
-          Accéder au lancement
-        </button>
+        <div className="hidden items-center md:flex" style={{ gap: "12px" }}>
+          {!hideAuthButton && (
+            <Link
+              to="/connexion"
+              style={{
+                backgroundColor: "transparent",
+                color: "var(--indigo)",
+                fontWeight: 700,
+                fontSize: "16px",
+                borderRadius: "8px",
+                padding: "14px 20px",
+                fontFamily: "var(--font-sans)",
+                border: "1px solid var(--indigo)",
+                textDecoration: "none",
+                transition: "background-color 0.2s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "var(--indigo-pale)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "transparent";
+              }}
+            >
+              Connexion
+            </Link>
+          )}
+
+          <button
+            type="button"
+            className="heedup-nav-cta"
+            {...{
+              "data-tally-open": "VLBY9E",
+              "data-tally-overlay": "1",
+              "data-tally-emoji-text": "👋",
+              "data-tally-emoji-animation": "wave",
+              "data-tally-width": "500",
+            }}
+            style={{
+              backgroundColor: "var(--indigo)",
+              color: "#FFFFFF",
+              fontWeight: 700,
+              fontSize: "16px",
+              borderRadius: "8px",
+              padding: "14px 32px",
+              fontFamily: "var(--font-sans)",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            Accéder au lancement
+          </button>
+        </div>
 
         <button
           type="button"
@@ -175,6 +215,22 @@ export function Nav() {
                 {l.label}
               </Link>
             ))}
+            {!hideAuthButton && (
+              <Link
+                to="/connexion"
+                onClick={() => setOpen(false)}
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "18px",
+                  color: "var(--indigo)",
+                  padding: "14px 0",
+                  borderBottom: "1px solid rgba(255,255,255,0.08)",
+                  textDecoration: "none",
+                }}
+              >
+                Connexion
+              </Link>
+            )}
           </nav>
 
           <button
