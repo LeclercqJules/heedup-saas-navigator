@@ -20,12 +20,47 @@ export const Route = createFileRoute("/connexion")({
   component: ConnexionPage,
 });
 
+function routeAfterLogin(accountType: unknown) {
+  const stored = consumeRedirect();
+  if (stored) return stored;
+  return accountType === "admin" ? "/admin/conversations" : "/dashboard";
+}
+
 function ConnexionPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [oauthLoading, setOauthLoading] = useState<"google" | "apple" | null>(null);
+
+  // Retour d'un fournisseur OAuth : la session est déjà posée par Supabase.
+  useEffect(() => {
+    let cancelled = false;
+    void heedupClient.auth.getSession().then(({ data }) => {
+      if (cancelled || !data.session) return;
+      const accountType = (data.session.user.app_metadata as Record<string, unknown> | undefined)?.["account_type"];
+      navigate({ to: routeAfterLogin(accountType), replace: true });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [navigate]);
+
+  const signInWithProvider = async (provider: "google" | "apple") => {
+    if (oauthLoading || loading) return;
+    setError(null);
+    setOauthLoading(provider);
+    const { error: oauthError } = await heedupClient.auth.signInWithOAuth({
+      provider,
+      options: { redirectTo: `${window.location.origin}/connexion` },
+    });
+    if (oauthError) {
+      setError("Connexion via ce fournisseur indisponible pour le moment.");
+      setOauthLoading(null);
+    }
+  };
+
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
