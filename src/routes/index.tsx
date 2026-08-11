@@ -2292,9 +2292,11 @@ function PhoneVisual() {
 
 function ScoresVisual() {
   const scores = [
-    { label: "CHARGE", value: "3.6", delta: "▼ 0.3 vs semaine dernière", color: "var(--semantic-red)" },
-    { label: "AMBIANCE", value: "4.1", delta: "▲ 0.2 vs semaine dernière", color: "var(--semantic-green)" },
-    { label: "MOTIVATION", value: "4.3", delta: "— stable", color: "var(--text-muted)" },
+    { label: "Charge de travail", value: "3.6", delta: "▼ 0.3", color: "var(--semantic-red)" },
+    { label: "Reconnaissance", value: "3.2", delta: "▼ 0.4", color: "var(--semantic-red)" },
+    { label: "Clarté", value: "4.0", delta: "▲ 0.2", color: "var(--semantic-green)" },
+    { label: "Soutien", value: "4.1", delta: "stable", color: "var(--text-muted)" },
+    { label: "Sens", value: "4.3", delta: "▲ 0.1", color: "var(--semantic-green)" },
   ];
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "100%" }}>
