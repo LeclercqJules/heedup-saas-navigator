@@ -2299,14 +2299,14 @@ function ScoresVisual() {
     { label: "Sens", value: "4.3", delta: "▲ 0.1", color: "var(--semantic-green)" },
   ];
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "100%" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "7px", width: "100%" }}>
       {scores.map((s) => (
         <div
           key={s.label}
           style={{
             backgroundColor: "#FFFFFF",
             borderRadius: "8px",
-            padding: "12px 16px",
+            padding: "9px 14px",
             border: "1px solid rgba(67,56,202,0.10)",
             display: "grid",
             gridTemplateColumns: "1fr 50px 1fr",
