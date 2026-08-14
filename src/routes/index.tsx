@@ -12,7 +12,7 @@ import {
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
-import { RapportCard } from "@/components/RapportCard";
+
 import { RapportDemo } from "@/components/RapportDemo";
 
 
