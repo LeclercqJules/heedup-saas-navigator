@@ -40,7 +40,7 @@ export function Nav() {
         height: "84px",
       }}
     >
-      <div className="mx-auto flex h-full items-center justify-between px-[5%]">
+      <div className="mx-auto grid h-full items-center px-[5%]" style={{ gridTemplateColumns: "1fr auto 1fr" }}>
         <Link
           to="/"
           style={{
@@ -48,12 +48,13 @@ export function Nav() {
             fontSize: "26px",
             color: "var(--midnight)",
             fontWeight: 400,
+            justifySelf: "start",
           }}
         >
           HeedUp
         </Link>
 
-        <nav className="heedup-nav-links hidden items-center md:flex" style={{ gap: "40px" }}>
+        <nav className="heedup-nav-links hidden items-center md:flex" style={{ gap: "40px", justifySelf: "center" }}>
           {navLinks.map((l) => (
             <Link
               key={l.to}
@@ -79,7 +80,7 @@ export function Nav() {
           ))}
         </nav>
 
-        <div className="hidden items-center md:flex" style={{ gap: "12px" }}>
+        <div className="hidden items-center md:flex" style={{ gap: "12px", justifySelf: "end" }}>
           {!hideAuthButton && (
             <Link
               to="/connexion"
@@ -147,6 +148,8 @@ export function Nav() {
             background: "transparent",
             border: "none",
             cursor: "pointer",
+            gridColumn: "3 / 4",
+            justifySelf: "end",
           }}
         >
           <span style={{ display: "block", height: "2px", background: "var(--midnight)", borderRadius: "2px" }} />
