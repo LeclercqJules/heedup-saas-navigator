@@ -80,7 +80,7 @@ export function Nav() {
           ))}
         </nav>
 
-        <div className="hidden items-center md:flex" style={{ gap: "12px" }}>
+        <div className="hidden items-center md:flex" style={{ gap: "12px", justifySelf: "end" }}>
           {!hideAuthButton && (
             <Link
               to="/connexion"
