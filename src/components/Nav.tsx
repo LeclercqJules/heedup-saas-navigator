@@ -48,6 +48,7 @@ export function Nav() {
             fontSize: "26px",
             color: "var(--midnight)",
             fontWeight: 400,
+            justifySelf: "start",
           }}
         >
           HeedUp
