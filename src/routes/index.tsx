@@ -304,7 +304,7 @@ function Index() {
           <div
             className="heedup-hero-grid w-full"
             style={{
-              maxWidth: "900px",
+              maxWidth: "1080px",
               margin: "0 auto",
               textAlign: "center",
             }}
