@@ -1090,14 +1090,6 @@ function Index() {
         </div>
       </section>
 
-      {/* Démonstration interactive */}
-      <section style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
-        <RapportDemo className="fade-up" />
-      </section>
-
-
-
-
       {/* Tableau comparatif */}
       <section
         id="comparatif"
