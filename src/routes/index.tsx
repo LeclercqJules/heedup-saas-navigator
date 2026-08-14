@@ -335,10 +335,10 @@ function Index() {
                   marginBottom: "20px",
                 }}
               >
-                Un pouls d'équipe chaque semaine.
+                L'état réel de votre équipe, chaque semaine.
                 <br />
                 <span style={{ color: "var(--indigo)", fontStyle: "italic" }}>
-                  Un plan d'action chaque lundi.
+                  Trois actions managériales par IA, chaque lundi.
                 </span>
               </h1>
 
@@ -353,7 +353,7 @@ function Index() {
                   marginBottom: "32px",
                 }}
               >
-                Zéro configuration RH. Zéro compétence technique. Actif en quelques minutes.
+                Vos salariés répondent à 5 questions anonymes le vendredi. Deux minutes, aucun compte à créer, aucune donnée nominative.
               </p>
 
 
