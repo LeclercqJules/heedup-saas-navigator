@@ -40,7 +40,7 @@ export function Nav() {
         height: "84px",
       }}
     >
-      <div className="mx-auto flex h-full items-center justify-between px-[5%]">
+      <div className="mx-auto grid h-full items-center px-[5%]" style={{ gridTemplateColumns: "1fr auto 1fr" }}>
         <Link
           to="/"
           style={{
