@@ -137,6 +137,9 @@ body {
     font-size: 44px !important;
     letter-spacing: -1px !important;
   }
+  .heedup-hero-h1-line2 {
+    font-size: 34px !important;
+  }
   .heedup-hero-inner {
     padding: 32px 5% !important;
   }
@@ -180,6 +183,10 @@ body {
     font-size: 36px !important;
     line-height: 1.15 !important;
     letter-spacing: -0.5px !important;
+  }
+  .heedup-hero-h1-line2 {
+    font-size: 28px !important;
+    margin-top: 4px !important;
   }
   .heedup-hero-sub {
     font-size: 15px !important;
@@ -292,6 +299,12 @@ body {
     gap: 20px !important;
   }
   .heedup-simplicite > div:nth-child(2) { display: none !important; }
+
+  /* Simple pour vous, simple pour eux : 1 colonne */
+  .heedup-simple-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
 
   /* Pourquoi : 1 col, nav en haut, grille 2x3 */
   .heedup-pourquoi {

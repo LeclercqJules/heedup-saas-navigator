@@ -289,7 +289,11 @@ function Index() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "var(--bg-main)",
+          background: `radial-gradient(
+            ellipse 900px 500px at 50% 28%,
+            rgba(67,56,202,0.08),
+            transparent 70%
+          ), var(--bg-main)`,
         }}
       >
         <div
@@ -332,7 +336,7 @@ function Index() {
               className="heedup-hero-h1 hero-anim-2"
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "44px",
+                fontSize: "50px",
                 lineHeight: 1.08,
                 letterSpacing: "-1.5px",
                 color: "var(--midnight)",
@@ -342,7 +346,16 @@ function Index() {
             >
               L'état réel de votre équipe, chaque semaine.
               <br />
-              <span style={{ color: "var(--indigo)", fontStyle: "italic" }}>
+              <span
+                className="heedup-hero-h1-line2"
+                style={{
+                  color: "var(--indigo)",
+                  fontStyle: "italic",
+                  fontSize: "38px",
+                  display: "inline-block",
+                  marginTop: "6px",
+                }}
+              >
                 Trois actions managériales par IA, chaque lundi.
               </span>
             </h1>
