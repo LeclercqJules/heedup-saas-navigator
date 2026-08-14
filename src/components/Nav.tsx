@@ -148,6 +148,8 @@ export function Nav() {
             background: "transparent",
             border: "none",
             cursor: "pointer",
+            gridColumn: "3 / 4",
+            justifySelf: "end",
           }}
         >
           <span style={{ display: "block", height: "2px", background: "var(--midnight)", borderRadius: "2px" }} />
