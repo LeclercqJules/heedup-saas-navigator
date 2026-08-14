@@ -12,7 +12,7 @@ import {
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
-import { RapportCard } from "@/components/RapportCard";
+
 import { RapportDemo } from "@/components/RapportDemo";
 
 
@@ -301,167 +301,168 @@ function Index() {
             padding: "0 5%",
           }}
         >
-          <div className="heedup-hero-grid grid w-full items-center md:grid-cols-2" style={{ gap: "64px" }}>
-            {/* Colonne gauche : texte */}
-            <div>
-              <span
-                className="hero-anim-1"
-                style={{
-                  display: "inline-block",
-                  background: "var(--indigo-pale)",
-                  color: "var(--indigo)",
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "11px",
-                  fontWeight: 700,
-                  letterSpacing: "0.8px",
-                  textTransform: "uppercase",
-                  padding: "5px 14px",
-                  borderRadius: "20px",
-                  marginTop: "32px",
-                  marginBottom: "16px",
-                }}
-              >
-                Votre équipe, enfin lisible.
-              </span>
-              <h1
-                className="heedup-hero-h1 hero-anim-2"
-                style={{
-                  fontFamily: "var(--font-display)",
+          <div
+            className="heedup-hero-grid w-full"
+            style={{
+              maxWidth: "900px",
+              margin: "0 auto",
+              textAlign: "center",
+            }}
+          >
+            <span
+              className="hero-anim-1"
+              style={{
+                display: "inline-block",
+                background: "var(--indigo-pale)",
+                color: "var(--indigo)",
+                fontFamily: "var(--font-sans)",
+                fontSize: "11px",
+                fontWeight: 700,
+                letterSpacing: "0.8px",
+                textTransform: "uppercase",
+                padding: "5px 14px",
+                borderRadius: "20px",
+                marginTop: "32px",
+                marginBottom: "16px",
+              }}
+            >
+              Votre équipe, enfin lisible.
+            </span>
+            <h1
+              className="heedup-hero-h1 hero-anim-2"
+              style={{
+                fontFamily: "var(--font-display)",
                 fontSize: "58px",
                 lineHeight: 1.08,
                 letterSpacing: "-1.5px",
                 color: "var(--midnight)",
-                  marginTop: "20px",
-                  marginBottom: "20px",
-                }}
-              >
-                L'état réel de votre équipe, chaque semaine.
-                <br />
-                <span style={{ color: "var(--indigo)", fontStyle: "italic" }}>
-                  Trois actions managériales par IA, chaque lundi.
-                </span>
-              </h1>
+                marginTop: "20px",
+                marginBottom: "20px",
+              }}
+            >
+              L'état réel de votre équipe, chaque semaine.
+              <br />
+              <span style={{ color: "var(--indigo)", fontStyle: "italic" }}>
+                Trois actions managériales par IA, chaque lundi.
+              </span>
+            </h1>
 
-              <p
-                className="heedup-hero-sub hero-anim-3"
+            <p
+              className="heedup-hero-sub hero-anim-3"
+              style={{
+                fontFamily: "var(--font-sans)",
+                maxWidth: "600px",
+                marginLeft: "auto",
+                marginRight: "auto",
+                fontSize: "17px",
+                lineHeight: 1.7,
+                color: "var(--text-muted)",
+                marginBottom: "32px",
+              }}
+            >
+              Vos salariés répondent à 5 questions anonymes le vendredi. Deux minutes, aucun compte à créer, aucune donnée nominative.
+            </p>
+
+            <div
+              className="heedup-hero-actions hero-anim-4"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <button
+                type="button"
+                className="heedup-hero-cta inline-flex items-center gap-2"
+                {...{
+                  "data-tally-open": "VLBY9E",
+                  "data-tally-overlay": "1",
+                  "data-tally-emoji-text": "👋",
+                  "data-tally-emoji-animation": "wave",
+                  "data-tally-width": "500",
+                }}
                 style={{
+                  backgroundColor: "var(--indigo)",
+                  color: "#FFFFFF",
+                  fontWeight: 700,
+                  fontSize: "16px",
+                  borderRadius: "8px",
+                  padding: "15px 28px",
                   fontFamily: "var(--font-sans)",
-                  maxWidth: "420px",
-                  fontSize: "17px",
-                  lineHeight: 1.7,
-                  color: "var(--text-muted)",
-                  marginBottom: "32px",
+                  border: "none",
+                  cursor: "pointer",
                 }}
               >
-                Vos salariés répondent à 5 questions anonymes le vendredi. Deux minutes, aucun compte à créer, aucune donnée nominative.
-              </p>
-
+                Accéder au lancement →
+              </button>
 
               <div
-                className="heedup-hero-actions hero-anim-4"
+                className="heedup-hero-social"
                 style={{
                   display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "12px",
+                  marginTop: "20px",
+                  marginBottom: "48px",
                 }}
               >
-                <button
-                  type="button"
-                  className="heedup-hero-cta inline-flex items-center gap-2"
-                  {...{
-                    "data-tally-open": "VLBY9E",
-                    "data-tally-overlay": "1",
-                    "data-tally-emoji-text": "👋",
-                    "data-tally-emoji-animation": "wave",
-                    "data-tally-width": "500",
-                  }}
-                  style={{
-                    backgroundColor: "var(--indigo)",
-                    color: "#FFFFFF",
-                    fontWeight: 700,
-                    fontSize: "16px",
-                    borderRadius: "8px",
-                    padding: "15px 28px",
-                    fontFamily: "var(--font-sans)",
-                    border: "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  Accéder au lancement →
-                </button>
-
-
-
-                <div
-                  className="heedup-hero-social"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "12px",
-                    marginTop: "20px",
-                    marginBottom: "48px",
-                  }}
-                >
-                  <div style={{ display: "flex", alignItems: "center", flexDirection: "row-reverse" }}>
-                    {[
-                      { initials: "AC", bg: "#2d4a6e" },
-                      { initials: "SP", bg: "#5b4c8a" },
-                      { initials: "JB", bg: "#1e3a5f" },
-                      { initials: "CR", bg: "#374151" },
-                      { initials: "TD", bg: "#4338CA" },
-                      { initials: "ML", bg: "#0D1B3E" },
-                    ].map((a, i, arr) => (
-                      <div
-                        key={a.initials}
-                        style={{
-                          width: "36px",
-                          height: "36px",
-                          borderRadius: "50%",
-                          background: a.bg,
-                          border: "2px solid var(--bg-main)",
-                          marginLeft: i === arr.length - 1 ? 0 : "-10px",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontFamily: "var(--font-display)",
-                          fontSize: "13px",
-                          color: "#FFFFFF",
-                          fontStyle: "italic",
-                        }}
-                      >
-                        {a.initials}
-                      </div>
-                    ))}
-                  </div>
-                  <div style={{ display: "flex", flexDirection: "column" }}>
+                <div style={{ display: "flex", alignItems: "center", flexDirection: "row-reverse" }}>
+                  {[
+                    { initials: "AC", bg: "#2d4a6e" },
+                    { initials: "SP", bg: "#5b4c8a" },
+                    { initials: "JB", bg: "#1e3a5f" },
+                    { initials: "CR", bg: "#374151" },
+                    { initials: "TD", bg: "#4338CA" },
+                    { initials: "ML", bg: "#0D1B3E" },
+                  ].map((a, i, arr) => (
                     <div
+                      key={a.initials}
                       style={{
-                        fontFamily: "var(--font-sans)",
-                        fontSize: "14px",
-                        color: "var(--midnight)",
-                        fontWeight: 500,
-                        lineHeight: 1.3,
-                      }}
-                    >
-                      <span style={{ fontWeight: 700 }}>{count}</span> dirigeants
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-sans)",
+                        width: "36px",
+                        height: "36px",
+                        borderRadius: "50%",
+                        background: a.bg,
+                        border: "2px solid var(--bg-main)",
+                        marginLeft: i === arr.length - 1 ? 0 : "-10px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontFamily: "var(--font-display)",
                         fontSize: "13px",
-                        color: "var(--text-muted)",
-                        lineHeight: 1.3,
+                        color: "#FFFFFF",
+                        fontStyle: "italic",
                       }}
                     >
-                      déjà sur la liste d'attente
+                      {a.initials}
                     </div>
+                  ))}
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", textAlign: "left" }}>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "14px",
+                      color: "var(--midnight)",
+                      fontWeight: 500,
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    <span style={{ fontWeight: 700 }}>{count}</span> dirigeants
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "13px",
+                      color: "var(--text-muted)",
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    déjà sur la liste d'attente
                   </div>
                 </div>
               </div>
             </div>
-
-            {/* Colonne droite : carte */}
-            <RapportCard className="heedup-hero-card hero-anim-5" />
           </div>
         </div>
 
@@ -497,6 +498,11 @@ function Index() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* Démonstration interactive */}
+      <section style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
+        <RapportDemo className="fade-up" />
       </section>
 
       {/* Secteurs représentés */}
@@ -1083,14 +1089,6 @@ function Index() {
           </div>
         </div>
       </section>
-
-      {/* Démonstration interactive */}
-      <section style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
-        <RapportDemo className="fade-up" />
-      </section>
-
-
-
 
       {/* Tableau comparatif */}
       <section
