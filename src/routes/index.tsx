@@ -298,7 +298,7 @@ function Index() {
             flex: 1,
             display: "flex",
             alignItems: "center",
-            padding: "0 5%",
+            padding: "40px 5%",
           }}
         >
           <div
@@ -322,8 +322,8 @@ function Index() {
                 textTransform: "uppercase",
                 padding: "5px 14px",
                 borderRadius: "20px",
-                marginTop: "32px",
-                marginBottom: "16px",
+                marginTop: "24px",
+                marginBottom: "28px",
               }}
             >
               Votre équipe, enfin lisible.
@@ -336,8 +336,8 @@ function Index() {
                 lineHeight: 1.08,
                 letterSpacing: "-1.5px",
                 color: "var(--midnight)",
-                marginTop: "20px",
-                marginBottom: "20px",
+                marginTop: "0px",
+                marginBottom: "32px",
               }}
             >
               L'état réel de votre équipe, chaque semaine.
@@ -357,7 +357,7 @@ function Index() {
                 fontSize: "17px",
                 lineHeight: 1.7,
                 color: "var(--text-muted)",
-                marginBottom: "32px",
+                marginBottom: "40px",
               }}
             >
               Vos salariés répondent à 5 questions anonymes le vendredi. Deux minutes, aucun compte à créer, aucune donnée nominative.
@@ -403,8 +403,8 @@ function Index() {
                   alignItems: "center",
                   justifyContent: "center",
                   gap: "12px",
-                  marginTop: "20px",
-                  marginBottom: "48px",
+                  marginTop: "32px",
+                  marginBottom: "0px",
                 }}
               >
                 <div style={{ display: "flex", alignItems: "center", flexDirection: "row-reverse" }}>
