@@ -746,6 +746,102 @@ function Page() {
         </div>
       </section>
 
+      {/* Section 3b : Simple pour vous, simple pour eux */}
+      <section className="fade-up" style={{ background: "var(--bg-card)", padding: "56px 5%", borderTop: "1px solid rgba(67,56,202,0.08)" }}>
+        <div style={{ textAlign: "center", marginBottom: "40px" }}>
+          <div style={{ fontFamily: "var(--font-sans)", fontSize: "11px", textTransform: "uppercase", fontWeight: 700, letterSpacing: "1px", color: "var(--midnight)", opacity: 0.35, marginBottom: "12px" }}>
+            ZÉRO FRICTION
+          </div>
+          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "26px", color: "var(--midnight)", letterSpacing: "-0.3px", lineHeight: 1.2, marginBottom: "12px" }}>
+            Simple pour vous,{" "}
+            <span style={{ fontStyle: "italic", color: "var(--indigo)" }}>simple pour eux.</span>
+          </h2>
+          <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", color: "var(--text-muted)", maxWidth: "620px", margin: "0 auto", lineHeight: 1.65 }}>
+            L'outil qui s'efface est celui qu'on utilise vraiment. HeedUp est conçu pour disparaître dans votre routine.
+          </p>
+        </div>
+
+        <div className="heedup-simple-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", maxWidth: "1000px", margin: "0 auto" }}>
+          {/* Colonne gauche */}
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", fontFamily: "var(--font-sans)", fontSize: "11px", fontWeight: 700, letterSpacing: "0.8px", textTransform: "uppercase", color: "var(--indigo)" }}>
+              <User size={13} strokeWidth={2} />
+              Pour vous, le manager
+            </div>
+            <h3 style={{ fontFamily: "var(--font-sans)", fontWeight: 700, color: "var(--midnight)", margin: "8px 0 16px", fontSize: "18px" }}>
+              Vous pilotez. Vous ne maintenez pas.
+            </h3>
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+              <div>
+                <div style={{ fontFamily: "var(--font-sans)", fontSize: "14px", fontWeight: 700, color: "var(--midnight)", marginBottom: "4px" }}>Pas de projet informatique</div>
+                <div style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "var(--text-muted)", lineHeight: 1.6 }}>
+                  Aucune intégration SIRH, aucun ticket IT, aucune réunion de déploiement. Vous importez un fichier CSV et c'est terminé.
+                </div>
+              </div>
+              <div>
+                <div style={{ fontFamily: "var(--font-sans)", fontSize: "14px", fontWeight: 700, color: "var(--midnight)", marginBottom: "4px" }}>L'information vient à vous</div>
+                <div style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "var(--text-muted)", lineHeight: 1.6 }}>
+                  Vous n'ouvrez pas un outil pour aller chercher les données. Le rapport d'équipe arrive dans votre boîte mail. Vous n'avez rien à déclencher.
+                </div>
+              </div>
+              <div>
+                <div style={{ fontFamily: "var(--font-sans)", fontSize: "14px", fontWeight: 700, color: "var(--midnight)", marginBottom: "4px" }}>Des actions, pas des données brutes</div>
+                <div style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "var(--text-muted)", lineHeight: 1.6 }}>
+                  HeedUp ne vous donne pas un score à interpréter. Il vous dit quoi faire cette semaine, formulé pour un manager, pas pour un analyste RH.
+                </div>
+              </div>
+              <div>
+                <div style={{ fontFamily: "var(--font-sans)", fontSize: "14px", fontWeight: 700, color: "var(--midnight)", marginBottom: "4px" }}>Un budget PME, pas un budget ETI</div>
+                <div style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "var(--text-muted)", lineHeight: 1.6 }}>
+                  À partir de 50€/mois, sans engagement annuel obligatoire. Prix affiché publiquement, sans devis, sans appel commercial préalable.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Colonne droite */}
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", fontFamily: "var(--font-sans)", fontSize: "11px", fontWeight: 700, letterSpacing: "0.8px", textTransform: "uppercase", color: "var(--indigo)" }}>
+              <Users size={13} strokeWidth={2} />
+              Pourquoi vos salariés répondent vraiment
+            </div>
+            <h3 style={{ fontFamily: "var(--font-sans)", fontWeight: 700, color: "var(--midnight)", margin: "8px 0 16px", fontSize: "18px" }}>
+              Ils participent parce qu'ils font confiance.
+            </h3>
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+              <div>
+                <div style={{ fontFamily: "var(--font-sans)", fontSize: "14px", fontWeight: 700, color: "var(--midnight)", marginBottom: "4px" }}>L'anonymat est dans le code, pas dans la charte</div>
+                <div style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "var(--text-muted)", lineHeight: 1.6 }}>
+                  Même vous ne pouvez pas voir les réponses individuelles. Ce n'est pas une promesse managériale, c'est une contrainte architecturale.
+                </div>
+              </div>
+              <div>
+                <div style={{ fontFamily: "var(--font-sans)", fontSize: "14px", fontWeight: 700, color: "var(--midnight)", marginBottom: "4px" }}>Un seul contact par semaine</div>
+                <div style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "var(--text-muted)", lineHeight: 1.6 }}>
+                  Un email le vendredi matin. Pas d'app, pas de compte, pas de relance. Moins intrusif qu'un point d'équipe.
+                </div>
+              </div>
+              <div>
+                <div style={{ fontFamily: "var(--font-sans)", fontSize: "14px", fontWeight: 700, color: "var(--midnight)", marginBottom: "4px" }}>Ils voient que ça change quelque chose</div>
+                <div style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "var(--text-muted)", lineHeight: 1.6 }}>
+                  Quand vos actions du lundi reflètent les signaux de la semaine, le taux de réponse monte. La boucle de confiance se referme d'elle-même.
+                </div>
+              </div>
+              <div>
+                <div style={{ fontFamily: "var(--font-sans)", fontSize: "14px", fontWeight: 700, color: "var(--midnight)", marginBottom: "4px" }}>Zéro surcharge cognitive</div>
+                <div style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "var(--text-muted)", lineHeight: 1.6 }}>
+                  5 questions, une échelle de 1 à 5, 2 minutes. Aucune question ouverte obligatoire, aucun formulaire à rallonge.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", color: "var(--text-primary)", textAlign: "center", maxWidth: "680px", margin: "32px auto 0", paddingTop: "24px", borderTop: "1px solid rgba(67,56,202,0.08)", lineHeight: 1.65 }}>
+          Un outil que vos salariés acceptent d'utiliser est un outil qui vous donne de vraies données. C'est le seul pari de HeedUp.
+        </p>
+      </section>
+
       {/* Section 4 : Comparatif */}
       <section id="comparatif" className="fade-up" style={{ background: "var(--bg-main)", padding: "56px 5%", borderTop: "1px solid rgba(67,56,202,0.08)" }}>
         <h2 style={{ fontFamily: "var(--font-display)", fontSize: "42px", color: "var(--midnight)", letterSpacing: "-0.8px", textAlign: "center", marginBottom: "8px" }}>
