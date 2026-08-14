@@ -332,7 +332,7 @@ function Index() {
               className="heedup-hero-h1 hero-anim-2"
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "58px",
+                fontSize: "44px",
                 lineHeight: 1.08,
                 letterSpacing: "-1.5px",
                 color: "var(--midnight)",
