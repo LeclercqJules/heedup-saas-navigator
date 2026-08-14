@@ -304,7 +304,7 @@ function Index() {
           <div
             className="heedup-hero-grid w-full"
             style={{
-              maxWidth: "900px",
+              maxWidth: "1080px",
               margin: "0 auto",
               textAlign: "center",
             }}
@@ -332,7 +332,7 @@ function Index() {
               className="heedup-hero-h1 hero-anim-2"
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "58px",
+                fontSize: "44px",
                 lineHeight: 1.08,
                 letterSpacing: "-1.5px",
                 color: "var(--midnight)",
@@ -754,92 +754,66 @@ function Index() {
             ))}
           </div>
 
-        </div>
-      </section>
+          <div
+            id="calculateur"
+            className="calc-band-inner"
+            style={{
+              marginTop: "32px",
+              paddingTop: "28px",
+              borderTop: "1px solid rgba(67,56,202,0.12)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "20px",
+              flexWrap: "wrap",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "16px",
+                color: "var(--text-primary)",
+                margin: 0,
+              }}
+            >
+              Estimez ce que le désengagement coûte réellement à votre équipe.
+            </p>
+            <Link
+              to="/estimer-cout"
+              style={{
+                backgroundColor: "var(--indigo)",
+                color: "#FFFFFF",
+                fontWeight: 700,
+                fontSize: "15px",
+                borderRadius: "8px",
+                padding: "13px 26px",
+                fontFamily: "var(--font-sans)",
+                border: "none",
+                cursor: "pointer",
+                textDecoration: "none",
+                transition: "transform 0.2s ease",
+                display: "inline-block",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
+              onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+            >
+              Calculer pour mon équipe →
+            </Link>
+            <style>{`
+              @media (max-width: 768px) {
+                .calc-band-inner {
+                  flex-direction: column !important;
+                  gap: 14px !important;
+                }
+                .calc-band-inner > a {
+                  width: 100% !important;
+                  text-align: center !important;
+                }
+              }
+            `}</style>
+          </div>
 
-      {/* Bande calculateur */}
-      <section id="calculateur" className="calc-band fade-up" style={{ backgroundColor: "var(--bg-card)", textAlign: "center" }}>
-        <div
-          style={{
-            maxWidth: "900px",
-            margin: "0 auto",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "16px",
-          }}
-        >
-          <h2
-            className="calc-band-heading"
-            style={{
-              fontFamily: "var(--font-display)",
-              letterSpacing: "-0.5px",
-              lineHeight: 1.2,
-              color: "var(--midnight)",
-              marginBottom: "8px",
-            }}
-          >
-            Un départ non anticipé coûte en moyenne <span style={{ whiteSpace: "nowrap" }}>22 500€.</span>
-          </h2>
-
-          <p
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "16px",
-              color: "var(--text-muted)",
-              lineHeight: 1.6,
-              marginBottom: "8px",
-            }}
-          >
-            Estimez ce que le désengagement coûte réellement à votre équipe.
-          </p>
-          <Link
-            to="/estimer-cout"
-            className="calc-band-btn"
-            style={{
-              backgroundColor: "var(--indigo)",
-              color: "#FFFFFF",
-              padding: "14px 32px",
-              borderRadius: "8px",
-              fontSize: "15px",
-              fontWeight: 700,
-              border: "none",
-              cursor: "pointer",
-              fontFamily: "var(--font-sans)",
-              textDecoration: "none",
-              transition: "transform 0.2s ease",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
-            onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
-          >
-            Calculer pour mon équipe →
-          </Link>
-          <p
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "12px",
-              color: "var(--text-muted)",
-            }}
-          >
-            Basé sur les données IBET 2024 et Deloitte 2024.
-          </p>
         </div>
-        <style>{`
-          .calc-band { padding: 48px 5%; }
-          .calc-band-heading {
-            font-size: 28px;
-            white-space: nowrap;
-          }
-          .calc-band-btn { display: inline-block; }
-          @media (max-width: 768px) {
-            .calc-band { padding: 36px 5%; }
-            .calc-band-heading {
-              font-size: 18px;
-              white-space: normal;
-            }
-            .calc-band-btn { width: 100%; }
-          }
-        `}</style>
       </section>
 
       {/* Comment ça marche */}
