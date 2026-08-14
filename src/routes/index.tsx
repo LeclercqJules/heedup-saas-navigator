@@ -754,6 +754,65 @@ function Index() {
             ))}
           </div>
 
+          <div
+            id="calculateur"
+            className="calc-band-inner"
+            style={{
+              marginTop: "32px",
+              paddingTop: "28px",
+              borderTop: "1px solid rgba(67,56,202,0.12)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "20px",
+              flexWrap: "wrap",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "16px",
+                color: "var(--text-primary)",
+                margin: 0,
+              }}
+            >
+              Estimez ce que le désengagement coûte réellement à votre équipe.
+            </p>
+            <Link
+              to="/estimer-cout"
+              style={{
+                backgroundColor: "var(--indigo)",
+                color: "#FFFFFF",
+                fontWeight: 700,
+                fontSize: "15px",
+                borderRadius: "8px",
+                padding: "13px 26px",
+                fontFamily: "var(--font-sans)",
+                border: "none",
+                cursor: "pointer",
+                textDecoration: "none",
+                transition: "transform 0.2s ease",
+                display: "inline-block",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
+              onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+            >
+              Calculer pour mon équipe →
+            </Link>
+            <style>{`
+              @media (max-width: 768px) {
+                .calc-band-inner {
+                  flex-direction: column !important;
+                  gap: 14px !important;
+                }
+                .calc-band-inner > a {
+                  width: 100% !important;
+                  text-align: center !important;
+                }
+              }
+            `}</style>
+          </div>
+
         </div>
       </section>
 
