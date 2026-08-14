@@ -54,7 +54,7 @@ export function Nav() {
           HeedUp
         </Link>
 
-        <nav className="heedup-nav-links hidden items-center md:flex" style={{ gap: "40px" }}>
+        <nav className="heedup-nav-links hidden items-center md:flex" style={{ gap: "40px", justifySelf: "center" }}>
           {navLinks.map((l) => (
             <Link
               key={l.to}
