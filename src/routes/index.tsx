@@ -500,6 +500,11 @@ function Index() {
         </div>
       </section>
 
+      {/* Démonstration interactive */}
+      <section style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
+        <RapportDemo className="fade-up" />
+      </section>
+
       {/* Secteurs représentés */}
       <div
         className="heedup-sectors sectors-ticker"
