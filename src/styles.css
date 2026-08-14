@@ -306,6 +306,23 @@ body {
     gap: 32px !important;
   }
 
+  .heedup-simple-vous-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .heedup-simple-vous-card {
+    padding: 22px !important;
+  }
+  .heedup-simple-vous-card h3 {
+    font-size: 19px !important;
+  }
+  .heedup-simple-vous-closing {
+    padding: 18px 20px !important;
+  }
+  .heedup-simple-vous-closing p {
+    font-size: 16px !important;
+  }
+
   /* Pourquoi : 1 col, nav en haut, grille 2x3 */
   .heedup-pourquoi {
     grid-template-columns: 1fr !important;
