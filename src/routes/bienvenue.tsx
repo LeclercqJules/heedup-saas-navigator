@@ -6,7 +6,31 @@ import { RapportCard } from "@/components/RapportCard";
 import { RapportDemo } from "@/components/RapportDemo";
 import { useTallyCount } from "@/hooks/useTallyCount";
 
+type UtmSearch = {
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+  utm_term?: string;
+  utm_content?: string;
+};
+
+const UTM_KEYS = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_term",
+  "utm_content",
+] as const;
+
 export const Route = createFileRoute("/bienvenue")({
+  validateSearch: (search: Record<string, unknown>): UtmSearch => {
+    const out: UtmSearch = {};
+    for (const key of UTM_KEYS) {
+      const value = search[key];
+      if (typeof value === "string") out[key] = value;
+    }
+    return out;
+  },
   head: () => ({
     meta: [
       { title: "Bienvenue depuis LinkedIn — HeedUp" },

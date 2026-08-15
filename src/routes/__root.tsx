@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteLayout } from "../components/SiteLayout";
+import { Analytics } from "../components/Analytics";
 
 function NotFoundComponent() {
   return (
@@ -161,18 +162,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         onload: "this.onload=null;this.rel='stylesheet'",
       },
     ],
-    scripts: [
-      { src: "https://tally.so/widgets/embed.js", async: true },
-      { src: "https://plausible.io/js/pa-CIDeiK1v6ZROoW7xZv8u9.js", async: true },
-      {
-        children:
-          "window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()",
-      },
-      {
-        children:
-          "(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src=\"https://www.clarity.ms/tag/\"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, \"clarity\", \"script\", \"xr0pguqyur\");",
-      },
-    ],
+    scripts: [{ src: "https://tally.so/widgets/embed.js", async: true }],
 
   }),
 
@@ -208,6 +198,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Analytics />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>
