@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TarifsRouteImport } from './routes/tarifs'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as RepondreRouteImport } from './routes/repondre'
 import { Route as FonctionnalitesRouteImport } from './routes/fonctionnalites'
 import { Route as EstimerCoutRouteImport } from './routes/estimer-cout'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -31,6 +32,11 @@ const TarifsRoute = TarifsRouteImport.update({
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RepondreRoute = RepondreRouteImport.update({
+  id: '/repondre',
+  path: '/repondre',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FonctionnalitesRoute = FonctionnalitesRouteImport.update({
@@ -100,6 +106,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/estimer-cout': typeof EstimerCoutRoute
   '/fonctionnalites': typeof FonctionnalitesRoute
+  '/repondre': typeof RepondreRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
   '/admin/conversations/$sessionId': typeof AdminConversationsSessionIdRoute
@@ -115,6 +122,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/estimer-cout': typeof EstimerCoutRoute
   '/fonctionnalites': typeof FonctionnalitesRoute
+  '/repondre': typeof RepondreRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
   '/admin/conversations/$sessionId': typeof AdminConversationsSessionIdRoute
@@ -131,6 +139,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/estimer-cout': typeof EstimerCoutRoute
   '/fonctionnalites': typeof FonctionnalitesRoute
+  '/repondre': typeof RepondreRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
   '/admin/conversations/$sessionId': typeof AdminConversationsSessionIdRoute
@@ -148,6 +157,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/estimer-cout'
     | '/fonctionnalites'
+    | '/repondre'
     | '/reset-password'
     | '/tarifs'
     | '/admin/conversations/$sessionId'
@@ -163,6 +173,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/estimer-cout'
     | '/fonctionnalites'
+    | '/repondre'
     | '/reset-password'
     | '/tarifs'
     | '/admin/conversations/$sessionId'
@@ -178,6 +189,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/estimer-cout'
     | '/fonctionnalites'
+    | '/repondre'
     | '/reset-password'
     | '/tarifs'
     | '/admin/conversations/$sessionId'
@@ -194,6 +206,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   EstimerCoutRoute: typeof EstimerCoutRoute
   FonctionnalitesRoute: typeof FonctionnalitesRoute
+  RepondreRoute: typeof RepondreRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TarifsRoute: typeof TarifsRoute
   AdminConversationsSessionIdRoute: typeof AdminConversationsSessionIdRoute
@@ -214,6 +227,13 @@ declare module '@tanstack/react-router' {
       path: '/reset-password'
       fullPath: '/reset-password'
       preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/repondre': {
+      id: '/repondre'
+      path: '/repondre'
+      fullPath: '/repondre'
+      preLoaderRoute: typeof RepondreRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fonctionnalites': {
@@ -306,6 +326,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   EstimerCoutRoute: EstimerCoutRoute,
   FonctionnalitesRoute: FonctionnalitesRoute,
+  RepondreRoute: RepondreRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TarifsRoute: TarifsRoute,
   AdminConversationsSessionIdRoute: AdminConversationsSessionIdRoute,
