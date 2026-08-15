@@ -359,6 +359,7 @@ function RepondrePage() {
                           fontSize: "11px",
                           color: "var(--text-muted)",
                           marginTop: "6px",
+                          whiteSpace: "nowrap",
                           textAlign: value === 1 ? "left" : "right",
                         }}
                       >
