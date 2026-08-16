@@ -541,7 +541,6 @@ function RepondrePage() {
         <button
           type="button"
           onClick={onPrimaryClick}
-          aria-disabled={!complete || sending || locked}
           disabled={sending || locked}
           style={{
             width: "100%",
