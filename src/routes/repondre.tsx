@@ -54,7 +54,7 @@ type Outcome =
   | { kind: "terminal"; title: string; text: string }
   | { kind: "retryable"; title: string; text: string };
 
-function Shell({ children }: { children: React.ReactNode }) {
+function Shell({ children, progress }: { children: React.ReactNode; progress?: number }) {
   return (
     <div
       style={{
@@ -72,11 +72,44 @@ function Shell({ children }: { children: React.ReactNode }) {
           fontStyle: "italic",
           color: "var(--midnight)",
           textAlign: "center",
-          marginBottom: "28px",
+          marginBottom: "16px",
         }}
       >
         HeedUp
       </div>
+      {progress !== undefined && (
+        <div
+          style={{
+            position: "sticky",
+            top: 0,
+            zIndex: 10,
+            width: "100%",
+            maxWidth: "620px",
+            margin: "0 auto 20px",
+            backgroundColor: "var(--bg-main)",
+            paddingTop: "8px",
+            paddingBottom: "8px",
+          }}
+        >
+          <div
+            style={{
+              height: "3px",
+              borderRadius: "2px",
+              backgroundColor: "color-mix(in oklab, var(--text-muted) 15%, transparent)",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                height: "100%",
+                width: `${Math.round(progress * 100)}%`,
+                backgroundColor: "var(--indigo)",
+                transition: "width 200ms ease",
+              }}
+            />
+          </div>
+        </div>
+      )}
       <div style={{ flex: 1, width: "100%", maxWidth: "620px", margin: "0 auto" }}>{children}</div>
       <div style={{ textAlign: "center", marginTop: "40px" }}>
         <a
@@ -95,7 +128,7 @@ function Shell({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Message({ title, text }: { title: string; text: string }) {
+function Message({ title, text, icon }: { title: string; text: string; icon?: boolean }) {
   return (
     <div
       style={{
@@ -103,8 +136,14 @@ function Message({ title, text }: { title: string; text: string }) {
         border: "1px solid rgba(107,114,128,0.25)",
         borderRadius: "14px",
         padding: "28px 24px",
+        textAlign: icon ? "center" : "left",
       }}
     >
+      {icon && (
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: "14px" }}>
+          <CheckCircle2 size={32} strokeWidth={1.8} color="var(--indigo)" aria-hidden="true" />
+        </div>
+      )}
       <h1
         style={{
           fontFamily: "var(--font-display)",
