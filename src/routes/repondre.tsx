@@ -178,6 +178,9 @@ function RepondrePage() {
   const [sending, setSending] = useState(false);
   const [locked, setLocked] = useState(false);
   const [outcome, setOutcome] = useState<Outcome | null>(null);
+  const [highlighted, setHighlighted] = useState<QuestionId | null>(null);
+  const cardRefs = useRef<Partial<Record<QuestionId, HTMLDivElement | null>>>({});
+  const highlightTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   if (!token) {
     return (
@@ -193,10 +196,11 @@ function RepondrePage() {
   if (outcome && outcome.kind !== "retryable") {
     return (
       <Shell>
-        <Message title={outcome.title} text={outcome.text} />
+        <Message title={outcome.title} text={outcome.text} icon={outcome.kind === "success"} />
       </Shell>
     );
   }
+
 
   const answered = QUESTIONS.filter((q) => answers[q.id] !== undefined).length;
   const complete = answered === QUESTIONS.length;
