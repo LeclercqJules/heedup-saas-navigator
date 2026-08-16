@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { CheckCircle2, ShieldCheck } from "lucide-react";
 import { heedupClient } from "@/config/heedupClient";
 
 type TokenSearch = { token?: string };
@@ -54,9 +55,10 @@ type Outcome =
   | { kind: "terminal"; title: string; text: string }
   | { kind: "retryable"; title: string; text: string };
 
-function Shell({ children }: { children: React.ReactNode }) {
+function Shell({ children, progress }: { children: React.ReactNode; progress?: number }) {
   return (
     <div
+      id="repondre-root"
       style={{
         minHeight: "100vh",
         backgroundColor: "var(--bg-main)",
@@ -72,11 +74,44 @@ function Shell({ children }: { children: React.ReactNode }) {
           fontStyle: "italic",
           color: "var(--midnight)",
           textAlign: "center",
-          marginBottom: "28px",
+          marginBottom: "16px",
         }}
       >
         HeedUp
       </div>
+      {progress !== undefined && (
+        <div
+          style={{
+            position: "sticky",
+            top: 0,
+            zIndex: 10,
+            width: "100%",
+            maxWidth: "620px",
+            margin: "0 auto 20px",
+            backgroundColor: "var(--bg-main)",
+            paddingTop: "8px",
+            paddingBottom: "8px",
+          }}
+        >
+          <div
+            style={{
+              height: "3px",
+              borderRadius: "2px",
+              backgroundColor: "color-mix(in oklab, var(--text-muted) 15%, transparent)",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                height: "100%",
+                width: `${Math.round(progress * 100)}%`,
+                backgroundColor: "var(--indigo)",
+                transition: "width 200ms ease",
+              }}
+            />
+          </div>
+        </div>
+      )}
       <div style={{ flex: 1, width: "100%", maxWidth: "620px", margin: "0 auto" }}>{children}</div>
       <div style={{ textAlign: "center", marginTop: "40px" }}>
         <a
@@ -95,7 +130,7 @@ function Shell({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Message({ title, text }: { title: string; text: string }) {
+function Message({ title, text, icon }: { title: string; text: string; icon?: boolean }) {
   return (
     <div
       style={{
@@ -103,8 +138,14 @@ function Message({ title, text }: { title: string; text: string }) {
         border: "1px solid rgba(107,114,128,0.25)",
         borderRadius: "14px",
         padding: "28px 24px",
+        textAlign: icon ? "center" : "left",
       }}
     >
+      {icon && (
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: "14px" }}>
+          <CheckCircle2 size={32} strokeWidth={1.8} color="var(--indigo)" aria-hidden="true" />
+        </div>
+      )}
       <h1
         style={{
           fontFamily: "var(--font-display)",
@@ -138,6 +179,9 @@ function RepondrePage() {
   const [sending, setSending] = useState(false);
   const [locked, setLocked] = useState(false);
   const [outcome, setOutcome] = useState<Outcome | null>(null);
+  const [highlighted, setHighlighted] = useState<QuestionId | null>(null);
+  const cardRefs = useRef<Partial<Record<QuestionId, HTMLDivElement | null>>>({});
+  const highlightTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   if (!token) {
     return (
@@ -153,10 +197,11 @@ function RepondrePage() {
   if (outcome && outcome.kind !== "retryable") {
     return (
       <Shell>
-        <Message title={outcome.title} text={outcome.text} />
+        <Message title={outcome.title} text={outcome.text} icon={outcome.kind === "success"} />
       </Shell>
     );
   }
+
 
   const answered = QUESTIONS.filter((q) => answers[q.id] !== undefined).length;
   const complete = answered === QUESTIONS.length;
@@ -248,8 +293,27 @@ function RepondrePage() {
     if (next.kind === "retryable") setLocked(false);
   };
 
+  const focusFirstMissing = () => {
+    const missing = QUESTIONS.find((q) => answers[q.id] === undefined);
+    if (!missing) return;
+    const node = cardRefs.current[missing.id];
+    if (node) node.scrollIntoView({ behavior: "smooth", block: "center" });
+    setHighlighted(missing.id);
+    if (highlightTimer.current) clearTimeout(highlightTimer.current);
+    highlightTimer.current = setTimeout(() => setHighlighted(null), 2000);
+  };
+
+  const onPrimaryClick = () => {
+    if (sending || locked) return;
+    if (!complete) {
+      focusFirstMissing();
+      return;
+    }
+    void submit();
+  };
+
   return (
-    <Shell>
+    <Shell progress={answered / QUESTIONS.length}>
       <h1
         style={{
           fontFamily: "var(--font-display)",
@@ -266,7 +330,7 @@ function RepondrePage() {
           fontFamily: "var(--font-sans)",
           fontSize: "15.5px",
           color: "var(--text-muted)",
-          margin: "0 0 24px",
+          margin: "0 0 20px",
         }}
       >
         5 questions, deux minutes.
@@ -276,111 +340,142 @@ function RepondrePage() {
         style={{
           backgroundColor: "var(--indigo-pale)",
           borderRadius: "14px",
-          padding: "18px 20px",
-          marginBottom: "28px",
+          padding: "14px 15px",
+          marginBottom: "22px",
+          display: "flex",
+          alignItems: "flex-start",
+          gap: "10px",
           fontFamily: "var(--font-sans)",
           fontSize: "14px",
-          lineHeight: 1.6,
+          lineHeight: 1.45,
           color: "var(--text-primary)",
         }}
       >
-        Vos réponses sont anonymes : le lien entre votre réponse et votre identité est supprimé au
-        moment de l'envoi. Votre manager reçoit uniquement des moyennes d'équipe, à partir de 5
-        réponses.
+        <ShieldCheck
+          size={20}
+          strokeWidth={1.8}
+          color="var(--indigo)"
+          aria-hidden="true"
+          style={{ flexShrink: 0, marginTop: "1px" }}
+        />
+        <div>
+          Vos réponses sont anonymes : le lien entre votre réponse et votre identité est supprimé au
+          moment de l'envoi. Votre manager reçoit uniquement des moyennes d'équipe, à partir de 5
+          réponses.
+        </div>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
-        {QUESTIONS.map((q, index) => (
-          <div
-            key={q.id}
-            style={{
-              backgroundColor: "var(--bg-card)",
-              borderRadius: "14px",
-              padding: "22px 20px",
-              boxShadow: "0 1px 3px rgba(13,27,62,0.06)",
-            }}
-          >
+      <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+        {QUESTIONS.map((q, index) => {
+          const isAnswered = answers[q.id] !== undefined;
+          return (
             <div
+              key={q.id}
+              ref={(el) => {
+                cardRefs.current[q.id] = el;
+              }}
               style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "11px",
-                fontWeight: 700,
-                letterSpacing: "0.8px",
-                textTransform: "uppercase",
-                color: "var(--text-muted)",
-                marginBottom: "8px",
+                backgroundColor: "var(--bg-card)",
+                borderRadius: "14px",
+                padding: "15px 18px",
+                boxShadow: "0 1px 3px rgba(13,27,62,0.06)",
+                borderLeft: isAnswered ? "3px solid var(--indigo)" : "3px solid transparent",
+                outline: highlighted === q.id ? "2px solid var(--indigo)" : "none",
+                outlineOffset: "0px",
+                transition: "opacity 0.2s ease",
               }}
             >
-              Question {index + 1} sur 5
-            </div>
-            <p
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "16px",
-                lineHeight: 1.5,
-                color: "var(--text-primary)",
-                margin: "0 0 18px",
-                fontWeight: 500,
-              }}
-            >
-              {q.label}
-            </p>
-            <div style={{ display: "flex", gap: "8px" }}>
-              {[1, 2, 3, 4, 5].map((value) => {
-                const selected = answers[q.id] === value;
-                return (
-                  <div key={value} style={{ flex: 1, minWidth: 0 }}>
-                    <button
-                      type="button"
-                      aria-pressed={selected}
-                      onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: value }))}
-                      disabled={locked}
-                      style={{
-                        width: "100%",
-                        minWidth: "44px",
-                        minHeight: "48px",
-                        borderRadius: "10px",
-                        cursor: locked ? "default" : "pointer",
-                        fontFamily: "var(--font-sans)",
-                        fontSize: "16px",
-                        fontWeight: 600,
-                        backgroundColor: selected ? "var(--indigo)" : "var(--bg-card)",
-                        color: selected ? "#FFFFFF" : "var(--text-primary)",
-                        border: selected ? "1px solid var(--indigo)" : "1px solid rgba(107,114,128,0.2)",
-                        transition: "opacity 0.2s ease",
-                      }}
-                    >
-                      {value}
-                    </button>
-                    {(value === 1 || value === 5) && (
-                      <div
+              <p
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "16px",
+                  lineHeight: 1.45,
+                  color: "var(--text-primary)",
+                  margin: "0 0 14px",
+                  fontWeight: 500,
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "10px",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: "13px",
+                    color: "var(--text-muted)",
+                    fontWeight: 600,
+                    lineHeight: 1.75,
+                    flexShrink: 0,
+                  }}
+                >
+                  {index + 1}
+                </span>
+                <span>{q.label}</span>
+              </p>
+              <div style={{ display: "flex", gap: "8px" }}>
+                {[1, 2, 3, 4, 5].map((value) => {
+                  const selected = answers[q.id] === value;
+                  return (
+                    <div key={value} style={{ flex: 1, minWidth: 0 }}>
+                      <button
+                        type="button"
+                        aria-pressed={selected}
+                        onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: value }))}
+                        disabled={locked}
+                        onMouseEnter={(e) => {
+                          if (!selected && !locked)
+                            e.currentTarget.style.border = "1px solid var(--indigo)";
+                        }}
+                        onMouseLeave={(e) => {
+                          if (!selected)
+                            e.currentTarget.style.border = "1px solid rgba(107,114,128,0.2)";
+                        }}
                         style={{
+                          width: "100%",
+                          minWidth: "44px",
+                          minHeight: "48px",
+                          borderRadius: "10px",
+                          cursor: locked ? "default" : "pointer",
                           fontFamily: "var(--font-sans)",
-                          fontSize: "11px",
-                          color: "var(--text-muted)",
-                          marginTop: "6px",
-                          whiteSpace: "nowrap",
-                          textAlign: value === 1 ? "left" : "right",
+                          fontSize: "16px",
+                          fontWeight: 600,
+                          backgroundColor: selected ? "var(--indigo)" : "var(--bg-card)",
+                          color: selected ? "#FFFFFF" : "var(--text-primary)",
+                          border: selected ? "1px solid var(--indigo)" : "1px solid rgba(107,114,128,0.2)",
+                          transition: "opacity 0.2s ease",
                         }}
                       >
-                        {value === 1 ? "Pas du tout" : "Tout à fait"}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+                        {value}
+                      </button>
+                      {(value === 1 || value === 5) && (
+                        <div
+                          style={{
+                            fontFamily: "var(--font-sans)",
+                            fontSize: "11px",
+                            color: "var(--text-muted)",
+                            marginTop: "6px",
+                            whiteSpace: "nowrap",
+                            textAlign: value === 1 ? "left" : "right",
+                          }}
+                        >
+                          {value === 1 ? "Pas du tout" : "Tout à fait"}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div
         style={{
           backgroundColor: "var(--bg-card)",
           borderRadius: "14px",
-          padding: "22px 20px",
+          padding: "16px 18px",
           boxShadow: "0 1px 3px rgba(13,27,62,0.06)",
-          marginTop: "18px",
+          marginTop: "16px",
         }}
       >
         <label
@@ -399,6 +494,7 @@ function RepondrePage() {
         <textarea
           id="free-text"
           rows={4}
+          maxLength={1000}
           value={freeText}
           onChange={(e) => setFreeText(e.target.value)}
           disabled={locked}
@@ -415,6 +511,19 @@ function RepondrePage() {
             resize: "vertical",
           }}
         />
+        {freeText.length >= 800 && (
+          <div
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "12px",
+              color: "var(--text-muted)",
+              textAlign: "right",
+              marginTop: "6px",
+            }}
+          >
+            {freeText.length} / 1000
+          </div>
+        )}
         <div
           style={{
             fontFamily: "var(--font-sans)",
@@ -429,24 +538,24 @@ function RepondrePage() {
         </div>
       </div>
 
-      <div style={{ marginTop: "26px" }}>
+      <div style={{ marginTop: "22px" }}>
         <button
           type="button"
-          onClick={() => void submit()}
-          disabled={!complete || sending || locked}
+          onClick={onPrimaryClick}
+          disabled={sending || locked}
           style={{
             width: "100%",
             minHeight: "52px",
-            backgroundColor: "var(--indigo)",
-            color: "#FFFFFF",
-            border: "none",
+            backgroundColor: complete ? "var(--indigo)" : "var(--bg-card)",
+            color: complete ? "#FFFFFF" : "var(--text-muted)",
+            border: complete ? "none" : "1px solid rgba(107,114,128,0.25)",
             borderRadius: "10px",
             fontFamily: "var(--font-sans)",
             fontSize: "16px",
             fontWeight: 700,
-            cursor: !complete || sending || locked ? "default" : "pointer",
-            opacity: !complete || sending || locked ? 0.45 : 1,
-            transition: "opacity 0.2s ease",
+            cursor: sending || locked ? "default" : complete ? "pointer" : "not-allowed",
+            transition: "background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease",
+            opacity: sending || locked ? 0.6 : 1,
           }}
         >
           {sending ? "Envoi en cours…" : "Envoyer mes réponses"}
@@ -461,7 +570,7 @@ function RepondrePage() {
               textAlign: "center",
             }}
           >
-            {answered} question{answered > 1 ? "s" : ""} sur 5 répondue{answered > 1 ? "s" : ""}
+            {answered} réponse{answered > 1 ? "s" : ""} sur 5
           </div>
         )}
         {outcome?.kind === "retryable" && (
@@ -483,3 +592,4 @@ function RepondrePage() {
     </Shell>
   );
 }
+
