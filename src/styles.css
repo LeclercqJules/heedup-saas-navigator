@@ -841,5 +841,5 @@ body {
    de defilement sur body et casse sticky). */
 html:has(#repondre-root),
 body:has(#repondre-root) {
-  overflow-x: clip !important;
+  overflow-x: visible !important;
 }
