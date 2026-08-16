@@ -69,62 +69,72 @@ function Shell({ children, progress }: { children: React.ReactNode; progress?: n
     >
       <div
         style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "26px",
-          fontStyle: "italic",
-          color: "var(--midnight)",
-          textAlign: "center",
-          marginBottom: "16px",
+          width: "100%",
+          maxWidth: "620px",
+          margin: "0 auto",
+          display: "flex",
+          flexDirection: "column",
+          flex: 1,
         }}
       >
-        HeedUp
-      </div>
-      {progress !== undefined && (
         <div
           style={{
-            position: "sticky",
-            top: 0,
-            zIndex: 10,
-            width: "100%",
-            maxWidth: "620px",
-            margin: "0 auto 20px",
-            backgroundColor: "var(--bg-main)",
-            paddingTop: "8px",
-            paddingBottom: "8px",
+            fontFamily: "var(--font-display)",
+            fontSize: "26px",
+            fontStyle: "italic",
+            color: "var(--midnight)",
+            textAlign: "center",
+            marginBottom: "16px",
           }}
         >
+          HeedUp
+        </div>
+        {progress !== undefined && (
           <div
             style={{
-              height: "3px",
-              borderRadius: "2px",
-              backgroundColor: "color-mix(in oklab, var(--text-muted) 15%, transparent)",
-              overflow: "hidden",
+              position: "sticky",
+              top: 0,
+              zIndex: 10,
+              width: "100%",
+              marginBottom: "20px",
+              backgroundColor: "var(--bg-main)",
+              paddingTop: "8px",
+              paddingBottom: "8px",
             }}
           >
             <div
               style={{
-                height: "100%",
-                width: `${Math.round(progress * 100)}%`,
-                backgroundColor: "var(--indigo)",
-                transition: "width 200ms ease",
+                height: "3px",
+                borderRadius: "2px",
+                backgroundColor: "color-mix(in oklab, var(--text-muted) 15%, transparent)",
+                overflow: "hidden",
               }}
-            />
+            >
+              <div
+                style={{
+                  height: "100%",
+                  width: `${Math.round(progress * 100)}%`,
+                  backgroundColor: "var(--indigo)",
+                  transition: "width 200ms ease",
+                }}
+              />
+            </div>
           </div>
+        )}
+        <div style={{ flex: 1, width: "100%" }}>{children}</div>
+        <div style={{ textAlign: "center", marginTop: "40px" }}>
+          <a
+            href="/confidentialite"
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "12.5px",
+              color: "var(--text-muted)",
+              textDecoration: "none",
+            }}
+          >
+            Confidentialité
+          </a>
         </div>
-      )}
-      <div style={{ flex: 1, width: "100%", maxWidth: "620px", margin: "0 auto" }}>{children}</div>
-      <div style={{ textAlign: "center", marginTop: "40px" }}>
-        <a
-          href="/confidentialite"
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: "12.5px",
-            color: "var(--text-muted)",
-            textDecoration: "none",
-          }}
-        >
-          Confidentialité
-        </a>
       </div>
     </div>
   );
