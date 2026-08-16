@@ -58,6 +58,7 @@ type Outcome =
 function Shell({ children, progress }: { children: React.ReactNode; progress?: number }) {
   return (
     <div
+      id="repondre-root"
       style={{
         minHeight: "100vh",
         backgroundColor: "var(--bg-main)",
