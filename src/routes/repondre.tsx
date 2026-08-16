@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { CheckCircle2, ShieldCheck } from "lucide-react";
 import { heedupClient } from "@/config/heedupClient";
 
 type TokenSearch = { token?: string };
