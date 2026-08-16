@@ -836,7 +836,7 @@ body {
 .heedup-chat-md a { color: var(--indigo); text-decoration: underline; }
 
 
-/* Page /repondre : overflow-x clip au lieu de hidden, pour que la barre
+/* Page /repondre : overflow-x visible au lieu de hidden, pour que la barre
    de progression en position sticky fonctionne (hidden cree un conteneur
    de defilement sur body et casse sticky). */
 html:has(#repondre-root),
