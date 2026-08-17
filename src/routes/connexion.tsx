@@ -32,7 +32,7 @@ function ConnexionPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [oauthLoading, setOauthLoading] = useState<"google" | "apple" | null>(null);
+  const [oauthLoading, setOauthLoading] = useState<"google" | null>(null);
 
   // Retour d'un fournisseur OAuth : la session est déjà posée par Supabase.
   useEffect(() => {
@@ -47,7 +47,7 @@ function ConnexionPage() {
     };
   }, [navigate]);
 
-  const signInWithProvider = async (provider: "google" | "apple") => {
+  const signInWithProvider = async (provider: "google") => {
     if (oauthLoading || loading) return;
     setError(null);
     setOauthLoading(provider);
