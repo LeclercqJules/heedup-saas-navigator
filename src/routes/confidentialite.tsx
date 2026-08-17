@@ -84,7 +84,7 @@ function Page() {
               marginBottom: "48px",
             }}
           >
-            Dernière mise à jour : juillet 2025
+            Dernière mise à jour : juillet 2026
           </p>
 
           {sections.map((section, index) => (
