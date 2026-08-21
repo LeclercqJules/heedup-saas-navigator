@@ -22,34 +22,6 @@ type Scenario = {
 
 const scenarios: Scenario[] = [
   {
-    button: "Équipe sereine",
-    contexte: "Agence marketing digital",
-    total: 14,
-    respondents: 12,
-    date: "Lundi 22 juin",
-    week: "Semaine 26",
-    scores: [
-      { label: "Charge de travail", avg: 3.9, delta: 0.2 },
-      { label: "Reconnaissance", avg: 4.2, delta: 0.3 },
-      { label: "Clarté", avg: 4.4, delta: 0.1 },
-      { label: "Soutien", avg: 4.1, delta: 0.0 },
-      { label: "Sens", avg: 4.3, delta: 0.2 },
-    ],
-    recos: [
-      { type: "positive", text: "Reconnaissance en hausse (+0.3) cette semaine. Le rythme de brief clair porte ses fruits, gardez ce format sur les prochains dossiers." },
-      { type: "positive", text: "Sens du travail renforcé (+0.2). Un mot rapide en réunion sur les réussites de la semaine peut consolider cette dynamique." },
-      { type: "alert", text: "2 employés n'ont pas répondu cette semaine. Un rappel discret avant vendredi suffit généralement à ce niveau." },
-    ],
-    raw: [
-      "Bonne ambiance cette semaine, le brief client était clair dès le départ.",
-      "Contente d'avoir eu un retour rapide sur mes propositions créatives.",
-      "La charge est correcte, un peu tendue en toute fin de semaine mais gérable.",
-    ],
-    needsReview: false,
-    synthesis:
-      "Les retours de la semaine sont globalement positifs : plusieurs commentaires soulignent une clarté appréciée sur les objectifs des nouveaux dossiers et une réactivité satisfaisante sur les retours créatifs. Quelques mentions ponctuelles d'une charge un peu plus dense en fin de semaine, sans signal de tension généralisée.",
-  },
-  {
     button: "Alerte surcharge",
     contexte: "Restaurant bistronomique",
     total: 18,
@@ -138,6 +110,34 @@ const scenarios: Scenario[] = [
       "Un ou plusieurs retours de cette semaine évoquent des tensions au sein de l'équipe qui pourraient nécessiter une attention particulière. Nous vous recommandons de proposer des points individuels avec les membres de votre équipe cette semaine. Aucun détail supplémentaire n'est disponible : cela fait partie de notre engagement d'anonymat.",
     synthesis:
       "Plusieurs retours convergent sur un climat d'équipe tendu, avec une entraide entre collègues perçue en net recul. Ce ressenti semble lié à des incompréhensions qui ne sont pas encore adressées ouvertement, notamment entre les différents points de vente. Le sens du travail reste globalement présent, mais la dynamique collective s'en trouve fragilisée cette semaine.",
+  },
+  {
+    button: "Équipe sereine",
+    contexte: "Agence marketing digital",
+    total: 14,
+    respondents: 12,
+    date: "Lundi 22 juin",
+    week: "Semaine 26",
+    scores: [
+      { label: "Charge de travail", avg: 3.9, delta: 0.2 },
+      { label: "Reconnaissance", avg: 4.2, delta: 0.3 },
+      { label: "Clarté", avg: 4.4, delta: 0.1 },
+      { label: "Soutien", avg: 4.1, delta: 0.0 },
+      { label: "Sens", avg: 4.3, delta: 0.2 },
+    ],
+    recos: [
+      { type: "positive", text: "Reconnaissance en hausse (+0.3) cette semaine. Le rythme de brief clair porte ses fruits, gardez ce format sur les prochains dossiers." },
+      { type: "positive", text: "Sens du travail renforcé (+0.2). Un mot rapide en réunion sur les réussites de la semaine peut consolider cette dynamique." },
+      { type: "alert", text: "2 employés n'ont pas répondu cette semaine. Un rappel discret avant vendredi suffit généralement à ce niveau." },
+    ],
+    raw: [
+      "Bonne ambiance cette semaine, le brief client était clair dès le départ.",
+      "Contente d'avoir eu un retour rapide sur mes propositions créatives.",
+      "La charge est correcte, un peu tendue en toute fin de semaine mais gérable.",
+    ],
+    needsReview: false,
+    synthesis:
+      "Les retours de la semaine sont globalement positifs : plusieurs commentaires soulignent une clarté appréciée sur les objectifs des nouveaux dossiers et une réactivité satisfaisante sur les retours créatifs. Quelques mentions ponctuelles d'une charge un peu plus dense en fin de semaine, sans signal de tension généralisée.",
   },
   {
     button: "Scores seuls",
