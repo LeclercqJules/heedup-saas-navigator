@@ -34,7 +34,33 @@ function fmtThousands(n: number): string {
 }
 
 
+type IndexSearch = {
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+  utm_term?: string;
+  utm_content?: string;
+  cas?: string;
+};
+
+const INDEX_SEARCH_KEYS = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_term",
+  "utm_content",
+  "cas",
+] as const;
+
 export const Route = createFileRoute("/")({
+  validateSearch: (search: Record<string, unknown>): IndexSearch => {
+    const out: IndexSearch = {};
+    for (const key of INDEX_SEARCH_KEYS) {
+      const value = search[key];
+      if (typeof value === "string") out[key] = value;
+    }
+    return out;
+  },
   component: Index,
   head: () => ({
     meta: [
@@ -514,7 +540,7 @@ function Index() {
       </section>
 
       {/* Démonstration interactive */}
-      <section style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}>
+      <section id="demo" style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%", scrollMarginTop: "132px" }}>
         <RapportDemo className="fade-up" />
       </section>
 
