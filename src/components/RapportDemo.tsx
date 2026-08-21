@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Reco = { type: "positive" | "decline" | "alert"; text: string };
 
@@ -19,6 +19,14 @@ type Scenario = {
   belowThreshold?: boolean;
   belowThresholdNote?: string;
 };
+
+const SCENARIO_SLUGS = [
+  "surcharge",
+  "reconnaissance",
+  "tensions",
+  "sereine",
+  "seuil",
+];
 
 const scenarios: Scenario[] = [
   {
@@ -173,7 +181,24 @@ const recoStyles = {
 } as const;
 
 export function RapportDemo({ className }: { className?: string }) {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(() => {
+    if (typeof window === "undefined") return 0;
+    const cas = new URLSearchParams(window.location.search).get("cas");
+    const i = SCENARIO_SLUGS.indexOf(cas ?? "");
+    return i >= 0 ? i : 0;
+  });
+
+  useEffect(() => {
+    if (window.location.hash !== "#demo") return;
+    const el = document.getElementById("demo");
+    if (!el) return;
+    el.querySelectorAll(".fade-up").forEach((n) => n.classList.add("visible"));
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        el.scrollIntoView({ behavior: "auto", block: "start" });
+      });
+    });
+  }, []);
   const s = scenarios[active];
 
   return (
