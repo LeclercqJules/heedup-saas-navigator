@@ -15,6 +15,7 @@ import { Route as RepondreRouteImport } from './routes/repondre'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as FonctionnalitesRouteImport } from './routes/fonctionnalites'
 import { Route as EstimerCoutRouteImport } from './routes/estimer-cout'
+import { Route as DesinscriptionRouteImport } from './routes/desinscription'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as ConfidentialiteRouteImport } from './routes/confidentialite'
@@ -53,6 +54,11 @@ const FonctionnalitesRoute = FonctionnalitesRouteImport.update({
 const EstimerCoutRoute = EstimerCoutRouteImport.update({
   id: '/estimer-cout',
   path: '/estimer-cout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DesinscriptionRoute = DesinscriptionRouteImport.update({
+  id: '/desinscription',
+  path: '/desinscription',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -110,6 +116,7 @@ export interface FileRoutesByFullPath {
   '/confidentialite': typeof ConfidentialiteRoute
   '/connexion': typeof ConnexionRoute
   '/dashboard': typeof DashboardRoute
+  '/desinscription': typeof DesinscriptionRoute
   '/estimer-cout': typeof EstimerCoutRoute
   '/fonctionnalites': typeof FonctionnalitesRoute
   '/onboarding': typeof OnboardingRoute
@@ -127,6 +134,7 @@ export interface FileRoutesByTo {
   '/confidentialite': typeof ConfidentialiteRoute
   '/connexion': typeof ConnexionRoute
   '/dashboard': typeof DashboardRoute
+  '/desinscription': typeof DesinscriptionRoute
   '/estimer-cout': typeof EstimerCoutRoute
   '/fonctionnalites': typeof FonctionnalitesRoute
   '/onboarding': typeof OnboardingRoute
@@ -145,6 +153,7 @@ export interface FileRoutesById {
   '/confidentialite': typeof ConfidentialiteRoute
   '/connexion': typeof ConnexionRoute
   '/dashboard': typeof DashboardRoute
+  '/desinscription': typeof DesinscriptionRoute
   '/estimer-cout': typeof EstimerCoutRoute
   '/fonctionnalites': typeof FonctionnalitesRoute
   '/onboarding': typeof OnboardingRoute
@@ -164,6 +173,7 @@ export interface FileRouteTypes {
     | '/confidentialite'
     | '/connexion'
     | '/dashboard'
+    | '/desinscription'
     | '/estimer-cout'
     | '/fonctionnalites'
     | '/onboarding'
@@ -181,6 +191,7 @@ export interface FileRouteTypes {
     | '/confidentialite'
     | '/connexion'
     | '/dashboard'
+    | '/desinscription'
     | '/estimer-cout'
     | '/fonctionnalites'
     | '/onboarding'
@@ -198,6 +209,7 @@ export interface FileRouteTypes {
     | '/confidentialite'
     | '/connexion'
     | '/dashboard'
+    | '/desinscription'
     | '/estimer-cout'
     | '/fonctionnalites'
     | '/onboarding'
@@ -216,6 +228,7 @@ export interface RootRouteChildren {
   ConfidentialiteRoute: typeof ConfidentialiteRoute
   ConnexionRoute: typeof ConnexionRoute
   DashboardRoute: typeof DashboardRoute
+  DesinscriptionRoute: typeof DesinscriptionRoute
   EstimerCoutRoute: typeof EstimerCoutRoute
   FonctionnalitesRoute: typeof FonctionnalitesRoute
   OnboardingRoute: typeof OnboardingRoute
@@ -268,6 +281,13 @@ declare module '@tanstack/react-router' {
       path: '/estimer-cout'
       fullPath: '/estimer-cout'
       preLoaderRoute: typeof EstimerCoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/desinscription': {
+      id: '/desinscription'
+      path: '/desinscription'
+      fullPath: '/desinscription'
+      preLoaderRoute: typeof DesinscriptionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -344,6 +364,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConfidentialiteRoute: ConfidentialiteRoute,
   ConnexionRoute: ConnexionRoute,
   DashboardRoute: DashboardRoute,
+  DesinscriptionRoute: DesinscriptionRoute,
   EstimerCoutRoute: EstimerCoutRoute,
   FonctionnalitesRoute: FonctionnalitesRoute,
   OnboardingRoute: OnboardingRoute,
