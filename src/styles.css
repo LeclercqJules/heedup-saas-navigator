@@ -843,3 +843,41 @@ html:has(#repondre-root),
 body:has(#repondre-root) {
   overflow-x: visible !important;
 }
+
+/* Pages d'authentification (/connexion, /onboarding, /reset-password) */
+.heedup-auth-page {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.heedup-auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 40px 36px;
+  box-shadow: 0 4px 24px rgba(13,27,62,0.06), 0 1px 3px rgba(13,27,62,0.04);
+}
+.heedup-auth-footer { max-width: 440px; }
+.heedup-auth-page input {
+  transition: border-color 150ms, box-shadow 150ms;
+}
+.heedup-auth-page input:focus {
+  border-color: var(--indigo) !important;
+  box-shadow: 0 0 0 3px var(--indigo-pale);
+}
+.heedup-auth-primary { transition: opacity 150ms; }
+.heedup-auth-primary:hover:not(:disabled) { opacity: 0.9; }
+.heedup-auth-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.heedup-auth-google { transition: border-color 150ms, background 150ms; }
+.heedup-auth-google:hover:not(:disabled) {
+  border-color: var(--midnight);
+  background: rgba(13,27,62,0.02);
+}
+.heedup-auth-skeleton > div { animation: heedupAuthPulse 1.4s ease-in-out infinite; }
+@keyframes heedupAuthPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+@media (max-width: 480px) {
+  .heedup-auth-card { padding: 28px 20px; }
+}
