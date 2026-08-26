@@ -113,6 +113,14 @@ function OnboardingForm() {
     <AuthShell
       title="Créons votre espace"
       subtitle="Une dernière étape avant d'accéder à vos rapports."
+      footer={
+        <>
+          Une question ?{" "}
+          <a href="mailto:contact@heedup.fr" style={{ color: "var(--indigo)", textDecoration: "underline" }}>
+            contact@heedup.fr
+          </a>
+        </>
+      }
     >
       <form onSubmit={submit}>
         <div style={{ marginBottom: "20px" }}>
@@ -125,8 +133,6 @@ function OnboardingForm() {
             maxLength={MAX}
             value={name}
             onChange={(e) => setName(e.target.value)}
-            onFocus={(e) => (e.currentTarget.style.borderColor = "var(--indigo)")}
-            onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(13,27,62,0.15)")}
             style={authInputStyle}
           />
           <div
@@ -150,7 +156,7 @@ function OnboardingForm() {
               <span
                 style={{
                   fontFamily: "var(--font-sans)",
-                  fontSize: "13px",
+                  fontSize: "12px",
                   color: "var(--text-muted)",
                   whiteSpace: "nowrap",
                 }}
@@ -167,18 +173,11 @@ function OnboardingForm() {
           </p>
         )}
 
-        <button
-          type="submit"
-          disabled={disabled}
-          style={{
-            ...authButtonStyle,
-            opacity: disabled ? 0.5 : 1,
-            cursor: disabled ? "default" : "pointer",
-          }}
-        >
+        <button type="submit" disabled={disabled} className="heedup-auth-primary" style={authButtonStyle}>
           {loading ? "Création en cours…" : "Créer mon espace"}
         </button>
       </form>
     </AuthShell>
   );
 }
+
