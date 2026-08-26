@@ -37,7 +37,7 @@ function normalize(message: unknown): string {
 
 function OnboardingPage() {
   return (
-    <AuthGuard>
+    <AuthGuard allowMissingOrganization>
       <OnboardingForm />
     </AuthGuard>
   );
