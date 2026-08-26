@@ -25,6 +25,17 @@ export const authButtonStyle: CSSProperties = {
   cursor: "pointer",
 };
 
+export const authErrorStyle: CSSProperties = {
+  fontFamily: "var(--font-sans)",
+  fontSize: "13px",
+  lineHeight: 1.5,
+  color: "var(--text-primary)",
+  background: "var(--bg-card)",
+  border: "1px solid color-mix(in srgb, var(--text-muted) 25%, transparent)",
+  borderRadius: "8px",
+  padding: "10px 12px",
+};
+
 export const authLabelStyle: CSSProperties = {
   display: "block",
   fontFamily: "var(--font-sans)",

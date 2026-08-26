@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TarifsRouteImport } from './routes/tarifs'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RepondreRouteImport } from './routes/repondre'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as FonctionnalitesRouteImport } from './routes/fonctionnalites'
 import { Route as EstimerCoutRouteImport } from './routes/estimer-cout'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -37,6 +38,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const RepondreRoute = RepondreRouteImport.update({
   id: '/repondre',
   path: '/repondre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FonctionnalitesRoute = FonctionnalitesRouteImport.update({
@@ -106,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/estimer-cout': typeof EstimerCoutRoute
   '/fonctionnalites': typeof FonctionnalitesRoute
+  '/onboarding': typeof OnboardingRoute
   '/repondre': typeof RepondreRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
@@ -122,6 +129,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/estimer-cout': typeof EstimerCoutRoute
   '/fonctionnalites': typeof FonctionnalitesRoute
+  '/onboarding': typeof OnboardingRoute
   '/repondre': typeof RepondreRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
@@ -139,6 +147,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/estimer-cout': typeof EstimerCoutRoute
   '/fonctionnalites': typeof FonctionnalitesRoute
+  '/onboarding': typeof OnboardingRoute
   '/repondre': typeof RepondreRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
@@ -157,6 +166,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/estimer-cout'
     | '/fonctionnalites'
+    | '/onboarding'
     | '/repondre'
     | '/reset-password'
     | '/tarifs'
@@ -173,6 +183,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/estimer-cout'
     | '/fonctionnalites'
+    | '/onboarding'
     | '/repondre'
     | '/reset-password'
     | '/tarifs'
@@ -189,6 +200,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/estimer-cout'
     | '/fonctionnalites'
+    | '/onboarding'
     | '/repondre'
     | '/reset-password'
     | '/tarifs'
@@ -206,6 +218,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   EstimerCoutRoute: typeof EstimerCoutRoute
   FonctionnalitesRoute: typeof FonctionnalitesRoute
+  OnboardingRoute: typeof OnboardingRoute
   RepondreRoute: typeof RepondreRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TarifsRoute: typeof TarifsRoute
@@ -234,6 +247,13 @@ declare module '@tanstack/react-router' {
       path: '/repondre'
       fullPath: '/repondre'
       preLoaderRoute: typeof RepondreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fonctionnalites': {
@@ -326,6 +346,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   EstimerCoutRoute: EstimerCoutRoute,
   FonctionnalitesRoute: FonctionnalitesRoute,
+  OnboardingRoute: OnboardingRoute,
   RepondreRoute: RepondreRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TarifsRoute: TarifsRoute,
