@@ -7,6 +7,7 @@ const CLARITY_ID = "xr0pguqyur";
 /** Routes applicatives : aucun analytics ne doit s'y charger. */
 const BLOCKED_PREFIXES = [
   "/repondre",
+  "/desinscription",
   "/connexion",
   "/reset-password",
   "/dashboard",
