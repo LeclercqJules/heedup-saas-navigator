@@ -148,7 +148,23 @@ function ConnexionPage() {
   } as const;
 
   return (
-    <AuthShell title="Connexion">
+    <AuthShell
+      title="Connexion"
+      subtitle="Accédez à vos rapports d'équipe."
+      footer={
+        <>
+          <p style={{ marginBottom: "8px" }}>
+            Les réponses de vos équipes restent anonymes. Vous ne recevez que des moyennes.
+          </p>
+          <a
+            href="https://heedup.fr"
+            style={{ color: "var(--indigo)", fontSize: "13px", textDecoration: "underline" }}
+          >
+            Retour au site
+          </a>
+        </>
+      }
+    >
       <form onSubmit={submit}>
         <div style={{ marginBottom: "16px" }}>
           <label htmlFor="email" style={authLabelStyle}>
@@ -161,8 +177,6 @@ function ConnexionPage() {
             autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            onFocus={(e) => (e.currentTarget.style.borderColor = "var(--indigo)")}
-            onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(13,27,62,0.15)")}
             style={authInputStyle}
           />
         </div>
@@ -177,8 +191,6 @@ function ConnexionPage() {
             autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            onFocus={(e) => (e.currentTarget.style.borderColor = "var(--indigo)")}
-            onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(13,27,62,0.15)")}
             style={authInputStyle}
           />
         </div>
@@ -189,15 +201,15 @@ function ConnexionPage() {
           </p>
         )}
 
-        <button type="submit" disabled={loading} style={{ ...authButtonStyle, opacity: loading ? 0.6 : 1, cursor: loading ? "default" : "pointer" }}>
+        <button type="submit" disabled={loading} className="heedup-auth-primary" style={authButtonStyle}>
           {loading ? "Connexion en cours..." : "Se connecter"}
         </button>
       </form>
 
       <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "20px", marginBottom: "20px" }}>
-        <span style={{ flex: 1, height: "1px", background: "rgba(13,27,62,0.12)" }} />
+        <span style={{ flex: 1, height: "1px", background: "rgba(13,27,62,0.08)" }} />
         <span style={{ fontFamily: "var(--font-sans)", fontSize: "12px", color: "var(--text-muted)" }}>ou</span>
-        <span style={{ flex: 1, height: "1px", background: "rgba(13,27,62,0.12)" }} />
+        <span style={{ flex: 1, height: "1px", background: "rgba(13,27,62,0.08)" }} />
       </div>
 
       <div style={{ display: "grid", gap: "10px" }}>
@@ -205,6 +217,7 @@ function ConnexionPage() {
           type="button"
           onClick={() => void signInWithProvider("google")}
           disabled={oauthLoading !== null}
+          className="heedup-auth-google"
           style={{ ...providerButtonStyle, opacity: oauthLoading ? 0.6 : 1 }}
         >
           <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
@@ -223,7 +236,7 @@ function ConnexionPage() {
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: "13px",
-            color: "var(--text-muted)",
+            color: "var(--indigo)",
             textDecoration: "underline",
           }}
         >
@@ -233,3 +246,4 @@ function ConnexionPage() {
     </AuthShell>
   );
 }
+
