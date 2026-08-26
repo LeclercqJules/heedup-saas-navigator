@@ -5,7 +5,7 @@ import { heedupClient } from "@/config/heedupClient";
 import { AuthLoading } from "./AuthShell";
 import { rememberRedirect } from "@/lib/redirectAfterLogin";
 
-type Status = "loading" | "denied" | "ok";
+type Status = "loading" | "denied" | "error" | "ok";
 
 export function SignOutButton() {
   const navigate = useNavigate();
@@ -33,7 +33,15 @@ export function SignOutButton() {
   );
 }
 
-export function AuthGuard({ children, requireAdmin = false }: { children: ReactNode; requireAdmin?: boolean }) {
+export function AuthGuard({
+  children,
+  requireAdmin = false,
+  allowMissingOrganization = false,
+}: {
+  children: ReactNode;
+  requireAdmin?: boolean;
+  allowMissingOrganization?: boolean;
+}) {
   const navigate = useNavigate();
   const [status, setStatus] = useState<Status>("loading");
   const [, setUser] = useState<User | null>(null);
@@ -57,14 +65,50 @@ export function AuthGuard({ children, requireAdmin = false }: { children: ReactN
         setStatus("denied");
         return;
       }
+      if (!requireAdmin && accountType !== "admin" && !allowMissingOrganization) {
+        const { data: manager, error: managerError } = await heedupClient
+          .from("managers")
+          .select("organization_id")
+          .maybeSingle();
+        if (cancelled) return;
+        if (managerError) {
+          setStatus("error");
+          return;
+        }
+        if (!manager) {
+          navigate({ to: "/onboarding", replace: true });
+          return;
+        }
+      }
       setStatus("ok");
     })();
     return () => {
       cancelled = true;
     };
-  }, [navigate, requireAdmin]);
+  }, [navigate, requireAdmin, allowMissingOrganization]);
 
   if (status === "loading") return <AuthLoading />;
+
+  if (status === "error") {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          background: "var(--bg-main)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "40px 5%",
+          textAlign: "center",
+          fontFamily: "var(--font-sans)",
+          fontSize: "15px",
+          color: "var(--text-primary)",
+        }}
+      >
+        Une erreur est survenue. Réessayez dans quelques instants.
+      </div>
+    );
+  }
 
   if (status === "denied") {
     return (

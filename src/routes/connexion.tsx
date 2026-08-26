@@ -1,11 +1,31 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { heedupClient } from "@/config/heedupClient";
-import { AuthShell, authButtonStyle, authInputStyle, authLabelStyle } from "@/components/auth/AuthShell";
-import { consumeRedirect } from "@/lib/redirectAfterLogin";
+import {
+  AuthShell,
+  authButtonStyle,
+  authInputStyle,
+  authLabelStyle,
+  authErrorStyle,
+} from "@/components/auth/AuthShell";
+import { resolvePostLoginDestination, GENERIC_ERROR } from "@/lib/postLoginRoute";
+
+type ConnexionSearch = {
+  code?: string;
+  error?: string;
+  error_description?: string;
+};
 
 export const Route = createFileRoute("/connexion")({
   ssr: false,
+  validateSearch: (search: Record<string, unknown>): ConnexionSearch => {
+    const out: ConnexionSearch = {};
+    if (typeof search["code"] === "string") out.code = search["code"];
+    if (typeof search["error"] === "string") out.error = search["error"];
+    if (typeof search["error_description"] === "string")
+      out.error_description = search["error_description"];
+    return out;
+  },
   head: () => ({
     meta: [
       { title: "Connexion · HeedUp" },
@@ -20,32 +40,53 @@ export const Route = createFileRoute("/connexion")({
   component: ConnexionPage,
 });
 
-function routeAfterLogin(accountType: unknown) {
-  const stored = consumeRedirect();
-  if (stored) return stored;
-  return accountType === "admin" ? "/admin/conversations" : "/dashboard";
-}
-
 function ConnexionPage() {
   const navigate = useNavigate();
+  const search = Route.useSearch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [oauthLoading, setOauthLoading] = useState<"google" | null>(null);
 
-  // Retour d'un fournisseur OAuth : la session est déjà posée par Supabase.
+  // Retour d'un fournisseur OAuth : échange explicite du code (detectSessionInUrl: false).
   useEffect(() => {
     let cancelled = false;
-    void heedupClient.auth.getSession().then(({ data }) => {
-      if (cancelled || !data.session) return;
-      const accountType = (data.session.user.app_metadata as Record<string, unknown> | undefined)?.["account_type"];
-      navigate({ to: routeAfterLogin(accountType), replace: true });
-    });
+    void (async () => {
+      if (search.error) {
+        if (!cancelled) setError("Connexion impossible via ce fournisseur. Réessayez.");
+        return;
+      }
+      try {
+        if (search.code) {
+          const { error: exchangeError } = await heedupClient.auth.exchangeCodeForSession(
+            window.location.href,
+          );
+          if (cancelled) return;
+          if (exchangeError) {
+            setError(GENERIC_ERROR);
+            return;
+          }
+        } else {
+          const { data } = await heedupClient.auth.getSession();
+          if (cancelled || !data.session) return;
+        }
+        const dest = await resolvePostLoginDestination();
+        if (cancelled) return;
+        if (dest.kind === "error") {
+          setError(dest.message);
+          return;
+        }
+        if (dest.to === "/connexion") return;
+        navigate({ to: dest.to, replace: true });
+      } catch {
+        if (!cancelled) setError(GENERIC_ERROR);
+      }
+    })();
     return () => {
       cancelled = true;
     };
-  }, [navigate]);
+  }, [navigate, search.code, search.error]);
 
   const signInWithProvider = async (provider: "google") => {
     if (oauthLoading || loading) return;
@@ -60,7 +101,6 @@ function ConnexionPage() {
       setOauthLoading(null);
     }
   };
-
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,13 +117,13 @@ function ConnexionPage() {
         setLoading(false);
         return;
       }
-      const accountType = (data.user.app_metadata as Record<string, unknown> | undefined)?.["account_type"];
-      const stored = consumeRedirect();
-      if (stored) {
-        navigate({ to: stored, replace: true });
+      const dest = await resolvePostLoginDestination();
+      if (dest.kind === "error") {
+        setError(dest.message);
+        setLoading(false);
         return;
       }
-      navigate({ to: accountType === "admin" ? "/admin/conversations" : "/dashboard", replace: true });
+      navigate({ to: dest.to, replace: true });
     } catch {
       setError("Connexion impossible. Réessayez dans un instant.");
       setLoading(false);
@@ -144,15 +184,7 @@ function ConnexionPage() {
         </div>
 
         {error && (
-          <p
-            role="alert"
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "13px",
-              color: "#EF4444",
-              marginBottom: "14px",
-            }}
-          >
+          <p role="alert" style={{ ...authErrorStyle, marginBottom: "14px" }}>
             {error}
           </p>
         )}

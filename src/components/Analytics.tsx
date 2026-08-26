@@ -10,6 +10,7 @@ const BLOCKED_PREFIXES = [
   "/connexion",
   "/reset-password",
   "/dashboard",
+  "/onboarding",
   "/admin",
 ];
 
