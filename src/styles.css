@@ -862,7 +862,7 @@ body:has(#repondre-root) {
   transition: border-color 150ms, box-shadow 150ms;
 }
 .heedup-auth-page input:focus {
-  border-color: var(--indigo);
+  border-color: var(--indigo) !important;
   box-shadow: 0 0 0 3px var(--indigo-pale);
 }
 .heedup-auth-primary { transition: opacity 150ms; }
