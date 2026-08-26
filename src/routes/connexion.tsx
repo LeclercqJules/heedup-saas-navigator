@@ -132,9 +132,9 @@ function ConnexionPage() {
 
   const providerButtonStyle = {
     width: "100%",
-    padding: "12px 24px",
+    padding: "13px 24px",
     borderRadius: "8px",
-    border: "1.5px solid var(--midnight)",
+    border: "1.5px solid rgba(13,27,62,0.18)",
     background: "transparent",
     color: "var(--midnight)",
     fontFamily: "var(--font-sans)",
