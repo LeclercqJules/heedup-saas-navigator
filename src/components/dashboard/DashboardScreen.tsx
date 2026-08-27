@@ -261,7 +261,9 @@ function ReportView({
         </div>
         {effectif && (effectif.desinscrits ?? 0) > 0 ? (
           <div style={{ ...mutedStyle, marginTop: "6px" }}>
-            {effectif.desinscrits} personnes ont choisi de ne plus recevoir le questionnaire.
+            {effectif.desinscrits === 1
+              ? "1 personne a choisi de ne plus recevoir le questionnaire."
+              : `${effectif.desinscrits} personnes ont choisi de ne plus recevoir le questionnaire.`}
           </div>
         ) : null}
         {effectif?.sous_le_seuil ? (
