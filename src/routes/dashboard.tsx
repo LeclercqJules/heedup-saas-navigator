@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AuthGuard, SignOutButton } from "@/components/auth/AuthGuard";
+import { AuthGuard } from "@/components/auth/AuthGuard";
+import { DashboardContent, DashboardSkeleton } from "@/components/dashboard/DashboardScreen";
+import { useDashboardData } from "@/lib/dashboardData";
 
 export const Route = createFileRoute("/dashboard")({
   ssr: false,
@@ -20,14 +22,13 @@ export const Route = createFileRoute("/dashboard")({
 function DashboardPage() {
   return (
     <AuthGuard>
-      <div style={{ minHeight: "100vh", background: "var(--bg-main)", padding: "40px 5%" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px" }}>
-          <h1 style={{ fontFamily: "var(--font-display)", fontSize: "32px", color: "var(--midnight)", letterSpacing: "-0.5px" }}>
-            Tableau de bord
-          </h1>
-          <SignOutButton />
-        </div>
-      </div>
+      <DashboardBody />
     </AuthGuard>
   );
+}
+
+function DashboardBody() {
+  const data = useDashboardData();
+  if (data.loading) return <DashboardSkeleton />;
+  return <DashboardContent data={data} />;
 }
