@@ -11,7 +11,7 @@ export const DIMENSIONS = [
 
 export type DimensionKey = (typeof DIMENSIONS)[number]["key"];
 
-export type ScoreEntry = { score?: number | null; delta?: number | null } | number | null;
+export type ScoreEntry = { score?: number | null; avg?: number | null; delta?: number | null } | number | null;
 
 export type TeamScore = {
   team_name?: string | null;
