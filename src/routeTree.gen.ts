@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TtestDashRouteImport } from './routes/ttest-dash'
 import { Route as TarifsRouteImport } from './routes/tarifs'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RepondreRouteImport } from './routes/repondre'
@@ -27,6 +28,11 @@ import { Route as AdminConversationsIndexRouteImport } from './routes/admin.conv
 import { Route as DashboardRapportWeekStartRouteImport } from './routes/dashboard_.rapport.$weekStart'
 import { Route as AdminConversationsSessionIdRouteImport } from './routes/admin.conversations.$sessionId'
 
+const TtestDashRoute = TtestDashRouteImport.update({
+  id: '/ttest-dash',
+  path: '/ttest-dash',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TarifsRoute = TarifsRouteImport.update({
   id: '/tarifs',
   path: '/tarifs',
@@ -130,6 +136,7 @@ export interface FileRoutesByFullPath {
   '/repondre': typeof RepondreRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
+  '/ttest-dash': typeof TtestDashRoute
   '/admin/conversations/$sessionId': typeof AdminConversationsSessionIdRoute
   '/dashboard/rapport/$weekStart': typeof DashboardRapportWeekStartRoute
   '/admin/conversations/': typeof AdminConversationsIndexRoute
@@ -149,6 +156,7 @@ export interface FileRoutesByTo {
   '/repondre': typeof RepondreRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
+  '/ttest-dash': typeof TtestDashRoute
   '/admin/conversations/$sessionId': typeof AdminConversationsSessionIdRoute
   '/dashboard/rapport/$weekStart': typeof DashboardRapportWeekStartRoute
   '/admin/conversations': typeof AdminConversationsIndexRoute
@@ -169,6 +177,7 @@ export interface FileRoutesById {
   '/repondre': typeof RepondreRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
+  '/ttest-dash': typeof TtestDashRoute
   '/admin/conversations/$sessionId': typeof AdminConversationsSessionIdRoute
   '/dashboard_/rapport/$weekStart': typeof DashboardRapportWeekStartRoute
   '/admin/conversations/': typeof AdminConversationsIndexRoute
@@ -190,6 +199,7 @@ export interface FileRouteTypes {
     | '/repondre'
     | '/reset-password'
     | '/tarifs'
+    | '/ttest-dash'
     | '/admin/conversations/$sessionId'
     | '/dashboard/rapport/$weekStart'
     | '/admin/conversations/'
@@ -209,6 +219,7 @@ export interface FileRouteTypes {
     | '/repondre'
     | '/reset-password'
     | '/tarifs'
+    | '/ttest-dash'
     | '/admin/conversations/$sessionId'
     | '/dashboard/rapport/$weekStart'
     | '/admin/conversations'
@@ -228,6 +239,7 @@ export interface FileRouteTypes {
     | '/repondre'
     | '/reset-password'
     | '/tarifs'
+    | '/ttest-dash'
     | '/admin/conversations/$sessionId'
     | '/dashboard_/rapport/$weekStart'
     | '/admin/conversations/'
@@ -248,6 +260,7 @@ export interface RootRouteChildren {
   RepondreRoute: typeof RepondreRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TarifsRoute: typeof TarifsRoute
+  TtestDashRoute: typeof TtestDashRoute
   AdminConversationsSessionIdRoute: typeof AdminConversationsSessionIdRoute
   DashboardRapportWeekStartRoute: typeof DashboardRapportWeekStartRoute
   AdminConversationsIndexRoute: typeof AdminConversationsIndexRoute
@@ -255,6 +268,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/ttest-dash': {
+      id: '/ttest-dash'
+      path: '/ttest-dash'
+      fullPath: '/ttest-dash'
+      preLoaderRoute: typeof TtestDashRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tarifs': {
       id: '/tarifs'
       path: '/tarifs'
@@ -392,6 +412,7 @@ const rootRouteChildren: RootRouteChildren = {
   RepondreRoute: RepondreRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TarifsRoute: TarifsRoute,
+  TtestDashRoute: TtestDashRoute,
   AdminConversationsSessionIdRoute: AdminConversationsSessionIdRoute,
   DashboardRapportWeekStartRoute: DashboardRapportWeekStartRoute,
   AdminConversationsIndexRoute: AdminConversationsIndexRoute,
