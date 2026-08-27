@@ -881,3 +881,38 @@ body:has(#repondre-root) {
 @media (max-width: 480px) {
   .heedup-auth-card { padding: 28px 20px; }
 }
+
+/* Dashboard ------------------------------------------------------------- */
+.heedup-dash-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 36px 20px 64px;
+}
+.heedup-dash-row {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(13,27,62,0.06);
+}
+.heedup-dash-row:last-child { border-bottom: none; }
+.heedup-dash-row-data {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+@media (max-width: 640px) {
+  .heedup-dash-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+.heedup-dash-skeleton > div,
+.heedup-dash-skeleton > div > div {
+  animation: heedupDashPulse 1.4s ease-in-out infinite;
+}
+@keyframes heedupDashPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
