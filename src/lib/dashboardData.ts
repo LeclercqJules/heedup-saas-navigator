@@ -11,7 +11,7 @@ export const DIMENSIONS = [
 
 export type DimensionKey = (typeof DIMENSIONS)[number]["key"];
 
-export type ScoreEntry = { score?: number | null; delta?: number | null } | number | null;
+export type ScoreEntry = { score?: number | null; avg?: number | null; delta?: number | null } | number | null;
 
 export type TeamScore = {
   team_name?: string | null;
@@ -88,7 +88,8 @@ export function formatDelta(value: number): string {
 export function readScore(entry: ScoreEntry): { score: number | null; delta: number | null } {
   if (entry === null || entry === undefined) return { score: null, delta: null };
   if (typeof entry === "number") return { score: entry, delta: null };
-  const score = typeof entry.score === "number" ? entry.score : null;
+  const score =
+    typeof entry.score === "number" ? entry.score : typeof entry.avg === "number" ? entry.avg : null;
   const delta = typeof entry.delta === "number" ? entry.delta : null;
   return { score, delta };
 }
