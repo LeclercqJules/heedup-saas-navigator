@@ -366,21 +366,24 @@ export function EquipeContent() {
             onClick={() => void ajouter()}
             disabled={busy || email.trim().length === 0}
             style={{
-              background: "var(--indigo)",
-              color: "#FFFFFF",
-              border: "none",
+              background: email.trim().length === 0 ? "var(--bg-card)" : "var(--indigo)",
+              color: email.trim().length === 0 ? "var(--text-muted)" : "#FFFFFF",
+              border: email.trim().length === 0 ? "1px solid color-mix(in srgb, var(--text-muted) 25%, transparent)" : "none",
               borderRadius: "8px",
               padding: "12px 24px",
               fontFamily: "var(--font-sans)",
               fontSize: "15px",
               fontWeight: 700,
-              cursor: busy || email.trim().length === 0 ? "default" : "pointer",
-              opacity: busy || email.trim().length === 0 ? 0.45 : 1,
-              transition: "opacity 0.2s ease, background 0.2s ease",
+              cursor: email.trim().length === 0 ? "not-allowed" : busy ? "default" : "pointer",
+              opacity: busy ? 0.6 : 1,
+              transition: "opacity 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease",
             }}
           >
             Ajouter
           </button>
+        </div>
+        <div style={{ ...mutedStyle, marginTop: "10px", fontSize: "12.5px" }}>
+          Les salariés ajoutés ici ne sont rattachés à aucune équipe.
         </div>
         {ajoutMessage && <div style={{ ...mutedStyle, marginTop: "10px" }}>{ajoutMessage}</div>}
         {ligneMessage && <div style={{ ...mutedStyle, marginTop: "10px" }}>{ligneMessage}</div>}
