@@ -48,6 +48,7 @@ function ConnexionPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [oauthLoading, setOauthLoading] = useState<"google" | null>(null);
+  const exchangeAttempted = useRef(false);
 
   // Retour d'un fournisseur OAuth : échange explicite du code (detectSessionInUrl: false).
   useEffect(() => {
@@ -59,14 +60,27 @@ function ConnexionPage() {
       }
       try {
         if (search.code) {
+          if (exchangeAttempted.current) return;
+          exchangeAttempted.current = true;
+          // TEMPORAIRE : diagnostic du retour OAuth
+          console.log("[oauth] code passé à exchangeCodeForSession:", search.code);
           const { error: exchangeError } = await heedupClient.auth.exchangeCodeForSession(
-            window.location.href,
+            search.code,
           );
           if (cancelled) return;
           if (exchangeError) {
-            setError(GENERIC_ERROR);
-            return;
+            // TEMPORAIRE : diagnostic du retour OAuth
+            console.error("[oauth] exchangeCodeForSession error:", exchangeError);
+            const { data: fallback } = await heedupClient.auth.getSession();
+            if (cancelled) return;
+            if (!fallback.session) {
+              setError(GENERIC_ERROR);
+              return;
+            }
           }
+          // Retire le code de l'URL avant toute navigation.
+          await navigate({ to: "/connexion", search: {}, replace: true });
+          if (cancelled) return;
         } else {
           const { data } = await heedupClient.auth.getSession();
           if (cancelled || !data.session) return;
@@ -79,7 +93,18 @@ function ConnexionPage() {
         }
         if (dest.to === "/connexion") return;
         navigate({ to: dest.to, replace: true });
-      } catch {
+      } catch (err) {
+        // TEMPORAIRE : diagnostic du retour OAuth
+        console.error("[oauth] exception:", err);
+        const { data: fallback } = await heedupClient.auth.getSession();
+        if (cancelled) return;
+        if (fallback.session) {
+          const dest = await resolvePostLoginDestination();
+          if (!cancelled && dest.kind === "redirect" && dest.to !== "/connexion") {
+            navigate({ to: dest.to, replace: true });
+            return;
+          }
+        }
         if (!cancelled) setError(GENERIC_ERROR);
       }
     })();
@@ -87,6 +112,7 @@ function ConnexionPage() {
       cancelled = true;
     };
   }, [navigate, search.code, search.error]);
+
 
   const signInWithProvider = async (provider: "google") => {
     if (oauthLoading || loading) return;
