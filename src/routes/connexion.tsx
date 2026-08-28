@@ -66,31 +66,16 @@ function ConnexionPage() {
   useEffect(() => {
     let cancelled = false;
     void (async () => {
-      // TEMPORAIRE : diagnostic du retour OAuth
-      console.log("[oauth] tentative echange", Date.now());
       if (search.error) {
         if (!cancelled) setError("Connexion impossible via ce fournisseur. Réessayez.");
         return;
       }
       try {
         if (search.code) {
-          // TEMPORAIRE : diagnostic du retour OAuth
-          console.log("[oauth] code passé à exchangeCodeForSession:", search.code);
           const result = await exchangeOAuthCodeOnce(search.code);
-          // TEMPORAIRE : diagnostic du retour OAuth
-          console.log("[oauth] resultat", result);
-          console.log("[oauth] session apres echange", await heedupClient.auth.getSession());
-          console.log(
-            "[oauth] cles storage",
-            typeof window !== "undefined"
-              ? Object.keys(window.localStorage).filter((k) => k.startsWith("sb-"))
-              : [],
-          );
           const exchangeError = result.error;
           if (cancelled) return;
           if (exchangeError) {
-            // TEMPORAIRE : diagnostic du retour OAuth
-            console.error("[oauth] exchangeCodeForSession error:", exchangeError);
             const { data: fallback } = await heedupClient.auth.getSession();
             if (cancelled) return;
             if (!fallback.session) {
@@ -98,14 +83,12 @@ function ConnexionPage() {
               return;
             }
           }
-
-          // Retire le code de l'URL avant toute navigation.
-          await navigate({ to: "/connexion", search: {}, replace: true });
-          if (cancelled) return;
         } else {
           const { data } = await heedupClient.auth.getSession();
           if (cancelled || !data.session) return;
         }
+        // Navigation directe vers la destination finale : quitter /connexion
+        // retire le paramètre code de l'URL.
         const dest = await resolvePostLoginDestination();
         if (cancelled) return;
         if (dest.kind === "error") {
@@ -114,9 +97,7 @@ function ConnexionPage() {
         }
         if (dest.to === "/connexion") return;
         navigate({ to: dest.to, replace: true });
-      } catch (err) {
-        // TEMPORAIRE : diagnostic du retour OAuth
-        console.error("[oauth] exception:", err);
+      } catch {
         const { data: fallback } = await heedupClient.auth.getSession();
         if (cancelled) return;
         if (fallback.session) {
