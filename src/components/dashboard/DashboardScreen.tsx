@@ -61,7 +61,11 @@ function TopBar({ orgName, right }: { orgName: string | null; right?: ReactNode 
         flexWrap: "wrap",
       }}
     >
-      <div style={{ ...mutedStyle, fontSize: "13px" }}>{orgName ?? ""}</div>
+      <div style={{ display: "flex", alignItems: "center", gap: "18px", flexWrap: "wrap" }}>
+        <div style={{ ...mutedStyle, fontSize: "13px" }}>{orgName ?? ""}</div>
+        <DashNav />
+      </div>
+
       <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
         {right}
         <SignOutButton />
