@@ -54,6 +54,8 @@ function ConnexionPage() {
   useEffect(() => {
     let cancelled = false;
     void (async () => {
+      // TEMPORAIRE : diagnostic du retour OAuth
+      console.log("[oauth] tentative echange", Date.now());
       if (search.error) {
         if (!cancelled) setError("Connexion impossible via ce fournisseur. Réessayez.");
         return;
@@ -64,9 +66,17 @@ function ConnexionPage() {
           exchangeAttempted.current = true;
           // TEMPORAIRE : diagnostic du retour OAuth
           console.log("[oauth] code passé à exchangeCodeForSession:", search.code);
-          const { error: exchangeError } = await heedupClient.auth.exchangeCodeForSession(
-            search.code,
+          const result = await heedupClient.auth.exchangeCodeForSession(search.code);
+          // TEMPORAIRE : diagnostic du retour OAuth
+          console.log("[oauth] resultat", result);
+          console.log("[oauth] session apres echange", await heedupClient.auth.getSession());
+          console.log(
+            "[oauth] cles storage",
+            typeof window !== "undefined"
+              ? Object.keys(window.localStorage).filter((k) => k.startsWith("sb-"))
+              : [],
           );
+          const exchangeError = result.error;
           if (cancelled) return;
           if (exchangeError) {
             // TEMPORAIRE : diagnostic du retour OAuth
@@ -78,6 +88,7 @@ function ConnexionPage() {
               return;
             }
           }
+
           // Retire le code de l'URL avant toute navigation.
           await navigate({ to: "/connexion", search: {}, replace: true });
           if (cancelled) return;
