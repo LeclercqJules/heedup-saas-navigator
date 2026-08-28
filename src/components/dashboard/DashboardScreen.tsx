@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { SignOutButton } from "@/components/auth/AuthGuard";
+import { DashNav } from "@/components/dashboard/DashNav";
 import {
   DIMENSIONS,
   formatDelta,
