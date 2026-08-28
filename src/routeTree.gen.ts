@@ -23,6 +23,7 @@ import { Route as CguRouteImport } from './routes/cgu'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as BienvenueRouteImport } from './routes/bienvenue'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardEquipeRouteImport } from './routes/dashboard_.equipe'
 import { Route as AdminConversationsIndexRouteImport } from './routes/admin.conversations.index'
 import { Route as DashboardRapportWeekStartRouteImport } from './routes/dashboard_.rapport.$weekStart'
 import { Route as AdminConversationsSessionIdRouteImport } from './routes/admin.conversations.$sessionId'
@@ -97,6 +98,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardEquipeRoute = DashboardEquipeRouteImport.update({
+  id: '/dashboard_/equipe',
+  path: '/dashboard/equipe',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminConversationsIndexRoute = AdminConversationsIndexRouteImport.update({
   id: '/admin/conversations/',
   path: '/admin/conversations/',
@@ -130,6 +136,7 @@ export interface FileRoutesByFullPath {
   '/repondre': typeof RepondreRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
+  '/dashboard/equipe': typeof DashboardEquipeRoute
   '/admin/conversations/$sessionId': typeof AdminConversationsSessionIdRoute
   '/dashboard/rapport/$weekStart': typeof DashboardRapportWeekStartRoute
   '/admin/conversations/': typeof AdminConversationsIndexRoute
@@ -149,6 +156,7 @@ export interface FileRoutesByTo {
   '/repondre': typeof RepondreRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
+  '/dashboard/equipe': typeof DashboardEquipeRoute
   '/admin/conversations/$sessionId': typeof AdminConversationsSessionIdRoute
   '/dashboard/rapport/$weekStart': typeof DashboardRapportWeekStartRoute
   '/admin/conversations': typeof AdminConversationsIndexRoute
@@ -169,6 +177,7 @@ export interface FileRoutesById {
   '/repondre': typeof RepondreRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
+  '/dashboard_/equipe': typeof DashboardEquipeRoute
   '/admin/conversations/$sessionId': typeof AdminConversationsSessionIdRoute
   '/dashboard_/rapport/$weekStart': typeof DashboardRapportWeekStartRoute
   '/admin/conversations/': typeof AdminConversationsIndexRoute
@@ -190,6 +199,7 @@ export interface FileRouteTypes {
     | '/repondre'
     | '/reset-password'
     | '/tarifs'
+    | '/dashboard/equipe'
     | '/admin/conversations/$sessionId'
     | '/dashboard/rapport/$weekStart'
     | '/admin/conversations/'
@@ -209,6 +219,7 @@ export interface FileRouteTypes {
     | '/repondre'
     | '/reset-password'
     | '/tarifs'
+    | '/dashboard/equipe'
     | '/admin/conversations/$sessionId'
     | '/dashboard/rapport/$weekStart'
     | '/admin/conversations'
@@ -228,6 +239,7 @@ export interface FileRouteTypes {
     | '/repondre'
     | '/reset-password'
     | '/tarifs'
+    | '/dashboard_/equipe'
     | '/admin/conversations/$sessionId'
     | '/dashboard_/rapport/$weekStart'
     | '/admin/conversations/'
@@ -248,6 +260,7 @@ export interface RootRouteChildren {
   RepondreRoute: typeof RepondreRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TarifsRoute: typeof TarifsRoute
+  DashboardEquipeRoute: typeof DashboardEquipeRoute
   AdminConversationsSessionIdRoute: typeof AdminConversationsSessionIdRoute
   DashboardRapportWeekStartRoute: typeof DashboardRapportWeekStartRoute
   AdminConversationsIndexRoute: typeof AdminConversationsIndexRoute
@@ -353,6 +366,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard_/equipe': {
+      id: '/dashboard_/equipe'
+      path: '/dashboard/equipe'
+      fullPath: '/dashboard/equipe'
+      preLoaderRoute: typeof DashboardEquipeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/conversations/': {
       id: '/admin/conversations/'
       path: '/admin/conversations'
@@ -392,6 +412,7 @@ const rootRouteChildren: RootRouteChildren = {
   RepondreRoute: RepondreRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TarifsRoute: TarifsRoute,
+  DashboardEquipeRoute: DashboardEquipeRoute,
   AdminConversationsSessionIdRoute: AdminConversationsSessionIdRoute,
   DashboardRapportWeekStartRoute: DashboardRapportWeekStartRoute,
   AdminConversationsIndexRoute: AdminConversationsIndexRoute,

@@ -916,3 +916,35 @@ body:has(#repondre-root) {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.45; }
 }
+
+.heedup-equipe-add {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.heedup-equipe-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(13,27,62,0.06);
+}
+.heedup-equipe-row:last-child { border-bottom: none; }
+.heedup-equipe-row-end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+@media (max-width: 640px) {
+  .heedup-equipe-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .heedup-equipe-row-end {
+    justify-content: space-between;
+    gap: 12px;
+  }
+}
