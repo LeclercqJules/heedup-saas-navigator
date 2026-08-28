@@ -49,6 +49,7 @@ function OnboardingForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [blocked, setBlocked] = useState(false);
+  const [closed, setClosed] = useState(false);
 
   const trimmed = name.trim();
   const disabled = trimmed.length === 0 || loading || blocked;
@@ -75,6 +76,12 @@ function OnboardingForm() {
 
       if (payload.status === "success" || msg.includes("vous avez déjà une organisation")) {
         navigate({ to: "/dashboard", replace: true });
+        return;
+      }
+
+      if (payload.status === "error" && msg.includes("pas encore ouverte")) {
+        setClosed(true);
+        setLoading(false);
         return;
       }
 
