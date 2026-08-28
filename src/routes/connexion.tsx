@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { heedupClient } from "@/config/heedupClient";
 import {
@@ -15,6 +15,19 @@ type ConnexionSearch = {
   error?: string;
   error_description?: string;
 };
+
+let pendingOAuthExchange: {
+  code: string;
+  promise: ReturnType<typeof heedupClient.auth.exchangeCodeForSession>;
+} | null = null;
+
+function exchangeOAuthCodeOnce(code: string) {
+  if (pendingOAuthExchange?.code === code) return pendingOAuthExchange.promise;
+
+  const promise = heedupClient.auth.exchangeCodeForSession(code);
+  pendingOAuthExchange = { code, promise };
+  return promise;
+}
 
 export const Route = createFileRoute("/connexion")({
   ssr: false,
@@ -48,7 +61,6 @@ function ConnexionPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [oauthLoading, setOauthLoading] = useState<"google" | null>(null);
-  const exchangeAttempted = useRef(false);
 
   // Retour d'un fournisseur OAuth : échange explicite du code (detectSessionInUrl: false).
   useEffect(() => {
@@ -62,11 +74,9 @@ function ConnexionPage() {
       }
       try {
         if (search.code) {
-          if (exchangeAttempted.current) return;
-          exchangeAttempted.current = true;
           // TEMPORAIRE : diagnostic du retour OAuth
           console.log("[oauth] code passé à exchangeCodeForSession:", search.code);
-          const result = await heedupClient.auth.exchangeCodeForSession(search.code);
+          const result = await exchangeOAuthCodeOnce(search.code);
           // TEMPORAIRE : diagnostic du retour OAuth
           console.log("[oauth] resultat", result);
           console.log("[oauth] session apres echange", await heedupClient.auth.getSession());
