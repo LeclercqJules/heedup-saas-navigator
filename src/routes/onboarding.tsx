@@ -116,6 +116,51 @@ function OnboardingForm() {
     }
   };
 
+  if (closed) {
+    return (
+      <AuthShell
+        title="L'accès n'est pas encore ouvert"
+        subtitle="HeedUp ouvre début septembre 2026. La création d'espace est pour l'instant réservée aux premiers comptes."
+      >
+        <div style={{ textAlign: "center" }}>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "14px",
+              color: "var(--text-muted)",
+              lineHeight: 1.65,
+              margin: "0 0 24px",
+            }}
+          >
+            Laissez-nous votre adresse pour être prévenu de l'ouverture.
+          </p>
+          <a
+            href="https://tally.so/r/VLBY9E"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="heedup-auth-primary"
+            style={{ ...authButtonStyle, display: "block", textDecoration: "none", textAlign: "center" }}
+          >
+            Rejoindre la liste d'attente
+          </a>
+          <a
+            href="https://heedup.fr"
+            style={{
+              display: "inline-block",
+              marginTop: "18px",
+              fontFamily: "var(--font-sans)",
+              fontSize: "13px",
+              color: "var(--indigo)",
+              textDecoration: "underline",
+            }}
+          >
+            Retour au site
+          </a>
+        </div>
+      </AuthShell>
+    );
+  }
+
   return (
     <AuthShell
       title="Créons votre espace"
