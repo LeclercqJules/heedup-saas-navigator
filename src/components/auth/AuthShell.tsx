@@ -72,16 +72,21 @@ export function AuthShell({
   subtitle,
   children,
   footer,
+  wide = false,
+  header,
 }: {
   title: string;
   subtitle?: string;
   children: ReactNode;
   footer?: ReactNode;
+  wide?: boolean;
+  header?: ReactNode;
 }) {
   return (
     <div style={pageStyle} className="heedup-auth-page">
       <div style={logoStyle}>HeedUp</div>
-      <div className="heedup-auth-card">
+      <div className="heedup-auth-card" style={wide ? { maxWidth: "560px" } : undefined}>
+        {header}
         <h1
           style={{
             fontFamily: "var(--font-display)",
