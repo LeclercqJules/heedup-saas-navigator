@@ -348,6 +348,7 @@ function EtapeEquipe({
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [doublons, setDoublons] = useState<number | null>(null);
+  const inseres = useRef(false);
 
   const { valides, invalides } = useMemo(() => parseAdresses(raw), [raw]);
   const disabled = saving;
