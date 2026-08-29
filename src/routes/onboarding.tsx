@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { heedupClient } from "@/config/heedupClient";
-import { AuthGuard } from "@/components/auth/AuthGuard";
+import { AuthGuard, SignOutButton } from "@/components/auth/AuthGuard";
 import {
   AuthShell,
   authButtonStyle,
@@ -9,6 +9,7 @@ import {
   authLabelStyle,
   authErrorStyle,
 } from "@/components/auth/AuthShell";
+import { emailValide, nettoyerEmail } from "@/lib/equipeData";
 
 export const Route = createFileRoute("/onboarding")({
   ssr: false,
@@ -35,15 +36,125 @@ function normalize(message: unknown): string {
   return message.toLowerCase().trim().replace(/\.+$/, "");
 }
 
+const mutedText = {
+  fontFamily: "var(--font-sans)",
+  fontSize: "13px",
+  color: "var(--text-muted)",
+  lineHeight: 1.6,
+} as const;
+
+const secondaryButtonStyle = {
+  width: "100%",
+  padding: "13px 24px",
+  borderRadius: "8px",
+  border: "1.5px solid rgba(13,27,62,0.18)",
+  background: "transparent",
+  color: "var(--midnight)",
+  fontFamily: "var(--font-sans)",
+  fontSize: "15px",
+  fontWeight: 600,
+  cursor: "pointer",
+} as const;
+
+function primaryStyle(disabled: boolean) {
+  if (!disabled) return authButtonStyle;
+  return {
+    ...authButtonStyle,
+    background: "var(--bg-card)",
+    border: "1px solid color-mix(in srgb, var(--text-muted) 25%, transparent)",
+    color: "var(--text-muted)",
+    cursor: "not-allowed",
+  };
+}
+
+function StepBars({ step }: { step: 1 | 2 | 3 }) {
+  return (
+    <div style={{ display: "flex", gap: "6px", marginBottom: "26px" }}>
+      {[1, 2, 3].map((n) => (
+        <span
+          key={n}
+          style={{
+            flex: 1,
+            height: "3px",
+            borderRadius: "2px",
+            background:
+              n === step ? "var(--indigo)" : "color-mix(in srgb, var(--text-muted) 20%, transparent)",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function SignOutRow() {
+  return (
+    <div style={{ marginTop: "22px", display: "flex", justifyContent: "center" }}>
+      <SignOutButton />
+    </div>
+  );
+}
+
 function OnboardingPage() {
   return (
     <AuthGuard allowMissingOrganization>
-      <OnboardingForm />
+      <OnboardingFlow />
     </AuthGuard>
   );
 }
 
-function OnboardingForm() {
+type Step = 1 | 2 | 3;
+type Fin = null | { kind: "lance"; envoyes: number } | { kind: "vendredi" };
+
+function OnboardingFlow() {
+  const navigate = useNavigate();
+  const [step, setStep] = useState<Step>(1);
+  const [orgId, setOrgId] = useState<string | null>(null);
+  const [fin, setFin] = useState<Fin>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { data } = await heedupClient.from("managers").select("organization_id").maybeSingle();
+      if (cancelled) return;
+      const id = (data as { organization_id?: string } | null)?.organization_id ?? null;
+      if (id) {
+        setOrgId(id);
+        setStep(2);
+      }
+      setReady(true);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (!ready) return null;
+
+  if (fin) return <FinScreen fin={fin} onGo={() => navigate({ to: "/dashboard", replace: true })} />;
+
+  if (step === 1) {
+    return (
+      <EtapeEntreprise
+        onDone={async () => {
+          const { data } = await heedupClient.from("managers").select("organization_id").maybeSingle();
+          setOrgId((data as { organization_id?: string } | null)?.organization_id ?? null);
+          setStep(2);
+        }}
+      />
+    );
+  }
+
+  if (step === 2) {
+    return <EtapeEquipe organizationId={orgId} onDone={() => setStep(3)} />;
+  }
+
+  return <EtapePrevenir onRetourEquipe={() => setStep(2)} onRetourEntreprise={() => setStep(1)} onFin={setFin} />;
+}
+
+/* ── Écran 1 ─────────────────────────────────────────────── */
+
+function EtapeEntreprise({ onDone }: { onDone: () => void | Promise<void> }) {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -60,10 +171,9 @@ function OnboardingForm() {
     setError(null);
     setLoading(true);
     try {
-      const { data, error: invokeError } = await heedupClient.functions.invoke(
-        "create-organization",
-        { body: { organization_name: trimmed } },
-      );
+      const { data, error: invokeError } = await heedupClient.functions.invoke("create-organization", {
+        body: { organization_name: trimmed },
+      });
 
       if (invokeError) {
         setError(GENERIC);
@@ -75,7 +185,7 @@ function OnboardingForm() {
       const msg = normalize(payload.message);
 
       if (payload.status === "success" || msg.includes("vous avez déjà une organisation")) {
-        navigate({ to: "/dashboard", replace: true });
+        await onDone();
         return;
       }
 
@@ -123,15 +233,7 @@ function OnboardingForm() {
         subtitle="HeedUp ouvre début septembre 2026. La création d'espace est pour l'instant réservée aux premiers comptes."
       >
         <div style={{ textAlign: "center" }}>
-          <p
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "14px",
-              color: "var(--text-muted)",
-              lineHeight: 1.65,
-              margin: "0 0 24px",
-            }}
-          >
+          <p style={{ ...mutedText, fontSize: "14px", margin: "0 0 24px" }}>
             Laissez-nous votre adresse pour être prévenu de l'ouverture.
           </p>
           <a
@@ -164,7 +266,8 @@ function OnboardingForm() {
   return (
     <AuthShell
       title="Créons votre espace"
-      subtitle="Une dernière étape avant d'accéder à vos rapports."
+      subtitle="Trois étapes, moins de dix minutes."
+      header={<StepBars step={1} />}
       footer={
         <>
           Une question ?{" "}
@@ -187,32 +290,10 @@ function OnboardingForm() {
             onChange={(e) => setName(e.target.value)}
             style={authInputStyle}
           />
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              gap: "12px",
-              marginTop: "6px",
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "13px",
-                color: "var(--text-muted)",
-              }}
-            >
-              Il apparaîtra sur les questionnaires envoyés à votre équipe.
-            </span>
+          <div style={{ display: "flex", justifyContent: "space-between", gap: "12px", marginTop: "6px" }}>
+            <span style={mutedText}>Il apparaîtra sur les questionnaires envoyés à votre équipe.</span>
             {name.length >= 80 && (
-              <span
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "12px",
-                  color: "var(--text-muted)",
-                  whiteSpace: "nowrap",
-                }}
-              >
+              <span style={{ ...mutedText, fontSize: "12px", whiteSpace: "nowrap" }}>
                 {name.length} / {MAX}
               </span>
             )}
@@ -225,11 +306,455 @@ function OnboardingForm() {
           </p>
         )}
 
-        <button type="submit" disabled={disabled} className="heedup-auth-primary" style={authButtonStyle}>
-          {loading ? "Création en cours…" : "Créer mon espace"}
+        <button type="submit" disabled={disabled} className="heedup-auth-primary" style={primaryStyle(disabled)}>
+          {loading ? "Création en cours…" : "Continuer"}
         </button>
       </form>
+      <SignOutRow />
     </AuthShell>
   );
 }
 
+/* ── Écran 2 ─────────────────────────────────────────────── */
+
+function parseAdresses(raw: string): { valides: string[]; invalides: string[] } {
+  const parts = raw.split(/[\n,;]+/);
+  const valides: string[] = [];
+  const invalides: string[] = [];
+  const vus = new Set<string>();
+  for (const part of parts) {
+    const brut = part.trim();
+    if (brut.length === 0) continue;
+    const email = nettoyerEmail(brut);
+    if (!emailValide(email)) {
+      invalides.push(brut);
+      continue;
+    }
+    if (vus.has(email)) continue;
+    vus.add(email);
+    valides.push(email);
+  }
+  return { valides, invalides };
+}
+
+function EtapeEquipe({
+  organizationId,
+  onDone,
+}: {
+  organizationId: string | null;
+  onDone: () => void;
+}) {
+  const [raw, setRaw] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [doublons, setDoublons] = useState<number | null>(null);
+  const inseres = useRef(false);
+
+  const { valides, invalides } = useMemo(() => parseAdresses(raw), [raw]);
+  const disabled = saving;
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (saving) return;
+    setError(null);
+    setDoublons(null);
+
+    if (inseres.current) {
+      onDone();
+      return;
+    }
+
+    if (valides.length === 0) {
+      onDone();
+      return;
+    }
+    if (!organizationId) {
+      setError(GENERIC);
+      return;
+    }
+
+    setSaving(true);
+    let dupes = 0;
+    let echec = false;
+    for (const email of valides) {
+      const { error: insertError } = await heedupClient
+        .from("employees")
+        .insert({ organization_id: organizationId, email, status: "active" });
+      if (insertError) {
+        if ((insertError as { code?: string }).code === "23505") dupes += 1;
+        else echec = true;
+      }
+    }
+    setSaving(false);
+    if (echec) {
+      setError(GENERIC);
+      return;
+    }
+    if (dupes > 0) {
+      // On informe, sans bloquer : un second clic passe à l'étape suivante.
+      setDoublons(dupes);
+      inseres.current = true;
+      return;
+    }
+    onDone();
+  };
+
+  return (
+    <AuthShell
+      wide
+      title="Qui reçoit le questionnaire ?"
+      subtitle="Collez les adresses email de vos salariés, une par ligne. Vous pourrez en ajouter ou en retirer à tout moment."
+      header={<StepBars step={2} />}
+    >
+      <form onSubmit={submit}>
+        <textarea
+          rows={8}
+          value={raw}
+          onChange={(e) => setRaw(e.target.value)}
+          style={{
+            ...authInputStyle,
+            resize: "vertical",
+            lineHeight: 1.6,
+            fontFamily: "var(--font-sans)",
+          }}
+        />
+
+        <p style={{ ...mutedText, margin: "8px 0 0" }}>
+          {valides.length === 1 ? "1 adresse détectée" : `${valides.length} adresses détectées`}
+        </p>
+
+        {invalides.length > 0 && (
+          <div style={{ marginTop: "12px" }}>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "13px",
+                color: "var(--text-primary)",
+                margin: "0 0 4px",
+              }}
+            >
+              Ces lignes ne sont pas des adresses valides :
+            </p>
+            <ul style={{ margin: 0, paddingLeft: "18px" }}>
+              {invalides.map((l, i) => (
+                <li
+                  key={`${l}-${i}`}
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "13px",
+                    color: "var(--text-primary)",
+                    wordBreak: "break-all",
+                  }}
+                >
+                  {l}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {valides.length < 5 && (
+          <div
+            style={{
+              marginTop: "16px",
+              background: "var(--bg-card)",
+              border: "1.5px solid color-mix(in srgb, var(--text-muted) 30%, transparent)",
+              borderRadius: "12px",
+              padding: "14px 16px",
+              fontFamily: "var(--font-sans)",
+              fontSize: "13px",
+              lineHeight: 1.65,
+              color: "var(--text-primary)",
+            }}
+          >
+            Un rapport a besoin d'au moins cinq réponses complètes. Ce seuil garantit que personne ne peut être
+            identifié à partir des moyennes. En dessous de cinq salariés, votre espace fonctionnera mais ne produira
+            aucun rapport.
+          </div>
+        )}
+
+        {doublons !== null && doublons > 0 && (
+          <p style={{ ...mutedText, marginTop: "12px" }}>
+            {doublons === 1
+              ? "1 adresse était déjà dans votre équipe."
+              : `${doublons} adresses étaient déjà dans votre équipe.`}
+          </p>
+        )}
+
+        {error && (
+          <p role="alert" style={{ ...authErrorStyle, margin: "14px 0 0" }}>
+            {error}
+          </p>
+        )}
+
+        <button
+          type="submit"
+          disabled={disabled}
+          className="heedup-auth-primary"
+          style={{ ...primaryStyle(disabled), marginTop: "20px" }}
+        >
+          {saving ? "Enregistrement en cours…" : "Continuer"}
+        </button>
+      </form>
+      <SignOutRow />
+    </AuthShell>
+  );
+}
+
+/* ── Écran 3 ─────────────────────────────────────────────── */
+
+const MESSAGE_DIRECT = `Bonjour à tous,
+
+À partir de vendredi, vous recevrez chaque semaine cinq questions sur votre semaine de travail. Deux minutes, et c'est facultatif.
+
+Vos réponses sont anonymes : le lien entre votre réponse et votre identité est supprimé au moment de l'envoi. Je ne reçois que des moyennes d'équipe, à partir de cinq réponses, et jamais un commentaire individuel.
+
+Vous pouvez vous désinscrire à tout moment depuis l'email.
+
+L'objectif est simple : savoir ce qui coince avant que ça devienne un problème.`;
+
+const MESSAGE_CHALEUREUX = `Bonjour à tous,
+
+J'ai mis en place un outil pour mieux savoir comment vous vivez vos semaines. Chaque vendredi, vous recevrez cinq questions. Deux minutes, et vous n'êtes pas obligés d'y répondre.
+
+Vos réponses sont anonymes : le lien entre votre réponse et votre identité est supprimé au moment de l'envoi. Je ne vois que des moyennes d'équipe, à partir de cinq réponses, et jamais un commentaire individuel.
+
+Vous pouvez vous désinscrire à tout moment depuis l'email.
+
+Dites-moi ce qui va et ce qui ne va pas. C'est le seul moyen que je puisse agir dessus.`;
+
+function EtapePrevenir({
+  onRetourEquipe,
+  onRetourEntreprise,
+  onFin,
+}: {
+  onRetourEquipe: () => void;
+  onRetourEntreprise: () => void;
+  onFin: (fin: Fin) => void;
+}) {
+  const [onglet, setOnglet] = useState<"direct" | "chaleureux">("direct");
+  const [copie, setCopie] = useState(false);
+  const [envoi, setEnvoi] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [equipeVide, setEquipeVide] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
+
+  const texte = onglet === "direct" ? MESSAGE_DIRECT : MESSAGE_CHALEUREUX;
+
+  const copier = async () => {
+    try {
+      await navigator.clipboard.writeText(texte);
+      setCopie(true);
+      if (timer.current) clearTimeout(timer.current);
+      timer.current = setTimeout(() => setCopie(false), 2000);
+    } catch {
+      setCopie(false);
+    }
+  };
+
+  const lancer = async () => {
+    if (envoi) return;
+    setError(null);
+    setEquipeVide(false);
+    setEnvoi(true);
+    try {
+      const { data, error: invokeError } = await heedupClient.functions.invoke("send-first-survey");
+      const payload = (data ?? {}) as { status?: string; message?: string; emails_envoyes?: number };
+      const msg = normalize(payload.message);
+
+      if (!invokeError && payload.status === "ok") {
+        onFin({ kind: "lance", envoyes: Number(payload.emails_envoyes ?? 0) });
+        return;
+      }
+      if (msg.includes("aucune organisation n'est rattachée")) {
+        onRetourEntreprise();
+        return;
+      }
+      if (msg.includes("déjà été envoyée")) {
+        onFin({ kind: "vendredi" });
+        return;
+      }
+      if (msg.includes("n'est pas actif")) {
+        setError(typeof payload.message === "string" ? payload.message : GENERIC);
+        setEnvoi(false);
+        return;
+      }
+      if (msg.includes("aucun salarié à solliciter")) {
+        setError("Aucun salarié ne peut être sollicité pour le moment. Vérifiez la liste de votre équipe.");
+        setEquipeVide(true);
+        setEnvoi(false);
+        return;
+      }
+      setError(GENERIC);
+      setEnvoi(false);
+    } catch {
+      setError(GENERIC);
+      setEnvoi(false);
+    }
+  };
+
+  const tabStyle = (actif: boolean) => ({
+    padding: "8px 16px",
+    borderRadius: "8px",
+    border: actif ? "1.5px solid var(--indigo)" : "1.5px solid rgba(13,27,62,0.12)",
+    background: "transparent",
+    color: actif ? "var(--indigo)" : "var(--text-muted)",
+    fontFamily: "var(--font-sans)",
+    fontSize: "14px",
+    fontWeight: 600,
+    cursor: "pointer",
+  });
+
+  return (
+    <AuthShell
+      wide
+      title="Prévenez votre équipe"
+      subtitle="Vos salariés recevront un email d'une marque qu'ils ne connaissent pas. Sans un mot de votre part, beaucoup ne répondront pas, et un rapport a besoin de cinq réponses."
+      header={<StepBars step={3} />}
+    >
+      <div style={{ display: "flex", gap: "8px", marginBottom: "14px" }}>
+        <button type="button" onClick={() => setOnglet("direct")} style={tabStyle(onglet === "direct")}>
+          Direct
+        </button>
+        <button type="button" onClick={() => setOnglet("chaleureux")} style={tabStyle(onglet === "chaleureux")}>
+          Chaleureux
+        </button>
+      </div>
+
+      <div
+        style={{
+          background: "var(--indigo-pale)",
+          borderRadius: "12px",
+          padding: "18px 18px",
+          fontFamily: "var(--font-sans)",
+          fontSize: "14px",
+          lineHeight: 1.75,
+          color: "var(--text-primary)",
+          whiteSpace: "pre-wrap",
+          overflowWrap: "anywhere",
+        }}
+      >
+        {texte}
+      </div>
+
+      <button
+        type="button"
+        onClick={copier}
+        className="heedup-auth-primary"
+        style={{ ...secondaryButtonStyle, marginTop: "14px" }}
+      >
+        {copie ? "Message copié" : "Copier le message"}
+      </button>
+
+      <hr
+        style={{
+          border: "none",
+          borderTop: "1px solid color-mix(in srgb, var(--text-muted) 12%, transparent)",
+          margin: "28px 0 22px",
+        }}
+      />
+
+      <h2
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "22px",
+          color: "var(--midnight)",
+          margin: "0 0 16px",
+        }}
+      >
+        Quand lancer le premier questionnaire ?
+      </h2>
+
+      {error && (
+        <p role="alert" style={{ ...authErrorStyle, marginBottom: "14px" }}>
+          {error}
+        </p>
+      )}
+
+      {equipeVide && (
+        <button type="button" onClick={onRetourEquipe} style={{ ...secondaryButtonStyle, marginBottom: "16px" }}>
+          Revenir à la liste de mon équipe
+        </button>
+      )}
+
+      <button
+        type="button"
+        onClick={lancer}
+        disabled={envoi}
+        className="heedup-auth-primary"
+        style={primaryStyle(envoi)}
+      >
+        {envoi ? "Envoi en cours…" : "Lancer maintenant"}
+      </button>
+      <p style={{ ...mutedText, margin: "8px 0 0" }}>
+        Vos salariés ont 48 heures pour répondre. Votre premier rapport sera disponible dès que cinq réponses
+        complètes seront arrivées.
+      </p>
+      <p style={{ ...mutedText, margin: "6px 0 0" }}>Prenez le temps de prévenir votre équipe avant de lancer.</p>
+
+      <button
+        type="button"
+        onClick={() => onFin({ kind: "vendredi" })}
+        style={{ ...secondaryButtonStyle, marginTop: "20px" }}
+      >
+        Attendre vendredi
+      </button>
+      <p style={{ ...mutedText, margin: "8px 0 0" }}>
+        Le questionnaire partira vendredi à 9h, comme toutes les semaines suivantes. Votre rapport arrivera le lundi
+        matin.
+      </p>
+
+      <SignOutRow />
+    </AuthShell>
+  );
+}
+
+/* ── Écran de fin ────────────────────────────────────────── */
+
+function FinScreen({ fin, onGo }: { fin: NonNullable<Fin>; onGo: () => void }) {
+  if (fin.kind === "lance") {
+    return (
+      <AuthShell title="C'est parti.">
+        <div style={{ textAlign: "center", marginBottom: "18px" }}>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" stroke="var(--indigo)" strokeWidth="1.8" />
+            <path d="M7.5 12.4l3 3 6-6.4" stroke="var(--indigo)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.7, color: "var(--text-primary)", margin: "0 0 14px" }}>
+          {fin.envoyes > 0
+            ? `Le questionnaire est parti à ${fin.envoyes} salarié${fin.envoyes > 1 ? "s" : ""}.`
+            : "Le questionnaire est parti."}
+        </p>
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.7, color: "var(--text-primary)", margin: "0 0 14px" }}>
+          Votre premier rapport sera disponible dès que cinq réponses complètes seront arrivées, sous 48 heures
+          environ. Vous le recevrez aussi par email.
+        </p>
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.7, color: "var(--text-primary)", margin: "0 0 22px" }}>
+          La campagne suivante partira le vendredi de la semaine prochaine, puis chaque vendredi.
+        </p>
+        <button type="button" onClick={onGo} className="heedup-auth-primary" style={authButtonStyle}>
+          Voir mon espace
+        </button>
+        <SignOutRow />
+      </AuthShell>
+    );
+  }
+
+  return (
+    <AuthShell title="Votre espace est prêt.">
+      <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.7, color: "var(--text-primary)", margin: "0 0 14px" }}>
+        Le premier questionnaire partira vendredi à 9h. Votre rapport arrivera le lundi matin.
+      </p>
+      <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.7, color: "var(--text-primary)", margin: "0 0 22px" }}>
+        D'ici là, vous pouvez ajuster la liste de votre équipe.
+      </p>
+      <button type="button" onClick={onGo} className="heedup-auth-primary" style={authButtonStyle}>
+        Voir mon espace
+      </button>
+      <SignOutRow />
+    </AuthShell>
+  );
+}
