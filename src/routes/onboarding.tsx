@@ -359,6 +359,11 @@ function EtapeEquipe({
     setError(null);
     setDoublons(null);
 
+    if (inseres.current) {
+      onDone();
+      return;
+    }
+
     if (valides.length === 0) {
       onDone();
       return;
