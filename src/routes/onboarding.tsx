@@ -385,8 +385,10 @@ function EtapeEquipe({
       return;
     }
     if (dupes > 0) {
+      // On informe, sans bloquer : un second clic passe à l'étape suivante.
       setDoublons(dupes);
-      // On informe sans bloquer : passage à l'étape suivante après affichage.
+      inseres.current = true;
+      return;
     }
     onDone();
   };
