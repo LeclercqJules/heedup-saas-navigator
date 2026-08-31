@@ -307,7 +307,7 @@ export function EquipeContent() {
         )}
         {desinscrits > 0 && (
           <p style={{ ...mutedStyle, marginTop: "4px" }}>
-            {desinscrits} {desinscrits > 1 ? "personnes ont" : "personne a"} choisi de ne plus recevoir le
+            {desinscrits} {desinscrits === 1 ? "personne a" : "personnes ont"} choisi de ne plus recevoir le
             questionnaire.
           </p>
         )}
