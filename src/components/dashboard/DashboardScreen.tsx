@@ -272,9 +272,15 @@ function ReportView({
         <div style={{ ...mutedStyle, fontSize: "14.5px", marginTop: "6px" }}>{formatWeek(rapport.week_start)}</div>
 
         <div style={{ ...bodyStyle, marginTop: "18px" }}>
-          {effectif && typeof effectif.sollicites === "number"
-            ? `${rapport.respondent_count ?? 0} réponses sur ${effectif.sollicites} salariés sollicités`
-            : `${rapport.respondent_count ?? 0} réponses`}
+          {(() => {
+            const n = rapport.respondent_count ?? 0;
+            const rep = n === 1 ? "1 réponse" : `${n} réponses`;
+            if (effectif && typeof effectif.sollicites === "number") {
+              const s = effectif.sollicites;
+              return `${rep} sur ${s} ${s === 1 ? "salarié sollicité" : "salariés sollicités"}`;
+            }
+            return rep;
+          })()}
         </div>
         {effectif && (effectif.desinscrits ?? 0) > 0 ? (
           <div style={{ ...mutedStyle, marginTop: "6px" }}>
