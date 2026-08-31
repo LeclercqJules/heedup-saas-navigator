@@ -302,12 +302,12 @@ export function EquipeContent() {
         </h1>
         {actifs !== null && (
           <p style={{ ...mutedStyle, marginTop: "6px" }}>
-            {actifs} {actifs > 1 ? "salariés actifs" : "salarié actif"}
+            {actifs} {actifs === 1 ? "salarié actif" : "salariés actifs"}
           </p>
         )}
         {desinscrits > 0 && (
           <p style={{ ...mutedStyle, marginTop: "4px" }}>
-            {desinscrits} {desinscrits > 1 ? "personnes ont" : "personne a"} choisi de ne plus recevoir le
+            {desinscrits} {desinscrits === 1 ? "personne a" : "personnes ont"} choisi de ne plus recevoir le
             questionnaire.
           </p>
         )}

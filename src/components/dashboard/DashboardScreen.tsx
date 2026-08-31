@@ -272,9 +272,15 @@ function ReportView({
         <div style={{ ...mutedStyle, fontSize: "14.5px", marginTop: "6px" }}>{formatWeek(rapport.week_start)}</div>
 
         <div style={{ ...bodyStyle, marginTop: "18px" }}>
-          {effectif && typeof effectif.sollicites === "number"
-            ? `${rapport.respondent_count ?? 0} réponses sur ${effectif.sollicites} salariés sollicités`
-            : `${rapport.respondent_count ?? 0} réponses`}
+          {(() => {
+            const n = rapport.respondent_count ?? 0;
+            const rep = n === 1 ? "1 réponse" : `${n} réponses`;
+            if (effectif && typeof effectif.sollicites === "number") {
+              const s = effectif.sollicites;
+              return `${rep} sur ${s} ${s === 1 ? "salarié sollicité" : "salariés sollicités"}`;
+            }
+            return rep;
+          })()}
         </div>
         {effectif && (effectif.desinscrits ?? 0) > 0 ? (
           <div style={{ ...mutedStyle, marginTop: "6px" }}>
@@ -381,7 +387,9 @@ function ReportView({
                 >
                   {team.team_name ?? ""}
                 </div>
-                <div style={{ ...mutedStyle, marginBottom: "12px" }}>{team.respondent_count ?? 0} réponses</div>
+                <div style={{ ...mutedStyle, marginBottom: "12px" }}>
+                  {(team.respondent_count ?? 0) === 1 ? "1 réponse" : `${team.respondent_count ?? 0} réponses`}
+                </div>
                 <ScoreRows
                   scores={
                     hasPrevious
@@ -494,8 +502,9 @@ if (rapports.length === 0) {
           </p>
           {effectif?.sous_le_seuil ? (
             <p style={{ marginTop: "14px" }}>
-              Votre effectif sollicité est actuellement de {effectif.sollicites ?? 0} personnes. En dessous de cinq,
-              aucun rapport ne peut être produit.
+              Votre effectif sollicité est actuellement de {effectif.sollicites ?? 0}{" "}
+              {(effectif.sollicites ?? 0) === 1 ? "personne" : "personnes"}. En dessous de cinq, aucun rapport ne peut
+              être produit.
             </p>
           ) : null}
         </EmptyCard>

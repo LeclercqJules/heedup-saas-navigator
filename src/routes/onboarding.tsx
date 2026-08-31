@@ -500,8 +500,20 @@ const [doublons, setDoublons] = useState<number | null>(null);
       header={<StepBars step={2} />}
     >
       <form onSubmit={submit}>
-        <div style={{ marginBottom: "18px" }}>
-          <label htmlFor="domaine_entreprise" style={authLabelStyle}>
+        <div>
+          <label
+            htmlFor="domaine_entreprise"
+            style={{
+              display: "block",
+              fontFamily: "var(--font-sans)",
+              fontSize: "13px",
+              fontWeight: 500,
+              color: "var(--text-muted)",
+              textTransform: "none",
+              letterSpacing: "normal",
+              marginBottom: "6px",
+            }}
+          >
             Domaine de votre entreprise (facultatif)
           </label>
           <input
@@ -510,15 +522,34 @@ const [doublons, setDoublons] = useState<number | null>(null);
             placeholder="boulangerie-martin.fr"
             value={domaine}
             onChange={(e) => setDomaine(e.target.value)}
-            style={authInputStyle}
+            style={{ ...authInputStyle, height: "40px" }}
           />
           <p style={{ ...mutedText, margin: "6px 0 0" }}>
-            Si vos salariés ont des adresses professionnelles, vous n'aurez plus qu'à saisir ce qui précède
-            l'arobase.
+            Vous n'aurez alors qu'à saisir ce qui précède l'arobase.
           </p>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+        <hr
+          style={{
+            border: "none",
+            borderTop: "1px solid color-mix(in srgb, var(--text-muted) 10%, transparent)",
+            margin: "24px 0",
+          }}
+        />
+
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "15px",
+            fontWeight: 600,
+            color: "var(--text-primary)",
+            marginBottom: "10px",
+          }}
+        >
+          Adresses de vos salariés
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
           {lignes.map((valeur, index) => {
             const r = lignesResolues[index];
             const montrerEtat = touched.has(index) && r.remplie;
@@ -677,19 +708,16 @@ style={{
           <div
             style={{
               marginTop: "16px",
-              background: "var(--bg-card)",
-              border: "1.5px solid color-mix(in srgb, var(--text-muted) 30%, transparent)",
-              borderRadius: "12px",
-              padding: "14px 16px",
+              borderLeft: "2px solid color-mix(in srgb, var(--text-muted) 30%, transparent)",
+              padding: "2px 0 2px 12px",
               fontFamily: "var(--font-sans)",
               fontSize: "13px",
               lineHeight: 1.65,
-              color: "var(--text-primary)",
+              color: "var(--text-muted)",
             }}
           >
-            Un rapport a besoin d'au moins cinq réponses complètes. Ce seuil garantit que personne ne peut être
-            identifié à partir des moyennes. En dessous de cinq salariés, votre espace fonctionnera mais ne produira
-            aucun rapport.
+            Un rapport a besoin d'au moins cinq réponses complètes. En dessous de cinq salariés, votre espace
+            fonctionnera mais ne produira aucun rapport.
           </div>
         )}
 
@@ -933,48 +961,131 @@ function EtapePrevenir({
 
 /* ── Écran de fin ────────────────────────────────────────── */
 
+function SignOutLink() {
+  const navigate = useNavigate();
+  return (
+    <div style={{ textAlign: "center", marginTop: "20px" }}>
+      <button
+        type="button"
+        onClick={async () => {
+          await heedupClient.auth.signOut();
+          navigate({ to: "/connexion", replace: true });
+        }}
+        style={{
+          background: "none",
+          border: "none",
+          padding: 0,
+          cursor: "pointer",
+          fontFamily: "var(--font-sans)",
+          fontSize: "13px",
+          color: "var(--text-muted)",
+          textDecoration: "underline",
+        }}
+      >
+        Se déconnecter
+      </button>
+    </div>
+  );
+}
+
+function FinLayout({
+  titre,
+  premier,
+  paragraphes,
+  onGo,
+}: {
+  titre: string;
+  premier: string;
+  paragraphes: string[];
+  onGo: () => void;
+}) {
+  return (
+    <AuthShell title="">
+      <div style={{ textAlign: "center" }}>
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" stroke="var(--indigo)" strokeWidth="1.8" />
+          <path
+            d="M7.5 12.4l3 3 6-6.4"
+            stroke="var(--indigo)"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        <h1
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "32px",
+            lineHeight: 1.15,
+            letterSpacing: "-0.4px",
+            color: "var(--midnight)",
+            margin: "28px 0 0",
+          }}
+        >
+          {titre}
+        </h1>
+        <p
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "17px",
+            fontWeight: 500,
+            lineHeight: 1.6,
+            color: "var(--text-primary)",
+            margin: "20px 0 0",
+          }}
+        >
+          {premier}
+        </p>
+        {paragraphes.map((p, i) => (
+          <p
+            key={i}
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "15px",
+              lineHeight: 1.7,
+              color: "var(--text-muted)",
+              margin: "12px 0 0",
+            }}
+          >
+            {p}
+          </p>
+        ))}
+        <div style={{ marginTop: "32px" }}>
+          <button type="button" onClick={onGo} className="heedup-auth-primary" style={authButtonStyle}>
+            Voir mon espace
+          </button>
+        </div>
+        <SignOutLink />
+      </div>
+    </AuthShell>
+  );
+}
+
 function FinScreen({ fin, onGo }: { fin: NonNullable<Fin>; onGo: () => void }) {
   if (fin.kind === "lance") {
     return (
-      <AuthShell title="C'est parti.">
-        <div style={{ textAlign: "center", marginBottom: "18px" }}>
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="12" r="10" stroke="var(--indigo)" strokeWidth="1.8" />
-            <path d="M7.5 12.4l3 3 6-6.4" stroke="var(--indigo)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
-        <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.7, color: "var(--text-primary)", margin: "0 0 14px" }}>
-          {fin.envoyes > 0
-            ? `Le questionnaire est parti à ${fin.envoyes} salarié${fin.envoyes > 1 ? "s" : ""}.`
-            : "Le questionnaire est parti."}
-        </p>
-        <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.7, color: "var(--text-primary)", margin: "0 0 14px" }}>
-          Votre premier rapport sera disponible dès que cinq réponses complètes seront arrivées, sous 48 heures
-          environ. Vous le recevrez aussi par email.
-        </p>
-        <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.7, color: "var(--text-primary)", margin: "0 0 22px" }}>
-          La campagne suivante partira le vendredi de la semaine prochaine, puis chaque vendredi.
-        </p>
-        <button type="button" onClick={onGo} className="heedup-auth-primary" style={authButtonStyle}>
-          Voir mon espace
-        </button>
-        <SignOutRow />
-      </AuthShell>
+      <FinLayout
+        titre="C'est parti."
+        premier={
+          fin.envoyes > 0
+            ? `Le questionnaire est parti à ${fin.envoyes} ${fin.envoyes === 1 ? "salarié" : "salariés"}.`
+            : "Le questionnaire est parti."
+        }
+        paragraphes={[
+          "Votre premier rapport sera disponible dès que cinq réponses complètes seront arrivées, sous 48 heures environ. Vous le recevrez aussi par email.",
+          "La campagne suivante partira le vendredi de la semaine prochaine, puis chaque vendredi.",
+        ]}
+        onGo={onGo}
+      />
     );
   }
 
   return (
-    <AuthShell title="Votre espace est prêt.">
-      <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.7, color: "var(--text-primary)", margin: "0 0 14px" }}>
-        Le premier questionnaire partira vendredi à 9h. Votre rapport arrivera le lundi matin.
-      </p>
-      <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.7, color: "var(--text-primary)", margin: "0 0 22px" }}>
-        D'ici là, vous pouvez ajuster la liste de votre équipe.
-      </p>
-      <button type="button" onClick={onGo} className="heedup-auth-primary" style={authButtonStyle}>
-        Voir mon espace
-      </button>
-      <SignOutRow />
-    </AuthShell>
+    <FinLayout
+      titre="Votre espace est prêt."
+      premier="Le premier questionnaire partira vendredi à 9h."
+      paragraphes={["Votre rapport arrivera le lundi matin.", "D'ici là, vous pouvez ajuster la liste de votre équipe."]}
+      onGo={onGo}
+    />
   );
 }
