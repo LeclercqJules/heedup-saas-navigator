@@ -21,6 +21,18 @@ const cardStyle: CSSProperties = {
   padding: "26px 26px",
 };
 
+const primaryLinkStyle: CSSProperties = {
+  display: "inline-block",
+  background: "var(--indigo)",
+  color: "#FFFFFF",
+  fontFamily: "var(--font-sans)",
+  fontSize: "15px",
+  fontWeight: 700,
+  borderRadius: "8px",
+  padding: "13px 28px",
+  textDecoration: "none",
+};
+
 const blockTitleStyle: CSSProperties = {
   fontFamily: "var(--font-display)",
   fontSize: "20px",
@@ -391,7 +403,7 @@ function ReportView({
 }
 
 export function DashboardContent({ data, weekStart }: { data: DashboardData; weekStart?: string | null }) {
-  const { rapports, effectif, orgName, hasSurveys } = data;
+  const { rapports, effectif, orgName, hasSurveys, employeeCount } = data;
 
   // Semaine explicitement demandée
   if (weekStart !== undefined && weekStart !== null) {
@@ -436,8 +448,27 @@ export function DashboardContent({ data, weekStart }: { data: DashboardData; wee
     return <ReportView rapport={rapports[index]} data={data} hasPrevious={index < rapports.length - 1} />;
   }
 
-  if (rapports.length === 0) {
+if (rapports.length === 0) {
     if (!hasSurveys) {
+      if (employeeCount === 0) {
+        return (
+          <Shell>
+            <TopBar orgName={orgName} />
+            <div style={cardStyle}>
+              <h2 style={{ ...blockTitleStyle, fontSize: "24px", marginBottom: "12px" }}>Il reste une étape</h2>
+              <div style={bodyStyle}>
+                Votre espace est créé, mais aucun salarié n'y est encore rattaché. Personne ne recevra de questionnaire
+                tant que votre équipe n'est pas ajoutée.
+              </div>
+              <div style={{ marginTop: "22px" }}>
+                <Link to="/dashboard/equipe" style={primaryLinkStyle}>
+                  Ajouter mon équipe
+                </Link>
+              </div>
+            </div>
+          </Shell>
+        );
+      }
       return (
         <Shell>
           <TopBar orgName={orgName} />

@@ -363,7 +363,8 @@ function EtapeEquipe({
   const [touched, setTouched] = useState<Set<number>>(new Set());
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [doublons, setDoublons] = useState<number | null>(null);
+const [doublons, setDoublons] = useState<number | null>(null);
+  const [aideOuverte, setAideOuverte] = useState(false);
   const inseres = useRef(false);
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -555,7 +556,7 @@ function EtapeEquipe({
                       onBlur={() => onBlurLigne(index)}
                       placeholder={index === 0 ? "prenom ou prenom@exemple.fr" : ""}
                       aria-label={`Adresse ${index + 1}`}
-                      style={{
+style={{
                         flex: 1,
                         minWidth: 0,
                         border: "none",
@@ -563,7 +564,7 @@ function EtapeEquipe({
                         background: "transparent",
                         fontFamily: "var(--font-sans)",
                         fontSize: "15px",
-                        color: "var(--text-primary)",
+                        color: estDoublon ? "var(--text-muted)" : "var(--text-primary)",
                         padding: 0,
                         height: "100%",
                       }}
@@ -625,11 +626,52 @@ function EtapeEquipe({
           })}
         </div>
 
-        {valides.length > 0 && (
+{valides.length > 0 && (
           <p style={{ ...mutedText, margin: "10px 0 0" }}>
             {valides.length === 1 ? "1 adresse valide" : `${valides.length} adresses valides`}
           </p>
         )}
+
+        <div style={{ marginTop: "10px" }}>
+          <button
+            type="button"
+            onClick={() => setAideOuverte((o) => !o)}
+            aria-expanded={aideOuverte}
+            style={{
+              background: "none",
+              border: "none",
+              padding: 0,
+              cursor: "pointer",
+              fontFamily: "var(--font-sans)",
+              fontSize: "13px",
+              fontWeight: 600,
+              color: "var(--indigo)",
+            }}
+          >
+            {aideOuverte ? "▾ " : "▸ "}Comment saisir plus vite
+          </button>
+          <div
+            style={{
+              opacity: aideOuverte ? 1 : 0,
+              transition: "opacity 0.22s ease",
+              maxHeight: aideOuverte ? "240px" : "0",
+              overflow: "hidden",
+            }}
+          >
+            <div style={{ marginTop: "10px", display: "flex", flexDirection: "column", gap: "6px" }}>
+              <p style={{ ...mutedText, margin: 0 }}>
+                Collez plusieurs adresses d'un coup depuis un tableur, elles se répartissent sur autant de lignes.
+              </p>
+              <p style={{ ...mutedText, margin: 0 }}>Appuyez sur Entrée pour passer à la ligne suivante.</p>
+              <p style={{ ...mutedText, margin: 0 }}>
+                Avec un domaine renseigné, saisissez seulement jean plutôt que jean@boite.fr.
+              </p>
+              <p style={{ ...mutedText, margin: 0 }}>
+                Une adresse complète est toujours acceptée, même si elle n'est pas sur votre domaine.
+              </p>
+            </div>
+          </div>
+        </div>
 
         {valides.length < 5 && (
           <div

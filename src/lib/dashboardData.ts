@@ -46,6 +46,7 @@ export type DashboardData = {
   effectif: Effectif;
   orgName: string | null;
   hasSurveys: boolean;
+  employeeCount: number | null;
 };
 
 const MOIS = [
@@ -95,18 +96,19 @@ export function readScore(entry: ScoreEntry): { score: number | null; delta: num
 }
 
 export function useDashboardData(): DashboardData {
-  const [state, setState] = useState<DashboardData>({
+const [state, setState] = useState<DashboardData>({
     loading: true,
     rapports: [],
     effectif: null,
     orgName: null,
     hasSurveys: false,
+    employeeCount: null,
   });
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const [rapportsRes, effectifRes, orgRes, surveysRes] = await Promise.all([
+const [rapportsRes, effectifRes, orgRes, surveysRes, employeesRes] = await Promise.all([
         heedupClient
           .from("reports")
           .select(
@@ -116,6 +118,7 @@ export function useDashboardData(): DashboardData {
         heedupClient.rpc("compter_desinscrits"),
         heedupClient.from("organizations").select("name").maybeSingle(),
         heedupClient.from("surveys").select("week_start").order("week_start", { ascending: false }).limit(1),
+        heedupClient.from("employees").select("id", { count: "exact", head: true }),
       ]);
 
       if (cancelled) return;
@@ -123,12 +126,13 @@ export function useDashboardData(): DashboardData {
       const effectifRaw = (effectifRes.data ?? null) as Effectif;
       const effectif = !effectifRes.error && effectifRaw && effectifRaw.status !== "error" ? effectifRaw : null;
 
-      setState({
+setState({
         loading: false,
         rapports: ((rapportsRes.data ?? []) as Rapport[]).slice(),
         effectif,
         orgName: (orgRes.data as { name?: string } | null)?.name ?? null,
         hasSurveys: Array.isArray(surveysRes.data) && surveysRes.data.length > 0,
+        employeeCount: employeesRes.error ? null : (employeesRes.count ?? 0),
       });
     })();
     return () => {
