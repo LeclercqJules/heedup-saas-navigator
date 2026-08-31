@@ -948,3 +948,13 @@ body:has(#repondre-root) {
     gap: 12px;
   }
 }
+
+/* Onboarding écran 2 : liste d'adresses */
+.heedup-onb-remove:hover {
+  color: var(--midnight);
+}
+@media (max-width: 480px) {
+  .heedup-onb-suffix {
+    font-size: 11px !important;
+  }
+}
