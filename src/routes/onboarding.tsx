@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { heedupClient } from "@/config/heedupClient";
 import { AuthGuard, SignOutButton } from "@/components/auth/AuthGuard";
@@ -9,7 +9,7 @@ import {
   authLabelStyle,
   authErrorStyle,
 } from "@/components/auth/AuthShell";
-import { emailValide, nettoyerEmail } from "@/lib/equipeData";
+import { emailValide } from "@/lib/equipeData";
 
 export const Route = createFileRoute("/onboarding")({
   ssr: false,
