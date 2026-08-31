@@ -317,24 +317,38 @@ function EtapeEntreprise({ onDone }: { onDone: () => void | Promise<void> }) {
 
 /* ── Écran 2 ─────────────────────────────────────────────── */
 
-function parseAdresses(raw: string): { valides: string[]; invalides: string[] } {
-  const parts = raw.split(/[\n,;]+/);
-  const valides: string[] = [];
-  const invalides: string[] = [];
-  const vus = new Set<string>();
-  for (const part of parts) {
-    const brut = part.trim();
-    if (brut.length === 0) continue;
-    const email = nettoyerEmail(brut);
-    if (!emailValide(email)) {
-      invalides.push(brut);
-      continue;
-    }
-    if (vus.has(email)) continue;
-    vus.add(email);
-    valides.push(email);
+/** Nettoie le domaine saisi : trim, minuscules, retire @, https://, www. et tout chemin. */
+function nettoyerDomaine(raw: string): string {
+  let d = raw.trim().toLowerCase();
+  d = d.replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/^@/, "");
+  d = d.split("/")[0];
+  return d;
+}
+
+function domaineValide(domaine: string): boolean {
+  return domaine.includes(".");
+}
+
+/**
+ * Résout une ligne en adresse complète.
+ * Une valeur contenant déjà un @ est prise telle quelle ; sinon on compose avec le domaine.
+ */
+function resoudreAdresse(valeur: string, domaine: string): string | null {
+  const v = valeur.trim().toLowerCase();
+  if (v.length === 0) return null;
+  if (v.includes("@")) return v;
+  if (domaineValide(domaine)) return `${v}@${domaine}`;
+  return v;
+}
+
+/** Garantit exactement un champ vide en fin de liste. */
+function avecVideFinal(lignes: string[]): string[] {
+  const out = [...lignes];
+  while (out.length > 1 && out[out.length - 1].trim() === "" && out[out.length - 2].trim() === "") {
+    out.pop();
   }
-  return { valides, invalides };
+  if (out.length === 0 || out[out.length - 1].trim() !== "") out.push("");
+  return out;
 }
 
 function EtapeEquipe({
@@ -344,14 +358,92 @@ function EtapeEquipe({
   organizationId: string | null;
   onDone: () => void;
 }) {
-  const [raw, setRaw] = useState("");
+  const [domaine, setDomaine] = useState("");
+  const [lignes, setLignes] = useState<string[]>(["", "", ""]);
+  const [touched, setTouched] = useState<Set<number>>(new Set());
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [doublons, setDoublons] = useState<number | null>(null);
   const inseres = useRef(false);
+  const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
 
-  const { valides, invalides } = useMemo(() => parseAdresses(raw), [raw]);
+  const domaineNet = nettoyerDomaine(domaine);
+  const afficherDomaine = domaineNet.length > 0;
+
+  // Résolution de chaque ligne : adresse, validité, doublon interne.
+  const lignesResolues = lignes.map((valeur) => {
+    const remplie = valeur.trim().length > 0;
+    if (!remplie) return { remplie: false, adresse: null as string | null, valide: false, doublon: false, complet: valeur.includes("@") };
+    const adresse = resoudreAdresse(valeur, domaineNet);
+    return {
+      remplie: true,
+      adresse,
+      valide: adresse !== null && emailValide(adresse),
+      doublon: false,
+      complet: valeur.includes("@"),
+    };
+  });
+  const vus = new Set<string>();
+  for (const l of lignesResolues) {
+    if (!l.remplie || !l.valide || !l.adresse) continue;
+    if (vus.has(l.adresse)) l.doublon = true;
+    else vus.add(l.adresse);
+  }
+
+  const valides = lignesResolues.filter((l) => l.remplie && l.valide && !l.doublon && l.adresse).map((l) => l.adresse as string);
   const disabled = saving;
+
+  const updateLignes = (next: string[]) => {
+    inseres.current = false;
+    setDoublons(null);
+    setLignes(avecVideFinal(next));
+  };
+
+  const onChangeLigne = (index: number, value: string) => {
+    const next = [...lignes];
+    next[index] = value;
+    updateLignes(next);
+  };
+
+  const onKeyDownLigne = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== "Enter") return;
+    e.preventDefault();
+    const next = avecVideFinal(lignes);
+    if (next.length !== lignes.length) setLignes(next);
+    const cible = Math.min(index + 1, next.length - 1);
+    requestAnimationFrame(() => inputsRef.current[cible]?.focus());
+  };
+
+  const onPasteLigne = (index: number, e: React.ClipboardEvent<HTMLInputElement>) => {
+    const texte = e.clipboardData.getData("text");
+    if (!/[\n,;]/.test(texte)) return;
+    e.preventDefault();
+    const parts = texte.split(/[\n,;]+/).map((p) => p.trim()).filter((p) => p.length > 0);
+    if (parts.length === 0) return;
+    const next = [...lignes];
+    for (let i = 0; i < parts.length; i++) {
+      if (index + i < next.length) next[index + i] = parts[i];
+      else next.push(parts[i]);
+    }
+    updateLignes(next);
+  };
+
+  const retirerLigne = (index: number) => {
+    const next = lignes.filter((_, i) => i !== index);
+    updateLignes(next.length > 0 ? next : [""]);
+    setTouched((prev) => {
+      const s = new Set<number>();
+      prev.forEach((i) => {
+        if (i < index) s.add(i);
+        else if (i > index) s.add(i - 1);
+      });
+      return s;
+    });
+  };
+
+  const onBlurLigne = (index: number) => {
+    setTouched((prev) => new Set(prev).add(index));
+  };
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -403,54 +495,140 @@ function EtapeEquipe({
     <AuthShell
       wide
       title="Qui reçoit le questionnaire ?"
-      subtitle="Collez les adresses email de vos salariés, une par ligne. Vous pourrez en ajouter ou en retirer à tout moment."
+      subtitle="Ajoutez les adresses email de vos salariés. Vous pourrez en ajouter ou en retirer à tout moment."
       header={<StepBars step={2} />}
     >
       <form onSubmit={submit}>
-        <textarea
-          rows={8}
-          value={raw}
-          onChange={(e) => setRaw(e.target.value)}
-          style={{
-            ...authInputStyle,
-            resize: "vertical",
-            lineHeight: 1.6,
-            fontFamily: "var(--font-sans)",
-          }}
-        />
+        <div style={{ marginBottom: "18px" }}>
+          <label htmlFor="domaine_entreprise" style={authLabelStyle}>
+            Domaine de votre entreprise (facultatif)
+          </label>
+          <input
+            id="domaine_entreprise"
+            type="text"
+            placeholder="boulangerie-martin.fr"
+            value={domaine}
+            onChange={(e) => setDomaine(e.target.value)}
+            style={authInputStyle}
+          />
+          <p style={{ ...mutedText, margin: "6px 0 0" }}>
+            Si vos salariés ont des adresses professionnelles, vous n'aurez plus qu'à saisir ce qui précède
+            l'arobase.
+          </p>
+        </div>
 
-        <p style={{ ...mutedText, margin: "8px 0 0" }}>
-          {valides.length === 1 ? "1 adresse détectée" : `${valides.length} adresses détectées`}
-        </p>
+        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+          {lignes.map((valeur, index) => {
+            const r = lignesResolues[index];
+            const montrerEtat = touched.has(index) && r.remplie;
+            const invalide = montrerEtat && !r.valide;
+            const estDoublon = montrerEtat && r.valide && r.doublon;
+            const montrerSuffixe = afficherDomaine && r.remplie && !r.complet;
+            const suffixeLibre = afficherDomaine && !r.remplie;
+            return (
+              <div key={index}>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  <div
+                    style={{
+                      ...authInputStyle,
+                      height: "44px",
+                      padding: "0 12px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "4px",
+                      flex: 1,
+                      minWidth: 0,
+                      borderColor: invalide
+                        ? "color-mix(in srgb, var(--text-muted) 50%, transparent)"
+                        : (authInputStyle as { border?: string }).border,
+                    }}
+                  >
+                    <input
+                      ref={(el) => {
+                        inputsRef.current[index] = el;
+                      }}
+                      type="text"
+                      value={valeur}
+                      onChange={(e) => onChangeLigne(index, e.target.value)}
+                      onKeyDown={(e) => onKeyDownLigne(index, e)}
+                      onPaste={(e) => onPasteLigne(index, e)}
+                      onBlur={() => onBlurLigne(index)}
+                      placeholder={index === 0 ? "prenom ou prenom@exemple.fr" : ""}
+                      aria-label={`Adresse ${index + 1}`}
+                      style={{
+                        flex: 1,
+                        minWidth: 0,
+                        border: "none",
+                        outline: "none",
+                        background: "transparent",
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "15px",
+                        color: "var(--text-primary)",
+                        padding: 0,
+                        height: "100%",
+                      }}
+                    />
+                    {(montrerSuffixe || suffixeLibre) && (
+                      <span
+                        className="heedup-onb-suffix"
+                        style={{
+                          fontFamily: "var(--font-sans)",
+                          fontSize: "13px",
+                          color: "var(--text-muted)",
+                          whiteSpace: "nowrap",
+                          userSelect: "none",
+                          pointerEvents: "none",
+                        }}
+                      >
+                        @{domaineNet}
+                      </span>
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => retirerLigne(index)}
+                    aria-label={`Retirer l'adresse ${index + 1}`}
+                    className="heedup-onb-remove"
+                    style={{
+                      visibility: valeur.trim().length > 0 ? "visible" : "hidden",
+                      border: "none",
+                      background: "transparent",
+                      color: "var(--text-muted)",
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "18px",
+                      lineHeight: 1,
+                      cursor: "pointer",
+                      padding: "4px 6px",
+                      flexShrink: 0,
+                    }}
+                  >
+                    ×
+                  </button>
+                </div>
+                {invalide && (
+                  <p
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "13px",
+                      color: "var(--text-primary)",
+                      margin: "4px 0 0",
+                    }}
+                  >
+                    Adresse invalide.
+                  </p>
+                )}
+                {estDoublon && (
+                  <p style={{ ...mutedText, margin: "4px 0 0" }}>Déjà saisie.</p>
+                )}
+              </div>
+            );
+          })}
+        </div>
 
-        {invalides.length > 0 && (
-          <div style={{ marginTop: "12px" }}>
-            <p
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "13px",
-                color: "var(--text-primary)",
-                margin: "0 0 4px",
-              }}
-            >
-              Ces lignes ne sont pas des adresses valides :
-            </p>
-            <ul style={{ margin: 0, paddingLeft: "18px" }}>
-              {invalides.map((l, i) => (
-                <li
-                  key={`${l}-${i}`}
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "13px",
-                    color: "var(--text-primary)",
-                    wordBreak: "break-all",
-                  }}
-                >
-                  {l}
-                </li>
-              ))}
-            </ul>
-          </div>
+        {valides.length > 0 && (
+          <p style={{ ...mutedText, margin: "10px 0 0" }}>
+            {valides.length === 1 ? "1 adresse valide" : `${valides.length} adresses valides`}
+          </p>
         )}
 
         {valides.length < 5 && (
