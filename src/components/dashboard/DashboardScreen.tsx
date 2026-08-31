@@ -387,7 +387,9 @@ function ReportView({
                 >
                   {team.team_name ?? ""}
                 </div>
-                <div style={{ ...mutedStyle, marginBottom: "12px" }}>{team.respondent_count ?? 0} réponses</div>
+                <div style={{ ...mutedStyle, marginBottom: "12px" }}>
+                  {(team.respondent_count ?? 0) === 1 ? "1 réponse" : `${team.respondent_count ?? 0} réponses`}
+                </div>
                 <ScoreRows
                   scores={
                     hasPrevious
