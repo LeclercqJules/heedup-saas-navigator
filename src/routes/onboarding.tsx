@@ -500,8 +500,20 @@ const [doublons, setDoublons] = useState<number | null>(null);
       header={<StepBars step={2} />}
     >
       <form onSubmit={submit}>
-        <div style={{ marginBottom: "18px" }}>
-          <label htmlFor="domaine_entreprise" style={authLabelStyle}>
+        <div>
+          <label
+            htmlFor="domaine_entreprise"
+            style={{
+              display: "block",
+              fontFamily: "var(--font-sans)",
+              fontSize: "13px",
+              fontWeight: 500,
+              color: "var(--text-muted)",
+              textTransform: "none",
+              letterSpacing: "normal",
+              marginBottom: "6px",
+            }}
+          >
             Domaine de votre entreprise (facultatif)
           </label>
           <input
@@ -510,15 +522,34 @@ const [doublons, setDoublons] = useState<number | null>(null);
             placeholder="boulangerie-martin.fr"
             value={domaine}
             onChange={(e) => setDomaine(e.target.value)}
-            style={authInputStyle}
+            style={{ ...authInputStyle, height: "40px" }}
           />
           <p style={{ ...mutedText, margin: "6px 0 0" }}>
-            Si vos salariés ont des adresses professionnelles, vous n'aurez plus qu'à saisir ce qui précède
-            l'arobase.
+            Vous n'aurez alors qu'à saisir ce qui précède l'arobase.
           </p>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+        <hr
+          style={{
+            border: "none",
+            borderTop: "1px solid color-mix(in srgb, var(--text-muted) 10%, transparent)",
+            margin: "24px 0",
+          }}
+        />
+
+        <div
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "15px",
+            fontWeight: 600,
+            color: "var(--text-primary)",
+            marginBottom: "10px",
+          }}
+        >
+          Adresses de vos salariés
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
           {lignes.map((valeur, index) => {
             const r = lignesResolues[index];
             const montrerEtat = touched.has(index) && r.remplie;
