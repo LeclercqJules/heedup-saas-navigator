@@ -87,18 +87,20 @@ export function AuthShell({
       <div style={logoStyle}>HeedUp</div>
       <div className="heedup-auth-card" style={wide ? { maxWidth: "560px" } : undefined}>
         {header}
-        <h1
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "30px",
-            letterSpacing: "-0.4px",
-            lineHeight: 1.15,
-            color: "var(--midnight)",
-            marginBottom: subtitle ? "8px" : "22px",
-          }}
-        >
-          {title}
-        </h1>
+        {title ? (
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "30px",
+              letterSpacing: "-0.4px",
+              lineHeight: 1.15,
+              color: "var(--midnight)",
+              marginBottom: subtitle ? "8px" : "22px",
+            }}
+          >
+            {title}
+          </h1>
+        ) : null}
         {subtitle && (
           <p
             style={{
