@@ -708,19 +708,16 @@ style={{
           <div
             style={{
               marginTop: "16px",
-              background: "var(--bg-card)",
-              border: "1.5px solid color-mix(in srgb, var(--text-muted) 30%, transparent)",
-              borderRadius: "12px",
-              padding: "14px 16px",
+              borderLeft: "2px solid color-mix(in srgb, var(--text-muted) 30%, transparent)",
+              padding: "2px 0 2px 12px",
               fontFamily: "var(--font-sans)",
               fontSize: "13px",
               lineHeight: 1.65,
-              color: "var(--text-primary)",
+              color: "var(--text-muted)",
             }}
           >
-            Un rapport a besoin d'au moins cinq réponses complètes. Ce seuil garantit que personne ne peut être
-            identifié à partir des moyennes. En dessous de cinq salariés, votre espace fonctionnera mais ne produira
-            aucun rapport.
+            Un rapport a besoin d'au moins cinq réponses complètes. En dessous de cinq salariés, votre espace
+            fonctionnera mais ne produira aucun rapport.
           </div>
         )}
 
