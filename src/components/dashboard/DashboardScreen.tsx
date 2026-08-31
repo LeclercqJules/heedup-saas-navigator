@@ -502,8 +502,9 @@ if (rapports.length === 0) {
           </p>
           {effectif?.sous_le_seuil ? (
             <p style={{ marginTop: "14px" }}>
-              Votre effectif sollicité est actuellement de {effectif.sollicites ?? 0} personnes. En dessous de cinq,
-              aucun rapport ne peut être produit.
+              Votre effectif sollicité est actuellement de {effectif.sollicites ?? 0}{" "}
+              {(effectif.sollicites ?? 0) === 1 ? "personne" : "personnes"}. En dessous de cinq, aucun rapport ne peut
+              être produit.
             </p>
           ) : null}
         </EmptyCard>
