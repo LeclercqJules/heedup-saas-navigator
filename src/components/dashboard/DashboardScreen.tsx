@@ -1,7 +1,8 @@
-import type { CSSProperties, ReactNode } from "react";
+import { useState, type CSSProperties, type ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { SignOutButton } from "@/components/auth/AuthGuard";
 import { DashNav } from "@/components/dashboard/DashNav";
+import { heedupClient } from "@/config/heedupClient";
 import {
   DIMENSIONS,
   formatDelta,
@@ -10,6 +11,7 @@ import {
   formatWeekShort,
   readScore,
   type DashboardData,
+  type Effectif,
   type Rapport,
   type ScoreEntry,
 } from "@/lib/dashboardData";
@@ -265,6 +267,24 @@ function ReportView({
         right={<WeekSelect rapports={rapports} current={rapport.week_start} />}
       />
 
+      {rapport.provisoire ? (
+        <div
+          style={{
+            background: "var(--indigo-pale)",
+            borderRadius: "12px",
+            padding: "14px 18px",
+            marginBottom: "20px",
+            fontFamily: "var(--font-sans)",
+            fontSize: "14px",
+            lineHeight: 1.6,
+            color: "var(--text-primary)",
+          }}
+        >
+          Rapport provisoire. Il a été produit dès les cinq premières réponses, et sera complété lundi si d'autres
+          arrivent d'ici là.
+        </div>
+      ) : null}
+
       <div style={{ ...cardStyle, marginBottom: "20px" }}>
         <h1 style={{ fontFamily: "var(--font-display)", fontSize: "30px", color: "var(--midnight)" }}>
           Rapport d'équipe
@@ -410,6 +430,125 @@ function ReportView({
   );
 }
 
+function SousLeSeuilCard({ effectif }: { effectif: Effectif }) {
+  if (!effectif?.sous_le_seuil) return null;
+  return (
+    <div
+      style={{
+        marginTop: "16px",
+        background: "var(--bg-card)",
+        border: "1.5px solid color-mix(in srgb, var(--text-muted) 30%, transparent)",
+        borderRadius: "12px",
+        padding: "14px 16px",
+        ...bodyStyle,
+        fontSize: "14px",
+      }}
+    >
+      Votre effectif sollicité est passé sous cinq personnes. En dessous de ce seuil, aucun nouveau rapport ne pourra
+      être produit.
+    </div>
+  );
+}
+
+function LaunchCard({ data }: { data: DashboardData }) {
+  const navigate = useNavigate();
+  const [sending, setSending] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showEquipeLink, setShowEquipeLink] = useState(false);
+
+  const launch = async () => {
+    setSending(true);
+    setNotice(null);
+    setErrorMessage(null);
+    setShowEquipeLink(false);
+    try {
+      const { data: result, error } = await heedupClient.functions.invoke("send-first-survey");
+      const message =
+        typeof (result as { message?: unknown } | null)?.message === "string"
+          ? ((result as { message: string }).message.toLowerCase().replace(/\.$/, "") as string)
+          : "";
+
+      if (!error && (result as { status?: unknown } | null)?.status === "ok") {
+        const n = (result as { sent_count?: unknown } | null)?.sent_count;
+        setNotice(
+          typeof n === "number" && n > 1 ? `Le questionnaire est parti à ${n} salariés.` : "Le questionnaire est parti.",
+        );
+        data.reload();
+        return;
+      }
+
+      if (message.includes("déjà été envoyée")) {
+        data.reload();
+        return;
+      }
+      if (message.includes("aucun salarié à solliciter")) {
+        setErrorMessage("Aucun salarié ne peut être sollicité pour le moment. Vérifiez la liste de votre équipe.");
+        setShowEquipeLink(true);
+        return;
+      }
+      if (message.includes("n'est pas actif")) {
+        setErrorMessage((result as { message: string }).message);
+        return;
+      }
+      if (message.includes("aucune organisation n'est rattachée")) {
+        navigate({ to: "/onboarding" });
+        return;
+      }
+      setErrorMessage("Une erreur est survenue. Réessayez dans quelques instants.");
+    } catch {
+      setErrorMessage("Une erreur est survenue. Réessayez dans quelques instants.");
+    } finally {
+      setSending(false);
+    }
+  };
+
+  return (
+    <Shell>
+      <TopBar orgName={data.orgName} />
+      <div style={cardStyle}>
+        <h2 style={{ ...blockTitleStyle, fontSize: "24px", marginBottom: "12px" }}>Lancez votre premier questionnaire</h2>
+        <div style={bodyStyle}>
+          Vos salariés sont enregistrés. Le questionnaire partira automatiquement vendredi à 9h, ou dès maintenant si
+          vous le souhaitez.
+        </div>
+        <div style={{ marginTop: "22px" }}>
+          <button
+            type="button"
+            onClick={launch}
+            disabled={sending}
+            style={{
+              ...primaryLinkStyle,
+              border: "none",
+              cursor: sending ? "default" : "pointer",
+              opacity: sending ? 0.7 : 1,
+            }}
+          >
+            {sending ? "Envoi en cours…" : "Lancer maintenant"}
+          </button>
+        </div>
+        {notice ? <div style={{ ...bodyStyle, marginTop: "16px" }}>{notice}</div> : null}
+        {errorMessage ? (
+          <div style={{ ...bodyStyle, marginTop: "16px" }}>
+            {errorMessage}
+            {showEquipeLink ? (
+              <>
+                {" "}
+                <Link to="/dashboard/equipe" style={{ color: "var(--indigo)", fontWeight: 600 }}>
+                  Voir mon équipe
+                </Link>
+              </>
+            ) : null}
+          </div>
+        ) : null}
+        <div style={{ ...mutedStyle, marginTop: "14px" }}>
+          Vos salariés ont 48 heures pour répondre. Prenez le temps de les prévenir avant de lancer.
+        </div>
+      </div>
+    </Shell>
+  );
+}
+
 export function DashboardContent({ data, weekStart }: { data: DashboardData; weekStart?: string | null }) {
   const { rapports, effectif, orgName, hasSurveys, employeeCount } = data;
 
@@ -477,36 +616,20 @@ if (rapports.length === 0) {
           </Shell>
         );
       }
-      return (
-        <Shell>
-          <TopBar orgName={orgName} />
-          <EmptyCard title="Votre premier rapport arrive bientôt">
-            <p>
-              Vos salariés recevront leur premier questionnaire vendredi matin. Votre rapport d'équipe sera disponible
-              ici le lundi suivant.
-            </p>
-          </EmptyCard>
-        </Shell>
-      );
+      return <LaunchCard data={data} />;
     }
     return (
       <Shell>
         <TopBar orgName={orgName} />
-        <EmptyCard title="Pas encore de rapport">
+        <EmptyCard title="Votre rapport est en préparation">
           <p>
-            Un rapport est produit à partir de cinq réponses complètes sur une même semaine. Ce seuil garantit que
-            personne ne peut être identifié à partir des moyennes.
+            Vos salariés ont reçu le questionnaire. Votre rapport sera disponible dès que cinq réponses complètes
+            seront arrivées.
           </p>
           <p style={{ marginTop: "14px" }}>
-            Vos salariés ont reçu le questionnaire, mais le nombre de réponses n'a pas encore atteint ce seuil.
+            Ce seuil garantit que personne ne peut être identifié à partir des moyennes.
           </p>
-          {effectif?.sous_le_seuil ? (
-            <p style={{ marginTop: "14px" }}>
-              Votre effectif sollicité est actuellement de {effectif.sollicites ?? 0}{" "}
-              {(effectif.sollicites ?? 0) === 1 ? "personne" : "personnes"}. En dessous de cinq, aucun rapport ne peut
-              être produit.
-            </p>
-          ) : null}
+          <SousLeSeuilCard effectif={effectif} />
         </EmptyCard>
       </Shell>
     );
