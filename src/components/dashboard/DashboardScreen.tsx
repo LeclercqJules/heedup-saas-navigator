@@ -616,36 +616,20 @@ if (rapports.length === 0) {
           </Shell>
         );
       }
-      return (
-        <Shell>
-          <TopBar orgName={orgName} />
-          <EmptyCard title="Votre premier rapport arrive bientôt">
-            <p>
-              Vos salariés recevront leur premier questionnaire vendredi matin. Votre rapport d'équipe sera disponible
-              ici le lundi suivant.
-            </p>
-          </EmptyCard>
-        </Shell>
-      );
+      return <LaunchCard data={data} />;
     }
     return (
       <Shell>
         <TopBar orgName={orgName} />
-        <EmptyCard title="Pas encore de rapport">
+        <EmptyCard title="Votre rapport est en préparation">
           <p>
-            Un rapport est produit à partir de cinq réponses complètes sur une même semaine. Ce seuil garantit que
-            personne ne peut être identifié à partir des moyennes.
+            Vos salariés ont reçu le questionnaire. Votre rapport sera disponible dès que cinq réponses complètes
+            seront arrivées.
           </p>
           <p style={{ marginTop: "14px" }}>
-            Vos salariés ont reçu le questionnaire, mais le nombre de réponses n'a pas encore atteint ce seuil.
+            Ce seuil garantit que personne ne peut être identifié à partir des moyennes.
           </p>
-          {effectif?.sous_le_seuil ? (
-            <p style={{ marginTop: "14px" }}>
-              Votre effectif sollicité est actuellement de {effectif.sollicites ?? 0}{" "}
-              {(effectif.sollicites ?? 0) === 1 ? "personne" : "personnes"}. En dessous de cinq, aucun rapport ne peut
-              être produit.
-            </p>
-          ) : null}
+          <SousLeSeuilCard effectif={effectif} />
         </EmptyCard>
       </Shell>
     );
