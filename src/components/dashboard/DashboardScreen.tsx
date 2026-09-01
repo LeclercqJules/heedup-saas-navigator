@@ -11,6 +11,7 @@ import {
   formatWeekShort,
   readScore,
   type DashboardData,
+  type Effectif,
   type Rapport,
   type ScoreEntry,
 } from "@/lib/dashboardData";
