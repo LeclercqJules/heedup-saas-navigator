@@ -30,6 +30,7 @@ export type Rapport = {
   needs_human_review: boolean | null;
   review_category: string | null;
   review_message: string | null;
+  provisoire: boolean | null;
 };
 
 export type Effectif = {
@@ -47,6 +48,7 @@ export type DashboardData = {
   orgName: string | null;
   hasSurveys: boolean;
   employeeCount: number | null;
+  reload: () => void;
 };
 
 const MOIS = [
@@ -96,7 +98,8 @@ export function readScore(entry: ScoreEntry): { score: number | null; delta: num
 }
 
 export function useDashboardData(): DashboardData {
-const [state, setState] = useState<DashboardData>({
+  const [version, setVersion] = useState(0);
+  const [state, setState] = useState<Omit<DashboardData, "reload">>({
     loading: true,
     rapports: [],
     effectif: null,
@@ -108,17 +111,22 @@ const [state, setState] = useState<DashboardData>({
   useEffect(() => {
     let cancelled = false;
     (async () => {
-const [rapportsRes, effectifRes, orgRes, surveysRes, employeesRes] = await Promise.all([
+      const [rapportsRes, effectifRes, orgRes, surveysRes, employeesRes] = await Promise.all([
         heedupClient
           .from("reports")
           .select(
-            "week_start, respondent_count, free_text_count, scores, team_scores, synthesis, recommendations, needs_human_review, review_category, review_message",
+            "week_start, respondent_count, free_text_count, scores, team_scores, synthesis, recommendations, needs_human_review, review_category, review_message, provisoire",
           )
           .order("week_start", { ascending: false }),
         heedupClient.rpc("compter_desinscrits"),
         heedupClient.from("organizations").select("name").maybeSingle(),
-        heedupClient.from("surveys").select("week_start").order("week_start", { ascending: false }).limit(1),
-        heedupClient.from("employees").select("id", { count: "exact", head: true }),
+        heedupClient
+          .from("surveys")
+          .select("id, week_start, sent_at")
+          .eq("status", "sent")
+          .order("week_start", { ascending: false })
+          .limit(1),
+        heedupClient.from("employees").select("id", { count: "exact", head: true }).eq("status", "active"),
       ]);
 
       if (cancelled) return;
@@ -126,7 +134,7 @@ const [rapportsRes, effectifRes, orgRes, surveysRes, employeesRes] = await Promi
       const effectifRaw = (effectifRes.data ?? null) as Effectif;
       const effectif = !effectifRes.error && effectifRaw && effectifRaw.status !== "error" ? effectifRaw : null;
 
-setState({
+      setState({
         loading: false,
         rapports: ((rapportsRes.data ?? []) as Rapport[]).slice(),
         effectif,
@@ -138,7 +146,7 @@ setState({
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [version]);
 
-  return state;
+  return { ...state, reload: () => setVersion((v) => v + 1) };
 }
