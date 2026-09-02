@@ -210,36 +210,13 @@ export function DashboardSkeleton() {
   );
 }
 
-function ReportHeader({ rapport, effectif }: { rapport: Rapport; effectif: Effectif }) {
+function participationLine(rapport: Rapport, effectif: Effectif): string {
   const n = rapport.respondent_count ?? 0;
   const rep = n === 1 ? "1 réponse" : `${n} réponses`;
   const sollicites = effectif && typeof effectif.sollicites === "number" ? effectif.sollicites : null;
-  const participation =
-    sollicites === null ? rep : `${rep} sur ${sollicites} ${sollicites === 1 ? "salarié sollicité" : "salariés sollicités"}`;
-
-  return (
-    <div style={{ marginBottom: "24px" }}>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "baseline",
-          justifyContent: "space-between",
-          gap: "16px",
-          flexWrap: "wrap",
-        }}
-      >
-        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "32px", color: "var(--midnight)" }}>
-          Rapport d'équipe
-        </h1>
-        <div style={{ fontFamily: "var(--font-sans)", fontSize: "14px", color: "var(--text-muted)" }}>
-          {participation}
-        </div>
-      </div>
-      <div style={{ fontFamily: "var(--font-sans)", fontSize: "16px", color: "var(--text-muted)", marginTop: "6px" }}>
-        {formatWeek(rapport.week_start)}
-      </div>
-    </div>
-  );
+  return sollicites === null
+    ? rep
+    : `${rep} sur ${sollicites} ${sollicites === 1 ? "salarié sollicité" : "salariés sollicités"}`;
 }
 
 function WeekStrip({ rapports, current }: { rapports: Rapport[]; current: string }) {
