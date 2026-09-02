@@ -4,6 +4,7 @@ import { DashTopBar } from "@/components/dashboard/DashNav";
 import { heedupClient } from "@/config/heedupClient";
 import {
   DIMENSIONS,
+  DIMENSION_LABELS,
   formatDelta,
   formatScore,
   formatWeek,
@@ -12,6 +13,7 @@ import {
   type DashboardData,
   type Effectif,
   type Rapport,
+  type Recommendation,
   type ScoreEntry,
 } from "@/lib/dashboardData";
 
@@ -24,13 +26,101 @@ function splitParagraphs(text: string): string[] {
   return parts.length >= 2 ? parts : [text];
 }
 
-/** Point d'entrée pour les variantes colorées des pistes d'action (dimension renvoyée plus tard par le backend). */
+/** La couleur d'une piste dérive du delta de sa dimension, jamais de son texte. */
 type RecoVariant = "neutre" | "negatif" | "positif";
 const RECO_VARIANT_STYLES: Record<RecoVariant, { bg: string; pill: string }> = {
-  neutre: { bg: "var(--indigo-pale)", pill: "var(--indigo)" },
-  negatif: { bg: "color-mix(in srgb, var(--semantic-red) 6%, #FFFFFF)", pill: "var(--semantic-red)" },
-  positif: { bg: "color-mix(in srgb, var(--semantic-green) 8%, #FFFFFF)", pill: "var(--semantic-green)" },
+  neutre: { bg: "rgba(13,27,62,0.04)", pill: "var(--text-muted)" },
+  negatif: { bg: "rgba(239,68,68,0.07)", pill: "var(--semantic-red)" },
+  positif: { bg: "rgba(34,197,94,0.08)", pill: "var(--semantic-green)" },
 };
+
+function recoVariant(
+  reco: Recommendation,
+  scores: Record<string, ScoreEntry> | null,
+  showDeltas: boolean,
+): RecoVariant {
+  if (!showDeltas || !reco.dimension) return "neutre";
+  const { delta } = readScore(scores?.[reco.dimension] ?? null);
+  if (delta === null || delta === 0) return "neutre";
+  return delta < 0 ? "negatif" : "positif";
+}
+
+function RecoList({
+  recos,
+  scores,
+  showDeltas,
+}: {
+  recos: Recommendation[];
+  scores: Record<string, ScoreEntry> | null;
+  showDeltas: boolean;
+}) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+      {recos.map((reco, i) => {
+        const variant = RECO_VARIANT_STYLES[recoVariant(reco, scores, showDeltas)];
+        return (
+          <div
+            key={i}
+            style={{
+              background: variant.bg,
+              borderRadius: "10px",
+              padding: "16px 18px",
+              display: "grid",
+              gridTemplateColumns: "22px 1fr",
+              alignItems: "start",
+            }}
+          >
+            <div
+              style={{
+                width: "20px",
+                height: "20px",
+                borderRadius: "50%",
+                background: variant.pill,
+                color: "#FFFFFF",
+                fontFamily: "var(--font-sans)",
+                fontSize: "11px",
+                fontWeight: 600,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "2px",
+              }}
+            >
+              {i + 1}
+            </div>
+            <div>
+              <p
+                className="heedup-report-reco-text"
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "15px",
+                  lineHeight: 1.6,
+                  color: "var(--text-primary)",
+                }}
+              >
+                {reco.texte}
+              </p>
+              {reco.dimension ? (
+                <div
+                  style={{
+                    marginTop: "7px",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "11px",
+                    fontWeight: 600,
+                    color: "var(--text-muted)",
+                  }}
+                >
+                  {DIMENSION_LABELS[reco.dimension]}
+                </div>
+              ) : null}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 
 const cardStyle: CSSProperties = {
   background: "var(--bg-card)",
@@ -247,67 +337,79 @@ function WeekStrip({ rapports, current }: { rapports: Rapport[]; current: string
   if (rapports.length < 2) return null;
 
   const ordered = rapports.slice().sort((a, b) => (a.week_start < b.week_start ? -1 : 1));
-  const maxLen = Math.max(...ordered.map((r) => formatWeekPill(r.week_start).length));
+  const index = ordered.findIndex((r) => r.week_start === current);
+  const go = (week: string) => navigate({ to: "/dashboard/rapport/$weekStart", params: { weekStart: week } });
+  const prev = index > 0 ? ordered[index - 1] : null;
+  const next = index >= 0 && index < ordered.length - 1 ? ordered[index + 1] : null;
 
   return (
     <div className="heedup-dash-strip">
-      {ordered.map((r) => {
-        const isCurrent = r.week_start === current;
-        const isBelow = r.below_threshold === true;
-        const base: CSSProperties = {
-          flex: "0 0 auto",
-          fontFamily: "var(--font-sans)",
-          fontSize: "14px",
-          fontWeight: 500,
-          height: "34px",
-          padding: "0 16px",
-          minWidth: `calc(${maxLen}ch + 32px)`,
-          textAlign: "center",
-          borderRadius: "8px",
-          cursor: "pointer",
-          whiteSpace: "nowrap",
-        };
-        const variant: CSSProperties = isCurrent
-          ? { background: "var(--indigo)", color: "#FFFFFF", border: "none" }
-          : isBelow
-            ? {
-                background: "transparent",
-                color: "color-mix(in srgb, var(--text-muted) 50%, transparent)",
-                border: "1px dashed color-mix(in srgb, var(--text-muted) 25%, transparent)",
-              }
-            : {
-                background: "transparent",
-                color: "var(--text-muted)",
-                border: "none",
-              };
-        return (
-          <button
-            key={r.week_start}
-            type="button"
-            ref={isCurrent ? activeRef : undefined}
-            aria-current={isCurrent ? "true" : undefined}
-            onClick={() => navigate({ to: "/dashboard/rapport/$weekStart", params: { weekStart: r.week_start } })}
-            style={{ ...base, ...variant }}
-            onMouseEnter={(e) => {
-              if (!isCurrent && !isBelow) {
-                e.currentTarget.style.background = "rgba(13,27,62,0.04)";
-                e.currentTarget.style.color = "var(--midnight)";
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (!isCurrent && !isBelow) {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.color = "var(--text-muted)";
-              }
-            }}
-          >
-            {formatWeekPill(r.week_start)}
-          </button>
-        );
-      })}
+      <div className="heedup-dash-strip-nav">
+        <button
+          type="button"
+          className="heedup-dash-strip-arrow"
+          aria-label="Semaine précédente"
+          disabled={!prev}
+          onClick={() => prev && go(prev.week_start)}
+        >
+          ‹
+        </button>
+        <span className="heedup-dash-strip-current">{formatWeek(current)}</span>
+        <button
+          type="button"
+          className="heedup-dash-strip-arrow"
+          aria-label="Semaine suivante"
+          disabled={!next}
+          onClick={() => next && go(next.week_start)}
+        >
+          ›
+        </button>
+      </div>
+
+      <div className="heedup-dash-strip-pills">
+        {ordered.map((r) => {
+          const isCurrent = r.week_start === current;
+          const isBelow = r.below_threshold === true;
+          const variant: CSSProperties = isCurrent
+            ? { background: "var(--indigo)", color: "#FFFFFF", fontWeight: 600, border: "1px solid transparent" }
+            : isBelow
+              ? {
+                  background: "transparent",
+                  color: "color-mix(in srgb, var(--text-muted) 55%, transparent)",
+                  border: "1px dashed rgba(13,27,62,0.20)",
+                }
+              : { background: "transparent", color: "var(--text-muted)", border: "1px solid transparent" };
+          return (
+            <button
+              key={r.week_start}
+              type="button"
+              className="heedup-dash-pill"
+              ref={isCurrent ? activeRef : undefined}
+              aria-current={isCurrent ? "true" : undefined}
+              onClick={() => go(r.week_start)}
+              style={variant}
+              onMouseEnter={(e) => {
+                if (!isCurrent && !isBelow) {
+                  e.currentTarget.style.background = "rgba(13,27,62,0.05)";
+                  e.currentTarget.style.color = "var(--midnight)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isCurrent && !isBelow) {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.color = "var(--text-muted)";
+                }
+              }}
+            >
+              {formatWeekPill(r.week_start)}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
+
 
 function SousLeSeuilCard({ effectif }: { effectif: Effectif }) {
   if (!effectif?.sous_le_seuil) return null;
@@ -357,26 +459,10 @@ function BelowThresholdView({ rapport, data }: { rapport: Rapport; data: Dashboa
       {recos.length > 0 ? (
         <div style={{ ...cardStyle, marginBottom: "20px" }}>
           <h2 style={blockTitleStyle}>Pistes d'action</h2>
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-            {recos.map((reco, i) => (
-              <div key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
-                <div
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "15px",
-                    fontWeight: 700,
-                    color: "var(--indigo)",
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {i + 1}.
-                </div>
-                <p style={bodyStyle}>{reco}</p>
-              </div>
-            ))}
-          </div>
+          <RecoList recos={recos} scores={rapport.scores} showDeltas={false} />
         </div>
       ) : null}
+
     </Shell>
   );
 }
@@ -413,8 +499,6 @@ function ReportView({
       <WeekStrip rapports={rapports} current={rapport.week_start} />
       <SousLeSeuilCard effectif={effectif} />
 
-      <div style={{ height: "20px" }} />
-
       {rapport.provisoire ? (
         <div
           style={{
@@ -437,211 +521,155 @@ function ReportView({
         className="heedup-report-card"
         style={{
           background: "var(--bg-card)",
-          borderRadius: "16px",
-          boxShadow: "0 4px 24px rgba(13,27,62,0.06), 0 1px 3px rgba(13,27,62,0.04)",
+          borderRadius: "14px",
+          boxShadow: "0 1px 2px rgba(13,27,62,0.04), 0 8px 28px rgba(13,27,62,0.05)",
           overflow: "hidden",
           marginBottom: "20px",
         }}
       >
         <div className="heedup-report-banner">
-          <span
-            aria-hidden="true"
-            style={{
-              width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              background: "var(--indigo)",
-              flexShrink: 0,
-            }}
-          />
-          <span style={{ fontFamily: "var(--font-sans)", fontSize: "16px", fontWeight: 600, color: "#FFFFFF" }}>
-            Rapport d'équipe · {formatWeek(rapport.week_start)}
+          <span style={{ fontFamily: "var(--font-sans)", fontSize: "15px", fontWeight: 600, color: "#FFFFFF" }}>
+            Rapport d'équipe
+          </span>
+          <span style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "rgba(255,255,255,0.62)" }}>
+            {participationLine(rapport, effectif)}
           </span>
         </div>
 
-        <div
-          className="heedup-report-section"
-          style={{ paddingTop: "18px", fontFamily: "var(--font-sans)", fontSize: "14px", color: "var(--text-muted)" }}
-        >
-          {orgName ? `${orgName} · ` : ""}
-          {participationLine(rapport, effectif)}
-        </div>
-
-        <div className="heedup-report-section" style={{ paddingTop: "22px" }}>
+        <div className="heedup-report-body">
           <ScoreRows scores={rapport.scores} showDeltas={hasPrevious} />
-        </div>
 
-        {recos.length > 0 ? (
-          <>
-            <Separator />
-            <div className="heedup-report-section">
-              <div style={eyebrowStyle}>Pistes d'action</div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-                {recos.map((reco, i) => {
-                  // Toutes les pistes restent neutres tant que le backend ne renvoie pas de dimension.
-                  const variant = RECO_VARIANT_STYLES.neutre;
-                  return (
-                    <div
-                      key={i}
-                      style={{
-                        background: variant.bg,
-                        borderRadius: "10px",
-                        padding: "18px 20px",
-                        display: "flex",
-                        gap: "12px",
-                        alignItems: "flex-start",
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: "20px",
-                          height: "20px",
-                          borderRadius: "50%",
-                          background: variant.pill,
-                          color: "#FFFFFF",
-                          fontFamily: "var(--font-sans)",
-                          fontSize: "12px",
-                          fontWeight: 600,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          flexShrink: 0,
-                          marginTop: "1px",
-                        }}
-                      >
-                        {i + 1}
-                      </div>
-                      <p
-                        className="heedup-report-reco-text"
-                        style={{
-                          fontFamily: "var(--font-sans)",
-                          fontSize: "16px",
-                          lineHeight: 1.6,
-                          color: "var(--text-primary)",
-                        }}
-                      >
-                        {reco}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </>
-        ) : null}
+          {recos.length > 0 ? (
+            <>
+              <Separator />
+              <RecoList recos={recos} scores={rapport.scores} showDeltas={hasPrevious} />
+            </>
+          ) : null}
 
-        {rapport.needs_human_review && rapport.review_message ? (
-          <>
-            <Separator />
-            <div className="heedup-report-section">
+          {rapport.needs_human_review && rapport.review_message ? (
+            <>
+              <Separator />
               <div
                 style={{
                   background: "var(--indigo-pale)",
-                  borderLeft: "3px solid var(--midnight)",
-                  borderRadius: "10px",
-                  padding: "22px",
-                  display: "flex",
-                  gap: "12px",
-                  alignItems: "flex-start",
+                  borderLeft: "3px solid var(--indigo)",
+                  borderRadius: "0 10px 10px 0",
+                  padding: "16px 20px",
                 }}
               >
-                <span aria-hidden="true" style={{ fontSize: "18px", lineHeight: 1.3, color: "var(--midnight)", flexShrink: 0 }}>
-                  ⚠
-                </span>
-                <div>
-                  <div
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "14px",
+                    fontWeight: 600,
+                    color: "var(--midnight)",
+                    marginBottom: "8px",
+                  }}
+                >
+                  Point de vigilance
+                </div>
+                <p
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "14px",
+                    lineHeight: 1.65,
+                    color: "var(--text-primary)",
+                    maxWidth: "600px",
+                  }}
+                >
+                  {rapport.review_message}
+                </p>
+              </div>
+            </>
+          ) : null}
+
+          <Separator />
+          <div>
+            <div
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "15px",
+                fontWeight: 600,
+                color: "var(--midnight)",
+                marginBottom: "14px",
+              }}
+            >
+              Ce que l'équipe exprime
+            </div>
+            {rapport.synthesis ? (
+              <div className="heedup-report-text" style={{ display: "flex", flexDirection: "column", gap: "13px" }}>
+                {splitParagraphs(rapport.synthesis).map((para, i) => (
+                  <p
+                    key={i}
                     style={{
                       fontFamily: "var(--font-sans)",
                       fontSize: "15px",
-                      fontWeight: 600,
-                      color: "var(--midnight)",
-                      marginBottom: "8px",
+                      lineHeight: 1.75,
+                      color: "var(--text-primary)",
                     }}
                   >
-                    Point de vigilance
-                  </div>
-                  <p
-                    className="heedup-report-text"
-                    style={{ fontFamily: "var(--font-sans)", fontSize: "16px", lineHeight: 1.7, color: "var(--text-primary)" }}
-                  >
-                    {rapport.review_message}
+                    {para}
                   </p>
-                </div>
-              </div>
-            </div>
-          </>
-        ) : null}
-
-        <Separator />
-        <div className="heedup-report-section">
-          <div style={eyebrowStyle}>Ce qui ressort des commentaires</div>
-          {rapport.synthesis ? (
-            <div
-              className="heedup-report-text"
-              style={{ display: "flex", flexDirection: "column", gap: "14px" }}
-            >
-              {splitParagraphs(rapport.synthesis).map((para, i) => (
-                <p
-                  key={i}
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "16px",
-                    lineHeight: 1.75,
-                    color: "var(--text-primary)",
-                  }}
-                >
-                  {para}
-                </p>
-              ))}
-            </div>
-          ) : (
-            <p
-              className="heedup-report-text"
-              style={{ fontFamily: "var(--font-sans)", fontSize: "16px", lineHeight: 1.75, color: "var(--text-muted)" }}
-            >
-              Pas de synthèse cette semaine. Il faut au moins cinq commentaires libres pour en produire une.
-            </p>
-          )}
-          <div style={{ ...mutedStyle, fontSize: "13px", marginTop: "20px" }}>
-            Vous recevez une synthèse collective. Les commentaires individuels ne sont pas accessibles depuis votre
-            espace.
-          </div>
-        </div>
-
-        {teams.length > 0 ? (
-          <>
-            <Separator />
-            <div className="heedup-report-section">
-              <div style={eyebrowStyle}>Par équipe</div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-                {teams.map(([id, team]) => (
-                  <div key={id}>
-                    <div style={{ display: "flex", alignItems: "baseline", gap: "10px", marginBottom: "8px", flexWrap: "wrap" }}>
-                      <span
-                        style={{
-                          fontFamily: "var(--font-sans)",
-                          fontSize: "15px",
-                          fontWeight: 600,
-                          color: "var(--midnight)",
-                        }}
-                      >
-                        {team.team_name ?? ""}
-                      </span>
-                      <span style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "var(--text-muted)" }}>
-                        {(team.respondent_count ?? 0) === 1 ? "1 réponse" : `${team.respondent_count ?? 0} réponses`}
-                      </span>
-                    </div>
-                    <ScoreRows scores={team.scores ?? null} showDeltas={hasPrevious} highlight={false} />
-                  </div>
                 ))}
               </div>
+            ) : (
+              <p
+                className="heedup-report-text"
+                style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.75, color: "var(--text-muted)" }}
+              >
+                Pas de synthèse cette semaine. Il faut au moins cinq commentaires libres pour en produire une.
+              </p>
+            )}
+            <div style={{ ...mutedStyle, fontSize: "12.5px", marginTop: "18px" }}>
+              Vous recevez une synthèse collective. Les commentaires individuels ne sont pas accessibles depuis votre
+              espace.
             </div>
-          </>
-        ) : null}
+          </div>
+
+          {teams.length > 0 ? (
+            <>
+              <Separator />
+              <div>
+                <div style={eyebrowStyle}>Par équipe</div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                  {teams.map(([id, team]) => (
+                    <div key={id}>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "baseline",
+                          gap: "10px",
+                          marginBottom: "8px",
+                          flexWrap: "wrap",
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: "var(--font-sans)",
+                            fontSize: "15px",
+                            fontWeight: 600,
+                            color: "var(--midnight)",
+                          }}
+                        >
+                          {team.team_name ?? ""}
+                        </span>
+                        <span style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "var(--text-muted)" }}>
+                          {(team.respondent_count ?? 0) === 1 ? "1 réponse" : `${team.respondent_count ?? 0} réponses`}
+                        </span>
+                      </div>
+                      <ScoreRows scores={team.scores ?? null} showDeltas={hasPrevious} highlight={false} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          ) : null}
+        </div>
       </div>
     </Shell>
   );
 }
+
 
 function LaunchCard({ data }: { data: DashboardData }) {
   const navigate = useNavigate();
