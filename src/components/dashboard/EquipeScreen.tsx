@@ -1,6 +1,6 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
-import { SignOutButton } from "@/components/auth/AuthGuard";
-import { DashNav } from "@/components/dashboard/DashNav";
+import { DashTopBar } from "@/components/dashboard/DashNav";
+
 import {
   emailValide,
   estActif,
