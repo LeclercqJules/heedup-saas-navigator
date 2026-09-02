@@ -11,6 +11,17 @@ export const DIMENSIONS = [
 
 export type DimensionKey = (typeof DIMENSIONS)[number]["key"];
 
+export const DIMENSION_LABELS: Record<DimensionKey, string> = {
+  workload: "Charge de travail",
+  recognition: "Reconnaissance",
+  clarity: "Clarté",
+  support: "Soutien",
+  meaning: "Sens",
+};
+
+/** Forme unique renvoyée par le backend. */
+export type Recommendation = { texte: string; dimension: DimensionKey | null };
+
 export type ScoreEntry = { score?: number | null; avg?: number | null; delta?: number | null } | number | null;
 
 export type TeamScore = {
@@ -26,13 +37,14 @@ export type Rapport = {
   scores: Record<string, ScoreEntry> | null;
   team_scores: Record<string, TeamScore> | null;
   synthesis: string | null;
-  recommendations: string[] | null;
+  recommendations: Recommendation[] | null;
   needs_human_review: boolean | null;
   review_category: string | null;
   review_message: string | null;
   provisoire: boolean | null;
   below_threshold: boolean | null;
 };
+
 
 
 export type Effectif = {
