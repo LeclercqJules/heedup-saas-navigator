@@ -533,13 +533,13 @@ function ReportView({
         {rapport.needs_human_review && rapport.review_message ? (
           <>
             <Separator />
-            <div style={{ padding: "24px 28px 0" }}>
+            <div className="heedup-report-section">
               <div
                 style={{
                   background: "var(--indigo-pale)",
                   borderLeft: "3px solid var(--midnight)",
                   borderRadius: "10px",
-                  padding: "18px",
+                  padding: "22px",
                   display: "flex",
                   gap: "12px",
                   alignItems: "flex-start",
@@ -560,7 +560,10 @@ function ReportView({
                   >
                     Point de vigilance
                   </div>
-                  <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.6, color: "var(--text-primary)" }}>
+                  <p
+                    className="heedup-report-text"
+                    style={{ fontFamily: "var(--font-sans)", fontSize: "16px", lineHeight: 1.7, color: "var(--text-primary)" }}
+                  >
                     {rapport.review_message}
                   </p>
                 </div>
@@ -570,18 +573,36 @@ function ReportView({
         ) : null}
 
         <Separator />
-        <div style={{ padding: "24px 28px 0" }}>
+        <div className="heedup-report-section">
           <div style={eyebrowStyle}>Ce qui ressort des commentaires</div>
           {rapport.synthesis ? (
-            <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.65, color: "var(--text-primary)" }}>
-              {rapport.synthesis}
-            </p>
+            <div
+              className="heedup-report-text"
+              style={{ display: "flex", flexDirection: "column", gap: "14px" }}
+            >
+              {splitParagraphs(rapport.synthesis).map((para, i) => (
+                <p
+                  key={i}
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "16px",
+                    lineHeight: 1.75,
+                    color: "var(--text-primary)",
+                  }}
+                >
+                  {para}
+                </p>
+              ))}
+            </div>
           ) : (
-            <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.65, color: "var(--text-muted)" }}>
+            <p
+              className="heedup-report-text"
+              style={{ fontFamily: "var(--font-sans)", fontSize: "16px", lineHeight: 1.75, color: "var(--text-muted)" }}
+            >
               Pas de synthèse cette semaine. Il faut au moins cinq commentaires libres pour en produire une.
             </p>
           )}
-          <div style={{ ...mutedStyle, fontSize: "13px", marginTop: "14px" }}>
+          <div style={{ ...mutedStyle, fontSize: "13px", marginTop: "20px" }}>
             Vous recevez une synthèse collective. Les commentaires individuels ne sont pas accessibles depuis votre
             espace.
           </div>
@@ -590,7 +611,7 @@ function ReportView({
         {teams.length > 0 ? (
           <>
             <Separator />
-            <div style={{ padding: "24px 28px 0" }}>
+            <div className="heedup-report-section">
               <div style={eyebrowStyle}>Par équipe</div>
               <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
                 {teams.map(([id, team]) => (
