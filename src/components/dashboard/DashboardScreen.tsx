@@ -173,27 +173,37 @@ export function DashboardSkeleton() {
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-main)" }}>
       <DashTopBar />
-      <div className="heedup-dash-wrap heedup-dash-skeleton">
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-          <div style={bar("260px", "34px", "0")} />
-          <div style={bar("210px", "16px", "0")} />
-        </div>
-        <div style={{ ...bar("190px", "18px", "0"), marginTop: "8px" }} />
-        <div style={{ display: "flex", gap: "8px", marginTop: "24px" }}>
+      <div className="heedup-dash-wrap heedup-dash-wrap--narrow heedup-dash-skeleton">
+        <div style={{ display: "flex", gap: "8px" }}>
           {[0, 1, 2, 3, 4].map((i) => (
             <div key={i} style={bar("92px", "34px", "0")} />
           ))}
         </div>
-        <div style={{ ...cardStyle, marginTop: "32px", marginBottom: "20px" }}>
-          {[0, 1, 2, 3, 4].map((i) => (
-            <div key={i} style={bar("100%", "20px", i === 4 ? "0" : "24px")} />
-          ))}
-        </div>
-        <div style={{ ...cardStyle, marginBottom: "20px" }}>
-          <div style={bar("260px", "22px", "18px")} />
-          <div style={bar("100%", "14px")} />
-          <div style={bar("92%", "14px")} />
-          <div style={bar("70%", "14px", "0")} />
+        <div
+          style={{
+            background: "var(--bg-card)",
+            borderRadius: "16px",
+            boxShadow: "0 4px 24px rgba(13,27,62,0.06), 0 1px 3px rgba(13,27,62,0.04)",
+            overflow: "hidden",
+            marginTop: "32px",
+            marginBottom: "20px",
+            paddingBottom: "28px",
+          }}
+        >
+          <div style={{ background: "var(--midnight)", height: "56px", borderRadius: "16px 16px 0 0" }} />
+          <div style={{ padding: "18px 28px 0" }}>
+            <div style={bar("300px", "14px", "0")} />
+          </div>
+          <div style={{ padding: "24px 28px 0" }}>
+            {[0, 1, 2, 3, 4].map((i) => (
+              <div key={i} style={bar("100%", "20px", i === 4 ? "0" : "24px")} />
+            ))}
+          </div>
+          <div style={{ padding: "28px 28px 0" }}>
+            <div style={bar("140px", "12px", "16px")} />
+            <div style={bar("100%", "46px", "10px")} />
+            <div style={bar("100%", "46px", "0")} />
+          </div>
         </div>
       </div>
     </div>
