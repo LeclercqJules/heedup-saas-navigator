@@ -31,7 +31,9 @@ export type Rapport = {
   review_category: string | null;
   review_message: string | null;
   provisoire: boolean | null;
+  below_threshold: boolean | null;
 };
+
 
 export type Effectif = {
   status?: string;
