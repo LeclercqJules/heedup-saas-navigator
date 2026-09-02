@@ -1,14 +1,13 @@
-import { useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { SignOutButton } from "@/components/auth/AuthGuard";
-import { DashNav } from "@/components/dashboard/DashNav";
+import { DashTopBar } from "@/components/dashboard/DashNav";
 import { heedupClient } from "@/config/heedupClient";
 import {
   DIMENSIONS,
   formatDelta,
   formatScore,
   formatWeek,
-  formatWeekShort,
+  formatWeekPill,
   readScore,
   type DashboardData,
   type Effectif,
@@ -56,52 +55,66 @@ const bodyStyle: CSSProperties = {
   color: "var(--text-primary)",
 };
 
-function Shell({ children }: { children: ReactNode }) {
+function Shell({ orgName, children }: { orgName?: string | null; children: ReactNode }) {
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-main)" }}>
+      <DashTopBar orgName={orgName} />
       <div className="heedup-dash-wrap">{children}</div>
     </div>
   );
 }
 
-function TopBar({ orgName, right }: { orgName: string | null; right?: ReactNode }) {
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: "16px",
-        marginBottom: "22px",
-        flexWrap: "wrap",
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "center", gap: "18px", flexWrap: "wrap" }}>
-        <div style={{ ...mutedStyle, fontSize: "13px" }}>{orgName ?? ""}</div>
-        <DashNav />
-      </div>
-
-      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-        {right}
-        <SignOutButton />
-      </div>
-    </div>
-  );
+/** Un antécédent valable est un rapport antérieur dont scores n'est pas null. */
+function hasValidPrevious(rapports: Rapport[], index: number): boolean {
+  for (let i = index + 1; i < rapports.length; i += 1) {
+    if (rapports[i].scores) return true;
+  }
+  return false;
 }
 
-function ScoreRows({ scores }: { scores: Record<string, ScoreEntry> | null }) {
+function ScoreRows({
+  scores,
+  showDeltas,
+  highlight = true,
+}: {
+  scores: Record<string, ScoreEntry> | null;
+  showDeltas: boolean;
+  highlight?: boolean;
+}) {
+  let highlightKey: string | null = null;
+  if (highlight && showDeltas && scores) {
+    let worst = 0;
+    DIMENSIONS.forEach((dim) => {
+      const { delta } = readScore(scores[dim.key] ?? null);
+      if (delta !== null && delta < worst) {
+        worst = delta;
+        highlightKey = dim.key;
+      }
+    });
+  }
+
   return (
     <div>
       {DIMENSIONS.map((dim) => {
-        const { score, delta } = readScore(scores?.[dim.key] ?? null);
+        const { score, delta: rawDelta } = readScore(scores?.[dim.key] ?? null);
+        const delta = showDeltas ? rawDelta : null;
         const pct = score === null ? 0 : Math.max(0, Math.min(100, (score / 5) * 100));
+        const isHighlighted = highlightKey === dim.key;
         return (
-          <div key={dim.key} className="heedup-dash-row">
+          <div
+            key={dim.key}
+            className="heedup-dash-row"
+            style={
+              isHighlighted
+                ? { borderLeft: "3px solid var(--indigo)", paddingLeft: "13px" }
+                : { borderLeft: "3px solid transparent", paddingLeft: "13px" }
+            }
+          >
             <div
               style={{
                 fontFamily: "var(--font-sans)",
                 fontSize: "15px",
-                fontWeight: 600,
+                fontWeight: isHighlighted ? 600 : 500,
                 color: "var(--text-primary)",
               }}
             >
@@ -147,7 +160,7 @@ function ScoreRows({ scores }: { scores: Record<string, ScoreEntry> | null }) {
                         : "var(--semantic-green)",
                 }}
               >
-                {delta === null ? "—" : formatDelta(delta)}
+                {delta === null ? "–" : formatDelta(delta)}
               </div>
             </div>
           </div>
@@ -175,24 +188,22 @@ export function DashboardSkeleton() {
     background: "rgba(13,27,62,0.06)",
   });
   return (
-    <Shell>
-      <div className="heedup-dash-skeleton">
-        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "22px" }}>
-          <div style={bar("160px", "17px", "0")} />
-          <div style={bar("130px", "38px", "0")} />
+    <div style={{ minHeight: "100vh", background: "var(--bg-main)" }}>
+      <DashTopBar />
+      <div className="heedup-dash-wrap heedup-dash-skeleton">
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+          <div style={bar("260px", "34px", "0")} />
+          <div style={bar("210px", "16px", "0")} />
         </div>
-        <div style={{ ...cardStyle, marginBottom: "20px" }}>
-          <div style={bar("180px", "16px")} />
-          <div style={bar("300px", "30px")} />
-          <div style={bar("220px", "16px", "0")} />
-        </div>
-        <div style={{ ...cardStyle, marginBottom: "20px" }}>
-          <div style={bar("240px", "16px", "0")} />
-        </div>
-        <div style={{ ...cardStyle, marginBottom: "20px" }}>
-          <div style={bar("200px", "22px", "18px")} />
+        <div style={{ ...bar("190px", "18px", "0"), marginTop: "8px" }} />
+        <div style={{ display: "flex", gap: "8px", marginTop: "24px" }}>
           {[0, 1, 2, 3, 4].map((i) => (
-            <div key={i} style={bar("100%", "20px", "16px")} />
+            <div key={i} style={bar("92px", "34px", "0")} />
+          ))}
+        </div>
+        <div style={{ ...cardStyle, marginTop: "32px", marginBottom: "20px" }}>
+          {[0, 1, 2, 3, 4].map((i) => (
+            <div key={i} style={bar("100%", "20px", i === 4 ? "0" : "24px")} />
           ))}
         </div>
         <div style={{ ...cardStyle, marginBottom: "20px" }}>
@@ -202,37 +213,177 @@ export function DashboardSkeleton() {
           <div style={bar("70%", "14px", "0")} />
         </div>
       </div>
-    </Shell>
+    </div>
   );
 }
 
-function WeekSelect({ rapports, current }: { rapports: Rapport[]; current: string }) {
-  const navigate = useNavigate();
-  if (rapports.length < 2) return null;
+function ReportHeader({ rapport, effectif }: { rapport: Rapport; effectif: Effectif }) {
+  const n = rapport.respondent_count ?? 0;
+  const rep = n === 1 ? "1 réponse" : `${n} réponses`;
+  const sollicites = effectif && typeof effectif.sollicites === "number" ? effectif.sollicites : null;
+  const participation =
+    sollicites === null ? rep : `${rep} sur ${sollicites} ${sollicites === 1 ? "salarié sollicité" : "salariés sollicités"}`;
+
   return (
-    <select
-      aria-label="Choisir une semaine"
-      value={current}
-      onChange={(e) => {
-        navigate({ to: "/dashboard/rapport/$weekStart", params: { weekStart: e.target.value } });
-      }}
+    <div style={{ marginBottom: "24px" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "baseline",
+          justifyContent: "space-between",
+          gap: "16px",
+          flexWrap: "wrap",
+        }}
+      >
+        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "32px", color: "var(--midnight)" }}>
+          Rapport d'équipe
+        </h1>
+        <div style={{ fontFamily: "var(--font-sans)", fontSize: "14px", color: "var(--text-muted)" }}>
+          {participation}
+        </div>
+      </div>
+      <div style={{ fontFamily: "var(--font-sans)", fontSize: "16px", color: "var(--text-muted)", marginTop: "6px" }}>
+        {formatWeek(rapport.week_start)}
+      </div>
+    </div>
+  );
+}
+
+function WeekStrip({ rapports, current }: { rapports: Rapport[]; current: string }) {
+  const navigate = useNavigate();
+  const activeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    activeRef.current?.scrollIntoView({ block: "nearest", inline: "center" });
+  }, [current]);
+
+  if (rapports.length < 2) return null;
+
+  const ordered = rapports.slice().sort((a, b) => (a.week_start < b.week_start ? -1 : 1));
+
+  return (
+    <div className="heedup-dash-strip">
+      {ordered.map((r) => {
+        const isCurrent = r.week_start === current;
+        const isBelow = r.below_threshold === true;
+        const base: CSSProperties = {
+          flex: "0 0 auto",
+          fontFamily: "var(--font-sans)",
+          fontSize: "13.5px",
+          fontWeight: isCurrent ? 600 : 500,
+          borderRadius: "20px",
+          padding: "8px 16px",
+          cursor: "pointer",
+          whiteSpace: "nowrap",
+          transition: "border-color 0.2s ease, background 0.2s ease, color 0.2s ease",
+        };
+        const variant: CSSProperties = isCurrent
+          ? { background: "var(--indigo)", color: "#FFFFFF", border: "1px solid var(--indigo)" }
+          : isBelow
+            ? {
+                background: "transparent",
+                color: "var(--text-muted)",
+                border: "1px dashed color-mix(in srgb, var(--text-muted) 20%, transparent)",
+              }
+            : {
+                background: "var(--bg-card)",
+                color: "var(--text-primary)",
+                border: "1px solid color-mix(in srgb, var(--text-muted) 20%, transparent)",
+              };
+        return (
+          <button
+            key={r.week_start}
+            type="button"
+            ref={isCurrent ? activeRef : undefined}
+            aria-current={isCurrent ? "true" : undefined}
+            onClick={() => navigate({ to: "/dashboard/rapport/$weekStart", params: { weekStart: r.week_start } })}
+            style={{ ...base, ...variant }}
+            onMouseEnter={(e) => {
+              if (!isCurrent) e.currentTarget.style.borderColor = "var(--indigo)";
+            }}
+            onMouseLeave={(e) => {
+              if (!isCurrent) {
+                e.currentTarget.style.borderColor = "color-mix(in srgb, var(--text-muted) 20%, transparent)";
+              }
+            }}
+          >
+            {formatWeekPill(r.week_start)}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function SousLeSeuilCard({ effectif }: { effectif: Effectif }) {
+  if (!effectif?.sous_le_seuil) return null;
+  return (
+    <div
       style={{
-        fontFamily: "var(--font-sans)",
-        fontSize: "14px",
-        color: "var(--text-primary)",
+        marginTop: "16px",
         background: "var(--bg-card)",
-        border: "1.5px solid rgba(13,27,62,0.12)",
-        borderRadius: "8px",
-        padding: "9px 12px",
-        cursor: "pointer",
+        border: "1.5px solid color-mix(in srgb, var(--text-muted) 30%, transparent)",
+        borderRadius: "12px",
+        padding: "14px 16px",
+        ...bodyStyle,
+        fontSize: "14px",
       }}
     >
-      {rapports.map((r) => (
-        <option key={r.week_start} value={r.week_start}>
-          {formatWeekShort(r.week_start)}
-        </option>
-      ))}
-    </select>
+      Votre effectif sollicité est passé sous cinq personnes. En dessous de ce seuil, aucun nouveau rapport ne pourra
+      être produit.
+    </div>
+  );
+}
+
+function BelowThresholdView({ rapport, data }: { rapport: Rapport; data: DashboardData }) {
+  const { orgName, effectif, rapports } = data;
+  const recos = rapport.recommendations ?? [];
+  return (
+    <Shell orgName={orgName}>
+      <div style={{ marginBottom: "24px" }}>
+        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "32px", color: "var(--midnight)" }}>
+          Rapport d'équipe
+        </h1>
+        <div style={{ fontFamily: "var(--font-sans)", fontSize: "16px", color: "var(--text-muted)", marginTop: "6px" }}>
+          {formatWeek(rapport.week_start)}
+        </div>
+      </div>
+
+      <WeekStrip rapports={rapports} current={rapport.week_start} />
+      <SousLeSeuilCard effectif={effectif} />
+
+      <div style={{ ...cardStyle, marginTop: "32px", marginBottom: "20px" }}>
+        <h2 style={{ ...blockTitleStyle, fontSize: "24px", marginBottom: "12px" }}>Pas de rapport pour cette semaine</h2>
+        <p style={bodyStyle}>
+          Un rapport a besoin d'au moins cinq réponses complètes. En dessous de ce seuil, rien n'est publié : une
+          moyenne cesse alors de protéger les personnes qui la composent.
+        </p>
+      </div>
+
+      {recos.length > 0 ? (
+        <div style={{ ...cardStyle, marginBottom: "20px" }}>
+          <h2 style={blockTitleStyle}>Pistes d'action</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            {recos.map((reco, i) => (
+              <div key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "15px",
+                    fontWeight: 700,
+                    color: "var(--indigo)",
+                    lineHeight: 1.7,
+                  }}
+                >
+                  {i + 1}.
+                </div>
+                <p style={bodyStyle}>{reco}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </Shell>
   );
 }
 
@@ -246,26 +397,17 @@ function ReportView({
   hasPrevious: boolean;
 }) {
   const { effectif, orgName, rapports } = data;
-  const scores: Record<string, ScoreEntry> | null = hasPrevious
-    ? rapport.scores
-    : rapport.scores
-      ? Object.fromEntries(
-          Object.entries(rapport.scores).map(([k, v]) => {
-            const { score } = readScore(v);
-            return [k, { score, delta: null }];
-          }),
-        )
-      : null;
-
   const teams = Object.entries(rapport.team_scores ?? {});
   const recos = rapport.recommendations ?? [];
 
   return (
-    <Shell>
-      <TopBar
-        orgName={orgName}
-        right={<WeekSelect rapports={rapports} current={rapport.week_start} />}
-      />
+    <Shell orgName={orgName}>
+      <ReportHeader rapport={rapport} effectif={effectif} />
+
+      <WeekStrip rapports={rapports} current={rapport.week_start} />
+      <SousLeSeuilCard effectif={effectif} />
+
+      <div style={{ height: "32px" }} />
 
       {rapport.provisoire ? (
         <div
@@ -286,49 +428,7 @@ function ReportView({
       ) : null}
 
       <div style={{ ...cardStyle, marginBottom: "20px" }}>
-        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "30px", color: "var(--midnight)" }}>
-          Rapport d'équipe
-        </h1>
-        <div style={{ ...mutedStyle, fontSize: "14.5px", marginTop: "6px" }}>{formatWeek(rapport.week_start)}</div>
-
-        <div style={{ ...bodyStyle, marginTop: "18px" }}>
-          {(() => {
-            const n = rapport.respondent_count ?? 0;
-            const rep = n === 1 ? "1 réponse" : `${n} réponses`;
-            if (effectif && typeof effectif.sollicites === "number") {
-              const s = effectif.sollicites;
-              return `${rep} sur ${s} ${s === 1 ? "salarié sollicité" : "salariés sollicités"}`;
-            }
-            return rep;
-          })()}
-        </div>
-        {effectif && (effectif.desinscrits ?? 0) > 0 ? (
-          <div style={{ ...mutedStyle, marginTop: "6px" }}>
-            {effectif.desinscrits === 1
-              ? "1 personne a choisi de ne plus recevoir le questionnaire."
-              : `${effectif.desinscrits} personnes ont choisi de ne plus recevoir le questionnaire.`}
-          </div>
-        ) : null}
-        {effectif?.sous_le_seuil ? (
-          <div
-            style={{
-              marginTop: "16px",
-              background: "var(--bg-card)",
-              border: "1.5px solid color-mix(in srgb, var(--text-muted) 30%, transparent)",
-              borderRadius: "12px",
-              padding: "14px 16px",
-              ...bodyStyle,
-              fontSize: "14px",
-            }}
-          >
-            Votre effectif sollicité est passé sous cinq personnes. En dessous de ce seuil, aucun nouveau rapport ne
-            pourra être produit.
-          </div>
-        ) : null}
-      </div>
-
-      <div style={{ ...cardStyle, marginBottom: "20px" }}>
-        <ScoreRows scores={scores} />
+        <ScoreRows scores={rapport.scores} showDeltas={hasPrevious} />
       </div>
 
       {rapport.needs_human_review && rapport.review_message ? (
@@ -410,43 +510,13 @@ function ReportView({
                 <div style={{ ...mutedStyle, marginBottom: "12px" }}>
                   {(team.respondent_count ?? 0) === 1 ? "1 réponse" : `${team.respondent_count ?? 0} réponses`}
                 </div>
-                <ScoreRows
-                  scores={
-                    hasPrevious
-                      ? (team.scores ?? null)
-                      : team.scores
-                        ? Object.fromEntries(
-                            Object.entries(team.scores).map(([k, v]) => [k, { score: readScore(v).score, delta: null }]),
-                          )
-                        : null
-                  }
-                />
+                <ScoreRows scores={team.scores ?? null} showDeltas={hasPrevious} highlight={false} />
               </div>
             ))}
           </div>
         </div>
       ) : null}
     </Shell>
-  );
-}
-
-function SousLeSeuilCard({ effectif }: { effectif: Effectif }) {
-  if (!effectif?.sous_le_seuil) return null;
-  return (
-    <div
-      style={{
-        marginTop: "16px",
-        background: "var(--bg-card)",
-        border: "1.5px solid color-mix(in srgb, var(--text-muted) 30%, transparent)",
-        borderRadius: "12px",
-        padding: "14px 16px",
-        ...bodyStyle,
-        fontSize: "14px",
-      }}
-    >
-      Votre effectif sollicité est passé sous cinq personnes. En dessous de ce seuil, aucun nouveau rapport ne pourra
-      être produit.
-    </div>
   );
 }
 
@@ -504,8 +574,7 @@ function LaunchCard({ data }: { data: DashboardData }) {
   };
 
   return (
-    <Shell>
-      <TopBar orgName={data.orgName} />
+    <Shell orgName={data.orgName}>
       <div style={cardStyle}>
         <h2 style={{ ...blockTitleStyle, fontSize: "24px", marginBottom: "12px" }}>Lancez votre premier questionnaire</h2>
         <div style={bodyStyle}>
@@ -556,8 +625,7 @@ export function DashboardContent({ data, weekStart }: { data: DashboardData; wee
   if (weekStart !== undefined && weekStart !== null) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(weekStart)) {
       return (
-        <Shell>
-          <TopBar orgName={orgName} />
+        <Shell orgName={orgName}>
           <EmptyCard title="Semaine introuvable">
             <p>Ce lien ne correspond pas à une semaine valide.</p>
             {rapports.length > 0 ? (
@@ -574,12 +642,11 @@ export function DashboardContent({ data, weekStart }: { data: DashboardData; wee
     const index = rapports.findIndex((r) => r.week_start === weekStart);
     if (index === -1) {
       return (
-        <Shell>
-          <TopBar orgName={orgName} />
+        <Shell orgName={orgName}>
           <EmptyCard title="Pas de rapport pour cette semaine">
             <p>
-              Moins de cinq réponses complètes ont été enregistrées cette semaine. Aucun score n'est produit en dessous
-              de ce seuil.
+              Un rapport a besoin d'au moins cinq réponses complètes. En dessous de ce seuil, rien n'est publié : une
+              moyenne cesse alors de protéger les personnes qui la composent.
             </p>
             {rapports.length > 0 ? (
               <p style={{ marginTop: "14px" }}>
@@ -592,15 +659,17 @@ export function DashboardContent({ data, weekStart }: { data: DashboardData; wee
         </Shell>
       );
     }
-    return <ReportView rapport={rapports[index]} data={data} hasPrevious={index < rapports.length - 1} />;
+    if (rapports[index].below_threshold === true) {
+      return <BelowThresholdView rapport={rapports[index]} data={data} />;
+    }
+    return <ReportView rapport={rapports[index]} data={data} hasPrevious={hasValidPrevious(rapports, index)} />;
   }
 
-if (rapports.length === 0) {
+  if (rapports.length === 0) {
     if (!hasSurveys) {
       if (employeeCount === 0) {
         return (
-          <Shell>
-            <TopBar orgName={orgName} />
+          <Shell orgName={orgName}>
             <div style={cardStyle}>
               <h2 style={{ ...blockTitleStyle, fontSize: "24px", marginBottom: "12px" }}>Il reste une étape</h2>
               <div style={bodyStyle}>
@@ -619,8 +688,7 @@ if (rapports.length === 0) {
       return <LaunchCard data={data} />;
     }
     return (
-      <Shell>
-        <TopBar orgName={orgName} />
+      <Shell orgName={orgName}>
         <EmptyCard title="Votre rapport est en préparation">
           <p>
             Vos salariés ont reçu le questionnaire. Votre rapport sera disponible dès que cinq réponses complètes
@@ -635,5 +703,8 @@ if (rapports.length === 0) {
     );
   }
 
-  return <ReportView rapport={rapports[0]} data={data} hasPrevious={rapports.length > 1} />;
+  if (rapports[0].below_threshold === true) {
+    return <BelowThresholdView rapport={rapports[0]} data={data} />;
+  }
+  return <ReportView rapport={rapports[0]} data={data} hasPrevious={hasValidPrevious(rapports, 0)} />;
 }

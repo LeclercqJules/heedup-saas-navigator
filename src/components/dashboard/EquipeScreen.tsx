@@ -1,6 +1,6 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
-import { SignOutButton } from "@/components/auth/AuthGuard";
-import { DashNav } from "@/components/dashboard/DashNav";
+import { DashTopBar } from "@/components/dashboard/DashNav";
+
 import {
   emailValide,
   estActif,
@@ -41,25 +41,12 @@ const secondaryButton: CSSProperties = {
 function Shell({ children }: { children: ReactNode }) {
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-main)" }}>
-      <div className="heedup-dash-wrap">
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "16px",
-            marginBottom: "22px",
-            flexWrap: "wrap",
-          }}
-        >
-          <DashNav />
-          <SignOutButton />
-        </div>
-        {children}
-      </div>
+      <DashTopBar />
+      <div className="heedup-dash-wrap">{children}</div>
     </div>
   );
 }
+
 
 function SecondaryButton({
   children,
