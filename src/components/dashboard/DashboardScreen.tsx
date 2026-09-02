@@ -15,6 +15,23 @@ import {
   type ScoreEntry,
 } from "@/lib/dashboardData";
 
+/** Découpe la synthèse en paragraphes sur les points suivis d'une majuscule. */
+function splitParagraphs(text: string): string[] {
+  const parts = text
+    .split(/(?<=[.!?])\s+(?=[A-ZÀ-Þ«"])/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  return parts.length >= 2 ? parts : [text];
+}
+
+/** Point d'entrée pour les variantes colorées des pistes d'action (dimension renvoyée plus tard par le backend). */
+type RecoVariant = "neutre" | "negatif" | "positif";
+const RECO_VARIANT_STYLES: Record<RecoVariant, { bg: string; pill: string }> = {
+  neutre: { bg: "var(--indigo-pale)", pill: "var(--indigo)" },
+  negatif: { bg: "color-mix(in srgb, var(--semantic-red) 6%, #FFFFFF)", pill: "var(--semantic-red)" },
+  positif: { bg: "color-mix(in srgb, var(--semantic-green) 8%, #FFFFFF)", pill: "var(--semantic-green)" },
+};
+
 const cardStyle: CSSProperties = {
   background: "var(--bg-card)",
   borderRadius: "16px",
@@ -230,6 +247,7 @@ function WeekStrip({ rapports, current }: { rapports: Rapport[]; current: string
   if (rapports.length < 2) return null;
 
   const ordered = rapports.slice().sort((a, b) => (a.week_start < b.week_start ? -1 : 1));
+  const maxLen = Math.max(...ordered.map((r) => formatWeekPill(r.week_start).length));
 
   return (
     <div className="heedup-dash-strip">
@@ -239,26 +257,28 @@ function WeekStrip({ rapports, current }: { rapports: Rapport[]; current: string
         const base: CSSProperties = {
           flex: "0 0 auto",
           fontFamily: "var(--font-sans)",
-          fontSize: "13.5px",
-          fontWeight: isCurrent ? 600 : 500,
-          borderRadius: "20px",
-          padding: "8px 16px",
+          fontSize: "14px",
+          fontWeight: 500,
+          height: "34px",
+          padding: "0 16px",
+          minWidth: `calc(${maxLen}ch + 32px)`,
+          textAlign: "center",
+          borderRadius: "8px",
           cursor: "pointer",
           whiteSpace: "nowrap",
-          transition: "border-color 0.2s ease, background 0.2s ease, color 0.2s ease",
         };
         const variant: CSSProperties = isCurrent
-          ? { background: "var(--indigo)", color: "#FFFFFF", border: "1px solid var(--indigo)" }
+          ? { background: "var(--indigo)", color: "#FFFFFF", border: "none" }
           : isBelow
             ? {
                 background: "transparent",
-                color: "var(--text-muted)",
-                border: "1px dashed color-mix(in srgb, var(--text-muted) 20%, transparent)",
+                color: "color-mix(in srgb, var(--text-muted) 50%, transparent)",
+                border: "1px dashed color-mix(in srgb, var(--text-muted) 25%, transparent)",
               }
             : {
-                background: "var(--bg-card)",
-                color: "var(--text-primary)",
-                border: "1px solid color-mix(in srgb, var(--text-muted) 20%, transparent)",
+                background: "transparent",
+                color: "var(--text-muted)",
+                border: "none",
               };
         return (
           <button
@@ -269,11 +289,15 @@ function WeekStrip({ rapports, current }: { rapports: Rapport[]; current: string
             onClick={() => navigate({ to: "/dashboard/rapport/$weekStart", params: { weekStart: r.week_start } })}
             style={{ ...base, ...variant }}
             onMouseEnter={(e) => {
-              if (!isCurrent) e.currentTarget.style.borderColor = "var(--indigo)";
+              if (!isCurrent && !isBelow) {
+                e.currentTarget.style.background = "rgba(13,27,62,0.04)";
+                e.currentTarget.style.color = "var(--midnight)";
+              }
             }}
             onMouseLeave={(e) => {
-              if (!isCurrent) {
-                e.currentTarget.style.borderColor = "color-mix(in srgb, var(--text-muted) 20%, transparent)";
+              if (!isCurrent && !isBelow) {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = "var(--text-muted)";
               }
             }}
           >
@@ -368,14 +392,7 @@ const eyebrowStyle: CSSProperties = {
 };
 
 function Separator() {
-  return (
-    <div
-      style={{
-        borderTop: "1px solid color-mix(in srgb, var(--text-muted) 10%, transparent)",
-        margin: "24px 28px 0",
-      }}
-    />
-  );
+  return <div className="heedup-report-sep" />;
 }
 
 function ReportView({
@@ -396,7 +413,7 @@ function ReportView({
       <WeekStrip rapports={rapports} current={rapport.week_start} />
       <SousLeSeuilCard effectif={effectif} />
 
-      <div style={{ height: "32px" }} />
+      <div style={{ height: "20px" }} />
 
       {rapport.provisoire ? (
         <div
@@ -417,13 +434,13 @@ function ReportView({
       ) : null}
 
       <div
+        className="heedup-report-card"
         style={{
           background: "var(--bg-card)",
           borderRadius: "16px",
           boxShadow: "0 4px 24px rgba(13,27,62,0.06), 0 1px 3px rgba(13,27,62,0.04)",
           overflow: "hidden",
           marginBottom: "20px",
-          paddingBottom: "28px",
         }}
       >
         <div className="heedup-report-banner">
@@ -442,57 +459,72 @@ function ReportView({
           </span>
         </div>
 
-        <div style={{ padding: "18px 28px 0", fontFamily: "var(--font-sans)", fontSize: "14px", color: "var(--text-muted)" }}>
+        <div
+          className="heedup-report-section"
+          style={{ paddingTop: "18px", fontFamily: "var(--font-sans)", fontSize: "14px", color: "var(--text-muted)" }}
+        >
           {orgName ? `${orgName} · ` : ""}
           {participationLine(rapport, effectif)}
         </div>
 
-        <div style={{ padding: "22px 28px 0" }}>
+        <div className="heedup-report-section" style={{ paddingTop: "22px" }}>
           <ScoreRows scores={rapport.scores} showDeltas={hasPrevious} />
         </div>
 
         {recos.length > 0 ? (
           <>
             <Separator />
-            <div style={{ padding: "24px 28px 0" }}>
+            <div className="heedup-report-section">
               <div style={eyebrowStyle}>Pistes d'action</div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                {recos.map((reco, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      background: "var(--indigo-pale)",
-                      borderRadius: "10px",
-                      padding: "14px 16px",
-                      display: "flex",
-                      gap: "12px",
-                      alignItems: "flex-start",
-                    }}
-                  >
+              <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                {recos.map((reco, i) => {
+                  // Toutes les pistes restent neutres tant que le backend ne renvoie pas de dimension.
+                  const variant = RECO_VARIANT_STYLES.neutre;
+                  return (
                     <div
+                      key={i}
                       style={{
-                        width: "20px",
-                        height: "20px",
-                        borderRadius: "50%",
-                        background: "var(--indigo)",
-                        color: "#FFFFFF",
-                        fontFamily: "var(--font-sans)",
-                        fontSize: "12px",
-                        fontWeight: 600,
+                        background: variant.bg,
+                        borderRadius: "10px",
+                        padding: "18px 20px",
                         display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: 0,
-                        marginTop: "1px",
+                        gap: "12px",
+                        alignItems: "flex-start",
                       }}
                     >
-                      {i + 1}
+                      <div
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          borderRadius: "50%",
+                          background: variant.pill,
+                          color: "#FFFFFF",
+                          fontFamily: "var(--font-sans)",
+                          fontSize: "12px",
+                          fontWeight: 600,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          flexShrink: 0,
+                          marginTop: "1px",
+                        }}
+                      >
+                        {i + 1}
+                      </div>
+                      <p
+                        className="heedup-report-reco-text"
+                        style={{
+                          fontFamily: "var(--font-sans)",
+                          fontSize: "16px",
+                          lineHeight: 1.6,
+                          color: "var(--text-primary)",
+                        }}
+                      >
+                        {reco}
+                      </p>
                     </div>
-                    <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.5, color: "var(--text-primary)" }}>
-                      {reco}
-                    </p>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </>
@@ -501,13 +533,13 @@ function ReportView({
         {rapport.needs_human_review && rapport.review_message ? (
           <>
             <Separator />
-            <div style={{ padding: "24px 28px 0" }}>
+            <div className="heedup-report-section">
               <div
                 style={{
                   background: "var(--indigo-pale)",
                   borderLeft: "3px solid var(--midnight)",
                   borderRadius: "10px",
-                  padding: "18px",
+                  padding: "22px",
                   display: "flex",
                   gap: "12px",
                   alignItems: "flex-start",
@@ -528,7 +560,10 @@ function ReportView({
                   >
                     Point de vigilance
                   </div>
-                  <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.6, color: "var(--text-primary)" }}>
+                  <p
+                    className="heedup-report-text"
+                    style={{ fontFamily: "var(--font-sans)", fontSize: "16px", lineHeight: 1.7, color: "var(--text-primary)" }}
+                  >
                     {rapport.review_message}
                   </p>
                 </div>
@@ -538,18 +573,36 @@ function ReportView({
         ) : null}
 
         <Separator />
-        <div style={{ padding: "24px 28px 0" }}>
+        <div className="heedup-report-section">
           <div style={eyebrowStyle}>Ce qui ressort des commentaires</div>
           {rapport.synthesis ? (
-            <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.65, color: "var(--text-primary)" }}>
-              {rapport.synthesis}
-            </p>
+            <div
+              className="heedup-report-text"
+              style={{ display: "flex", flexDirection: "column", gap: "14px" }}
+            >
+              {splitParagraphs(rapport.synthesis).map((para, i) => (
+                <p
+                  key={i}
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "16px",
+                    lineHeight: 1.75,
+                    color: "var(--text-primary)",
+                  }}
+                >
+                  {para}
+                </p>
+              ))}
+            </div>
           ) : (
-            <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.65, color: "var(--text-muted)" }}>
+            <p
+              className="heedup-report-text"
+              style={{ fontFamily: "var(--font-sans)", fontSize: "16px", lineHeight: 1.75, color: "var(--text-muted)" }}
+            >
               Pas de synthèse cette semaine. Il faut au moins cinq commentaires libres pour en produire une.
             </p>
           )}
-          <div style={{ ...mutedStyle, fontSize: "13px", marginTop: "14px" }}>
+          <div style={{ ...mutedStyle, fontSize: "13px", marginTop: "20px" }}>
             Vous recevez une synthèse collective. Les commentaires individuels ne sont pas accessibles depuis votre
             espace.
           </div>
@@ -558,7 +611,7 @@ function ReportView({
         {teams.length > 0 ? (
           <>
             <Separator />
-            <div style={{ padding: "24px 28px 0" }}>
+            <div className="heedup-report-section">
               <div style={eyebrowStyle}>Par équipe</div>
               <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
                 {teams.map(([id, team]) => (
