@@ -15,6 +15,23 @@ import {
   type ScoreEntry,
 } from "@/lib/dashboardData";
 
+/** Découpe la synthèse en paragraphes sur les points suivis d'une majuscule. */
+function splitParagraphs(text: string): string[] {
+  const parts = text
+    .split(/(?<=[.!?])\s+(?=[A-ZÀ-Þ«"])/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  return parts.length >= 2 ? parts : [text];
+}
+
+/** Point d'entrée pour les variantes colorées des pistes d'action (dimension renvoyée plus tard par le backend). */
+type RecoVariant = "neutre" | "negatif" | "positif";
+const RECO_VARIANT_STYLES: Record<RecoVariant, { bg: string; pill: string }> = {
+  neutre: { bg: "var(--indigo-pale)", pill: "var(--indigo)" },
+  negatif: { bg: "color-mix(in srgb, var(--semantic-red) 6%, #FFFFFF)", pill: "var(--semantic-red)" },
+  positif: { bg: "color-mix(in srgb, var(--semantic-green) 8%, #FFFFFF)", pill: "var(--semantic-green)" },
+};
+
 const cardStyle: CSSProperties = {
   background: "var(--bg-card)",
   borderRadius: "16px",
@@ -375,14 +392,7 @@ const eyebrowStyle: CSSProperties = {
 };
 
 function Separator() {
-  return (
-    <div
-      style={{
-        borderTop: "1px solid color-mix(in srgb, var(--text-muted) 10%, transparent)",
-        margin: "24px 28px 0",
-      }}
-    />
-  );
+  return <div className="heedup-report-sep" />;
 }
 
 function ReportView({
@@ -403,7 +413,7 @@ function ReportView({
       <WeekStrip rapports={rapports} current={rapport.week_start} />
       <SousLeSeuilCard effectif={effectif} />
 
-      <div style={{ height: "32px" }} />
+      <div style={{ height: "20px" }} />
 
       {rapport.provisoire ? (
         <div
@@ -424,13 +434,13 @@ function ReportView({
       ) : null}
 
       <div
+        className="heedup-report-card"
         style={{
           background: "var(--bg-card)",
           borderRadius: "16px",
           boxShadow: "0 4px 24px rgba(13,27,62,0.06), 0 1px 3px rgba(13,27,62,0.04)",
           overflow: "hidden",
           marginBottom: "20px",
-          paddingBottom: "28px",
         }}
       >
         <div className="heedup-report-banner">
@@ -449,57 +459,72 @@ function ReportView({
           </span>
         </div>
 
-        <div style={{ padding: "18px 28px 0", fontFamily: "var(--font-sans)", fontSize: "14px", color: "var(--text-muted)" }}>
+        <div
+          className="heedup-report-section"
+          style={{ paddingTop: "18px", fontFamily: "var(--font-sans)", fontSize: "14px", color: "var(--text-muted)" }}
+        >
           {orgName ? `${orgName} · ` : ""}
           {participationLine(rapport, effectif)}
         </div>
 
-        <div style={{ padding: "22px 28px 0" }}>
+        <div className="heedup-report-section" style={{ paddingTop: "22px" }}>
           <ScoreRows scores={rapport.scores} showDeltas={hasPrevious} />
         </div>
 
         {recos.length > 0 ? (
           <>
             <Separator />
-            <div style={{ padding: "24px 28px 0" }}>
+            <div className="heedup-report-section">
               <div style={eyebrowStyle}>Pistes d'action</div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                {recos.map((reco, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      background: "var(--indigo-pale)",
-                      borderRadius: "10px",
-                      padding: "14px 16px",
-                      display: "flex",
-                      gap: "12px",
-                      alignItems: "flex-start",
-                    }}
-                  >
+              <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                {recos.map((reco, i) => {
+                  // Toutes les pistes restent neutres tant que le backend ne renvoie pas de dimension.
+                  const variant = RECO_VARIANT_STYLES.neutre;
+                  return (
                     <div
+                      key={i}
                       style={{
-                        width: "20px",
-                        height: "20px",
-                        borderRadius: "50%",
-                        background: "var(--indigo)",
-                        color: "#FFFFFF",
-                        fontFamily: "var(--font-sans)",
-                        fontSize: "12px",
-                        fontWeight: 600,
+                        background: variant.bg,
+                        borderRadius: "10px",
+                        padding: "18px 20px",
                         display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: 0,
-                        marginTop: "1px",
+                        gap: "12px",
+                        alignItems: "flex-start",
                       }}
                     >
-                      {i + 1}
+                      <div
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          borderRadius: "50%",
+                          background: variant.pill,
+                          color: "#FFFFFF",
+                          fontFamily: "var(--font-sans)",
+                          fontSize: "12px",
+                          fontWeight: 600,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          flexShrink: 0,
+                          marginTop: "1px",
+                        }}
+                      >
+                        {i + 1}
+                      </div>
+                      <p
+                        className="heedup-report-reco-text"
+                        style={{
+                          fontFamily: "var(--font-sans)",
+                          fontSize: "16px",
+                          lineHeight: 1.6,
+                          color: "var(--text-primary)",
+                        }}
+                      >
+                        {reco}
+                      </p>
                     </div>
-                    <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.5, color: "var(--text-primary)" }}>
-                      {reco}
-                    </p>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </>
