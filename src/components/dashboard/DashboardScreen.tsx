@@ -55,11 +55,19 @@ const bodyStyle: CSSProperties = {
   color: "var(--text-primary)",
 };
 
-function Shell({ orgName, children }: { orgName?: string | null; children: ReactNode }) {
+function Shell({
+  orgName,
+  narrow = false,
+  children,
+}: {
+  orgName?: string | null;
+  narrow?: boolean;
+  children: ReactNode;
+}) {
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-main)" }}>
       <DashTopBar orgName={orgName} />
-      <div className="heedup-dash-wrap">{children}</div>
+      <div className={narrow ? "heedup-dash-wrap heedup-dash-wrap--narrow" : "heedup-dash-wrap"}>{children}</div>
     </div>
   );
 }
@@ -111,6 +119,7 @@ function ScoreRows({
             }
           >
             <div
+              className="heedup-dash-row-label"
               style={{
                 fontFamily: "var(--font-sans)",
                 fontSize: "15px",
@@ -120,48 +129,22 @@ function ScoreRows({
             >
               {dim.label}
             </div>
-            <div className="heedup-dash-row-data">
-              <div
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "14.5px",
-                  fontWeight: 600,
-                  color: "var(--text-primary)",
-                  whiteSpace: "nowrap",
-                  minWidth: "62px",
-                }}
-              >
-                {score === null ? "" : `${formatScore(score)} / 5`}
-              </div>
-              <div
-                style={{
-                  flex: 1,
-                  height: "8px",
-                  borderRadius: "4px",
-                  background: "color-mix(in srgb, var(--text-muted) 12%, transparent)",
-                  overflow: "hidden",
-                }}
-              >
-                <div style={{ width: `${pct}%`, height: "100%", borderRadius: "4px", background: "var(--indigo)" }} />
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "13.5px",
-                  fontWeight: 600,
-                  textAlign: "right",
-                  minWidth: "56px",
-                  whiteSpace: "nowrap",
-                  color:
-                    delta === null
-                      ? "var(--text-muted)"
-                      : delta < 0
-                        ? "var(--semantic-red)"
-                        : "var(--semantic-green)",
-                }}
-              >
-                {delta === null ? "–" : formatDelta(delta)}
-              </div>
+            <div className="heedup-dash-row-bar">
+              <div style={{ width: `${pct}%`, height: "100%", borderRadius: "3px", background: "var(--indigo)" }} />
+            </div>
+            <div className="heedup-dash-row-value">{score === null ? "" : formatScore(score)}</div>
+            <div
+              className="heedup-dash-row-delta"
+              style={{
+                color:
+                  delta === null
+                    ? "var(--text-muted)"
+                    : delta < 0
+                      ? "var(--semantic-red)"
+                      : "var(--semantic-green)",
+              }}
+            >
+              {delta === null ? "–" : formatDelta(delta)}
             </div>
           </div>
         );
@@ -190,63 +173,50 @@ export function DashboardSkeleton() {
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-main)" }}>
       <DashTopBar />
-      <div className="heedup-dash-wrap heedup-dash-skeleton">
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-          <div style={bar("260px", "34px", "0")} />
-          <div style={bar("210px", "16px", "0")} />
-        </div>
-        <div style={{ ...bar("190px", "18px", "0"), marginTop: "8px" }} />
-        <div style={{ display: "flex", gap: "8px", marginTop: "24px" }}>
+      <div className="heedup-dash-wrap heedup-dash-wrap--narrow heedup-dash-skeleton">
+        <div style={{ display: "flex", gap: "8px" }}>
           {[0, 1, 2, 3, 4].map((i) => (
             <div key={i} style={bar("92px", "34px", "0")} />
           ))}
         </div>
-        <div style={{ ...cardStyle, marginTop: "32px", marginBottom: "20px" }}>
-          {[0, 1, 2, 3, 4].map((i) => (
-            <div key={i} style={bar("100%", "20px", i === 4 ? "0" : "24px")} />
-          ))}
-        </div>
-        <div style={{ ...cardStyle, marginBottom: "20px" }}>
-          <div style={bar("260px", "22px", "18px")} />
-          <div style={bar("100%", "14px")} />
-          <div style={bar("92%", "14px")} />
-          <div style={bar("70%", "14px", "0")} />
+        <div
+          style={{
+            background: "var(--bg-card)",
+            borderRadius: "16px",
+            boxShadow: "0 4px 24px rgba(13,27,62,0.06), 0 1px 3px rgba(13,27,62,0.04)",
+            overflow: "hidden",
+            marginTop: "32px",
+            marginBottom: "20px",
+            paddingBottom: "28px",
+          }}
+        >
+          <div style={{ background: "var(--midnight)", height: "56px", borderRadius: "16px 16px 0 0" }} />
+          <div style={{ padding: "18px 28px 0" }}>
+            <div style={bar("300px", "14px", "0")} />
+          </div>
+          <div style={{ padding: "24px 28px 0" }}>
+            {[0, 1, 2, 3, 4].map((i) => (
+              <div key={i} style={bar("100%", "20px", i === 4 ? "0" : "24px")} />
+            ))}
+          </div>
+          <div style={{ padding: "28px 28px 0" }}>
+            <div style={bar("140px", "12px", "16px")} />
+            <div style={bar("100%", "46px", "10px")} />
+            <div style={bar("100%", "46px", "0")} />
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-function ReportHeader({ rapport, effectif }: { rapport: Rapport; effectif: Effectif }) {
+function participationLine(rapport: Rapport, effectif: Effectif): string {
   const n = rapport.respondent_count ?? 0;
   const rep = n === 1 ? "1 réponse" : `${n} réponses`;
   const sollicites = effectif && typeof effectif.sollicites === "number" ? effectif.sollicites : null;
-  const participation =
-    sollicites === null ? rep : `${rep} sur ${sollicites} ${sollicites === 1 ? "salarié sollicité" : "salariés sollicités"}`;
-
-  return (
-    <div style={{ marginBottom: "24px" }}>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "baseline",
-          justifyContent: "space-between",
-          gap: "16px",
-          flexWrap: "wrap",
-        }}
-      >
-        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "32px", color: "var(--midnight)" }}>
-          Rapport d'équipe
-        </h1>
-        <div style={{ fontFamily: "var(--font-sans)", fontSize: "14px", color: "var(--text-muted)" }}>
-          {participation}
-        </div>
-      </div>
-      <div style={{ fontFamily: "var(--font-sans)", fontSize: "16px", color: "var(--text-muted)", marginTop: "6px" }}>
-        {formatWeek(rapport.week_start)}
-      </div>
-    </div>
-  );
+  return sollicites === null
+    ? rep
+    : `${rep} sur ${sollicites} ${sollicites === 1 ? "salarié sollicité" : "salariés sollicités"}`;
 }
 
 function WeekStrip({ rapports, current }: { rapports: Rapport[]; current: string }) {
@@ -387,6 +357,27 @@ function BelowThresholdView({ rapport, data }: { rapport: Rapport; data: Dashboa
   );
 }
 
+const eyebrowStyle: CSSProperties = {
+  fontFamily: "var(--font-sans)",
+  fontSize: "12px",
+  fontWeight: 600,
+  textTransform: "uppercase",
+  letterSpacing: "0.8px",
+  color: "var(--text-muted)",
+  marginBottom: "16px",
+};
+
+function Separator() {
+  return (
+    <div
+      style={{
+        borderTop: "1px solid color-mix(in srgb, var(--text-muted) 10%, transparent)",
+        margin: "24px 28px 0",
+      }}
+    />
+  );
+}
+
 function ReportView({
   rapport,
   data,
@@ -401,9 +392,7 @@ function ReportView({
   const recos = rapport.recommendations ?? [];
 
   return (
-    <Shell orgName={orgName}>
-      <ReportHeader rapport={rapport} effectif={effectif} />
-
+    <Shell orgName={orgName} narrow>
       <WeekStrip rapports={rapports} current={rapport.week_start} />
       <SousLeSeuilCard effectif={effectif} />
 
@@ -427,95 +416,176 @@ function ReportView({
         </div>
       ) : null}
 
-      <div style={{ ...cardStyle, marginBottom: "20px" }}>
-        <ScoreRows scores={rapport.scores} showDeltas={hasPrevious} />
-      </div>
-
-      {rapport.needs_human_review && rapport.review_message ? (
-        <div
-          style={{
-            ...cardStyle,
-            marginBottom: "20px",
-            borderLeft: "3px solid var(--midnight)",
-            padding: "28px 30px",
-          }}
-        >
-          <h2 style={blockTitleStyle}>Point de vigilance</h2>
-          <p style={bodyStyle}>{rapport.review_message}</p>
+      <div
+        style={{
+          background: "var(--bg-card)",
+          borderRadius: "16px",
+          boxShadow: "0 4px 24px rgba(13,27,62,0.06), 0 1px 3px rgba(13,27,62,0.04)",
+          overflow: "hidden",
+          marginBottom: "20px",
+          paddingBottom: "28px",
+        }}
+      >
+        <div className="heedup-report-banner">
+          <span
+            aria-hidden="true"
+            style={{
+              width: "8px",
+              height: "8px",
+              borderRadius: "50%",
+              background: "var(--indigo)",
+              flexShrink: 0,
+            }}
+          />
+          <span style={{ fontFamily: "var(--font-sans)", fontSize: "16px", fontWeight: 600, color: "#FFFFFF" }}>
+            Rapport d'équipe · {formatWeek(rapport.week_start)}
+          </span>
         </div>
-      ) : null}
 
-      <div style={{ ...cardStyle, marginBottom: "20px" }}>
-        <h2 style={blockTitleStyle}>Ce qui ressort des commentaires</h2>
-        {rapport.synthesis ? (
-          <p style={bodyStyle}>{rapport.synthesis}</p>
-        ) : (
-          <p style={{ ...bodyStyle, color: "var(--text-muted)" }}>
-            Pas de synthèse cette semaine. Il faut au moins cinq commentaires libres pour en produire une.
-          </p>
-        )}
-        <div style={{ ...mutedStyle, marginTop: "14px" }}>
-          Vous recevez une synthèse collective. Les commentaires individuels ne sont pas accessibles depuis votre
-          espace.
+        <div style={{ padding: "18px 28px 0", fontFamily: "var(--font-sans)", fontSize: "14px", color: "var(--text-muted)" }}>
+          {orgName ? `${orgName} · ` : ""}
+          {participationLine(rapport, effectif)}
         </div>
-      </div>
 
-      {recos.length > 0 ? (
-        <div style={{ ...cardStyle, marginBottom: "20px" }}>
-          <h2 style={blockTitleStyle}>Pistes d'action</h2>
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-            {recos.map((reco, i) => (
-              <div key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
-                <div
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "15px",
-                    fontWeight: 700,
-                    color: "var(--indigo)",
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {i + 1}.
-                </div>
-                <p style={bodyStyle}>{reco}</p>
+        <div style={{ padding: "22px 28px 0" }}>
+          <ScoreRows scores={rapport.scores} showDeltas={hasPrevious} />
+        </div>
+
+        {recos.length > 0 ? (
+          <>
+            <Separator />
+            <div style={{ padding: "24px 28px 0" }}>
+              <div style={eyebrowStyle}>Pistes d'action</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {recos.map((reco, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      background: "var(--indigo-pale)",
+                      borderRadius: "10px",
+                      padding: "14px 16px",
+                      display: "flex",
+                      gap: "12px",
+                      alignItems: "flex-start",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "50%",
+                        background: "var(--indigo)",
+                        color: "#FFFFFF",
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "12px",
+                        fontWeight: 600,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                        marginTop: "1px",
+                      }}
+                    >
+                      {i + 1}
+                    </div>
+                    <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.5, color: "var(--text-primary)" }}>
+                      {reco}
+                    </p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-      ) : null}
+            </div>
+          </>
+        ) : null}
 
-      {teams.length > 0 ? (
-        <div style={{ ...cardStyle, marginBottom: "20px" }}>
-          <h2 style={blockTitleStyle}>Scores par équipe</h2>
-          <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
-            {teams.map(([id, team]) => (
+        {rapport.needs_human_review && rapport.review_message ? (
+          <>
+            <Separator />
+            <div style={{ padding: "24px 28px 0" }}>
               <div
-                key={id}
                 style={{
-                  border: "1px solid rgba(67,56,202,0.10)",
-                  borderRadius: "12px",
-                  padding: "18px 18px 6px",
+                  background: "var(--indigo-pale)",
+                  borderLeft: "3px solid var(--midnight)",
+                  borderRadius: "10px",
+                  padding: "18px",
+                  display: "flex",
+                  gap: "12px",
+                  alignItems: "flex-start",
                 }}
               >
-                <div
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "15px",
-                    fontWeight: 600,
-                    color: "var(--midnight)",
-                  }}
-                >
-                  {team.team_name ?? ""}
+                <span aria-hidden="true" style={{ fontSize: "18px", lineHeight: 1.3, color: "var(--midnight)", flexShrink: 0 }}>
+                  ⚠
+                </span>
+                <div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "15px",
+                      fontWeight: 600,
+                      color: "var(--midnight)",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    Point de vigilance
+                  </div>
+                  <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.6, color: "var(--text-primary)" }}>
+                    {rapport.review_message}
+                  </p>
                 </div>
-                <div style={{ ...mutedStyle, marginBottom: "12px" }}>
-                  {(team.respondent_count ?? 0) === 1 ? "1 réponse" : `${team.respondent_count ?? 0} réponses`}
-                </div>
-                <ScoreRows scores={team.scores ?? null} showDeltas={hasPrevious} highlight={false} />
               </div>
-            ))}
+            </div>
+          </>
+        ) : null}
+
+        <Separator />
+        <div style={{ padding: "24px 28px 0" }}>
+          <div style={eyebrowStyle}>Ce qui ressort des commentaires</div>
+          {rapport.synthesis ? (
+            <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.65, color: "var(--text-primary)" }}>
+              {rapport.synthesis}
+            </p>
+          ) : (
+            <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", lineHeight: 1.65, color: "var(--text-muted)" }}>
+              Pas de synthèse cette semaine. Il faut au moins cinq commentaires libres pour en produire une.
+            </p>
+          )}
+          <div style={{ ...mutedStyle, fontSize: "13px", marginTop: "14px" }}>
+            Vous recevez une synthèse collective. Les commentaires individuels ne sont pas accessibles depuis votre
+            espace.
           </div>
         </div>
-      ) : null}
+
+        {teams.length > 0 ? (
+          <>
+            <Separator />
+            <div style={{ padding: "24px 28px 0" }}>
+              <div style={eyebrowStyle}>Par équipe</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                {teams.map(([id, team]) => (
+                  <div key={id}>
+                    <div style={{ display: "flex", alignItems: "baseline", gap: "10px", marginBottom: "8px", flexWrap: "wrap" }}>
+                      <span
+                        style={{
+                          fontFamily: "var(--font-sans)",
+                          fontSize: "15px",
+                          fontWeight: 600,
+                          color: "var(--midnight)",
+                        }}
+                      >
+                        {team.team_name ?? ""}
+                      </span>
+                      <span style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "var(--text-muted)" }}>
+                        {(team.respondent_count ?? 0) === 1 ? "1 réponse" : `${team.respondent_count ?? 0} réponses`}
+                      </span>
+                    </div>
+                    <ScoreRows scores={team.scores ?? null} showDeltas={hasPrevious} highlight={false} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
+        ) : null}
+      </div>
     </Shell>
   );
 }
