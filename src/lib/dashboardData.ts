@@ -124,7 +124,7 @@ export function useDashboardData(): DashboardData {
         heedupClient
           .from("reports")
           .select(
-            "week_start, respondent_count, free_text_count, scores, team_scores, synthesis, recommendations, needs_human_review, review_category, review_message, provisoire",
+            "week_start, respondent_count, free_text_count, scores, team_scores, synthesis, recommendations, needs_human_review, review_category, review_message, provisoire, below_threshold",
           )
           .order("week_start", { ascending: false }),
         heedupClient.rpc("compter_desinscrits"),
