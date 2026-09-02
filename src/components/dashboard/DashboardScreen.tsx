@@ -216,24 +216,8 @@ function ScoreRows({
         const pct = score === null ? 0 : Math.max(0, Math.min(100, (score / 5) * 100));
         const isHighlighted = highlightKey === dim.key;
         return (
-          <div
-            key={dim.key}
-            className="heedup-dash-row"
-            style={
-              isHighlighted
-                ? { borderLeft: "3px solid var(--indigo)", paddingLeft: "13px" }
-                : { borderLeft: "3px solid transparent", paddingLeft: "13px" }
-            }
-          >
-            <div
-              className="heedup-dash-row-label"
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "15px",
-                fontWeight: isHighlighted ? 600 : 500,
-                color: "var(--text-primary)",
-              }}
-            >
+          <div key={dim.key} className={isHighlighted ? "heedup-dash-row heedup-dash-row--flag" : "heedup-dash-row"}>
+            <div className="heedup-dash-row-label" style={{ fontWeight: isHighlighted ? 600 : 400 }}>
               {dim.label}
             </div>
             <div className="heedup-dash-row-bar">
@@ -244,7 +228,7 @@ function ScoreRows({
               className="heedup-dash-row-delta"
               style={{
                 color:
-                  delta === null
+                  delta === null || delta === 0
                     ? "var(--text-muted)"
                     : delta < 0
                       ? "var(--semantic-red)"
@@ -253,6 +237,7 @@ function ScoreRows({
             >
               {delta === null ? "–" : formatDelta(delta)}
             </div>
+
           </div>
         );
       })}
