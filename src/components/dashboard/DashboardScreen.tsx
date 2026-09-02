@@ -55,11 +55,19 @@ const bodyStyle: CSSProperties = {
   color: "var(--text-primary)",
 };
 
-function Shell({ orgName, children }: { orgName?: string | null; children: ReactNode }) {
+function Shell({
+  orgName,
+  narrow = false,
+  children,
+}: {
+  orgName?: string | null;
+  narrow?: boolean;
+  children: ReactNode;
+}) {
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-main)" }}>
       <DashTopBar orgName={orgName} />
-      <div className="heedup-dash-wrap">{children}</div>
+      <div className={narrow ? "heedup-dash-wrap heedup-dash-wrap--narrow" : "heedup-dash-wrap"}>{children}</div>
     </div>
   );
 }
@@ -111,6 +119,7 @@ function ScoreRows({
             }
           >
             <div
+              className="heedup-dash-row-label"
               style={{
                 fontFamily: "var(--font-sans)",
                 fontSize: "15px",
@@ -120,48 +129,22 @@ function ScoreRows({
             >
               {dim.label}
             </div>
-            <div className="heedup-dash-row-data">
-              <div
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "14.5px",
-                  fontWeight: 600,
-                  color: "var(--text-primary)",
-                  whiteSpace: "nowrap",
-                  minWidth: "62px",
-                }}
-              >
-                {score === null ? "" : `${formatScore(score)} / 5`}
-              </div>
-              <div
-                style={{
-                  flex: 1,
-                  height: "8px",
-                  borderRadius: "4px",
-                  background: "color-mix(in srgb, var(--text-muted) 12%, transparent)",
-                  overflow: "hidden",
-                }}
-              >
-                <div style={{ width: `${pct}%`, height: "100%", borderRadius: "4px", background: "var(--indigo)" }} />
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "13.5px",
-                  fontWeight: 600,
-                  textAlign: "right",
-                  minWidth: "56px",
-                  whiteSpace: "nowrap",
-                  color:
-                    delta === null
-                      ? "var(--text-muted)"
-                      : delta < 0
-                        ? "var(--semantic-red)"
-                        : "var(--semantic-green)",
-                }}
-              >
-                {delta === null ? "–" : formatDelta(delta)}
-              </div>
+            <div className="heedup-dash-row-bar">
+              <div style={{ width: `${pct}%`, height: "100%", borderRadius: "3px", background: "var(--indigo)" }} />
+            </div>
+            <div className="heedup-dash-row-value">{score === null ? "" : formatScore(score)}</div>
+            <div
+              className="heedup-dash-row-delta"
+              style={{
+                color:
+                  delta === null
+                    ? "var(--text-muted)"
+                    : delta < 0
+                      ? "var(--semantic-red)"
+                      : "var(--semantic-green)",
+              }}
+            >
+              {delta === null ? "–" : formatDelta(delta)}
             </div>
           </div>
         );
