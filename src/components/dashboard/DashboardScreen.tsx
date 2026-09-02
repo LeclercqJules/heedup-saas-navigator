@@ -230,6 +230,7 @@ function WeekStrip({ rapports, current }: { rapports: Rapport[]; current: string
   if (rapports.length < 2) return null;
 
   const ordered = rapports.slice().sort((a, b) => (a.week_start < b.week_start ? -1 : 1));
+  const maxLen = Math.max(...ordered.map((r) => formatWeekPill(r.week_start).length));
 
   return (
     <div className="heedup-dash-strip">
@@ -239,26 +240,28 @@ function WeekStrip({ rapports, current }: { rapports: Rapport[]; current: string
         const base: CSSProperties = {
           flex: "0 0 auto",
           fontFamily: "var(--font-sans)",
-          fontSize: "13.5px",
-          fontWeight: isCurrent ? 600 : 500,
-          borderRadius: "20px",
-          padding: "8px 16px",
+          fontSize: "14px",
+          fontWeight: 500,
+          height: "34px",
+          padding: "0 16px",
+          minWidth: `calc(${maxLen}ch + 32px)`,
+          textAlign: "center",
+          borderRadius: "8px",
           cursor: "pointer",
           whiteSpace: "nowrap",
-          transition: "border-color 0.2s ease, background 0.2s ease, color 0.2s ease",
         };
         const variant: CSSProperties = isCurrent
-          ? { background: "var(--indigo)", color: "#FFFFFF", border: "1px solid var(--indigo)" }
+          ? { background: "var(--indigo)", color: "#FFFFFF", border: "none" }
           : isBelow
             ? {
                 background: "transparent",
-                color: "var(--text-muted)",
-                border: "1px dashed color-mix(in srgb, var(--text-muted) 20%, transparent)",
+                color: "color-mix(in srgb, var(--text-muted) 50%, transparent)",
+                border: "1px dashed color-mix(in srgb, var(--text-muted) 25%, transparent)",
               }
             : {
-                background: "var(--bg-card)",
-                color: "var(--text-primary)",
-                border: "1px solid color-mix(in srgb, var(--text-muted) 20%, transparent)",
+                background: "transparent",
+                color: "var(--text-muted)",
+                border: "none",
               };
         return (
           <button
@@ -269,11 +272,15 @@ function WeekStrip({ rapports, current }: { rapports: Rapport[]; current: string
             onClick={() => navigate({ to: "/dashboard/rapport/$weekStart", params: { weekStart: r.week_start } })}
             style={{ ...base, ...variant }}
             onMouseEnter={(e) => {
-              if (!isCurrent) e.currentTarget.style.borderColor = "var(--indigo)";
+              if (!isCurrent && !isBelow) {
+                e.currentTarget.style.background = "rgba(13,27,62,0.04)";
+                e.currentTarget.style.color = "var(--midnight)";
+              }
             }}
             onMouseLeave={(e) => {
-              if (!isCurrent) {
-                e.currentTarget.style.borderColor = "color-mix(in srgb, var(--text-muted) 20%, transparent)";
+              if (!isCurrent && !isBelow) {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = "var(--text-muted)";
               }
             }}
           >
