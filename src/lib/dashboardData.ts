@@ -81,6 +81,13 @@ export function formatWeekShort(weekStart: string): string {
   return `${String(Number(d))} ${MOIS[Number(m) - 1] ?? ""} ${y}`;
 }
 
+/** Format court pour la bande temporelle : "24 août". Aucun objet Date. */
+export function formatWeekPill(weekStart: string): string {
+  const [, m, d] = weekStart.split("-");
+  return `${String(Number(d))} ${MOIS[Number(m) - 1] ?? ""}`;
+}
+
+
 export function formatScore(value: number): string {
   return value.toFixed(1).replace(".", ",");
 }
