@@ -332,21 +332,13 @@ function DefinitionScreen() {
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
-  const disabled = saving || password.length === 0 || confirm.length === 0;
+  const canSubmit = password.length >= MIN_LENGTH && password === confirm;
+  const disabled = saving || !canSubmit;
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (disabled) return;
     setError(null);
-
-    if (password.length < MIN_LENGTH) {
-      setLengthError(`Le mot de passe doit contenir au moins ${MIN_LENGTH} caractères.`);
-      return;
-    }
-    if (password !== confirm) {
-      setMatchError("Les deux mots de passe ne sont pas identiques.");
-      return;
-    }
 
     setSaving(true);
     try {
