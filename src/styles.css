@@ -1251,3 +1251,28 @@ body:has(#repondre-root) {
     font-size: 11px !important;
   }
 }
+
+.rapport-demo-zoom-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: var(--bg-main);
+  overflow-y: auto;
+  padding: 64px 12px 32px;
+}
+
+.rapport-demo-zoom-close {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid rgba(13, 27, 62, 0.12);
+  background: var(--bg-card);
+  color: var(--midnight);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2001;
+}
