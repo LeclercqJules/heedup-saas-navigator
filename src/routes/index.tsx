@@ -248,8 +248,9 @@ function Index() {
       label: "Connectez\nvotre équipe",
       badge: "Mise en place · 10 minutes",
       title: "Connectez votre équipe",
-      description: (
-        <>Importez les emails de vos salariés. Moins de 10 minutes, aucune installation de leur côté. Aucun appel commercial requis, mise en place immédiate.</>
+      lead: "Importez les emails de vos salariés.",
+      rest: (
+        <>Moins de 10 minutes, aucune installation de leur côté. Aucun appel commercial requis, mise en place immédiate.</>
       ),
       calloutLabel: "ACTIF DÈS CE VENDREDI",
       calloutText: "Vous configurez une fois. HeedUp envoie automatiquement chaque semaine, sans que vous ayez à y penser.",
@@ -260,9 +261,8 @@ function Index() {
       label: "Vos salariés\nconfirment",
       badge: "Dans les 24h",
       title: "Vos salariés confirment leur participation.",
-      description: (
-        <>Chaque salarié reçoit une invitation par email et choisit de rejoindre le survey. Vous voyez combien ont rejoint. Jamais qui.</>
-      ),
+      lead: "Chaque salarié reçoit une invitation par email et choisit de rejoindre le survey.",
+      rest: <>Vous voyez combien ont rejoint. Jamais qui.</>,
       calloutLabel: "OPT-IN ET ANONYMAT",
       calloutText: "La participation est volontaire. Ce choix libre est ce qui rend les réponses honnêtes. Vos salariés répondent parce qu'ils veulent, pas parce qu'ils y sont obligés.",
       visual: "invite" as const,
@@ -272,8 +272,9 @@ function Index() {
       label: "5 questions\nanonymes",
       badge: "Vendredi · 9h00",
       title: "5 questions anonymes",
-      description: (
-        <>Vos salariés reçoivent un lien par email. Ils répondent en 2 minutes, depuis leur téléphone ou ordinateur. Pas de compte à créer, <span style={{ fontWeight: 700 }}>anonymat</span> garanti dès la première réponse.</>
+      lead: "Vos salariés reçoivent un lien par email.",
+      rest: (
+        <>Ils répondent en 2 minutes, depuis leur téléphone ou ordinateur. Pas de compte à créer, <span style={{ fontWeight: 700 }}>anonymat</span> garanti dès la première réponse.</>
       ),
       calloutLabel: "TAUX DE RÉPONSE MOYEN",
       calloutText: "L'anonymat garanti dès le premier écran est le principal facteur de réponse. Vos salariés répondent parce qu'ils savent que c'est vrai.",
@@ -284,9 +285,8 @@ function Index() {
       label: "Votre Rapport\nd'équipe",
       badge: "Lundi · 8h00",
       title: "Votre Rapport d'équipe",
-      description: (
-        <>3 scores agrégés, la tendance de la semaine, et le signal à surveiller en priorité. Vous comprenez l'état de votre équipe en 2 minutes.</>
-      ),
+      lead: "3 scores agrégés, la tendance de la semaine, et le signal à surveiller en priorité.",
+      rest: <>Vous comprenez l'état de votre équipe en 2 minutes.</>,
       calloutLabel: "PAS UN DASHBOARD À INTERPRÉTER",
       calloutText: "Les scores arrivent avec le contexte. Vous voyez immédiatement ce qui change et dans quel sens.",
       visual: "scores" as const,
@@ -296,14 +296,14 @@ function Index() {
       label: "Vous agissez,\nvous mesurez",
       badge: "Dans la semaine",
       title: "Vous agissez, vous mesurez",
-      description: (
-        <>2 à 3 recommandations managériales concrètes vous sont proposées, calibrées sur vos résultats réels. Leur effet apparaît dès le rapport suivant.</>
-      ),
+      lead: "2 à 3 recommandations managériales concrètes vous sont proposées, calibrées sur vos résultats réels.",
+      rest: <>Leur effet apparaît dès le rapport suivant.</>,
       calloutLabel: "RECOMMANDATIONS MANAGÉRIALES, PAS DES KPIs",
       calloutText: "HeedUp ne vous donne pas un score à interpréter. Il vous donne une action à faire cette semaine, formulée pour un manager, pas pour un DRH.",
       visual: "recos" as const,
     },
   ];
+
 
   const comparisonRows = [
     { crit: "Temps de démarrage", heedup: "10 minutes", autres: "4 à 12 semaines" },
