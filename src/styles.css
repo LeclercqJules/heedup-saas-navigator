@@ -929,22 +929,11 @@ body {
     display: none !important;
   }
 
-  /* Démonstrations : le sélecteur passe sous la carte */
-  .rapport-demo-stack {
-    display: flex;
-    flex-direction: column;
-  }
-  .rapport-demo-stack .rapport-demo-cardwrap {
-    order: 1;
-  }
-  .rapport-demo-stack .rapport-demo-zoom-hint {
-    order: 2;
-  }
+  /* Démonstrations : sélecteur au-dessus de la carte, hauteur libre */
   .rapport-demo-stack .rapport-demo-tabs {
-    order: 3;
-    margin-top: 16px;
-    margin-bottom: 0 !important;
+    margin-bottom: 16px !important;
   }
+
 }
 
 
