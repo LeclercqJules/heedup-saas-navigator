@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 type Reco = { type: "positive" | "decline" | "alert"; text: string };
@@ -190,6 +190,29 @@ export function RapportDemo({ className }: { className?: string }) {
   });
 
   const [zoomed, setZoomed] = useState(false);
+  const cardWrapRef = useRef<HTMLDivElement | null>(null);
+  const [minCardHeight, setMinCardHeight] = useState(0);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const measure = () => {
+      const el = cardWrapRef.current;
+      if (!el) return;
+      if (window.innerWidth >= 768) {
+        setMinCardHeight(0);
+        return;
+      }
+      const h = el.getBoundingClientRect().height;
+      setMinCardHeight((prev) => (h > prev ? Math.ceil(h) : prev));
+    };
+    const id = window.setTimeout(measure, 60);
+    window.addEventListener("resize", measure);
+    return () => {
+      window.clearTimeout(id);
+      window.removeEventListener("resize", measure);
+    };
+  }, [active]);
+
 
   useEffect(() => {
     if (typeof document === "undefined") return;
@@ -502,7 +525,7 @@ export function RapportDemo({ className }: { className?: string }) {
         </p>
       </div>
 
-      <div style={{ maxWidth: "1080px", margin: "0 auto", width: "100%" }}>
+      <div className="rapport-demo-stack" style={{ maxWidth: "1080px", margin: "0 auto", width: "100%" }}>
       <div
         className="rapport-demo-tabs"
         style={{
@@ -569,13 +592,16 @@ export function RapportDemo({ className }: { className?: string }) {
       </div>
 
       <div
+        ref={cardWrapRef}
         className="rapport-demo-cardwrap"
+        style={minCardHeight ? { minHeight: `${minCardHeight}px` } : undefined}
         onClick={() => {
           if (typeof window !== "undefined" && window.innerWidth < 768) setZoomed(true);
         }}
       >
         {card}
       </div>
+
       <div className="rapport-demo-zoom-hint">Touchez pour agrandir</div>
 
       {zoomed && typeof document !== "undefined" && createPortal(
