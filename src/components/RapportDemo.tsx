@@ -190,28 +190,14 @@ export function RapportDemo({ className }: { className?: string }) {
   });
 
   const [zoomed, setZoomed] = useState(false);
-  const cardWrapRef = useRef<HTMLDivElement | null>(null);
-  const [minCardHeight, setMinCardHeight] = useState(0);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const measure = () => {
-      const el = cardWrapRef.current;
-      if (!el) return;
-      if (window.innerWidth >= 768) {
-        setMinCardHeight(0);
-        return;
-      }
-      const h = el.getBoundingClientRect().height;
-      setMinCardHeight((prev) => (h > prev ? Math.ceil(h) : prev));
-    };
-    const id = window.setTimeout(measure, 60);
-    window.addEventListener("resize", measure);
-    return () => {
-      window.clearTimeout(id);
-      window.removeEventListener("resize", measure);
-    };
-  }, [active]);
+  const goTo = (i: number) => {
+    if (i < 0 || i >= scenarios.length) return;
+    setActive(i);
+  };
+
+
 
 
   useEffect(() => {
