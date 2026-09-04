@@ -1040,7 +1040,7 @@ function Index() {
                   lineHeight: 1.7,
                 }}
               >
-                {current.description}
+                {current.lead} {current.rest}
               </p>
               <div
                 style={{
