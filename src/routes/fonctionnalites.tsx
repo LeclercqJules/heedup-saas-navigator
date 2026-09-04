@@ -687,7 +687,7 @@ function Page() {
             border-color: rgba(67,56,202,0.4) !important;
           }
         `}</style>
-        <div className="heedup-feature-tabs" style={{ display: "flex", flexWrap: "wrap", gap: "8px", justifyContent: "center", marginBottom: "16px" }}>
+        <div className="heedup-feature-tabs heedup-tabs-desktop" style={{ display: "flex", flexWrap: "wrap", gap: "8px", justifyContent: "center", marginBottom: "16px" }}>
           {tabs.map(({ id, label, Icon }) => {
             const isActive = id === active;
             return (
@@ -719,108 +719,62 @@ function Page() {
           })}
         </div>
 
-        <div style={{ background: "var(--bg-main)", borderRadius: "14px", border: "1px solid rgba(67,56,202,0.10)", overflow: "hidden" }}>
-          {/* Panel 1 : Q12 */}
-          <Panel visible={active === "q12"}>
-            <div style={leftColStyle}>
-              <span style={tagStyle}>Questions hebdomadaires</span>
-              <h2 style={titleStyle}>5 questions. Pas 50.</h2>
-              <p style={descStyle}>
-                Les 5 questions couvrent cinq dimensions retenues sur deux critères : prédictives du départ, et actionnables par un manager sans formation RH dans la semaine. Charge de travail, reconnaissance, clarté, soutien, sens. Elles ne changent pas d'une semaine à l'autre, ce qui permet de mesurer des tendances réelles.
-              </p>
-              <Detail label="Pourquoi des questions fixes ?" text="Des questions identiques d'une semaine à l'autre permettent de comparer les données dans le temps. Des questions qui changent donneraient une photo ponctuelle, pas une tendance." />
-              <Bullets items={[
-                "Opt-in volontaire : chaque salarié confirme sa participation avant le premier survey",
-                "Réponse sur téléphone ou ordinateur, sans compte",
-                "Un champ libre facultatif en fin de questionnaire, jamais transmis tel quel",
-                "Vous voyez le nombre de participants, jamais leur identité",
-              ]} />
-            </div>
-            <div style={rightColStyle}><VisualQ12 /></div>
-          </Panel>
-
-          {/* Panel 2 : AI */}
-          <Panel visible={active === "ai"}>
-            <div style={leftColStyle}>
-              <span style={tagStyle}>IA actionnable</span>
-              <h2 style={titleStyle}>3 types de recommandations. Toujours contextualisées.</h2>
-              <p style={descStyle}>
-                Le Rapport d'équipe ne liste pas des scores. Il interprète les tendances et génère 2 à 3 recommandations selon le contexte de la semaine. Chaque recommandation appartient à l'un de ces 3 types, définis par l'IA en fonction du signal détecté.
-              </p>
-              <Detail label="Ce que l'IA analyse" text="Score absolu de la semaine, delta vs semaine N-1, tendance sur 3 semaines, taux de réponse et présence de silences. La recommandation combine ces signaux, pas juste le dernier score." />
-            </div>
-            <div style={rightColStyle}><VisualAI /></div>
-          </Panel>
-
-          {/* Panel 3 : Anonymat */}
-          <Panel visible={active === "anon"}>
-            <div style={leftColStyle}>
-              <span style={tagStyle}>Anonymat</span>
-              <h2 style={titleStyle}>Ce que vous ne pouvez pas voir. Même si vous le voulez.</h2>
-              <p style={descStyle}>
-                L'anonymat de HeedUp est une contrainte d'architecture, pas un paramètre. La participation est volontaire : vos salariés choisissent de rejoindre, ce qui renforce la qualité des réponses. Le système ne stocke jamais de lien entre une réponse et un salarié. Techniquement, même si vous demandiez à notre équipe qui a répondu quoi, nous ne pourrions pas vous répondre.
-              </p>
-              <Detail label="Seuil de protection statistique" text="Si moins de 5 salariés ont répondu cette semaine, aucun score n'est affiché. Ce seuil protège l'anonymat dans les petites équipes où un score pourrait trahir un répondant." />
-              <Bullets items={[
-                "Token UUID aléatoire régénéré chaque semaine",
-                "Impossible de tracer un salarié dans le temps",
-                "Vous voyez uniquement des scores agrégés",
-              ]} />
-            </div>
-            <div style={rightColStyle}><VisualAnon /></div>
-          </Panel>
-
-          {/* Panel 4 : Dashboard */}
-          <Panel visible={active === "dash"}>
-            <div style={leftColStyle}>
-              <span style={tagStyle}>Tableau de bord</span>
-              <h2 style={titleStyle}>L'historique pour comprendre. Le rapport lundi pour agir.</h2>
-              <p style={descStyle}>
-                Le Rapport d'équipe du lundi est votre outil d'action. Le tableau de bord est votre outil de compréhension. Quand un score descend, le dashboard vous permet de voir si c'est un accident ou une tendance installée depuis 3 semaines.
-              </p>
-              <Detail label="Alerte automatique" text="Si un score passe sous 3/5 deux semaines consécutives, une alerte est générée automatiquement dans votre rapport. Vous n'avez pas à surveiller le dashboard, il vous prévient." />
-              <Bullets items={[
-                "Historique consultable sur 12 semaines",
-                "Courbes de tendance par dimension (charge de travail, reconnaissance, clarté, soutien, sens)",
-                "Taux de réponse semaine par semaine",
-              ]} />
-            </div>
-            <div style={rightColStyle}><VisualDashboard /></div>
-          </Panel>
-
-          {/* Panel 5 : RGPD */}
-          <Panel visible={active === "rgpd"}>
-            <div style={leftColStyle}>
-              <span style={tagStyle}>RGPD et données</span>
-              <h2 style={titleStyle}>Conforme RGPD. Hébergé en France.</h2>
-              <p style={descStyle}>
-                HeedUp est conçu pour être conforme au RGPD par architecture, pas par paramètre. Les données de vos salariés sont hébergées en France, minimisées au strict nécessaire, et l'anonymat est garanti par conception. La documentation contractuelle est disponible sur demande.
-              </p>
-              <Detail label="CE QUI EST COLLECTÉ. RIEN D'AUTRE." text="Scores numériques de 1 à 5 et token aléatoire non-traçable. Aucune donnée nominative, aucun commentaire libre, aucune donnée de profil salarié." />
-              <Bullets items={[
-                "Hébergement exclusivement en France",
-                "Aucune donnée nominative côté salariés",
-                "Durée de conservation : 12 mois glissants",
-                "Documentation RGPD disponible sur demande",
-              ]} />
-            </div>
-            <div style={rightColStyle}><VisualRgpd /></div>
-          </Panel>
-
-
-          {/* Panel 6 : Onboarding */}
-          <Panel visible={active === "onboard"}>
-            <div style={leftColStyle}>
-              <span style={tagStyle}>Onboarding et support</span>
-              <h2 style={titleStyle}>10 minutes. Pas 10 semaines.</h2>
-              <p style={descStyle}>
-                Aucun projet informatique, aucune intégration SIRH, aucun déploiement. Vous importez les emails de votre équipe, vous activez, le premier survey part vendredi. Le support est inclus dans tous les plans, pas derrière un plan Premium.
-              </p>
-              <Detail label="Support humain, pas de chatbot" text="Réponse par email sous 24h ouvrées, en français, par une vraie personne qui connaît votre compte. Pas de ticket automatique, pas de FAQ obligatoire avant d'écrire." />
-            </div>
-            <div style={rightColStyle}><VisualOnboard /></div>
-          </Panel>
+        <div className="heedup-tabs-desktop" style={{ background: "var(--bg-main)", borderRadius: "14px", border: "1px solid rgba(67,56,202,0.10)", overflow: "hidden" }}>
+          {features.map((f) => {
+            const Visual = featureVisuals[f.id];
+            return (
+              <Panel key={f.id} visible={active === f.id}>
+                <div style={leftColStyle}>
+                  <span style={tagStyle}>{f.tag}</span>
+                  <h2 style={titleStyle}>{f.title}</h2>
+                  <p style={descStyle}>
+                    {f.lead}{f.rest ? ` ${f.rest}` : ""}
+                  </p>
+                  <Detail label={f.detail.label} text={f.detail.text} />
+                  {f.bullets && <Bullets items={f.bullets} />}
+                </div>
+                <div style={rightColStyle}><Visual /></div>
+              </Panel>
+            );
+          })}
         </div>
+
+        {/* Accordéon mobile */}
+        <div className="heedup-accordion">
+          {features.map((f, i) => {
+            const isOpen = openFeature === i;
+            return (
+              <div key={f.id} className="heedup-accordion-item">
+                <button
+                  type="button"
+                  className="heedup-accordion-head"
+                  aria-expanded={isOpen}
+                  onClick={() => setOpenFeature(isOpen ? null : i)}
+                >
+                  <span>{f.label}</span>
+                  <span className="heedup-accordion-chevron">{isOpen ? "−" : "+"}</span>
+                </button>
+                <div className={`heedup-accordion-panel${isOpen ? " is-open" : ""}`}>
+                  <div>
+                    <div className="heedup-accordion-content">
+                      <p className="heedup-accordion-lead">{f.lead}</p>
+                      {f.rest && (
+                        <p className="heedup-accordion-rest" style={{ marginBottom: "14px" }}>{f.rest}</p>
+                      )}
+                      <Detail label={f.detail.label} text={f.detail.text} />
+                      {f.bullets && (
+                        <div style={{ marginTop: "14px" }}>
+                          <Bullets items={f.bullets} />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
       </section>
 
       {/* Section 3 : Spotlight Rapport d'équipe */}
