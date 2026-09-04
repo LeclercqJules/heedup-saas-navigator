@@ -201,6 +201,245 @@ export function RapportDemo({ className }: { className?: string }) {
   }, []);
   const s = scenarios[active];
 
+  const card = (
+        <div
+          style={{
+            width: "100%",
+            background: "var(--bg-card)",
+            borderRadius: "20px",
+            border: "1px solid rgba(13,27,62,0.08)",
+            boxShadow: "0 1px 2px rgba(13,27,62,0.04), 0 8px 24px rgba(13,27,62,0.06)",
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              background: "var(--midnight)",
+              padding: "14px 20px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: "10px",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "#FFFFFF", fontWeight: 600 }}>
+              <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--indigo)", display: "inline-block" }} />
+              Rapport d'équipe — {s.date}
+            </div>
+            <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.5)" }}>{s.week}</div>
+          </div>
+
+          <div key={active} className="rapport-demo-body" style={{ padding: "24px 20px", animation: "rapportDemoFade 0.2s ease" }}>
+            <div className="rapport-demo-cols">
+            <div className="rapport-demo-left">
+            <div style={{ fontSize: "12.5px", color: "var(--text-muted)", marginBottom: "20px" }}>
+              {s.contexte} · {s.respondents} réponses sur {s.total} salariés
+            </div>
+
+            <div className="rapport-scores">
+              {s.scores.map((sc) => (
+                <div key={sc.label} style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
+                  <div className="rapport-label" style={{ width: "118px", flexShrink: 0, fontSize: "11.5px", color: "var(--text-muted)", lineHeight: 1.3 }}>
+                    {sc.label}
+                  </div>
+                  <div className="rapport-bar" style={{ flex: 1, height: "5px", borderRadius: "3px", background: "var(--indigo-pale)", overflow: "hidden" }}>
+                    <div style={{ width: `${(sc.avg / 5) * 100}%`, height: "100%", background: "var(--indigo)", borderRadius: "3px" }} />
+                  </div>
+                  <div style={{ width: "30px", flexShrink: 0, textAlign: "right", fontSize: "13.5px", fontWeight: 700, color: "var(--text-primary)" }}>
+                    {sc.avg.toFixed(1)}
+                  </div>
+                  <div
+                    style={{
+                      width: "40px",
+                      flexShrink: 0,
+                      textAlign: "right",
+                      fontSize: "11.5px",
+                      color: sc.delta > 0 ? "var(--semantic-green)" : sc.delta < 0 ? "var(--semantic-red)" : "var(--text-muted)",
+                    }}
+                  >
+                    {sc.delta > 0 ? `▲ ${Math.abs(sc.delta).toFixed(1)}` : sc.delta < 0 ? `▼ ${Math.abs(sc.delta).toFixed(1)}` : "—"}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div
+              style={{
+                fontSize: "10px",
+                textTransform: "uppercase",
+                letterSpacing: "0.5px",
+                fontWeight: 700,
+                color: "var(--text-muted)",
+                margin: "20px 0 10px",
+              }}
+            >
+              Recommandations IA
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              {s.recos.map((r) => {
+                const st = recoStyles[r.type];
+                return (
+                  <div
+                    key={r.text}
+                    style={{
+                      background: st.bg,
+                      padding: "10px 12px",
+                      borderRadius: "8px",
+                      fontSize: "12.5px",
+                      color: "var(--text-primary)",
+                      lineHeight: 1.5,
+                      display: "flex",
+                      gap: "8px",
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: "16px",
+                        height: "16px",
+                        flexShrink: 0,
+                        borderRadius: "4px",
+                        background: st.dot,
+                        color: "#FFFFFF",
+                        fontSize: "11px",
+                        lineHeight: "16px",
+                        textAlign: "center",
+                        marginTop: "1px",
+                      }}
+                    >
+                      {st.symbol}
+                    </span>
+                    <span>{r.text}</span>
+                  </div>
+                );
+              })}
+            </div>
+
+            {s.needsReview && (
+              <div
+                style={{
+                  background: "#FEF2F2",
+                  border: "1px solid rgba(239,68,68,0.25)",
+                  borderRadius: "10px",
+                  padding: "14px 16px",
+                  marginTop: "16px",
+                  display: "flex",
+                  gap: "10px",
+                  alignItems: "flex-start",
+                }}
+              >
+                <span style={{ fontSize: "16px", color: "var(--semantic-red)", flexShrink: 0 }}>⚠</span>
+                <div>
+                  <span style={{ display: "block", fontSize: "12.5px", fontWeight: 700, color: "var(--midnight)", marginBottom: "4px" }}>
+                    {s.reviewTitle}
+                  </span>
+                  <span style={{ fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.6 }}>{s.reviewBody}</span>
+                </div>
+              </div>
+            )}
+            </div>
+
+            <div className="rapport-demo-right">
+            <div
+              className="rapport-demo-transform"
+              style={{
+                paddingTop: "20px",
+                borderTop: "1px solid rgba(13,27,62,0.08)",
+                marginTop: "24px",
+              }}
+            >
+              <div>
+                <div style={{ fontSize: "12.5px", fontWeight: 700, color: "var(--midnight)" }}>Ce que l'équipe a écrit</div>
+                <div style={{ fontSize: "11px", color: "var(--text-muted)", marginBottom: "10px" }}>
+                  Commentaires anonymes, jamais reliés à une identité
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  {s.raw.map((r) => (
+                    <div
+                      key={r}
+                      style={{
+                        background: "var(--bg-main)",
+                        border: "1px dashed rgba(13,27,62,0.12)",
+                        borderRadius: "8px",
+                        padding: "10px 12px",
+                        fontSize: "11.5px",
+                        color: "var(--text-muted)",
+                        fontStyle: "italic",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {r}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div
+                className="rapport-demo-arrow"
+                style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", margin: "12px 0" }}
+              >
+                <span style={{ fontSize: "18px", color: "var(--indigo)", lineHeight: 1 }}>↓</span>
+                <span
+                  style={{
+                    fontSize: "10px",
+                    color: "var(--text-muted)",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.5px",
+                    textAlign: "center",
+                  }}
+                >
+                  IA anonymise
+                </span>
+              </div>
+
+              <div>
+                <div style={{ fontSize: "12.5px", fontWeight: 700, color: "var(--midnight)" }}>Ce que le manager reçoit</div>
+                <div style={{ fontSize: "11px", color: "var(--text-muted)", marginBottom: "10px" }}>Synthèse des thèmes récurrents</div>
+                {s.belowThreshold ? (
+                  <div
+                    style={{
+                      background: "var(--bg-main)",
+                      border: "1px solid rgba(13,27,62,0.10)",
+                      borderRadius: "8px",
+                      padding: "12px 14px",
+                      fontSize: "11.5px",
+                      color: "var(--text-muted)",
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    {s.belowThresholdNote}
+                  </div>
+                ) : (
+                  <div
+                    style={{
+                      background: "var(--indigo-pale)",
+                      border: "1px solid rgba(67,56,202,0.15)",
+                      borderRadius: "8px",
+                      padding: "12px 14px",
+                      fontSize: "11.5px",
+                      color: "var(--text-primary)",
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    {s.synthesis}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div style={{ marginTop: "20px", paddingTop: "14px", borderTop: "1px solid rgba(13,27,62,0.08)" }}>
+              <div style={{ fontSize: "11px", color: "var(--text-muted)", marginBottom: "6px" }}>
+                Taux de réponse : {s.respondents} / {s.total} employés
+              </div>
+              <div style={{ height: "5px", borderRadius: "3px", background: "var(--indigo-pale)", overflow: "hidden" }}>
+                <div style={{ width: `${(s.respondents / s.total) * 100}%`, height: "100%", background: "var(--indigo)", borderRadius: "3px" }} />
+              </div>
+            </div>
+            </div>
+            </div>
+          </div>
+        </div>
+  );
+
   return (
     <div className={className} style={{ fontFamily: "var(--font-sans)" }}>
       <div style={{ textAlign: "center" }}>
@@ -310,241 +549,14 @@ export function RapportDemo({ className }: { className?: string }) {
       </div>
 
       <div
-        style={{
-          width: "100%",
-          background: "var(--bg-card)",
-          borderRadius: "20px",
-          border: "1px solid rgba(13,27,62,0.08)",
-          boxShadow: "0 1px 2px rgba(13,27,62,0.04), 0 8px 24px rgba(13,27,62,0.06)",
-          overflow: "hidden",
+        className="rapport-demo-cardwrap"
+        onClick={() => {
+          if (typeof window !== "undefined" && window.innerWidth < 768) setZoomed(true);
         }}
       >
-        <div
-          style={{
-            background: "var(--midnight)",
-            padding: "14px 20px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            gap: "10px",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "#FFFFFF", fontWeight: 600 }}>
-            <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--indigo)", display: "inline-block" }} />
-            Rapport d'équipe — {s.date}
-          </div>
-          <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.5)" }}>{s.week}</div>
-        </div>
-
-        <div key={active} className="rapport-demo-body" style={{ padding: "24px 20px", animation: "rapportDemoFade 0.2s ease" }}>
-          <div className="rapport-demo-cols">
-          <div className="rapport-demo-left">
-          <div style={{ fontSize: "12.5px", color: "var(--text-muted)", marginBottom: "20px" }}>
-            {s.contexte} · {s.respondents} réponses sur {s.total} salariés
-          </div>
-
-          <div className="rapport-scores">
-            {s.scores.map((sc) => (
-              <div key={sc.label} style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
-                <div className="rapport-label" style={{ width: "118px", flexShrink: 0, fontSize: "11.5px", color: "var(--text-muted)", lineHeight: 1.3 }}>
-                  {sc.label}
-                </div>
-                <div className="rapport-bar" style={{ flex: 1, height: "5px", borderRadius: "3px", background: "var(--indigo-pale)", overflow: "hidden" }}>
-                  <div style={{ width: `${(sc.avg / 5) * 100}%`, height: "100%", background: "var(--indigo)", borderRadius: "3px" }} />
-                </div>
-                <div style={{ width: "30px", flexShrink: 0, textAlign: "right", fontSize: "13.5px", fontWeight: 700, color: "var(--text-primary)" }}>
-                  {sc.avg.toFixed(1)}
-                </div>
-                <div
-                  style={{
-                    width: "40px",
-                    flexShrink: 0,
-                    textAlign: "right",
-                    fontSize: "11.5px",
-                    color: sc.delta > 0 ? "var(--semantic-green)" : sc.delta < 0 ? "var(--semantic-red)" : "var(--text-muted)",
-                  }}
-                >
-                  {sc.delta > 0 ? `▲ ${Math.abs(sc.delta).toFixed(1)}` : sc.delta < 0 ? `▼ ${Math.abs(sc.delta).toFixed(1)}` : "—"}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div
-            style={{
-              fontSize: "10px",
-              textTransform: "uppercase",
-              letterSpacing: "0.5px",
-              fontWeight: 700,
-              color: "var(--text-muted)",
-              margin: "20px 0 10px",
-            }}
-          >
-            Recommandations IA
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-            {s.recos.map((r) => {
-              const st = recoStyles[r.type];
-              return (
-                <div
-                  key={r.text}
-                  style={{
-                    background: st.bg,
-                    padding: "10px 12px",
-                    borderRadius: "8px",
-                    fontSize: "12.5px",
-                    color: "var(--text-primary)",
-                    lineHeight: 1.5,
-                    display: "flex",
-                    gap: "8px",
-                  }}
-                >
-                  <span
-                    style={{
-                      width: "16px",
-                      height: "16px",
-                      flexShrink: 0,
-                      borderRadius: "4px",
-                      background: st.dot,
-                      color: "#FFFFFF",
-                      fontSize: "11px",
-                      lineHeight: "16px",
-                      textAlign: "center",
-                      marginTop: "1px",
-                    }}
-                  >
-                    {st.symbol}
-                  </span>
-                  <span>{r.text}</span>
-                </div>
-              );
-            })}
-          </div>
-
-          {s.needsReview && (
-            <div
-              style={{
-                background: "#FEF2F2",
-                border: "1px solid rgba(239,68,68,0.25)",
-                borderRadius: "10px",
-                padding: "14px 16px",
-                marginTop: "16px",
-                display: "flex",
-                gap: "10px",
-                alignItems: "flex-start",
-              }}
-            >
-              <span style={{ fontSize: "16px", color: "var(--semantic-red)", flexShrink: 0 }}>⚠</span>
-              <div>
-                <span style={{ display: "block", fontSize: "12.5px", fontWeight: 700, color: "var(--midnight)", marginBottom: "4px" }}>
-                  {s.reviewTitle}
-                </span>
-                <span style={{ fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.6 }}>{s.reviewBody}</span>
-              </div>
-            </div>
-          )}
-          </div>
-
-          <div className="rapport-demo-right">
-          <div
-            className="rapport-demo-transform"
-            style={{
-              paddingTop: "20px",
-              borderTop: "1px solid rgba(13,27,62,0.08)",
-              marginTop: "24px",
-            }}
-          >
-            <div>
-              <div style={{ fontSize: "12.5px", fontWeight: 700, color: "var(--midnight)" }}>Ce que l'équipe a écrit</div>
-              <div style={{ fontSize: "11px", color: "var(--text-muted)", marginBottom: "10px" }}>
-                Commentaires anonymes, jamais reliés à une identité
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                {s.raw.map((r) => (
-                  <div
-                    key={r}
-                    style={{
-                      background: "var(--bg-main)",
-                      border: "1px dashed rgba(13,27,62,0.12)",
-                      borderRadius: "8px",
-                      padding: "10px 12px",
-                      fontSize: "11.5px",
-                      color: "var(--text-muted)",
-                      fontStyle: "italic",
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    {r}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div
-              className="rapport-demo-arrow"
-              style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", margin: "12px 0" }}
-            >
-              <span style={{ fontSize: "18px", color: "var(--indigo)", lineHeight: 1 }}>↓</span>
-              <span
-                style={{
-                  fontSize: "10px",
-                  color: "var(--text-muted)",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                  textAlign: "center",
-                }}
-              >
-                IA anonymise
-              </span>
-            </div>
-
-            <div>
-              <div style={{ fontSize: "12.5px", fontWeight: 700, color: "var(--midnight)" }}>Ce que le manager reçoit</div>
-              <div style={{ fontSize: "11px", color: "var(--text-muted)", marginBottom: "10px" }}>Synthèse des thèmes récurrents</div>
-              {s.belowThreshold ? (
-                <div
-                  style={{
-                    background: "var(--bg-main)",
-                    border: "1px solid rgba(13,27,62,0.10)",
-                    borderRadius: "8px",
-                    padding: "12px 14px",
-                    fontSize: "11.5px",
-                    color: "var(--text-muted)",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  {s.belowThresholdNote}
-                </div>
-              ) : (
-                <div
-                  style={{
-                    background: "var(--indigo-pale)",
-                    border: "1px solid rgba(67,56,202,0.15)",
-                    borderRadius: "8px",
-                    padding: "12px 14px",
-                    fontSize: "11.5px",
-                    color: "var(--text-primary)",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  {s.synthesis}
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div style={{ marginTop: "20px", paddingTop: "14px", borderTop: "1px solid rgba(13,27,62,0.08)" }}>
-            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginBottom: "6px" }}>
-              Taux de réponse : {s.respondents} / {s.total} employés
-            </div>
-            <div style={{ height: "5px", borderRadius: "3px", background: "var(--indigo-pale)", overflow: "hidden" }}>
-              <div style={{ width: `${(s.respondents / s.total) * 100}%`, height: "100%", background: "var(--indigo)", borderRadius: "3px" }} />
-            </div>
-          </div>
-          </div>
-          </div>
-        </div>
+        {card}
       </div>
+      <div className="rapport-demo-zoom-hint">Touchez pour agrandir</div>
       </div>
 
       <div style={{ textAlign: "center", fontSize: "12px", color: "var(--text-muted)", marginTop: "16px" }}>
