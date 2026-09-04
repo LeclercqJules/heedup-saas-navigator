@@ -577,7 +577,7 @@ export function RapportDemo({ className }: { className?: string }) {
       </div>
       <div className="rapport-demo-zoom-hint">Touchez pour agrandir</div>
 
-      {zoomed && (
+      {zoomed && typeof document !== "undefined" && createPortal(
         <div className="rapport-demo-zoom-overlay" onClick={() => setZoomed(false)}>
           <button
             type="button"
@@ -591,8 +591,10 @@ export function RapportDemo({ className }: { className?: string }) {
             ×
           </button>
           <div onClick={(e) => e.stopPropagation()}>{card}</div>
-        </div>
+        </div>,
+        document.body
       )}
+
       </div>
 
       <div style={{ textAlign: "center", fontSize: "12px", color: "var(--text-muted)", marginTop: "16px" }}>
