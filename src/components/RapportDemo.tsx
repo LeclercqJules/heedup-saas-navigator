@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
 
 type Reco = { type: "positive" | "decline" | "alert"; text: string };
 
@@ -190,28 +192,14 @@ export function RapportDemo({ className }: { className?: string }) {
   });
 
   const [zoomed, setZoomed] = useState(false);
-  const cardWrapRef = useRef<HTMLDivElement | null>(null);
-  const [minCardHeight, setMinCardHeight] = useState(0);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const measure = () => {
-      const el = cardWrapRef.current;
-      if (!el) return;
-      if (window.innerWidth >= 768) {
-        setMinCardHeight(0);
-        return;
-      }
-      const h = el.getBoundingClientRect().height;
-      setMinCardHeight((prev) => (h > prev ? Math.ceil(h) : prev));
-    };
-    const id = window.setTimeout(measure, 60);
-    window.addEventListener("resize", measure);
-    return () => {
-      window.clearTimeout(id);
-      window.removeEventListener("resize", measure);
-    };
-  }, [active]);
+  const goTo = (i: number) => {
+    if (i < 0 || i >= scenarios.length) return;
+    setActive(i);
+  };
+
+
 
 
   useEffect(() => {
@@ -592,9 +580,8 @@ export function RapportDemo({ className }: { className?: string }) {
       </div>
 
       <div
-        ref={cardWrapRef}
         className="rapport-demo-cardwrap"
-        style={minCardHeight ? { minHeight: `${minCardHeight}px` } : undefined}
+
         onClick={() => {
           if (typeof window !== "undefined" && window.innerWidth < 768) setZoomed(true);
         }}
@@ -605,7 +592,24 @@ export function RapportDemo({ className }: { className?: string }) {
       <div className="rapport-demo-zoom-hint">Touchez pour agrandir</div>
 
       {zoomed && typeof document !== "undefined" && createPortal(
-        <div className="rapport-demo-zoom-overlay" onClick={() => setZoomed(false)}>
+        <div
+          className="rapport-demo-zoom-overlay"
+          onClick={() => setZoomed(false)}
+          onTouchStart={(e) => {
+            const t = e.touches[0];
+            touchStart.current = { x: t.clientX, y: t.clientY };
+          }}
+          onTouchEnd={(e) => {
+            const start = touchStart.current;
+            touchStart.current = null;
+            if (!start) return;
+            const t = e.changedTouches[0];
+            const dx = t.clientX - start.x;
+            const dy = t.clientY - start.y;
+            if (Math.abs(dx) < 60 || Math.abs(dy) >= Math.abs(dx)) return;
+            goTo(dx < 0 ? active + 1 : active - 1);
+          }}
+        >
           <button
             type="button"
             aria-label="Fermer"
@@ -617,10 +621,56 @@ export function RapportDemo({ className }: { className?: string }) {
           >
             ×
           </button>
-          <div onClick={(e) => e.stopPropagation()}>{card}</div>
+
+          <button
+            type="button"
+            aria-label="Scénario précédent"
+            className="rapport-demo-zoom-arrow is-prev"
+            disabled={active === 0}
+            onClick={(e) => {
+              e.stopPropagation();
+              goTo(active - 1);
+            }}
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <button
+            type="button"
+            aria-label="Scénario suivant"
+            className="rapport-demo-zoom-arrow is-next"
+            disabled={active === scenarios.length - 1}
+            onClick={(e) => {
+              e.stopPropagation();
+              goTo(active + 1);
+            }}
+          >
+            <ChevronRight size={18} />
+          </button>
+
+          <div onClick={(e) => e.stopPropagation()}>
+            <p className="rapport-demo-zoom-title">{s.button}</p>
+            <div key={active} className="rapport-demo-zoom-card">{card}</div>
+            <div className="rapport-demo-zoom-dots">
+              {scenarios.map((sc, i) => (
+                <button
+                  key={sc.button}
+                  type="button"
+                  aria-label={sc.button}
+                  className={i === active ? "rapport-demo-zoom-dot is-active" : "rapport-demo-zoom-dot"}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    goTo(i);
+                  }}
+                >
+                  <span />
+                </button>
+              ))}
+            </div>
+          </div>
         </div>,
         document.body
       )}
+
 
       </div>
 

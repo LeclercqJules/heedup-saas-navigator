@@ -285,7 +285,7 @@ function Index() {
       label: "Votre Rapport\nd'équipe",
       badge: "Lundi · 8h00",
       title: "Votre Rapport d'équipe",
-      lead: "3 scores agrégés, la tendance de la semaine, et le signal à surveiller en priorité.",
+      lead: "5 scores agrégés (charge de travail, reconnaissance, clarté, soutien, sens), la tendance de la semaine, et le signal à surveiller en priorité.",
       rest: <>Vous comprenez l'état de votre équipe en 2 minutes.</>,
       calloutLabel: "PAS UN DASHBOARD À INTERPRÉTER",
       calloutText: "Les scores arrivent avec le contexte. Vous voyez immédiatement ce qui change et dans quel sens.",
