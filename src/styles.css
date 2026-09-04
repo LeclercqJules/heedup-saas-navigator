@@ -735,6 +735,12 @@ body {
     flex: 1 1 auto;
     order: 1;
   }
+  .rapport-scores > div > div:nth-child(3) {
+    order: 2;
+  }
+  .rapport-scores > div > div:nth-child(4) {
+    order: 3;
+  }
   .rapport-scores .rapport-bar {
     display: block !important;
     order: 4;
@@ -743,6 +749,7 @@ body {
     height: 6px !important;
   }
 }
+
 
 
 @keyframes rapportDemoFade {
