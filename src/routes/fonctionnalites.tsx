@@ -654,11 +654,22 @@ function Panel({ visible, children }: { visible: boolean; children: React.ReactN
 
 // ---------- Spotlight card ----------
 
+const featureVisuals: Record<TabId, () => React.JSX.Element> = {
+  q12: VisualQ12,
+  ai: VisualAI,
+  anon: VisualAnon,
+  dash: VisualDashboard,
+  rgpd: VisualRgpd,
+  onboard: VisualOnboard,
+};
+
 // ---------- Page ----------
 
 function Page() {
   const [active, setActive] = useState<TabId>("q12");
+  const [openFeature, setOpenFeature] = useState<number | null>(0);
   const count = useTallyCount();
+
 
   return (
     <SiteLayout>
