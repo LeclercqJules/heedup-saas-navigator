@@ -557,6 +557,23 @@ export function RapportDemo({ className }: { className?: string }) {
         {card}
       </div>
       <div className="rapport-demo-zoom-hint">Touchez pour agrandir</div>
+
+      {zoomed && (
+        <div className="rapport-demo-zoom-overlay" onClick={() => setZoomed(false)}>
+          <button
+            type="button"
+            aria-label="Fermer"
+            className="rapport-demo-zoom-close"
+            onClick={(e) => {
+              e.stopPropagation();
+              setZoomed(false);
+            }}
+          >
+            ×
+          </button>
+          <div onClick={(e) => e.stopPropagation()}>{card}</div>
+        </div>
+      )}
       </div>
 
       <div style={{ textAlign: "center", fontSize: "12px", color: "var(--text-muted)", marginTop: "16px" }}>
