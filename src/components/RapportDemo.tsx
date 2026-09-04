@@ -502,7 +502,7 @@ export function RapportDemo({ className }: { className?: string }) {
         </p>
       </div>
 
-      <div style={{ maxWidth: "1080px", margin: "0 auto", width: "100%" }}>
+      <div className="rapport-demo-stack" style={{ maxWidth: "1080px", margin: "0 auto", width: "100%" }}>
       <div
         className="rapport-demo-tabs"
         style={{
