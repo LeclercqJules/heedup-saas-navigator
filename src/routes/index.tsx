@@ -911,7 +911,7 @@ function Index() {
 
           {/* Stepper */}
           <div
-            className="heedup-steps"
+            className="heedup-steps heedup-tabs-desktop"
             style={{
               backgroundColor: "var(--bg-card)",
               borderRadius: "12px",
