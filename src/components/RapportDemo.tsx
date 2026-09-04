@@ -590,7 +590,24 @@ export function RapportDemo({ className }: { className?: string }) {
       <div className="rapport-demo-zoom-hint">Touchez pour agrandir</div>
 
       {zoomed && typeof document !== "undefined" && createPortal(
-        <div className="rapport-demo-zoom-overlay" onClick={() => setZoomed(false)}>
+        <div
+          className="rapport-demo-zoom-overlay"
+          onClick={() => setZoomed(false)}
+          onTouchStart={(e) => {
+            const t = e.touches[0];
+            touchStart.current = { x: t.clientX, y: t.clientY };
+          }}
+          onTouchEnd={(e) => {
+            const start = touchStart.current;
+            touchStart.current = null;
+            if (!start) return;
+            const t = e.changedTouches[0];
+            const dx = t.clientX - start.x;
+            const dy = t.clientY - start.y;
+            if (Math.abs(dx) < 60 || Math.abs(dy) >= Math.abs(dx)) return;
+            goTo(dx < 0 ? active + 1 : active - 1);
+          }}
+        >
           <button
             type="button"
             aria-label="Fermer"
@@ -602,10 +619,56 @@ export function RapportDemo({ className }: { className?: string }) {
           >
             ×
           </button>
-          <div onClick={(e) => e.stopPropagation()}>{card}</div>
+
+          <button
+            type="button"
+            aria-label="Scénario précédent"
+            className="rapport-demo-zoom-arrow is-prev"
+            disabled={active === 0}
+            onClick={(e) => {
+              e.stopPropagation();
+              goTo(active - 1);
+            }}
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <button
+            type="button"
+            aria-label="Scénario suivant"
+            className="rapport-demo-zoom-arrow is-next"
+            disabled={active === scenarios.length - 1}
+            onClick={(e) => {
+              e.stopPropagation();
+              goTo(active + 1);
+            }}
+          >
+            <ChevronRight size={18} />
+          </button>
+
+          <div onClick={(e) => e.stopPropagation()}>
+            <p className="rapport-demo-zoom-title">{s.button}</p>
+            <div key={active} className="rapport-demo-zoom-card">{card}</div>
+            <div className="rapport-demo-zoom-dots">
+              {scenarios.map((sc, i) => (
+                <button
+                  key={sc.button}
+                  type="button"
+                  aria-label={sc.button}
+                  className={i === active ? "rapport-demo-zoom-dot is-active" : "rapport-demo-zoom-dot"}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    goTo(i);
+                  }}
+                >
+                  <span />
+                </button>
+              ))}
+            </div>
+          </div>
         </div>,
         document.body
       )}
+
 
       </div>
 
