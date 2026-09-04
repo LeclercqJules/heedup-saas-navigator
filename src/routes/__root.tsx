@@ -163,7 +163,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         onload: "this.onload=null;this.rel='stylesheet'",
       },
     ],
-    scripts: [{ src: "https://tally.so/widgets/embed.js", async: true }],
+    scripts: [
+      { src: "https://tally.so/widgets/embed.js", async: true },
+      {
+        src: "https://plausible.io/js/script.js",
+        defer: true,
+        "data-domain": "heedup.fr",
+      },
+    ],
 
   }),
 
