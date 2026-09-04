@@ -61,14 +61,123 @@ export const Route = createFileRoute("/fonctionnalites")({
 
 type TabId = "q12" | "ai" | "anon" | "dash" | "rgpd" | "onboard";
 
-const tabs: { id: TabId; label: string; Icon: typeof Send }[] = [
-  { id: "q12", label: "5 questions hebdomadaires", Icon: Send },
-  { id: "ai", label: "Recommandations IA", Icon: Brain },
-  { id: "anon", label: "Anonymat architectural", Icon: EyeOff },
-  { id: "dash", label: "Tableau de bord", Icon: LineChart },
-  { id: "rgpd", label: "RGPD et données", Icon: ShieldCheck },
-  { id: "onboard", label: "Onboarding et support", Icon: Rocket },
+type Feature = {
+  id: TabId;
+  label: string;
+  Icon: typeof Send;
+  tag: string;
+  title: string;
+  lead: string;
+  rest?: string;
+  detail: { label: string; text: string };
+  bullets?: string[];
+};
+
+const features: Feature[] = [
+  {
+    id: "q12",
+    label: "5 questions hebdomadaires",
+    Icon: Send,
+    tag: "Questions hebdomadaires",
+    title: "5 questions. Pas 50.",
+    lead: "Les 5 questions couvrent cinq dimensions retenues sur deux critères : prédictives du départ, et actionnables par un manager sans formation RH dans la semaine.",
+    rest: "Charge de travail, reconnaissance, clarté, soutien, sens. Elles ne changent pas d'une semaine à l'autre, ce qui permet de mesurer des tendances réelles.",
+    detail: {
+      label: "Pourquoi des questions fixes ?",
+      text: "Des questions identiques d'une semaine à l'autre permettent de comparer les données dans le temps. Des questions qui changent donneraient une photo ponctuelle, pas une tendance.",
+    },
+    bullets: [
+      "Opt-in volontaire : chaque salarié confirme sa participation avant le premier survey",
+      "Réponse sur téléphone ou ordinateur, sans compte",
+      "Un champ libre facultatif en fin de questionnaire, jamais transmis tel quel",
+      "Vous voyez le nombre de participants, jamais leur identité",
+    ],
+  },
+  {
+    id: "ai",
+    label: "Recommandations IA",
+    Icon: Brain,
+    tag: "IA actionnable",
+    title: "3 types de recommandations. Toujours contextualisées.",
+    lead: "Le Rapport d'équipe ne liste pas des scores.",
+    rest: "Il interprète les tendances et génère 2 à 3 recommandations selon le contexte de la semaine. Chaque recommandation appartient à l'un de ces 3 types, définis par l'IA en fonction du signal détecté.",
+    detail: {
+      label: "Ce que l'IA analyse",
+      text: "Score absolu de la semaine, delta vs semaine N-1, tendance sur 3 semaines, taux de réponse et présence de silences. La recommandation combine ces signaux, pas juste le dernier score.",
+    },
+  },
+  {
+    id: "anon",
+    label: "Anonymat architectural",
+    Icon: EyeOff,
+    tag: "Anonymat",
+    title: "Ce que vous ne pouvez pas voir. Même si vous le voulez.",
+    lead: "L'anonymat de HeedUp est une contrainte d'architecture, pas un paramètre.",
+    rest: "La participation est volontaire : vos salariés choisissent de rejoindre, ce qui renforce la qualité des réponses. Le système ne stocke jamais de lien entre une réponse et un salarié. Techniquement, même si vous demandiez à notre équipe qui a répondu quoi, nous ne pourrions pas vous répondre.",
+    detail: {
+      label: "Seuil de protection statistique",
+      text: "Si moins de 5 salariés ont répondu cette semaine, aucun score n'est affiché. Ce seuil protège l'anonymat dans les petites équipes où un score pourrait trahir un répondant.",
+    },
+    bullets: [
+      "Token UUID aléatoire régénéré chaque semaine",
+      "Impossible de tracer un salarié dans le temps",
+      "Vous voyez uniquement des scores agrégés",
+    ],
+  },
+  {
+    id: "dash",
+    label: "Tableau de bord",
+    Icon: LineChart,
+    tag: "Tableau de bord",
+    title: "L'historique pour comprendre. Le rapport lundi pour agir.",
+    lead: "Le Rapport d'équipe du lundi est votre outil d'action.",
+    rest: "Le tableau de bord est votre outil de compréhension. Quand un score descend, le dashboard vous permet de voir si c'est un accident ou une tendance installée depuis 3 semaines.",
+    detail: {
+      label: "Alerte automatique",
+      text: "Si un score passe sous 3/5 deux semaines consécutives, une alerte est générée automatiquement dans votre rapport. Vous n'avez pas à surveiller le dashboard, il vous prévient.",
+    },
+    bullets: [
+      "Historique consultable sur 12 semaines",
+      "Courbes de tendance par dimension (charge de travail, reconnaissance, clarté, soutien, sens)",
+      "Taux de réponse semaine par semaine",
+    ],
+  },
+  {
+    id: "rgpd",
+    label: "RGPD et données",
+    Icon: ShieldCheck,
+    tag: "RGPD et données",
+    title: "Conforme RGPD. Hébergé en France.",
+    lead: "HeedUp est conçu pour être conforme au RGPD par architecture, pas par paramètre.",
+    rest: "Les données de vos salariés sont hébergées en France, minimisées au strict nécessaire, et l'anonymat est garanti par conception. La documentation contractuelle est disponible sur demande.",
+    detail: {
+      label: "CE QUI EST COLLECTÉ. RIEN D'AUTRE.",
+      text: "Scores numériques de 1 à 5 et token aléatoire non-traçable. Aucune donnée nominative, aucun commentaire libre, aucune donnée de profil salarié.",
+    },
+    bullets: [
+      "Hébergement exclusivement en France",
+      "Aucune donnée nominative côté salariés",
+      "Durée de conservation : 12 mois glissants",
+      "Documentation RGPD disponible sur demande",
+    ],
+  },
+  {
+    id: "onboard",
+    label: "Onboarding et support",
+    Icon: Rocket,
+    tag: "Onboarding et support",
+    title: "10 minutes. Pas 10 semaines.",
+    lead: "Aucun projet informatique, aucune intégration SIRH, aucun déploiement.",
+    rest: "Vous importez les emails de votre équipe, vous activez, le premier survey part vendredi. Le support est inclus dans tous les plans, pas derrière un plan Premium.",
+    detail: {
+      label: "Support humain, pas de chatbot",
+      text: "Réponse par email sous 24h ouvrées, en français, par une vraie personne qui connaît votre compte. Pas de ticket automatique, pas de FAQ obligatoire avant d'écrire.",
+    },
+  },
 ];
+
+const tabs = features.map(({ id, label, Icon }) => ({ id, label, Icon }));
+
 
 // -------- shared panel styles --------
 const leftColStyle: React.CSSProperties = {
