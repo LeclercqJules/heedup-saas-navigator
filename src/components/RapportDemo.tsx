@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
 
 type Reco = { type: "positive" | "decline" | "alert"; text: string };
 
