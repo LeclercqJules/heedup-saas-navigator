@@ -101,6 +101,9 @@ export const Route = createFileRoute("/")({
 function Index() {
   const [activeStep, setActiveStep] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openStep, setOpenStep] = useState<number | null>(null);
+  const [openCompare, setOpenCompare] = useState<number | null>(null);
+
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   const count = useTallyCount();
 
@@ -302,7 +305,15 @@ function Index() {
     },
   ];
 
+  const comparisonRows = [
+    { crit: "Temps de démarrage", heedup: "10 minutes", autres: "4 à 12 semaines" },
+    { crit: "Prix d'entrée", heedup: "Dès 50€/mois", autres: "Tarification sur devis" },
+    { crit: "Appel commercial requis", heedup: "Non", autres: "Systématiquement" },
+    { crit: "Anonymat", heedup: "Architectural, non désactivable", autres: "Paramètre désactivable" },
+  ];
+
   const current = steps[activeStep];
+
 
   return (
     <SiteLayout>
@@ -900,7 +911,7 @@ function Index() {
 
           {/* Stepper */}
           <div
-            className="heedup-steps"
+            className="heedup-steps heedup-tabs-desktop"
             style={{
               backgroundColor: "var(--bg-card)",
               borderRadius: "12px",
@@ -971,7 +982,7 @@ function Index() {
 
           {/* Content card */}
           <div
-            className="heedup-step-panel"
+            className="heedup-step-panel heedup-tabs-desktop"
             style={{
               backgroundColor: "var(--bg-card)",
               borderRadius: "12px",
@@ -1083,6 +1094,77 @@ function Index() {
             </div>
           </div>
 
+          {/* Accordéon mobile */}
+          <div className="heedup-accordion" style={{ marginBottom: "28px" }}>
+            {steps.map((s, i) => {
+              const isOpen = openStep === i;
+              return (
+                <div key={s.num} className="heedup-accordion-item">
+                  <button
+                    type="button"
+                    className="heedup-accordion-head"
+                    aria-expanded={isOpen}
+                    onClick={() => setOpenStep(isOpen ? null : i)}
+                  >
+                    <span>
+                      {s.num}. {s.title}
+                    </span>
+                    <span className="heedup-accordion-chevron">{isOpen ? "−" : "+"}</span>
+                  </button>
+                  <div className={`heedup-accordion-panel${isOpen ? " is-open" : ""}`}>
+                    <div>
+                      <div className="heedup-accordion-content">
+                        <span
+                          style={{
+                            backgroundColor: "var(--midnight)",
+                            color: "#EEEEFF",
+                            fontSize: "10px",
+                            fontFamily: "var(--font-sans)",
+                            fontWeight: 700,
+                            textTransform: "uppercase",
+                            letterSpacing: "0.7px",
+                            padding: "4px 10px",
+                            borderRadius: "4px",
+                            display: "inline-block",
+                            marginBottom: "12px",
+                          }}
+                        >
+                          {s.badge}
+                        </span>
+                        <p style={{ marginBottom: "14px" }}>{s.description}</p>
+                        <div
+                          style={{
+                            backgroundColor: "#EEEEFF",
+                            borderRadius: "8px",
+                            padding: "14px 16px",
+                            borderLeft: "3px solid var(--indigo)",
+                          }}
+                        >
+                          <div
+                            style={{
+                              fontSize: "10px",
+                              fontWeight: 700,
+                              textTransform: "uppercase",
+                              letterSpacing: "0.6px",
+                              color: "var(--indigo)",
+                              marginBottom: "5px",
+                            }}
+                          >
+                            {s.calloutLabel}
+                          </div>
+                          <div style={{ fontSize: "13px", color: "var(--midnight)", lineHeight: 1.55 }}>
+                            {s.calloutText}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+
           {/* Closing line */}
           <div
             style={{
@@ -1192,12 +1274,7 @@ function Index() {
               </tr>
             </thead>
             <tbody>
-              {[
-                { crit: "Temps de démarrage", heedup: "10 minutes", autres: "4 à 12 semaines" },
-                { crit: "Prix d'entrée", heedup: "Dès 50€/mois", autres: "Tarification sur devis" },
-                { crit: "Appel commercial requis", heedup: "Non", autres: "Systématiquement" },
-                { crit: "Anonymat", heedup: "Architectural, non désactivable", autres: "Paramètre désactivable" },
-              ].map((row, i) => (
+              {comparisonRows.map((row) => (
                 <tr key={row.crit}>
                   <td>{row.crit}</td>
                   <td>{row.heedup}</td>
@@ -1207,26 +1284,39 @@ function Index() {
             </tbody>
           </table>
 
-          <div className="heedup-comparison-mobile">
-            {[
-              { crit: "Temps de démarrage", heedup: "10 minutes", autres: "4 à 12 semaines" },
-              { crit: "Prix d'entrée", heedup: "Dès 50€/mois", autres: "Tarification sur devis" },
-              { crit: "Appel commercial requis", heedup: "Non", autres: "Systématiquement" },
-              { crit: "Anonymat", heedup: "Architectural, non désactivable", autres: "Paramètre désactivable" },
-            ].map((row) => (
-              <div key={row.crit} className="heedup-comparison-mobile-block">
-                <div className="heedup-comparison-mobile-crit">{row.crit}</div>
-                <div className="heedup-comparison-mobile-line">
-                  <span className="heedup-comparison-mobile-badge heedup">HeedUp</span>
-                  <span className="heedup-comparison-mobile-value heedup">{row.heedup}</span>
+          <div className="heedup-accordion">
+            {comparisonRows.map((row, i) => {
+              const isOpen = openCompare === i;
+              return (
+                <div key={row.crit} className="heedup-accordion-item">
+                  <button
+                    type="button"
+                    className="heedup-accordion-head"
+                    aria-expanded={isOpen}
+                    onClick={() => setOpenCompare(isOpen ? null : i)}
+                  >
+                    <span>{row.crit}</span>
+                    <span className="heedup-accordion-chevron">{isOpen ? "−" : "+"}</span>
+                  </button>
+                  <div className={`heedup-accordion-panel${isOpen ? " is-open" : ""}`}>
+                    <div>
+                      <div className="heedup-accordion-content">
+                        <div className="heedup-comparison-mobile-line">
+                          <span className="heedup-comparison-mobile-badge heedup">HeedUp</span>
+                          <span className="heedup-comparison-mobile-value heedup">{row.heedup}</span>
+                        </div>
+                        <div className="heedup-comparison-mobile-line">
+                          <span className="heedup-comparison-mobile-badge autres">Autres</span>
+                          <span className="heedup-comparison-mobile-value autres">{row.autres}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="heedup-comparison-mobile-line">
-                  <span className="heedup-comparison-mobile-badge autres">Autres</span>
-                  <span className="heedup-comparison-mobile-value autres">{row.autres}</span>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
+
 
           <p
             style={{

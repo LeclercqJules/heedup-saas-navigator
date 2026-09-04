@@ -725,15 +725,32 @@ body {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 639px) {
+  .rapport-scores > div {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
   .rapport-scores .rapport-label {
-    width: auto;
-    flex: 1;
+    width: auto !important;
+    flex: 1 1 auto;
+    order: 1;
+  }
+  .rapport-scores > div > div:nth-child(3) {
+    order: 2;
+  }
+  .rapport-scores > div > div:nth-child(4) {
+    order: 3;
   }
   .rapport-scores .rapport-bar {
-    display: none;
+    display: block !important;
+    order: 4;
+    flex: 0 0 100% !important;
+    width: 100%;
+    height: 6px !important;
   }
 }
+
+
 
 @keyframes rapportDemoFade {
   from { opacity: 0; }
@@ -770,14 +787,31 @@ body {
 @media (max-width: 767px) {
   .rapport-demo-tabs {
     justify-content: flex-start;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    white-space: nowrap;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    flex-wrap: wrap;
+    overflow-x: visible;
+    white-space: normal;
   }
   .rapport-demo-tablist {
-    flex-wrap: nowrap !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    width: 100%;
+  }
+  .rapport-demo-tab {
+    height: 36px;
+    padding: 0 14px !important;
+    border-radius: 8px !important;
+    font-size: 14px !important;
+    white-space: normal !important;
+  }
+  .rapport-demo-tab:not(.is-active) {
+    background: var(--bg-card) !important;
+    border: 1px solid rgba(13, 27, 62, 0.12) !important;
+    color: var(--text-muted) !important;
+  }
+  .rapport-demo-tab.is-active {
+    background: var(--indigo) !important;
+    border: 1px solid var(--indigo) !important;
+    color: #ffffff !important;
   }
   .rapport-demo-body {
     padding: 20px 16px !important;
@@ -787,14 +821,99 @@ body {
   }
 }
 
+/* Zoom plein écran de la carte de rapport (mobile uniquement) */
+.rapport-demo-zoom-hint {
+  display: none;
+}
 
-
-@media (max-width: 480px) {
-  .rapport-demo-body .rapport-scores .rapport-label {
-    width: auto !important;
-    flex: 1;
+@media (max-width: 767px) {
+  .rapport-demo-zoom-hint {
+    display: block;
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 12px;
   }
 }
+
+/* Accordéons mobile (étapes, comparaison) */
+.heedup-accordion {
+  display: none;
+}
+
+.heedup-accordion-item {
+  border-bottom: 1px solid rgba(13, 27, 62, 0.08);
+}
+
+.heedup-accordion-head {
+  width: 100%;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.heedup-accordion-head[aria-expanded="true"] {
+  background: var(--indigo-pale);
+  color: var(--midnight);
+}
+
+.heedup-accordion-chevron {
+  flex-shrink: 0;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--text-muted);
+  transition: opacity 0.2s ease;
+}
+
+.heedup-accordion-head[aria-expanded="true"] .heedup-accordion-chevron {
+  opacity: 0.9;
+}
+
+.heedup-accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.25s ease, opacity 0.2s ease;
+}
+
+.heedup-accordion-panel.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.heedup-accordion-panel > div {
+  overflow: hidden;
+}
+
+.heedup-accordion-content {
+  padding: 16px 4px 24px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-primary);
+}
+
+@media (max-width: 767px) {
+  .heedup-accordion {
+    display: block;
+  }
+  .heedup-tabs-desktop {
+    display: none !important;
+  }
+}
+
 
 /* Chat widget (Léo) */
 .heedup-chat-dot {
@@ -1131,4 +1250,29 @@ body:has(#repondre-root) {
   .heedup-onb-suffix {
     font-size: 11px !important;
   }
+}
+
+.rapport-demo-zoom-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: var(--bg-main);
+  overflow-y: auto;
+  padding: 64px 12px 32px;
+}
+
+.rapport-demo-zoom-close {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid rgba(13, 27, 62, 0.12);
+  background: var(--bg-card);
+  color: var(--midnight);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2001;
 }
