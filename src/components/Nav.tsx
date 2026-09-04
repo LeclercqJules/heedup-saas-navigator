@@ -169,8 +169,9 @@ export function Nav() {
 
       </div>
 
-      {open && (
+      {open && typeof document !== "undefined" && createPortal(
         <>
+
           <div
             role="presentation"
             onClick={() => setOpen(false)}
