@@ -1083,6 +1083,77 @@ function Index() {
             </div>
           </div>
 
+          {/* Accordéon mobile */}
+          <div className="heedup-accordion" style={{ marginBottom: "28px" }}>
+            {steps.map((s, i) => {
+              const isOpen = openStep === i;
+              return (
+                <div key={s.num} className="heedup-accordion-item">
+                  <button
+                    type="button"
+                    className="heedup-accordion-head"
+                    aria-expanded={isOpen}
+                    onClick={() => setOpenStep(isOpen ? null : i)}
+                  >
+                    <span>
+                      {s.num}. {s.title}
+                    </span>
+                    <span className="heedup-accordion-chevron">{isOpen ? "−" : "+"}</span>
+                  </button>
+                  <div className={`heedup-accordion-panel${isOpen ? " is-open" : ""}`}>
+                    <div>
+                      <div className="heedup-accordion-content">
+                        <span
+                          style={{
+                            backgroundColor: "var(--midnight)",
+                            color: "#EEEEFF",
+                            fontSize: "10px",
+                            fontFamily: "var(--font-sans)",
+                            fontWeight: 700,
+                            textTransform: "uppercase",
+                            letterSpacing: "0.7px",
+                            padding: "4px 10px",
+                            borderRadius: "4px",
+                            display: "inline-block",
+                            marginBottom: "12px",
+                          }}
+                        >
+                          {s.badge}
+                        </span>
+                        <p style={{ marginBottom: "14px" }}>{s.description}</p>
+                        <div
+                          style={{
+                            backgroundColor: "#EEEEFF",
+                            borderRadius: "8px",
+                            padding: "14px 16px",
+                            borderLeft: "3px solid var(--indigo)",
+                          }}
+                        >
+                          <div
+                            style={{
+                              fontSize: "10px",
+                              fontWeight: 700,
+                              textTransform: "uppercase",
+                              letterSpacing: "0.6px",
+                              color: "var(--indigo)",
+                              marginBottom: "5px",
+                            }}
+                          >
+                            {s.calloutLabel}
+                          </div>
+                          <div style={{ fontSize: "13px", color: "var(--midnight)", lineHeight: 1.55 }}>
+                            {s.calloutText}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+
           {/* Closing line */}
           <div
             style={{
