@@ -238,6 +238,10 @@ export function Footer() {
         .heedup-footer [href]:hover {
           color: #FFFFFF !important;
         }
+        .heedup-footer-copy:hover,
+        .heedup-footer-copy:focus-visible {
+          color: var(--midnight) !important;
+        }
       `}</style>
     </footer>
   );
