@@ -1131,7 +1131,9 @@ function Index() {
                         >
                           {s.badge}
                         </span>
-                        <p style={{ marginBottom: "14px" }}>{s.description}</p>
+                        <p className="heedup-accordion-lead">{s.lead}</p>
+                        <p className="heedup-accordion-rest" style={{ marginBottom: "14px" }}>{s.rest}</p>
+
                         <div
                           style={{
                             backgroundColor: "#EEEEFF",
