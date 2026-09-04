@@ -189,7 +189,9 @@ export function Footer() {
         </div>
 
         <LinkColumn title="Produit" links={productLinks} />
-        <LinkColumn title="Légal" links={legalLinks} />
+        <LinkColumn title="Légal" links={legalLinks}>
+          <ContactBlock />
+        </LinkColumn>
       </div>
 
       <div
