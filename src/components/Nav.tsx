@@ -307,8 +307,10 @@ export function Nav() {
               </button>
             </div>
           </div>
-        </>
+        </>,
+        document.body
       )}
+
 
     </header>
   );
