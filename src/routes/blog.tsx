@@ -4,10 +4,10 @@ import { SiteLayout } from "@/components/SiteLayout";
 export const Route = createFileRoute("/blog")({
   head: () => ({
     meta: [
-      { title: "Blog — HeedUp" },
+      { title: "Blog | HeedUp" },
       {
         name: "description",
-        content: "Le blog HeedUp — bientôt disponible.",
+        content: "Le blog HeedUp, bientôt disponible.",
       },
     ],
   }),
