@@ -101,8 +101,8 @@ export const Route = createFileRoute("/")({
 function Index() {
   const [activeStep, setActiveStep] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [openStep, setOpenStep] = useState<number | null>(null);
-  const [openCompare, setOpenCompare] = useState<number | null>(null);
+  const [openStep, setOpenStep] = useState<number | null>(0);
+
 
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   const count = useTallyCount();
