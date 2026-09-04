@@ -40,12 +40,76 @@ function FooterLink({ to, label }: { to: string; label: string }) {
   );
 }
 
+function ContactBlock() {
+  const [copied, setCopied] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(CONTACT_EMAIL);
+      setCopied(true);
+      if (timer.current) clearTimeout(timer.current);
+      timer.current = setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+      <FooterLink to={`mailto:${CONTACT_EMAIL}`} label="Nous écrire" />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+          flexWrap: "wrap",
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "13px",
+            color: "var(--text-muted)",
+            userSelect: "text",
+          }}
+        >
+          {CONTACT_EMAIL}
+        </span>
+        <button
+          type="button"
+          onClick={copy}
+          aria-label="Copier l'adresse email"
+          className="heedup-footer-copy"
+          style={{
+            background: "transparent",
+            border: "none",
+            padding: 0,
+            cursor: "pointer",
+            display: "inline-flex",
+            alignItems: "center",
+            color: "var(--text-muted)",
+            fontFamily: "var(--font-sans)",
+            fontSize: "12px",
+            lineHeight: 1,
+            transition: "opacity 0.2s ease, color 0.2s ease",
+          }}
+        >
+          {copied ? <span>Copié</span> : <Copy size={14} aria-hidden="true" />}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function LinkColumn({
   title,
   links,
+  children,
 }: {
   title: string;
   links: readonly { to: string; label: string }[];
+  children?: React.ReactNode;
 }) {
   return (
     <div>
@@ -72,6 +136,7 @@ function LinkColumn({
         {links.map((l) => (
           <FooterLink key={l.to} to={l.to} label={l.label} />
         ))}
+        {children}
       </div>
     </div>
   );
