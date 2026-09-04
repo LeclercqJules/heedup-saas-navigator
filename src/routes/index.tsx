@@ -1284,38 +1284,22 @@ function Index() {
             </tbody>
           </table>
 
-          <div className="heedup-accordion">
-            {comparisonRows.map((row, i) => {
-              const isOpen = openCompare === i;
-              return (
-                <div key={row.crit} className="heedup-accordion-item">
-                  <button
-                    type="button"
-                    className="heedup-accordion-head"
-                    aria-expanded={isOpen}
-                    onClick={() => setOpenCompare(isOpen ? null : i)}
-                  >
-                    <span>{row.crit}</span>
-                    <span className="heedup-accordion-chevron">{isOpen ? "−" : "+"}</span>
-                  </button>
-                  <div className={`heedup-accordion-panel${isOpen ? " is-open" : ""}`}>
-                    <div>
-                      <div className="heedup-accordion-content">
-                        <div className="heedup-comparison-mobile-line">
-                          <span className="heedup-comparison-mobile-badge heedup">HeedUp</span>
-                          <span className="heedup-comparison-mobile-value heedup">{row.heedup}</span>
-                        </div>
-                        <div className="heedup-comparison-mobile-line">
-                          <span className="heedup-comparison-mobile-badge autres">Autres</span>
-                          <span className="heedup-comparison-mobile-value autres">{row.autres}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+          <div className="heedup-comparison-mobile">
+            {comparisonRows.map((row) => (
+              <div key={row.crit} className="heedup-comparison-mobile-block">
+                <div className="heedup-comparison-mobile-crit">{row.crit}</div>
+                <div className="heedup-comparison-mobile-line">
+                  <span className="heedup-comparison-mobile-badge heedup">HeedUp</span>
+                  <span className="heedup-comparison-mobile-value heedup">{row.heedup}</span>
                 </div>
-              );
-            })}
+                <div className="heedup-comparison-mobile-line">
+                  <span className="heedup-comparison-mobile-badge autres">Autres</span>
+                  <span className="heedup-comparison-mobile-value autres">{row.autres}</span>
+                </div>
+              </div>
+            ))}
           </div>
+
 
 
           <p
