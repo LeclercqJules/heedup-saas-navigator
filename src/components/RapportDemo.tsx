@@ -569,13 +569,16 @@ export function RapportDemo({ className }: { className?: string }) {
       </div>
 
       <div
+        ref={cardWrapRef}
         className="rapport-demo-cardwrap"
+        style={minCardHeight ? { minHeight: `${minCardHeight}px` } : undefined}
         onClick={() => {
           if (typeof window !== "undefined" && window.innerWidth < 768) setZoomed(true);
         }}
       >
         {card}
       </div>
+
       <div className="rapport-demo-zoom-hint">Touchez pour agrandir</div>
 
       {zoomed && typeof document !== "undefined" && createPortal(
