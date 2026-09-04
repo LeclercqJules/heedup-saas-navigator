@@ -188,6 +188,25 @@ export function RapportDemo({ className }: { className?: string }) {
     return i >= 0 ? i : 0;
   });
 
+  const [zoomed, setZoomed] = useState(false);
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    document.body.style.overflow = zoomed ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [zoomed]);
+
+  useEffect(() => {
+    if (!zoomed) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setZoomed(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [zoomed]);
+
   useEffect(() => {
     if (window.location.hash !== "#demo") return;
     const el = document.getElementById("demo");
