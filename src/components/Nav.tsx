@@ -170,110 +170,145 @@ export function Nav() {
       </div>
 
       {open && (
-        <div
-          className="heedup-nav-drawer"
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 1000,
-            background: "var(--midnight)",
-            padding: "24px",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px" }}>
-            <span
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "24px",
-                color: "#EEEEFF",
-              }}
-            >
-              HeedUp
-            </span>
-            <button
-              type="button"
-              aria-label="Fermer le menu"
-              onClick={() => setOpen(false)}
-              style={{
-                background: "transparent",
-                border: "none",
-                color: "#EEEEFF",
-                fontSize: "28px",
-                lineHeight: 1,
-                cursor: "pointer",
-                padding: "4px 8px",
-              }}
-            >
-              ×
-            </button>
-          </div>
-
-          <nav style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-            {navLinks.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                onClick={() => setOpen(false)}
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "18px",
-                  color: "#EEEEFF",
-                  padding: "14px 0",
-                  borderBottom: "1px solid rgba(255,255,255,0.08)",
-                  textDecoration: "none",
-                }}
-              >
-                {l.label}
-              </Link>
-            ))}
-            {!hideAuthButton && (
-              <Link
-                to="/connexion"
-                onClick={() => setOpen(false)}
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "18px",
-                  color: "var(--indigo)",
-                  padding: "14px 0",
-                  borderBottom: "1px solid rgba(255,255,255,0.08)",
-                  textDecoration: "none",
-                }}
-              >
-                Connexion
-              </Link>
-            )}
-          </nav>
-
-          <button
-            type="button"
-            {...{
-              "data-tally-open": "VLBY9E",
-              "data-tally-overlay": "1",
-              "data-tally-emoji-text": "👋",
-              "data-tally-emoji-animation": "wave",
-              "data-tally-width": "500",
-            }}
+        <>
+          <div
+            role="presentation"
             onClick={() => setOpen(false)}
             style={{
-              width: "100%",
-              backgroundColor: "var(--indigo)",
-              color: "#FFFFFF",
-              fontWeight: 700,
-              fontSize: "16px",
-              borderRadius: "8px",
-              padding: "16px 24px",
-              fontFamily: "var(--font-sans)",
-              border: "none",
-              cursor: "pointer",
-              marginTop: "24px",
+              position: "fixed",
+              inset: 0,
+              zIndex: 1400,
+              background: "rgba(13,27,62,0.35)",
+            }}
+          />
+          <div
+            className="heedup-nav-drawer"
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              zIndex: 1500,
+              maxHeight: "100dvh",
+              overflowY: "auto",
+              background: "var(--bg-card)",
+              boxShadow: "0 8px 32px rgba(13,27,62,0.12)",
+              borderBottom: "1px solid rgba(13,27,62,0.10)",
+              padding: "16px 20px 20px",
+              display: "flex",
+              flexDirection: "column",
             }}
           >
-            Accéder au lancement
-          </button>
-        </div>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+              <span
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "24px",
+                  color: "var(--midnight)",
+                }}
+              >
+                HeedUp
+              </span>
+              <button
+                type="button"
+                aria-label="Fermer le menu"
+                onClick={() => setOpen(false)}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  color: "var(--midnight)",
+                  fontSize: "28px",
+                  lineHeight: 1,
+                  cursor: "pointer",
+                  width: "44px",
+                  height: "44px",
+                }}
+              >
+                ×
+              </button>
+            </div>
+
+            <nav style={{ display: "flex", flexDirection: "column" }}>
+              {navLinks.map((l) => {
+                const isCurrent = currentPath === l.to;
+                return (
+                  <Link
+                    key={l.to}
+                    to={l.to}
+                    onClick={() => setOpen(false)}
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "16px",
+                      fontWeight: isCurrent ? 600 : 500,
+                      color: isCurrent ? "var(--midnight)" : "var(--text-primary)",
+                      minHeight: "48px",
+                      display: "flex",
+                      alignItems: "center",
+                      borderBottom: "1px solid rgba(13,27,62,0.06)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {l.label}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "20px" }}>
+              {!hideAuthButton && (
+                <Link
+                  to="/connexion"
+                  onClick={() => setOpen(false)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    minHeight: "48px",
+                    backgroundColor: "transparent",
+                    border: "1.5px solid var(--midnight)",
+                    color: "var(--midnight)",
+                    fontWeight: 700,
+                    fontSize: "16px",
+                    borderRadius: "8px",
+                    fontFamily: "var(--font-sans)",
+                    textDecoration: "none",
+                  }}
+                >
+                  Connexion
+                </Link>
+              )}
+
+              <button
+                type="button"
+                {...{
+                  "data-tally-open": "VLBY9E",
+                  "data-tally-overlay": "1",
+                  "data-tally-emoji-text": "👋",
+                  "data-tally-emoji-animation": "wave",
+                  "data-tally-width": "500",
+                }}
+                onClick={() => setOpen(false)}
+                style={{
+                  width: "100%",
+                  minHeight: "48px",
+                  backgroundColor: "var(--indigo)",
+                  color: "#FFFFFF",
+                  fontWeight: 700,
+                  fontSize: "16px",
+                  borderRadius: "8px",
+                  padding: "0 24px",
+                  fontFamily: "var(--font-sans)",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                Accéder au lancement
+              </button>
+            </div>
+          </div>
+        </>
       )}
+
     </header>
   );
 }
