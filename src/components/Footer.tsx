@@ -1,4 +1,8 @@
 import { Link } from "@tanstack/react-router";
+import { useRef, useState } from "react";
+import { Copy } from "lucide-react";
+
+const CONTACT_EMAIL = "contact@heedup.fr";
 
 const productLinks = [
   { to: "/fonctionnalites", label: "Fonctionnalités" },
@@ -9,7 +13,6 @@ const productLinks = [
 const legalLinks = [
   { to: "/cgu", label: "CGU" },
   { to: "/confidentialite", label: "Confidentialité" },
-  { to: "mailto:contact@heedup.fr", label: "Contact" },
 ] as const;
 
 function FooterLink({ to, label }: { to: string; label: string }) {
