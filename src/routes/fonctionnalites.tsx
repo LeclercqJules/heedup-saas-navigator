@@ -87,9 +87,9 @@ const features: Feature[] = [
       text: "Des questions identiques d'une semaine à l'autre permettent de comparer les données dans le temps. Des questions qui changent donneraient une photo ponctuelle, pas une tendance.",
     },
     bullets: [
-      "Opt-in volontaire : chaque salarié confirme sa participation avant le premier survey",
+      "Réponse facultative : chaque email porte un lien de désinscription, et le manager ne voit jamais qui s'est désinscrit",
       "Réponse sur téléphone ou ordinateur, sans compte",
-      "Un champ libre facultatif en fin de questionnaire, jamais transmis tel quel",
+      "Un champ libre facultatif en fin de questionnaire, jamais transmis tel quel au manager",
       "Vous voyez le nombre de participants, jamais leur identité",
     ],
   },
@@ -98,12 +98,12 @@ const features: Feature[] = [
     label: "Recommandations IA",
     Icon: Brain,
     tag: "IA actionnable",
-    title: "3 types de recommandations. Toujours contextualisées.",
+    title: "2 à 3 recommandations. Rattachées à vos scores.",
     lead: "Le Rapport d'équipe ne liste pas des scores.",
-    rest: "Il interprète les tendances et génère 2 à 3 recommandations selon le contexte de la semaine. Chaque recommandation appartient à l'un de ces 3 types, définis par l'IA en fonction du signal détecté.",
+    rest: "Il interprète les tendances et génère 2 à 3 recommandations selon le contexte de la semaine. Chaque recommandation est rattachée à la dimension à laquelle elle répond, ce qui vous permet de voir immédiatement quel score elle cherche à faire bouger.",
     detail: {
       label: "Ce que l'IA analyse",
-      text: "Score absolu de la semaine, delta vs semaine N-1, tendance sur 3 semaines, taux de réponse et présence de silences. La recommandation combine ces signaux, pas juste le dernier score.",
+      text: "Score absolu de la semaine, delta vs semaine N-1 et tendance sur 3 semaines. La recommandation combine ces signaux, pas juste le dernier score.",
     },
   },
   {
@@ -113,13 +113,13 @@ const features: Feature[] = [
     tag: "Anonymat",
     title: "Ce que vous ne pouvez pas voir. Même si vous le voulez.",
     lead: "L'anonymat de HeedUp est une contrainte d'architecture, pas un paramètre.",
-    rest: "La participation est volontaire : vos salariés choisissent de rejoindre, ce qui renforce la qualité des réponses. Le système ne stocke jamais de lien entre une réponse et un salarié. Techniquement, même si vous demandiez à notre équipe qui a répondu quoi, nous ne pourrions pas vous répondre.",
+    rest: "Répondre reste facultatif : chaque email porte un lien de désinscription, et le manager ne voit jamais qui s'est désinscrit. Le système ne stocke jamais de lien entre une réponse et un salarié. Techniquement, même si vous demandiez à notre équipe qui a répondu quoi, nous ne pourrions pas vous répondre.",
     detail: {
       label: "Seuil de protection statistique",
-      text: "Si moins de 5 salariés ont répondu cette semaine, aucun score n'est affiché. Ce seuil protège l'anonymat dans les petites équipes où un score pourrait trahir un répondant.",
+      text: "Si moins de 5 salariés ont répondu complètement cette semaine, aucun score n'est affiché. La synthèse des commentaires suit un seuil distinct : elle demande 5 commentaires. Ces seuils protègent l'anonymat dans les petites équipes.",
     },
     bullets: [
-      "Token UUID aléatoire régénéré chaque semaine",
+      "Jeton aléatoire de 32 octets, régénéré chaque semaine, stocké uniquement sous forme hachée",
       "Impossible de tracer un salarié dans le temps",
       "Vous voyez uniquement des scores agrégés",
     ],
@@ -133,11 +133,11 @@ const features: Feature[] = [
     lead: "Le Rapport d'équipe du lundi est votre outil d'action.",
     rest: "Le tableau de bord est votre outil de compréhension. Quand un score descend, le dashboard vous permet de voir si c'est un accident ou une tendance installée depuis 3 semaines.",
     detail: {
-      label: "Alerte automatique",
-      text: "Si un score passe sous 3/5 deux semaines consécutives, une alerte est générée automatiquement dans votre rapport. Vous n'avez pas à surveiller le dashboard, il vous prévient.",
+      label: "Vigilance humaine",
+      text: "Quand un commentaire évoque une situation grave, le rapport signale qu'une vigilance humaine est recommandée, sans jamais citer le commentaire ni son auteur.",
     },
     bullets: [
-      "Historique consultable sur 12 semaines",
+      "Historique complet consultable, sans limite de durée",
       "Courbes de tendance par dimension (charge de travail, reconnaissance, clarté, soutien, sens)",
       "Taux de réponse semaine par semaine",
     ],
@@ -149,15 +149,15 @@ const features: Feature[] = [
     tag: "RGPD et données",
     title: "Conforme RGPD. Hébergé en France.",
     lead: "HeedUp est conçu pour être conforme au RGPD par architecture, pas par paramètre.",
-    rest: "Les données de vos salariés sont hébergées en France, minimisées au strict nécessaire, et l'anonymat est garanti par conception. La documentation contractuelle est disponible sur demande.",
+    rest: "Les données de vos salariés sont hébergées en France, région Paris, minimisées au strict nécessaire, et l'anonymat est garanti par conception. Deux traitements passent par des prestataires hors UE, l'envoi des emails et la génération de la synthèse, sous clauses contractuelles types. La documentation contractuelle est disponible sur demande.",
     detail: {
       label: "CE QUI EST COLLECTÉ. RIEN D'AUTRE.",
-      text: "Scores numériques de 1 à 5 et token aléatoire non-traçable. Aucune donnée nominative, aucun commentaire libre, aucune donnée de profil salarié.",
+      text: "Scores numériques de 1 à 5, commentaire libre facultatif, et jeton aléatoire dissocié du salarié à la soumission. L'email professionnel du salarié est conservé pour l'envoi du questionnaire, jamais rattaché à une réponse.",
     },
     bullets: [
-      "Hébergement exclusivement en France",
-      "Aucune donnée nominative côté salariés",
-      "Durée de conservation : 12 mois glissants",
+      "Base de données hébergée en France",
+      "L'email professionnel de chaque salarié est conservé pour permettre l'envoi du questionnaire. Aucune réponse ne lui est rattachée : le lien est supprimé à la soumission.",
+      "Réponses salariés : 12 mois glissants. Autres durées détaillées dans la politique de confidentialité.",
       "Documentation RGPD disponible sur demande",
     ],
   },
@@ -168,7 +168,7 @@ const features: Feature[] = [
     tag: "Onboarding et support",
     title: "10 minutes. Pas 10 semaines.",
     lead: "Aucun projet informatique, aucune intégration SIRH, aucun déploiement.",
-    rest: "Vous importez les emails de votre équipe, vous activez, le premier survey part vendredi. Le support est inclus dans tous les plans, pas derrière un plan Premium.",
+    rest: "Vous importez les emails de votre équipe, vous activez, le premier questionnaire part dans la foulée. Le support est inclus dans tous les plans, pas derrière un plan Premium.",
     detail: {
       label: "Support humain, pas de chatbot",
       text: "Réponse par email sous 24h ouvrées, en français, par une vraie personne qui connaît votre compte. Pas de ticket automatique, pas de FAQ obligatoire avant d'écrire.",
@@ -349,31 +349,34 @@ function VisualQ12() {
 }
 
 function RecoCard({
-  bg,
-  border,
-  iconBg,
-  symbol,
+  dimension,
   title,
   text,
-  symbolColor = "#FFFFFF",
 }: {
-  bg: string;
-  border: string;
-  iconBg: string;
-  symbol: string;
+  dimension: string;
   title: string;
   text: string;
-  symbolColor?: string;
 }) {
   return (
-    <div style={{ background: bg, border: `1px solid ${border}`, borderRadius: "9px", padding: "12px 14px", display: "flex", gap: "10px", alignItems: "flex-start" }}>
-      <div style={{ width: "22px", height: "22px", borderRadius: "5px", background: iconBg, color: symbolColor, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: "13px", flexShrink: 0 }}>
-        {symbol}
+    <div style={{ background: "rgba(67,56,202,0.06)", border: "1px solid rgba(67,56,202,0.15)", borderRadius: "9px", padding: "12px 14px" }}>
+      <div
+        style={{
+          display: "inline-block",
+          fontSize: "9px",
+          fontWeight: 700,
+          textTransform: "uppercase",
+          letterSpacing: "0.6px",
+          color: "var(--indigo)",
+          background: "var(--indigo-pale)",
+          padding: "3px 8px",
+          borderRadius: "20px",
+          marginBottom: "6px",
+        }}
+      >
+        {dimension}
       </div>
-      <div>
-        <div style={{ fontSize: "11.5px", fontWeight: 700, color: "var(--midnight)", marginBottom: "3px" }}>{title}</div>
-        <div style={{ fontSize: "10.5px", color: "var(--text-muted)", lineHeight: 1.5 }}>{text}</div>
-      </div>
+      <div style={{ fontSize: "11.5px", fontWeight: 700, color: "var(--midnight)", marginBottom: "3px" }}>{title}</div>
+      <div style={{ fontSize: "10.5px", color: "var(--text-muted)", lineHeight: 1.5 }}>{text}</div>
     </div>
   );
 }
@@ -382,11 +385,11 @@ function VisualAI() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "8px", width: "100%", maxWidth: "360px" }}>
       <div style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.6px", color: "rgba(13,27,62,0.4)", fontWeight: 700, marginBottom: "4px" }}>
-        3 types de recommandations
+        2 à 3 recommandations, rattachées à vos scores
       </div>
-      <RecoCard bg="rgba(239,68,68,0.06)" border="rgba(239,68,68,0.18)" iconBg="var(--semantic-red)" symbol="!" title="Reconnaissance en baisse 2 semaines" text="Prenez 10 minutes pour un retour individuel à chacun avant vendredi." />
-      <RecoCard bg="rgba(34,197,94,0.06)" border="rgba(34,197,94,0.18)" iconBg="var(--semantic-green)" symbol="↑" title="Clarté en hausse" text="Le point de lundi dernier a eu de l'effet, gardez ce format." />
-      <RecoCard bg="rgba(67,56,202,0.06)" border="rgba(67,56,202,0.18)" iconBg="var(--indigo)" symbol="·" title="Détection de silence" text="3 employés n'ont pas répondu cette semaine. Le silence est aussi un signal. Envoyez un rappel discret avant vendredi." />
+      <RecoCard dimension="Reconnaissance" title="Reconnaissance en baisse depuis 2 semaines" text="Prenez 10 minutes pour un retour individuel à chacun avant vendredi." />
+      <RecoCard dimension="Clarté" title="Clarté en hausse" text="Le point de lundi dernier a eu de l'effet, gardez ce format." />
+      <RecoCard dimension="Charge de travail" title="Charge de travail sous tension" text="Repriorisez une échéance de la semaine et dites-le en réunion d'équipe." />
     </div>
   );
 }

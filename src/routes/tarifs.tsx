@@ -511,7 +511,7 @@ const faqItems = [
   },
   {
     q: "Que se passe-t-il si j'embauche et change de palier ?",
-    a: "Votre facture est automatiquement recalculée au nouveau palier. Attention : franchir un seuil (25, 50 ou 100 salariés) peut réduire votre facture, car le tarif par siège du nouveau palier s'applique à l'ensemble des sièges. Le simulateur ci-dessus vous indique précisément ces zones d'économie.",
+    a: "Votre facture est recalculée au nouveau palier au renouvellement suivant, sur l'effectif constaté ce jour-là. Attention : franchir un seuil (25, 50 ou 100 salariés) peut réduire votre facture, car le tarif par siège du nouveau palier s'applique à l'ensemble des sièges. Le simulateur ci-dessus vous indique précisément ces zones d'économie.",
   },
   {
     q: "Quelle est la différence entre facturation mensuelle et annuelle ?",
