@@ -196,7 +196,7 @@ const faqItems = [
   {
     question: "Combien de temps pour démarrer ?",
     answer:
-      "Moins de 10 minutes une fois l'outil ouvert. Vous importez les emails de votre équipe, HeedUp envoie les invitations, et le rapport arrive le lundi suivant le premier vendredi actif.",
+      "Moins de 10 minutes une fois l'outil ouvert. Vous importez les emails de votre équipe, le premier questionnaire part dans la foulée, et votre premier rapport arrive sous 24 à 48 heures, dès que cinq personnes ont répondu.",
   },
   {
     question: "Que se passe-t-il si peu d'employés répondent ?",
