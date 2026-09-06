@@ -255,7 +255,7 @@ export function RapportDemo({ className }: { className?: string }) {
           >
             <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "#FFFFFF", fontWeight: 600 }}>
               <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--indigo)", display: "inline-block" }} />
-              Rapport d'équipe — {s.date}
+              Rapport d'équipe · {s.date}
             </div>
             <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.5)" }}>{s.week}</div>
           </div>
@@ -288,7 +288,7 @@ export function RapportDemo({ className }: { className?: string }) {
                       color: sc.delta > 0 ? "var(--semantic-green)" : sc.delta < 0 ? "var(--semantic-red)" : "var(--text-muted)",
                     }}
                   >
-                    {sc.delta > 0 ? `▲ ${Math.abs(sc.delta).toFixed(1)}` : sc.delta < 0 ? `▼ ${Math.abs(sc.delta).toFixed(1)}` : "—"}
+                    {sc.delta > 0 ? `▲ ${Math.abs(sc.delta).toFixed(1)}` : sc.delta < 0 ? `▼ ${Math.abs(sc.delta).toFixed(1)}` : "stable"}
                   </div>
                 </div>
               ))}

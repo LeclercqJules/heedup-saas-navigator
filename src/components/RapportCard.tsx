@@ -4,7 +4,7 @@ const DIMENSIONS = [
   { label: "Charge de travail", target: 3.6, change: "▼ 0.3", changeColor: "var(--semantic-red)" },
   { label: "Reconnaissance", target: 3.2, change: "▼ 0.4", changeColor: "var(--semantic-red)" },
   { label: "Clarté", target: 4.0, change: "▲ 0.2", changeColor: "var(--semantic-green)" },
-  { label: "Soutien", target: 4.1, change: "—", changeColor: "var(--text-muted)" },
+  { label: "Soutien", target: 4.1, change: "stable", changeColor: "var(--text-muted)" },
   { label: "Sens", target: 4.3, change: "▲ 0.1", changeColor: "var(--semantic-green)" },
 ];
 
@@ -126,7 +126,7 @@ export function RapportCard({ className }: { className?: string }) {
           }}
         >
           <span style={{ color: "var(--indigo)" }}>●</span>
-          Rapport d'équipe — Lundi 16 juin
+          Rapport d'équipe · Lundi 16 juin
         </div>
         <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)" }}>Semaine 24</div>
       </div>
