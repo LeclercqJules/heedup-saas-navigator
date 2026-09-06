@@ -511,7 +511,7 @@ const faqItems = [
   },
   {
     q: "Que se passe-t-il si j'embauche et change de palier ?",
-    a: "Votre facture est automatiquement recalculée au nouveau palier. Attention : franchir un seuil (25, 50 ou 100 salariés) peut réduire votre facture, car le tarif par siège du nouveau palier s'applique à l'ensemble des sièges. Le simulateur ci-dessus vous indique précisément ces zones d'économie.",
+    a: "Votre facture est recalculée au nouveau palier au renouvellement suivant, sur l'effectif constaté ce jour-là. Attention : franchir un seuil (25, 50 ou 100 salariés) peut réduire votre facture, car le tarif par siège du nouveau palier s'applique à l'ensemble des sièges. Le simulateur ci-dessus vous indique précisément ces zones d'économie.",
   },
   {
     q: "Quelle est la différence entre facturation mensuelle et annuelle ?",
@@ -666,7 +666,30 @@ function SectionPricingCards({
         >
           Plus votre équipe est grande, moins vous payez par siège.
         </p>
+        <div
+          style={{
+            maxWidth: "620px",
+            margin: "20px auto 0",
+            background: "var(--indigo-pale)",
+            border: "1px solid rgba(67,56,202,0.15)",
+            borderRadius: "12px",
+            padding: "16px 20px",
+            fontFamily: "var(--font-sans)",
+            fontSize: "13.5px",
+            lineHeight: 1.65,
+            color: "var(--text-primary)",
+            textAlign: "left",
+          }}
+        >
+          <p style={{ margin: 0 }}>
+            Essai gratuit sur deux rapports, sans carte bancaire. L'essai prend fin dès le second rapport produit, et au plus tard 21 jours après le premier questionnaire envoyé à votre équipe.
+          </p>
+          <p style={{ margin: "10px 0 0" }}>
+            La facturation démarre à 10 sièges. Une équipe de moins de 10 salariés est facturée sur 10 sièges, soit 50 € par mois au palier de base.
+          </p>
+        </div>
       </div>
+
 
       {/* Toggle */}
       <div style={{ textAlign: "center", marginBottom: "40px" }}>

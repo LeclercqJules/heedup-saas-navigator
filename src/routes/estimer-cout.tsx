@@ -5,13 +5,13 @@ import { SiteLayout } from "@/components/SiteLayout";
 export const Route = createFileRoute("/estimer-cout")({
   head: () => ({
     meta: [
-      { title: "Estimez le coût du désengagement — HeedUp" },
+      { title: "Estimez le coût du désengagement | HeedUp" },
       {
         name: "description",
         content:
           "Calculez ce que le désengagement coûte à votre équipe, basé sur les données IBET 2024 et Deloitte 2024.",
       },
-      { property: "og:title", content: "Estimez le coût du désengagement — HeedUp" },
+      { property: "og:title", content: "Estimez le coût du désengagement | HeedUp" },
       {
         property: "og:description",
         content: "Calculez le coût annuel du désengagement pour votre équipe.",
@@ -249,7 +249,7 @@ function EstimerCoutPage() {
                 {fmtEuro(disengaged)}
               </div>
               <div style={{ fontSize: 12, color: "rgba(185,28,28,0.7)", marginTop: 4 }}>
-                13% de vos salariés sont activement désengagés — impliqués en apparence, mais plus vraiment investis dans leur travail. Chacun coûte en moyenne 14 300€/an.
+                13% de vos salariés sont activement désengagés, impliqués en apparence, mais plus vraiment investis dans leur travail. Chacun coûte en moyenne 14 300€/an.
               </div>
               <div style={{ fontSize: 10, color: "rgba(185,28,28,0.4)", marginTop: 6 }}>
                 Source : IBET 2024 · Gallup 2024

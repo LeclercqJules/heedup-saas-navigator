@@ -33,13 +33,13 @@ export const Route = createFileRoute("/bienvenue")({
   },
   head: () => ({
     meta: [
-      { title: "Bienvenue depuis LinkedIn — HeedUp" },
+      { title: "Bienvenue depuis LinkedIn | HeedUp" },
       {
         name: "description",
         content:
           "Le détail concret du rapport d'équipe HeedUp, l'anonymat par conception et la mise en route en 10 minutes.",
       },
-      { property: "og:title", content: "Bienvenue depuis LinkedIn — HeedUp" },
+      { property: "og:title", content: "Bienvenue depuis LinkedIn | HeedUp" },
       {
         property: "og:description",
         content: "Le rapport d'équipe HeedUp en détail, et comment démarrer.",
@@ -111,23 +111,23 @@ const employeeCards = [
   },
   {
     Icon: IconEyeOff,
-    title: "Participation volontaire",
-    text: "Personne n'est obligé de répondre. Vous voyez combien ont participé, jamais qui.",
+    title: "Réponse facultative",
+    text: "Chaque email porte un lien de désinscription. Vous voyez combien ont participé, jamais qui.",
   },
 ];
 
 const anonymityCards = [
   {
     title: "Un token, pas une identité",
-    text: "Chaque réponse est associée à un token aléatoire non traçable, régénéré chaque semaine. Aucune donnée nominative n'est collectée côté salarié.",
+    text: "Jeton aléatoire de 32 octets, régénéré chaque semaine, stocké uniquement sous forme hachée. L'email professionnel de chaque salarié est conservé pour permettre l'envoi du questionnaire. Aucune réponse ne lui est rattachée : le lien est supprimé à la soumission.",
   },
   {
-    title: "Aucun rapport sous 5 réponses",
-    text: "Sur une petite équipe, un chiffre isolé serait identifiable. En dessous du seuil, rien n'est généré : ni scores, ni synthèse.",
+    title: "Aucun score sous 5 réponses",
+    text: "En dessous du seuil, ni scores ni synthèse ne sont produits. Le manager est seulement informé que la participation n'a pas atteint le seuil.",
   },
   {
-    title: "Rien ne quitte l'Europe",
-    text: "Hébergement en France, région Paris. Réponses conservées 12 mois glissants, puis supprimées.",
+    title: "Hébergé en France",
+    text: "Base de données en France, région Paris. Réponses conservées 12 mois glissants, puis supprimées. La synthèse des commentaires est générée par un prestataire établi hors UE, sous clauses contractuelles types.",
   },
 ];
 
@@ -170,14 +170,14 @@ const steps = [
   },
   {
     num: "02",
-    hook: "Le vendredi part tout seul",
-    text: "HeedUp envoie le premier questionnaire le vendredi suivant, puis chaque semaine automatiquement.",
-    badge: "Automatique",
+    hook: "Le premier questionnaire part tout de suite",
+    text: "HeedUp envoie le premier questionnaire dès votre validation, puis chaque vendredi automatiquement. Votre premier rapport arrive sous 24 à 48 heures, dès que cinq personnes ont répondu. Ensuite, le rythme s'installe : questionnaire le vendredi, rapport le lundi.",
+    badge: "Immédiat",
   },
   {
     num: "03",
     hook: "Le rapport arrive lundi",
-    text: "Dans votre boîte mail, avant votre première réunion de la semaine.",
+    text: "Une notification dans votre boîte mail, le rapport dans votre espace, avant votre première réunion de la semaine.",
     badge: "Lecture 30 secondes",
   },
 ];
@@ -186,7 +186,7 @@ const faqItems = [
   {
     question: "Mes salariés vont-ils vraiment répondre ?",
     answer:
-      "La participation est volontaire et anonyme par conception. Les salariés répondent parce qu'ils le choisissent, pas parce qu'ils y sont obligés. C'est précisément ce qui rend les réponses honnêtes et le signal fiable.",
+      "Répondre est facultatif et anonyme par conception. Les salariés répondent parce qu'ils le choisissent, pas parce qu'ils y sont obligés. C'est précisément ce qui rend les réponses honnêtes et le signal fiable.",
   },
   {
     question: "Est-ce que je peux arrêter quand je veux ?",
@@ -196,7 +196,7 @@ const faqItems = [
   {
     question: "Combien de temps pour démarrer ?",
     answer:
-      "Moins de 10 minutes une fois l'outil ouvert. Vous importez les emails de votre équipe, HeedUp envoie les invitations, et le rapport arrive le lundi suivant le premier vendredi actif.",
+      "Moins de 10 minutes une fois l'outil ouvert. Vous importez les emails de votre équipe, le premier questionnaire part dans la foulée, et votre premier rapport arrive sous 24 à 48 heures, dès que cinq personnes ont répondu.",
   },
   {
     question: "Que se passe-t-il si peu d'employés répondent ?",
