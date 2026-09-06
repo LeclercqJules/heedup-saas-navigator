@@ -1526,23 +1526,40 @@ function PhoneVisual() {
           backgroundColor: "#FFFFFF",
           borderRadius: "8px",
           border: "1px solid rgba(67,56,202,0.1)",
-          padding: "10px 14px",
-          display: "flex",
-          alignItems: "center",
-          gap: "10px",
+          padding: "12px 14px",
           marginBottom: "12px",
           fontFamily: "var(--font-sans)",
-          width: "180px",
+          width: "200px",
         }}
       >
-        <Mail size={16} style={{ color: "var(--indigo)", flexShrink: 0 }} />
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--midnight)" }}>
-            HeedUp · Votre questionnaire de la semaine
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <Mail size={16} style={{ color: "var(--indigo)", flexShrink: 0 }} />
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--midnight)" }}>
+              HeedUp · Votre questionnaire de la semaine
+            </div>
+            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginTop: "2px" }}>
+              5 questions · 2 minutes
+            </div>
           </div>
-          <div style={{ fontSize: "10px", color: "var(--text-muted)", marginTop: "2px" }}>
-            5 questions · 2 minutes
-          </div>
+        </div>
+        <div
+          style={{
+            width: "100%",
+            backgroundColor: "var(--indigo)",
+            color: "#FFFFFF",
+            fontSize: "11px",
+            fontWeight: 700,
+            padding: "8px 0",
+            borderRadius: "6px",
+            textAlign: "center",
+            marginTop: "10px",
+          }}
+        >
+          Répondre au questionnaire
+        </div>
+        <div style={{ fontSize: "9px", color: "var(--text-muted)", textAlign: "center", lineHeight: 1.5, marginTop: "8px" }}>
+          Anonyme · Réponse facultative · Lien de désinscription
         </div>
       </div>
 
