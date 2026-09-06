@@ -1718,22 +1718,19 @@ function ScoresVisual() {
 function RecosVisual() {
   const recos = [
     {
-      bg: "var(--semantic-red)",
-      symbol: "↓",
-      title: "Reconnaissance en baisse 2 semaines",
+      dimension: "Reconnaissance",
+      title: "Reconnaissance en baisse depuis 2 semaines",
       sub: "Prenez 10 minutes pour un retour individuel à chacun avant vendredi.",
     },
     {
-      bg: "var(--semantic-green)",
-      symbol: "↑",
+      dimension: "Clarté",
       title: "Clarté en hausse",
       sub: "Le point de lundi dernier a eu de l'effet, gardez ce format.",
     },
     {
-      bg: "var(--indigo)",
-      symbol: "!",
-      title: "3 employés n'ont pas répondu",
-      sub: "Le silence est aussi un signal. Envoyez un rappel discret avant vendredi.",
+      dimension: "Charge de travail",
+      title: "Charge de travail sous tension",
+      sub: "Repriorisez une échéance de la semaine et dites-le en réunion d'équipe.",
     },
   ];
   return (
@@ -1753,7 +1750,7 @@ function RecosVisual() {
       </div>
       {recos.map((r) => (
         <div
-          key={r.symbol + r.title}
+          key={r.title}
           style={{
             backgroundColor: "#FFFFFF",
             borderRadius: "8px",
@@ -1765,24 +1762,23 @@ function RecosVisual() {
             fontFamily: "var(--font-sans)",
           }}
         >
-          <div
-            style={{
-              width: "26px",
-              height: "26px",
-              borderRadius: "6px",
-              backgroundColor: r.bg,
-              color: "#FFFFFF",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "13px",
-              fontWeight: 700,
-              flexShrink: 0,
-            }}
-          >
-            {r.symbol}
-          </div>
           <div style={{ flex: 1 }}>
+            <div
+              style={{
+                display: "inline-block",
+                fontSize: "9px",
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "0.6px",
+                color: "var(--indigo)",
+                background: "var(--indigo-pale)",
+                padding: "3px 8px",
+                borderRadius: "20px",
+                marginBottom: "6px",
+              }}
+            >
+              {r.dimension}
+            </div>
             <div style={{ fontSize: "12px", fontWeight: 700, color: "var(--midnight)" }}>
               {r.title}
             </div>
