@@ -124,22 +124,22 @@ function Index() {
   const faqLeft = [
     {
       q: "Mes employés vont-ils vraiment répondre ?",
-      a: "C'est la question que tous nos bêta-testeurs ont posée. En moyenne, plus de 75% des salariés répondent dès le premier vendredi. La raison principale : l'anonymat est visible et garanti avant même la première réponse. Vos employés savent que vous ne pouvez pas lire leurs réponses individuelles, même si vous le vouliez.",
-      b: "plus de 75% des salariés répondent dès le premier vendredi",
+      a: "Nous visons plus de 75% de participation. Tout est conçu pour ça : cinq questions, deux minutes, aucun compte à créer, une réponse depuis le téléphone. Le reste dépend de vous : un questionnaire devient une routine quand le manager l'installe comme telle et montre ce qu'il en fait.",
+      b: "Nous visons plus de 75% de participation",
     },
     {
       q: "L'anonymat est-il vraiment garanti, ou c'est une promesse ?",
-      a: "C'est une contrainte architecturale, pas une promesse managériale. Les réponses ne sont jamais stockées avec un identifiant nominatif. Même notre équipe ne peut pas retrouver qui a répondu quoi. Vous ne verrez toujours que des scores agrégés, peu importe le nombre de répondants.",
+      a: "C'est une contrainte architecturale, pas une promesse managériale. Les réponses ne sont jamais stockées avec un identifiant nominatif. Même notre équipe ne peut pas retrouver qui a répondu quoi. Vous ne verrez que des scores agrégés, et seulement à partir de 5 réponses complètes.",
       b: "contrainte architecturale, pas une promesse managériale",
     },
     {
       q: "Que reçoit exactement le manager chaque lundi ?",
-      a: "Un email avec votre Rapport d'équipe : 5 scores affichés séparément (charge de travail, reconnaissance, clarté, soutien, sens), le delta par rapport à la semaine précédente, le taux de réponse, et 2 à 3 recommandations managériales concrètes générées par IA. Vous comprenez l'état de votre équipe en moins de 2 minutes.",
+      a: "Un email vous prévient que le rapport est prêt, avec le nombre de réponses reçues. Le rapport lui-même s'ouvre dans votre espace : 5 scores affichés séparément (charge de travail, reconnaissance, clarté, soutien, sens), le delta par rapport à la semaine précédente, et 2 à 3 recommandations managériales concrètes générées par IA. Le rapport reste derrière votre mot de passe plutôt que dans une boîte mail qui peut être transférée. Vous comprenez l'état de votre équipe en moins de 2 minutes.",
       b: "Rapport d'équipe",
     },
     {
       q: "Combien de temps ça prend à mettre en place ?",
-      a: "Moins de 10 minutes. Vous créez votre compte, importez les emails de votre équipe (CSV ou saisie manuelle), et activez le premier survey. Aucun IT requis, aucun déploiement. Le premier survey part automatiquement le vendredi suivant.",
+      a: "Moins de 10 minutes. Vous créez votre compte, importez les emails de votre équipe (CSV ou saisie manuelle), et activez le premier survey. Aucun IT requis, aucun déploiement. Vous lancez le premier questionnaire immédiatement depuis votre espace, puis les envois deviennent automatiques chaque vendredi.",
       b: "Aucun IT requis, aucun déploiement",
     },
     {
@@ -157,7 +157,7 @@ function Index() {
     },
     {
       q: "Que se passe-t-il si peu d'employés répondent ?",
-      a: "Sous 5 répondants, les scores ne sont pas affichés pour préserver l'anonymat statistique. Vous recevez une alerte avec le faible taux de participation et une suggestion pour améliorer l'adhésion. En pratique, nos bêta-testeurs observent un taux supérieur à 70% dès la deuxième semaine.",
+      a: "Sous 5 réponses complètes, les scores ne sont pas affichés pour préserver l'anonymat statistique. Vous recevez un email vous indiquant que le seuil n'est pas atteint, avec des pistes pour améliorer l'adhésion. Ce message ne contient aucun chiffre : publier le nombre de répondants sous le seuil reviendrait à publier une mesure dans la zone que le seuil protège. Notre objectif est une participation supérieure à 70% dès la deuxième semaine.",
       b: "préserver l'anonymat statistique",
     },
     {
@@ -172,7 +172,7 @@ function Index() {
     },
     {
       q: "Où sont hébergées les données de mes employés ?",
-      a: "En France. HeedUp utilise Supabase sur la région Paris (eu-west-3), ce qui garantit que vos données ne quittent pas le territoire français. La documentation RGPD, dont le DPA et le registre de traitement, est disponible sur demande. Conforme RGPD par conception.",
+      a: "En France. HeedUp utilise Supabase sur la région Paris (eu-west-3). Deux traitements passent par des prestataires hors UE, l'envoi des emails et la génération de la synthèse, détaillés dans la politique de confidentialité. La documentation RGPD, dont le DPA et le registre de traitement, est disponible sur demande.",
       b: "En France",
     },
   ];
@@ -252,47 +252,36 @@ function Index() {
       rest: (
         <>Moins de 10 minutes, aucune installation de leur côté. Aucun appel commercial requis, mise en place immédiate.</>
       ),
-      calloutLabel: "ACTIF DÈS CE VENDREDI",
-      calloutText: "Vous configurez une fois. HeedUp envoie automatiquement chaque semaine, sans que vous ayez à y penser.",
+      calloutLabel: "ACTIF IMMÉDIATEMENT",
+      calloutText: "Vous lancez le premier questionnaire immédiatement depuis votre espace, puis les envois deviennent automatiques chaque vendredi.",
       visual: "setup" as const,
     },
     {
       num: "02",
-      label: "Vos salariés\nconfirment",
-      badge: "Dans les 24h",
-      title: "Vos salariés confirment leur participation.",
-      lead: "Chaque salarié reçoit une invitation par email et choisit de rejoindre le survey.",
-      rest: <>Vous voyez combien ont rejoint. Jamais qui.</>,
-      calloutLabel: "OPT-IN ET ANONYMAT",
-      calloutText: "La participation est volontaire. Ce choix libre est ce qui rend les réponses honnêtes. Vos salariés répondent parce qu'ils veulent, pas parce qu'ils y sont obligés.",
-      visual: "invite" as const,
-    },
-    {
-      num: "03",
       label: "5 questions\nanonymes",
-      badge: "Vendredi · 9h00",
+      badge: "Envoi immédiat, puis vendredi",
       title: "5 questions anonymes",
       lead: "Vos salariés reçoivent un lien par email.",
       rest: (
-        <>Ils répondent en 2 minutes, depuis leur téléphone ou ordinateur. Pas de compte à créer, <span style={{ fontWeight: 700 }}>anonymat</span> garanti dès la première réponse.</>
+        <>Ils répondent en 2 minutes, depuis leur téléphone ou ordinateur. Pas de compte à créer, <span style={{ fontWeight: 700 }}>anonymat</span> garanti dès la première réponse. Répondre reste facultatif. Chaque email porte un lien de désinscription, et vous n'êtes jamais informé de qui s'est désinscrit.</>
       ),
-      calloutLabel: "TAUX DE RÉPONSE MOYEN",
+      calloutLabel: "OBJECTIF DE PARTICIPATION",
       calloutText: "L'anonymat garanti dès le premier écran est le principal facteur de réponse. Vos salariés répondent parce qu'ils savent que c'est vrai.",
       visual: "phone" as const,
     },
     {
-      num: "04",
+      num: "03",
       label: "Votre Rapport\nd'équipe",
-      badge: "Lundi · 8h00",
+      badge: "Lundi matin",
       title: "Votre Rapport d'équipe",
       lead: "5 scores agrégés (charge de travail, reconnaissance, clarté, soutien, sens), la tendance de la semaine, et le signal à surveiller en priorité.",
-      rest: <>Vous comprenez l'état de votre équipe en 2 minutes.</>,
+      rest: <>Vous comprenez l'état de votre équipe en 2 minutes. Vous lancez le premier questionnaire immédiatement. Votre premier rapport arrive sous 24 à 48 heures, dès que cinq personnes ont répondu. Ensuite, le rythme s'installe : questionnaire le vendredi, rapport le lundi.</>,
       calloutLabel: "PAS UN DASHBOARD À INTERPRÉTER",
       calloutText: "Les scores arrivent avec le contexte. Vous voyez immédiatement ce qui change et dans quel sens.",
       visual: "scores" as const,
     },
     {
-      num: "05",
+      num: "04",
       label: "Vous agissez,\nvous mesurez",
       badge: "Dans la semaine",
       title: "Vous agissez, vous mesurez",
@@ -393,7 +382,7 @@ function Index() {
                   marginTop: "6px",
                 }}
               >
-                Trois actions managériales par IA, chaque lundi.
+                Deux à trois actions managériales par IA, chaque lundi.
               </span>
             </h1>
 
@@ -715,7 +704,7 @@ function Index() {
                 key: "cout-chronique",
                 eyebrow: "COÛT CHRONIQUE",
                 figureNode: <span style={{ whiteSpace: "nowrap" }}>~<CountUp target={14300} format={fmtThousands} /> €</span>,
-                label: "par salarié et par an, le coût du désengagement — des salariés présents mais qui ont décroché — avant même le moindre départ.",
+                label: "par salarié et par an, le coût du désengagement, des salariés présents mais qui ont décroché, avant même le moindre départ.",
                 source: "IBET, 2024",
               },
               {
@@ -1087,8 +1076,7 @@ function Index() {
               }}
             >
             {current.visual === "setup" && <SetupVisual />}
-              {current.visual === "invite" && <InviteVisual />}
-              {current.visual === "phone" && <PhoneVisual />}
+                            {current.visual === "phone" && <PhoneVisual />}
               {current.visual === "scores" && <ScoresVisual />}
               {current.visual === "recos" && <RecosVisual />}
             </div>
@@ -1522,8 +1510,8 @@ function SetupVisual() {
       />
       <SetupRow
         icon={<Rocket size={16} strokeWidth={2} />}
-        title="Premier survey planifié"
-        subtitle="Vendredi 13 juin · 9h00"
+        title="Premier questionnaire lancé"
+        subtitle="Envoi immédiat, puis chaque vendredi"
       />
     </div>
   );
