@@ -387,7 +387,7 @@ const features = [
   {
     icon: IconShieldCheck,
     title: "RGPD documenté et vérifiable",
-    desc: "DPA fourni à la signature, registre de traitement inclus, hébergement Paris eu-west-3.",
+    desc: "DPA sur demande, registre de traitement inclus, hébergement Paris eu-west-3.",
   },
   {
     icon: IconEyeOff,

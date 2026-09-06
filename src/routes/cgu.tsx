@@ -4,7 +4,7 @@ import { SiteLayout } from "@/components/SiteLayout";
 export const Route = createFileRoute("/cgu")({
   head: () => ({
     meta: [
-      { title: "Conditions générales — HeedUp" },
+      { title: "Conditions générales - HeedUp" },
       {
         name: "description",
         content:
@@ -24,12 +24,12 @@ const sections: { title: string; content: string }[] = [
   {
     title: "Accès au service",
     content:
-      "HeedUp est accessible en ligne sur heedup.fr. L'inscription est ouverte à toute personne morale ou physique agissant dans un cadre professionnel, disposant d'une équipe d'au moins 10 salariés. L'accès est conditionné au paiement de l'abonnement correspondant à la taille de l'équipe.",
+      "HeedUp est accessible en ligne sur heedup.fr. L'inscription est ouverte à toute personne morale ou physique agissant dans un cadre professionnel, disposant d'une équipe d'au moins 10 salariés. L'accès débute par un essai gratuit portant sur deux rapports d'équipe, sans carte bancaire. L'essai prend fin dès la production du second rapport, et au plus tard 21 jours après le premier questionnaire envoyé à l'équipe. À son terme, les envois et les rapports s'interrompent, et l'accès est conditionné au paiement de l'abonnement correspondant à la taille de l'équipe. Les rapports déjà produits restent consultables.",
   },
   {
     title: "Ce que HeedUp fournit",
     content:
-      "Envoi automatique de 5 questions anonymes aux salariés chaque vendredi, notées de 1 à 5, accompagnées d'un champ de commentaire libre facultatif. Rapport d'équipe hebdomadaire chaque lundi présentant les cinq scores séparément, leur évolution, une synthèse des thèmes issus des commentaires libres, et des recommandations générées par IA. Tableau de bord présentant l'historique des scores. Support inclus dans tous les abonnements.\n\nAucun rapport n'est généré en dessous de 5 réponses sur la semaine.",
+      "Envoi automatique de 5 questions anonymes aux salariés chaque vendredi, notées de 1 à 5, accompagnées d'un champ de commentaire libre facultatif. Rapport d'équipe hebdomadaire chaque lundi présentant les cinq scores séparément, leur évolution, une synthèse des thèmes issus des commentaires libres, et des recommandations générées par IA. Tableau de bord présentant l'historique des scores. Support inclus dans tous les abonnements.\n\nLes scores ne sont produits qu'à partir de 5 réponses complètes sur la semaine. La synthèse des commentaires libres n'est produite qu'à partir de 5 commentaires. En dessous de ces seuils, le rapport est remplacé par une information de participation insuffisante.\n\nChaque email porte un lien de désinscription. Le client ne reçoit que le nombre de désinscriptions, jamais l'identité des personnes concernées.",
   },
   {
     title: "Ce que HeedUp ne fournit pas",
@@ -44,7 +44,7 @@ const sections: { title: string; content: string }[] = [
   {
     title: "Tarifs",
     content:
-      "Le service est facturé par siège selon un barème dégressif affiché sur heedup.fr/tarifs. Jules Leclercq est auto-entrepreneur au régime de la franchise en base de TVA (art. 293 B du CGI). Aucune TVA n'est applicable. Le paiement est effectué par carte bancaire via Stripe.",
+      "Le service est facturé par siège selon un barème dégressif affiché sur heedup.fr/tarifs. Jules Leclercq est auto-entrepreneur au régime de la franchise en base de TVA (art. 293 B du CGI). Aucune TVA n'est applicable. Le paiement est effectué par carte bancaire via Stripe.\n\nLa facturation démarre à 10 sièges. Une équipe de moins de 10 salariés est facturée sur 10 sièges.\n\nSi l'équipe change de taille, le palier et donc le prix par siège s'ajustent au renouvellement suivant, sur l'effectif constaté ce jour-là. Aucune facture intermédiaire n'est émise en cours de période.\n\nEn cas d'échec de paiement, le service est maintenu pendant la période de relance. L'abonnement est résilié à l'issue de cette période sans régularisation.",
   },
   {
     title: "Durée et résiliation",
@@ -97,7 +97,7 @@ function Page() {
               marginBottom: "48px",
             }}
           >
-            CGU et CGV, en vigueur depuis juillet 2026
+            CGU et CGV, en vigueur depuis septembre 2026
           </p>
 
           {sections.map((section, index) => (
