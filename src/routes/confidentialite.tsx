@@ -4,7 +4,7 @@ import { SiteLayout } from "@/components/SiteLayout";
 export const Route = createFileRoute("/confidentialite")({
   head: () => ({
     meta: [
-      { title: "Confidentialité et mentions légales — HeedUp" },
+      { title: "Confidentialité et mentions légales - HeedUp" },
       {
         name: "description",
         content:
@@ -19,33 +19,33 @@ const sections: { title: string; content: string }[] = [
   {
     title: "Mentions légales",
     content:
-      "Éditeur : Jules Leclercq, auto-entrepreneur.\nSIRET : 90077093400017\n32 Cours Pasteur, 33000 Bordeaux, France.\nDirecteur de publication : Jules Leclercq.\nContact : contact@heedup.fr\n\nHébergement frontend : Vercel Inc., 340 Pine Street, San Francisco, CA 94104.\nHébergement des données : serveurs en France (région Paris). Aucune donnée personnelle ne transite hors de l'Union Européenne.",
+      "Éditeur : Jules Leclercq, auto-entrepreneur.\nSIRET : 90077093400017\n32 Cours Pasteur, 33000 Bordeaux, France.\nDirecteur de publication : Jules Leclercq.\nContact : contact@heedup.fr\n\nHébergement frontend : Vercel Inc., 340 Pine Street, San Francisco, CA 94104.\nHébergement des données : serveurs en France (région Paris). Les données sont hébergées en France, région Paris. Deux traitements font intervenir des prestataires établis aux États-Unis : l'envoi des emails et la génération de la synthèse des commentaires libres, à laquelle le texte libre des salariés est transmis. Ces transferts sont encadrés par les clauses contractuelles types de la Commission européenne.",
   },
   {
     title: "Données collectées",
     content:
-      "Côté manager : email, nom, entreprise, taille d'équipe. Les paiements sont traités par Stripe et ne sont jamais stockés par HeedUp.\n\nCôté salarié : aucune donnée nominative. Sont collectés cinq scores numériques de 1 à 5 (charge de travail, reconnaissance, clarté, soutien, sens) et, de façon facultative, un commentaire en texte libre. Ces réponses sont associées à un token aléatoire non traçable, régénéré chaque semaine. Il est techniquement impossible de relier une réponse à un salarié identifié.\n\nTraitement du commentaire libre : le texte n'est jamais transmis au manager, ni cité, ni reformulé. Il est traité automatiquement pour produire une synthèse des thèmes récurrents à l'échelle de l'équipe. Cette synthèse exclut tout nom, projet, date ou détail attribuable à une seule personne. Le manager n'a aucun moyen d'accéder à un commentaire individuel : la donnée n'est pas exposée dans l'interface.\n\nLa documentation contractuelle (DPA et registre) est disponible sur demande à contact@heedup.fr.",
+      "Côté manager : email, nom, entreprise, taille d'équipe. Les paiements sont traités par Stripe et ne sont jamais stockés par HeedUp.\n\nCôté salarié : l'email professionnel est conservé pour permettre l'envoi du questionnaire. Aucune réponse ne lui est rattachée, le lien étant supprimé au moment de la soumission. Sont collectés cinq scores numériques de 1 à 5 (charge de travail, reconnaissance, clarté, soutien, sens) et, de façon facultative, un commentaire en texte libre. Ces réponses sont associées à un token aléatoire non traçable, régénéré chaque semaine. Il est techniquement impossible de relier une réponse à un salarié identifié.\n\nTraitement du commentaire libre : le texte n'est jamais transmis au manager, ni cité, ni reformulé. Il est traité automatiquement pour produire une synthèse des thèmes récurrents à l'échelle de l'équipe. Cette synthèse exclut tout nom, projet, date ou détail attribuable à une seule personne. Le manager n'a aucun moyen d'accéder à un commentaire individuel : la donnée n'est pas exposée dans l'interface.\n\nLa documentation contractuelle (DPA et registre) est disponible sur demande à contact@heedup.fr.",
   },
 
   {
     title: "Anonymat des réponses",
     content:
-      "L'anonymat est une contrainte d'architecture, pas un paramètre désactivable. Même HeedUp ne peut pas identifier l'auteur d'une réponse individuelle. En dessous de 5 réponses sur la semaine, aucun rapport n'est généré : ni scores, ni synthèse. Sur une petite équipe, un chiffre isolé serait identifiable.",
+      "L'anonymat est une contrainte d'architecture, pas un paramètre désactivable. Même HeedUp ne peut pas identifier l'auteur d'une réponse individuelle. En dessous de 5 réponses complètes sur la semaine, aucun score et aucune synthèse ne sont produits. Le manager est informé que le seuil n'est pas atteint, sans aucun chiffre sur la participation.",
   },
   {
     title: "Hébergement et sécurité",
     content:
-      "Toutes les données sont hébergées en France, sur des serveurs situés en région parisienne. Les communications sont chiffrées via HTTPS. Aucune donnée personnelle ne transite hors de l'Union Européenne.",
+      "Toutes les données sont hébergées en France, sur des serveurs situés en région parisienne. Les communications sont chiffrées via HTTPS. Les données sont hébergées en France, région Paris. Deux traitements font intervenir des prestataires établis aux États-Unis : l'envoi des emails et la génération de la synthèse des commentaires libres, à laquelle le texte libre des salariés est transmis. Ces transferts sont encadrés par les clauses contractuelles types de la Commission européenne.",
   },
   {
     title: "Sous-traitants",
     content:
-      "Les données des salariés sont hébergées en France, région Paris. Les prestataires suivants interviennent dans le fonctionnement du service :\n\nSupabase, hébergement de la base de données, région Paris.\nVercel Inc., hébergement de l'interface web.\nStripe, traitement des paiements.\nResend, envoi des emails transactionnels.\nAnthropic, génération de la synthèse des commentaires libres.\n\nLa liste complète et à jour, ainsi que le registre de traitement, sont disponibles sur demande à contact@heedup.fr.",
+      "Les données des salariés sont hébergées en France, région Paris. Les prestataires suivants interviennent dans le fonctionnement du service :\n\nSupabase, hébergement de la base de données, région Paris.\nVercel Inc., hébergement de l'interface web.\nStripe, traitement des paiements.\nResend, envoi des emails transactionnels.\nAnthropic, génération de la synthèse des commentaires libres.\nGoogle, authentification des comptes managers. Adresse email, nom et photo de profil transmis à la connexion.\n\nLa liste complète et à jour, ainsi que le registre de traitement, sont disponibles sur demande à contact@heedup.fr.",
   },
   {
     title: "Durée de conservation",
     content:
-      "Réponses anonymisées et commentaires libres : 12 mois glissants, puis suppression.\nDonnées managers : durée de l'abonnement plus 12 mois après résiliation.\nDonnées de facturation : 10 ans (obligation légale comptable).",
+      "Réponses anonymisées et commentaires libres : 12 mois glissants, puis suppression automatique.\nRapports d'équipe produits : conservés pendant toute la durée du compte, afin que l'historique reste consultable. Ils ne contiennent aucune donnée nominative.\nConversations avec l'assistant du site, y compris les coordonnées éventuellement laissées : conservées jusqu'à demande de suppression.\nOpposition à l'envoi du questionnaire : conservée tant que le compte existe, afin que l'opposition ne soit pas perdue.\nDonnées managers : durée de l'abonnement plus 12 mois après résiliation.\nDonnées de facturation : 10 ans, obligation légale comptable.",
   },
   {
     title: "Cookies",
@@ -56,7 +56,7 @@ const sections: { title: string; content: string }[] = [
   {
     title: "Vos droits",
     content:
-      "Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour toute demande : contact@heedup.fr\n\nRéclamation possible auprès de la CNIL : www.cnil.fr",
+      "Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour toute demande : contact@heedup.fr\n\nLe questionnaire hebdomadaire peut être arrêté à tout moment depuis le lien présent en bas de chaque email, sans passer par votre employeur, qui n'est pas informé des désinscriptions individuelles.\n\nRéclamation possible auprès de la CNIL : www.cnil.fr",
   },
 ];
 
@@ -84,7 +84,7 @@ function Page() {
               marginBottom: "48px",
             }}
           >
-            Dernière mise à jour : juillet 2026
+            Dernière mise à jour : septembre 2026
           </p>
 
           {sections.map((section, index) => (
