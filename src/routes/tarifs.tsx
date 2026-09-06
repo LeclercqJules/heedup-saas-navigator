@@ -666,7 +666,30 @@ function SectionPricingCards({
         >
           Plus votre équipe est grande, moins vous payez par siège.
         </p>
+        <div
+          style={{
+            maxWidth: "620px",
+            margin: "20px auto 0",
+            background: "var(--indigo-pale)",
+            border: "1px solid rgba(67,56,202,0.15)",
+            borderRadius: "12px",
+            padding: "16px 20px",
+            fontFamily: "var(--font-sans)",
+            fontSize: "13.5px",
+            lineHeight: 1.65,
+            color: "var(--text-primary)",
+            textAlign: "left",
+          }}
+        >
+          <p style={{ margin: 0 }}>
+            Essai gratuit sur deux rapports, sans carte bancaire. L'essai prend fin dès le second rapport produit, et au plus tard 21 jours après le premier questionnaire envoyé à votre équipe.
+          </p>
+          <p style={{ margin: "10px 0 0" }}>
+            La facturation démarre à 10 sièges. Une équipe de moins de 10 salariés est facturée sur 10 sièges, soit 50 € par mois au palier de base.
+          </p>
+        </div>
       </div>
+
 
       {/* Toggle */}
       <div style={{ textAlign: "center", marginBottom: "40px" }}>
