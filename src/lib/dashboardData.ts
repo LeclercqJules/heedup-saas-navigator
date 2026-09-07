@@ -62,6 +62,12 @@ export type DashboardData = {
   orgName: string | null;
   hasSurveys: boolean;
   employeeCount: number | null;
+  /** Statut lu tel quel. Ne jamais recalculer une expiration depuis trialEndsAt. */
+  subscriptionStatus: string | null;
+  trialEndsAt: string | null;
+  stripeCustomerId: string | null;
+  /** Rapports réellement produits : les semaines sous le seuil sont exclues. */
+  reportCount: number | null;
   reload: () => void;
 };
 
