@@ -1366,3 +1366,14 @@ body:has(#repondre-root) {
 .rapport-demo-zoom-card {
   animation: rapportDemoFade 0.25s ease;
 }
+
+.heedup-sub-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+@media (max-width: 640px) {
+  .heedup-sub-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
+import { toast } from "sonner";
 import { heedupClient } from "@/config/heedupClient";
+import { GENERIC_ERROR, openBillingPortalSession } from "@/lib/subscriptionApi";
 
 const items = [
   { to: "/dashboard", label: "Rapports" },
@@ -15,6 +17,7 @@ function AccountMenu() {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+  const [billingBusy, setBillingBusy] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -102,6 +105,57 @@ function AccountMenu() {
             zIndex: 60,
           }}
         >
+          <button
+            type="button"
+            role="menuitem"
+            disabled={billingBusy}
+            onClick={async () => {
+              setBillingBusy(true);
+              const result = await openBillingPortalSession();
+              if (!result.failed && result.status === "ok" && result.url) {
+                window.location.href = result.url;
+                return;
+              }
+              setBillingBusy(false);
+              setOpen(false);
+              if (result.message.includes("souscrivez pour accéder à vos factures")) {
+                navigate({ to: "/dashboard/abonnement" });
+                return;
+              }
+              if (result.message.includes("terminez la création de votre espace")) {
+                navigate({ to: "/onboarding" });
+                return;
+              }
+              toast.error(GENERIC_ERROR);
+            }}
+            style={{
+              display: "block",
+              width: "100%",
+              textAlign: "left",
+              background: "transparent",
+              border: "none",
+              borderRadius: "8px",
+              padding: "10px 12px",
+              fontFamily: "var(--font-sans)",
+              fontSize: "14px",
+              fontWeight: 500,
+              color: "var(--text-primary)",
+              cursor: billingBusy ? "default" : "pointer",
+              opacity: billingBusy ? 0.6 : 1,
+              transition: "opacity 0.2s ease, background 0.2s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "var(--indigo-pale)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "transparent";
+            }}
+          >
+            {billingBusy ? "Ouverture…" : "Facturation"}
+          </button>
+
+          <div style={{ height: "1px", background: "rgba(13,27,62,0.10)", margin: "6px 4px" }} />
+
           <button
             type="button"
             role="menuitem"

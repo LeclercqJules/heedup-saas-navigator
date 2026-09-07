@@ -5,6 +5,10 @@ import { useDashboardData } from "@/lib/dashboardData";
 
 export const Route = createFileRoute("/dashboard")({
   ssr: false,
+  validateSearch: (search: Record<string, unknown>): { abonnement?: string } => {
+    const value = search["abonnement"];
+    return typeof value === "string" ? { abonnement: value } : {};
+  },
   head: () => ({
     meta: [
       { title: "Tableau de bord · HeedUp" },
