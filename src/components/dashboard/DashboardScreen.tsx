@@ -668,12 +668,14 @@ function LaunchCard({ data }: { data: DashboardData }) {
   const [notice, setNotice] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showEquipeLink, setShowEquipeLink] = useState(false);
+  const [showAbonnementLink, setShowAbonnementLink] = useState(false);
 
   const launch = async () => {
     setSending(true);
     setNotice(null);
     setErrorMessage(null);
     setShowEquipeLink(false);
+    setShowAbonnementLink(false);
     try {
       const { data: result, error } = await heedupClient.functions.invoke("send-first-survey");
       const message =
@@ -697,6 +699,11 @@ function LaunchCard({ data }: { data: DashboardData }) {
       if (message.includes("aucun salarié à solliciter")) {
         setErrorMessage("Aucun salarié ne peut être sollicité pour le moment. Vérifiez la liste de votre équipe.");
         setShowEquipeLink(true);
+        return;
+      }
+      if (message.includes("période d'essai est terminée")) {
+        setErrorMessage((result as { message: string }).message);
+        setShowAbonnementLink(true);
         return;
       }
       if (message.includes("n'est pas actif")) {
@@ -749,6 +756,13 @@ function LaunchCard({ data }: { data: DashboardData }) {
                   Voir mon équipe
                 </Link>
               </>
+            ) : null}
+            {showAbonnementLink ? (
+              <div style={{ marginTop: "16px" }}>
+                <Link to="/dashboard/abonnement" style={primaryLinkStyle}>
+                  S'abonner
+                </Link>
+              </div>
             ) : null}
           </div>
         ) : null}
