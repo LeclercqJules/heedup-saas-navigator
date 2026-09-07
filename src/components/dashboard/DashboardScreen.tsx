@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 import { Link, useNavigate } from "@tanstack/react-router";
 import { DashTopBar } from "@/components/dashboard/DashNav";
 import { heedupClient } from "@/config/heedupClient";
+import { SubscriptionBanner } from "@/components/dashboard/SubscriptionBanner";
 import {
   DIMENSIONS,
   DIMENSION_LABELS,
@@ -425,7 +426,7 @@ function BelowThresholdView({ rapport, data }: { rapport: Rapport; data: Dashboa
   const { orgName, effectif, rapports } = data;
   const recos = rapport.recommendations ?? [];
   return (
-    <Shell orgName={orgName}>
+    <Shell orgName={orgName} data={data}>
       <div style={{ marginBottom: "24px" }}>
         <h1 style={{ fontFamily: "var(--font-display)", fontSize: "32px", color: "var(--midnight)" }}>
           Rapport d'équipe
@@ -485,7 +486,7 @@ function ReportView({
   const recos = rapport.recommendations ?? [];
 
   return (
-    <Shell orgName={orgName} narrow>
+    <Shell orgName={orgName} narrow data={data}>
       <WeekStrip rapports={rapports} current={rapport.week_start} />
       <SousLeSeuilCard effectif={effectif} />
 
@@ -715,7 +716,7 @@ function LaunchCard({ data }: { data: DashboardData }) {
   };
 
   return (
-    <Shell orgName={data.orgName}>
+    <Shell orgName={data.orgName} data={data}>
       <div style={cardStyle}>
         <h2 style={{ ...blockTitleStyle, fontSize: "24px", marginBottom: "12px" }}>Lancez votre premier questionnaire</h2>
         <div style={bodyStyle}>
@@ -766,7 +767,7 @@ export function DashboardContent({ data, weekStart }: { data: DashboardData; wee
   if (weekStart !== undefined && weekStart !== null) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(weekStart)) {
       return (
-        <Shell orgName={orgName}>
+        <Shell orgName={orgName} data={data}>
           <EmptyCard title="Semaine introuvable">
             <p>Ce lien ne correspond pas à une semaine valide.</p>
             {rapports.length > 0 ? (
@@ -783,7 +784,7 @@ export function DashboardContent({ data, weekStart }: { data: DashboardData; wee
     const index = rapports.findIndex((r) => r.week_start === weekStart);
     if (index === -1) {
       return (
-        <Shell orgName={orgName}>
+        <Shell orgName={orgName} data={data}>
           <EmptyCard title="Pas de rapport pour cette semaine">
             <p>
               Un rapport a besoin d'au moins cinq réponses complètes. En dessous de ce seuil, rien n'est publié : une
@@ -810,7 +811,7 @@ export function DashboardContent({ data, weekStart }: { data: DashboardData; wee
     if (!hasSurveys) {
       if (employeeCount === 0) {
         return (
-          <Shell orgName={orgName}>
+          <Shell orgName={orgName} data={data}>
             <div style={cardStyle}>
               <h2 style={{ ...blockTitleStyle, fontSize: "24px", marginBottom: "12px" }}>Il reste une étape</h2>
               <div style={bodyStyle}>
@@ -829,7 +830,7 @@ export function DashboardContent({ data, weekStart }: { data: DashboardData; wee
       return <LaunchCard data={data} />;
     }
     return (
-      <Shell orgName={orgName}>
+      <Shell orgName={orgName} data={data}>
         <EmptyCard title="Votre rapport est en préparation">
           <p>
             Vos salariés ont reçu le questionnaire. Votre rapport sera disponible dès que cinq réponses complètes
