@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
+import { toast } from "sonner";
 import { heedupClient } from "@/config/heedupClient";
+import { GENERIC_ERROR, openBillingPortalSession } from "@/lib/subscriptionApi";
 
 const items = [
   { to: "/dashboard", label: "Rapports" },
@@ -15,6 +17,7 @@ function AccountMenu() {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+  const [billingBusy, setBillingBusy] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
