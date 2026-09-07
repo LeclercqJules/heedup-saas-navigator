@@ -701,7 +701,7 @@ function LaunchCard({ data }: { data: DashboardData }) {
         setShowEquipeLink(true);
         return;
       }
-      if (message.includes("période d'essai est terminée")) {
+      if (message.includes("essai est termin")) {
         setErrorMessage((result as { message: string }).message);
         setShowAbonnementLink(true);
         return;
