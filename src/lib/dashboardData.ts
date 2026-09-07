@@ -133,12 +133,16 @@ export function useDashboardData(): DashboardData {
     orgName: null,
     hasSurveys: false,
     employeeCount: null,
+    subscriptionStatus: null,
+    trialEndsAt: null,
+    stripeCustomerId: null,
+    reportCount: null,
   });
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const [rapportsRes, effectifRes, orgRes, surveysRes, employeesRes] = await Promise.all([
+      const [rapportsRes, effectifRes, orgRes, surveysRes, employeesRes, reportCountRes] = await Promise.all([
         heedupClient
           .from("reports")
           .select(
@@ -146,7 +150,10 @@ export function useDashboardData(): DashboardData {
           )
           .order("week_start", { ascending: false }),
         heedupClient.rpc("compter_desinscrits"),
-        heedupClient.from("organizations").select("name").maybeSingle(),
+        heedupClient
+          .from("organizations")
+          .select("name, subscription_status, trial_ends_at, stripe_customer_id")
+          .maybeSingle(),
         heedupClient
           .from("surveys")
           .select("id, week_start, sent_at")
@@ -154,20 +161,31 @@ export function useDashboardData(): DashboardData {
           .order("week_start", { ascending: false })
           .limit(1),
         heedupClient.from("employees").select("id", { count: "exact", head: true }).eq("status", "active"),
+        heedupClient.from("reports").select("*", { count: "exact", head: true }).eq("below_threshold", false),
       ]);
 
       if (cancelled) return;
 
       const effectifRaw = (effectifRes.data ?? null) as Effectif;
       const effectif = !effectifRes.error && effectifRaw && effectifRaw.status !== "error" ? effectifRaw : null;
+      const org = (orgRes.data ?? null) as {
+        name?: string | null;
+        subscription_status?: string | null;
+        trial_ends_at?: string | null;
+        stripe_customer_id?: string | null;
+      } | null;
 
       setState({
         loading: false,
         rapports: ((rapportsRes.data ?? []) as Rapport[]).slice(),
         effectif,
-        orgName: (orgRes.data as { name?: string } | null)?.name ?? null,
+        orgName: org?.name ?? null,
         hasSurveys: Array.isArray(surveysRes.data) && surveysRes.data.length > 0,
         employeeCount: employeesRes.error ? null : (employeesRes.count ?? 0),
+        subscriptionStatus: org?.subscription_status ?? null,
+        trialEndsAt: org?.trial_ends_at ?? null,
+        stripeCustomerId: org?.stripe_customer_id ?? null,
+        reportCount: reportCountRes.error ? null : (reportCountRes.count ?? 0),
       });
     })();
     return () => {
