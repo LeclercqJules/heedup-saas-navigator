@@ -165,16 +165,21 @@ const bodyStyle: CSSProperties = {
 function Shell({
   orgName,
   narrow = false,
+  data,
   children,
 }: {
   orgName?: string | null;
   narrow?: boolean;
+  data?: DashboardData;
   children: ReactNode;
 }) {
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-main)" }}>
       <DashTopBar orgName={orgName} />
-      <div className={narrow ? "heedup-dash-wrap heedup-dash-wrap--narrow" : "heedup-dash-wrap"}>{children}</div>
+      <div className={narrow ? "heedup-dash-wrap heedup-dash-wrap--narrow" : "heedup-dash-wrap"}>
+        {data ? <SubscriptionBanner data={data} /> : null}
+        {children}
+      </div>
     </div>
   );
 }
