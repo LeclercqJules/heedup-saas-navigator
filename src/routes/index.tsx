@@ -471,28 +471,17 @@ function Index() {
                     </div>
                   ))}
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", textAlign: "left" }}>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: "14px",
-                      color: "var(--midnight)",
-                      fontWeight: 500,
-                      lineHeight: 1.3,
-                    }}
-                  >
-                    <span style={{ fontWeight: 700 }}>{count}</span> dirigeants
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: "13px",
-                      color: "var(--text-muted)",
-                      lineHeight: 1.3,
-                    }}
-                  >
-                    déjà sur la liste d'attente
-                  </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "14px",
+                    color: "var(--midnight)",
+                    fontWeight: 700,
+                    lineHeight: 1.3,
+                    textAlign: "left",
+                  }}
+                >
+                  Déjà plus de 20 managers partenaires
                 </div>
               </div>
             </div>
