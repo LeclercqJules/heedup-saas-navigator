@@ -274,15 +274,8 @@ export function Nav() {
                 </Link>
               )}
 
-              <button
-                type="button"
-                {...{
-                  "data-tally-open": "VLBY9E",
-                  "data-tally-overlay": "1",
-                  "data-tally-emoji-text": "👋",
-                  "data-tally-emoji-animation": "wave",
-                  "data-tally-width": "500",
-                }}
+              <Link
+                to="/connexion"
                 onClick={() => setOpen(false)}
                 style={{
                   width: "100%",
@@ -296,10 +289,14 @@ export function Nav() {
                   fontFamily: "var(--font-sans)",
                   border: "none",
                   cursor: "pointer",
+                  textDecoration: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                Accéder au lancement
-              </button>
+                Créer mon espace
+              </Link>
             </div>
           </div>
         </>,
