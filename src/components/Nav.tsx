@@ -118,16 +118,9 @@ export function Nav() {
             </Link>
           )}
 
-          <button
-            type="button"
+          <Link
+            to="/connexion"
             className="heedup-nav-cta"
-            {...{
-              "data-tally-open": "VLBY9E",
-              "data-tally-overlay": "1",
-              "data-tally-emoji-text": "👋",
-              "data-tally-emoji-animation": "wave",
-              "data-tally-width": "500",
-            }}
             style={{
               backgroundColor: "var(--indigo)",
               color: "#FFFFFF",
@@ -138,10 +131,11 @@ export function Nav() {
               fontFamily: "var(--font-sans)",
               border: "none",
               cursor: "pointer",
+              textDecoration: "none",
             }}
           >
-            Accéder au lancement
-          </button>
+            Créer mon espace
+          </Link>
         </div>
 
         <button
