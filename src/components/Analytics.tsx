@@ -10,6 +10,7 @@ const BLOCKED_PREFIXES = [
   "/desinscription",
   "/connexion",
   "/reset-password",
+  "/auth/callback",
   "/dashboard",
   "/onboarding",
   "/admin",

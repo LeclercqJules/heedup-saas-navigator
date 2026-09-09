@@ -24,6 +24,7 @@ import { Route as BienvenueRouteImport } from './routes/bienvenue'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardEquipeRouteImport } from './routes/dashboard_.equipe'
 import { Route as DashboardAbonnementRouteImport } from './routes/dashboard_.abonnement'
+import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AdminConversationsIndexRouteImport } from './routes/admin.conversations.index'
 import { Route as DashboardRapportWeekStartRouteImport } from './routes/dashboard_.rapport.$weekStart'
 import { Route as AdminConversationsSessionIdRouteImport } from './routes/admin.conversations.$sessionId'
@@ -103,6 +104,11 @@ const DashboardAbonnementRoute = DashboardAbonnementRouteImport.update({
   path: '/dashboard/abonnement',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/auth/callback',
+  path: '/auth/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminConversationsIndexRoute = AdminConversationsIndexRouteImport.update({
   id: '/admin/conversations/',
   path: '/admin/conversations/',
@@ -135,6 +141,7 @@ export interface FileRoutesByFullPath {
   '/repondre': typeof RepondreRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/dashboard/abonnement': typeof DashboardAbonnementRoute
   '/dashboard/equipe': typeof DashboardEquipeRoute
   '/admin/conversations/$sessionId': typeof AdminConversationsSessionIdRoute
@@ -155,6 +162,7 @@ export interface FileRoutesByTo {
   '/repondre': typeof RepondreRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/dashboard/abonnement': typeof DashboardAbonnementRoute
   '/dashboard/equipe': typeof DashboardEquipeRoute
   '/admin/conversations/$sessionId': typeof AdminConversationsSessionIdRoute
@@ -176,6 +184,7 @@ export interface FileRoutesById {
   '/repondre': typeof RepondreRoute
   '/reset-password': typeof ResetPasswordRoute
   '/tarifs': typeof TarifsRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/dashboard_/abonnement': typeof DashboardAbonnementRoute
   '/dashboard_/equipe': typeof DashboardEquipeRoute
   '/admin/conversations/$sessionId': typeof AdminConversationsSessionIdRoute
@@ -198,6 +207,7 @@ export interface FileRouteTypes {
     | '/repondre'
     | '/reset-password'
     | '/tarifs'
+    | '/auth/callback'
     | '/dashboard/abonnement'
     | '/dashboard/equipe'
     | '/admin/conversations/$sessionId'
@@ -218,6 +228,7 @@ export interface FileRouteTypes {
     | '/repondre'
     | '/reset-password'
     | '/tarifs'
+    | '/auth/callback'
     | '/dashboard/abonnement'
     | '/dashboard/equipe'
     | '/admin/conversations/$sessionId'
@@ -238,6 +249,7 @@ export interface FileRouteTypes {
     | '/repondre'
     | '/reset-password'
     | '/tarifs'
+    | '/auth/callback'
     | '/dashboard_/abonnement'
     | '/dashboard_/equipe'
     | '/admin/conversations/$sessionId'
@@ -259,6 +271,7 @@ export interface RootRouteChildren {
   RepondreRoute: typeof RepondreRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TarifsRoute: typeof TarifsRoute
+  AuthCallbackRoute: typeof AuthCallbackRoute
   DashboardAbonnementRoute: typeof DashboardAbonnementRoute
   DashboardEquipeRoute: typeof DashboardEquipeRoute
   AdminConversationsSessionIdRoute: typeof AdminConversationsSessionIdRoute
@@ -373,6 +386,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardAbonnementRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/auth/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/conversations/': {
       id: '/admin/conversations/'
       path: '/admin/conversations'
@@ -411,6 +431,7 @@ const rootRouteChildren: RootRouteChildren = {
   RepondreRoute: RepondreRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TarifsRoute: TarifsRoute,
+  AuthCallbackRoute: AuthCallbackRoute,
   DashboardAbonnementRoute: DashboardAbonnementRoute,
   DashboardEquipeRoute: DashboardEquipeRoute,
   AdminConversationsSessionIdRoute: AdminConversationsSessionIdRoute,

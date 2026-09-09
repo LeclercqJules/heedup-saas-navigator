@@ -30,12 +30,22 @@ function AbonnementPage() {
 }
 
 type Feedback = { message: string; portal: boolean } | null;
+type Confirmation = { periodicite: "mensuel" | "annuel"; quantite: number; url: string } | null;
+
+const INCLUS = [
+  "Un questionnaire anonyme envoyé chaque vendredi à votre équipe",
+  "Un rapport d'équipe chaque lundi, avec cinq scores et leur évolution",
+  "Deux à trois recommandations managériales par rapport",
+  "Historique complet, sans limite de durée",
+  "Résiliation à tout moment depuis votre espace",
+];
 
 function AbonnementContent() {
   const navigate = useNavigate();
   const [pending, setPending] = useState<"mensuel" | "annuel" | null>(null);
   const [feedback, setFeedback] = useState<Feedback>(null);
   const [portalBusy, setPortalBusy] = useState(false);
+  const [confirmation, setConfirmation] = useState<Confirmation>(null);
 
   const choisir = async (periodicite: "mensuel" | "annuel") => {
     setPending(periodicite);
@@ -43,7 +53,12 @@ function AbonnementContent() {
     const result = await createCheckoutSession(periodicite);
 
     if (!result.failed && result.status === "ok" && result.url) {
-      window.location.href = result.url;
+      if (result.quantite === null) {
+        window.location.href = result.url;
+        return;
+      }
+      setConfirmation({ periodicite, quantite: result.quantite, url: result.url });
+      setPending(null);
       return;
     }
     if (result.message.includes("terminez la création de votre espace")) {
@@ -110,16 +125,25 @@ function AbonnementContent() {
             fontFamily: "var(--font-sans)",
             fontSize: "15px",
             color: "var(--text-muted)",
-            marginBottom: "28px",
+            marginBottom: "24px",
           }}
         >
           Facturation au nombre de salariés, minimum 10 sièges.
         </p>
 
+        <div className="heedup-sub-list">
+          {INCLUS.map((ligne) => (
+            <div key={ligne} className="heedup-sub-list-item">
+              <span aria-hidden="true" />
+              <div>{ligne}</div>
+            </div>
+          ))}
+        </div>
+
         <div className="heedup-sub-grid">
           <PlanCard
             titre="Mensuel"
-            prix="À partir de 5,00 € par salarié et par mois"
+            prix="À partir de 5,00 €"
             bouton="Choisir le mensuel"
             busy={pending === "mensuel"}
             disabled={locked}
@@ -127,8 +151,8 @@ function AbonnementContent() {
           />
           <PlanCard
             titre="Annuel"
-            prix="À partir de 4,17 € par salarié et par mois"
-            mention="Deux mois offerts"
+            prix="À partir de 4,17 €"
+            badge="Deux mois offerts"
             bouton="Choisir l'annuel"
             busy={pending === "annuel"}
             disabled={locked}
@@ -139,14 +163,25 @@ function AbonnementContent() {
         <p
           style={{
             fontFamily: "var(--font-sans)",
+            fontSize: "15px",
+            lineHeight: 1.65,
+            color: "var(--text-primary)",
+            marginTop: "22px",
+          }}
+        >
+          Le nombre de sièges facturés correspond à vos salariés actifs, avec un minimum de 10. Il est recalculé
+          automatiquement avant chaque échéance : vous n'avez rien à ajuster quand votre équipe change.
+        </p>
+        <p
+          style={{
+            fontFamily: "var(--font-sans)",
             fontSize: "13px",
             lineHeight: 1.65,
             color: "var(--text-muted)",
-            marginTop: "20px",
+            marginTop: "10px",
           }}
         >
-          Le tarif par siège diminue à partir de 25, 50 et 100 salariés. Une équipe de moins de 10 salariés est
-          facturée sur 10 sièges.
+          Le tarif par siège diminue à partir de 25, 50 et 100 salariés.
         </p>
 
         {feedback ? (
@@ -188,6 +223,91 @@ function AbonnementContent() {
           </div>
         ) : null}
       </div>
+
+      {confirmation ? (
+        <ConfirmationModal
+          confirmation={confirmation}
+          onCancel={() => setConfirmation(null)}
+          onContinue={() => {
+            window.location.href = confirmation.url;
+          }}
+        />
+      ) : null}
+    </div>
+  );
+}
+
+function ConfirmationModal({
+  confirmation,
+  onCancel,
+  onContinue,
+}: {
+  confirmation: NonNullable<Confirmation>;
+  onCancel: () => void;
+  onContinue: () => void;
+}) {
+  const sieges =
+    confirmation.quantite === 1
+      ? "1 siège facturé, sur la base de vos salariés actifs."
+      : `${confirmation.quantite} sièges facturés, sur la base de vos salariés actifs.`;
+  const formule =
+    confirmation.periodicite === "mensuel" ? "Formule mensuelle" : "Formule annuelle, deux mois offerts";
+
+  return (
+    <div className="heedup-modal-overlay" role="dialog" aria-modal="true" aria-label="Confirmer votre abonnement">
+      <div className="heedup-modal-card">
+        <h2
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "24px",
+            color: "var(--midnight)",
+            marginBottom: "14px",
+          }}
+        >
+          Confirmer votre abonnement
+        </h2>
+        <p
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "15px",
+            lineHeight: 1.65,
+            color: "var(--text-primary)",
+          }}
+        >
+          {sieges}
+        </p>
+        <p
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "14px",
+            lineHeight: 1.65,
+            color: "var(--text-muted)",
+            marginTop: "12px",
+          }}
+        >
+          {formule}
+        </p>
+        <p
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "14px",
+            lineHeight: 1.65,
+            color: "var(--text-muted)",
+            marginTop: "6px",
+          }}
+        >
+          Le montant exact s'affiche sur la page de paiement sécurisée.
+        </p>
+
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "22px" }}>
+          <button type="button" style={subPrimaryButtonStyle} onClick={onContinue}>
+            Continuer vers le paiement
+          </button>
+          <button type="button" style={subSecondaryButtonStyle} onClick={onCancel}>
+            Annuler
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
@@ -195,7 +315,7 @@ function AbonnementContent() {
 function PlanCard({
   titre,
   prix,
-  mention,
+  badge,
   bouton,
   busy,
   disabled,
@@ -203,7 +323,7 @@ function PlanCard({
 }: {
   titre: string;
   prix: string;
-  mention?: string;
+  badge?: string;
   bouton: string;
   busy: boolean;
   disabled: boolean;
@@ -215,26 +335,33 @@ function PlanCard({
         background: "var(--bg-card)",
         borderRadius: "14px",
         boxShadow: "0 1px 2px rgba(13,27,62,0.04), 0 8px 28px rgba(13,27,62,0.05)",
-        padding: "26px",
+        padding: "32px",
         display: "flex",
         flexDirection: "column",
         gap: "10px",
       }}
     >
       <h2 style={{ fontFamily: "var(--font-display)", fontSize: "22px", color: "var(--midnight)" }}>{titre}</h2>
-      <div
-        style={{
-          fontFamily: "var(--font-sans)",
-          fontSize: "15px",
-          lineHeight: 1.6,
-          color: "var(--text-primary)",
-        }}
-      >
-        {prix}
+      <div style={{ fontFamily: "var(--font-display)", fontSize: "28px", color: "var(--midnight)" }}>{prix}</div>
+      <div style={{ fontFamily: "var(--font-sans)", fontSize: "14px", color: "var(--text-muted)" }}>
+        par salarié et par mois
       </div>
-      {mention ? (
-        <div style={{ fontFamily: "var(--font-sans)", fontSize: "13px", fontWeight: 600, color: "var(--indigo)" }}>
-          {mention}
+      {badge ? (
+        <div>
+          <span
+            style={{
+              display: "inline-block",
+              background: "var(--indigo-pale)",
+              color: "var(--indigo)",
+              fontFamily: "var(--font-sans)",
+              fontSize: "12px",
+              fontWeight: 600,
+              borderRadius: "6px",
+              padding: "4px 10px",
+            }}
+          >
+            {badge}
+          </span>
         </div>
       ) : null}
       <div style={{ marginTop: "12px" }}>
