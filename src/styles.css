@@ -1390,6 +1390,27 @@ body:has(#repondre-root) {
   }
 }
 
+.heedup-trial-banner-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.heedup-trial-banner-inner > p {
+  margin: 0;
+  flex: 1;
+}
+@media (max-width: 640px) {
+  .heedup-trial-banner-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .heedup-trial-banner-inner > button,
+  .heedup-trial-banner-inner > a {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 .heedup-sub-list {
   display: grid;
   gap: 10px;
