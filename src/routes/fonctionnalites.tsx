@@ -1060,16 +1060,10 @@ function Page() {
           Prêt à piloter votre équipe autrement ?
         </h2>
         <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", color: "var(--text-muted)", marginBottom: "26px", lineHeight: 1.6 }}>
-          Rejoignez les {count} dirigeants déjà sur la liste d'attente. Lancement prévu début septembre 2026.
+          Déjà plus de 20 managers partenaires accompagnent leur équipe avec HeedUp.
         </p>
-        <button
-          type="button"
-          {...{
-            "data-tally-open": "VLBY9E",
-            "data-tally-overlay": "1",
-            "data-tally-emoji-text": "👋",
-            "data-tally-emoji-animation": "wave",
-          }}
+        <Link
+          to="/connexion"
           style={{
             background: "var(--indigo)",
             color: "#FFFFFF",
@@ -1080,10 +1074,12 @@ function Page() {
             border: "none",
             cursor: "pointer",
             fontFamily: "var(--font-sans)",
+            textDecoration: "none",
+            display: "inline-block",
           }}
         >
-          Accéder au lancement →
-        </button>
+          Créer mon espace →
+        </Link>
       </section>
     </SiteLayout>
   );
