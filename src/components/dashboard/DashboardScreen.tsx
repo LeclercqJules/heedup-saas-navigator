@@ -856,8 +856,20 @@ export function DashboardContent({ data, weekStart }: { data: DashboardData; wee
     );
   }
 
-  if (rapports[0].below_threshold === true) {
-    return <BelowThresholdView rapport={rapports[0]} data={data} />;
+  const defaultIndex = (() => {
+    const i = rapports.findIndex((r) => r.below_threshold === false);
+    return i === -1 ? 0 : i;
+  })();
+
+  if (rapports[defaultIndex].below_threshold === true) {
+    return <BelowThresholdView rapport={rapports[defaultIndex]} data={data} />;
   }
-  return <ReportView rapport={rapports[0]} data={data} hasPrevious={hasValidPrevious(rapports, 0)} />;
+  return (
+    <ReportView
+      rapport={rapports[defaultIndex]}
+      data={data}
+      hasPrevious={hasValidPrevious(rapports, defaultIndex)}
+    />
+  );
+
 }
