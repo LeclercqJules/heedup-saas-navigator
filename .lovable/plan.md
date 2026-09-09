@@ -32,6 +32,7 @@
 3. Uniformiser tous les blocs social proof identifiés avec « Déjà plus de 20 managers partenaires », sans compteur dynamique ni mention de lancement futur.
 4. Retirer l’écran de refus réapparu dans `/onboarding` et conserver le parcours de création d’espace non bloquant.
 5. Ne modifier aucun autre texte listé dans la section « laissées inchangées ».
+6. Laisser le texte brut de la FAQ des plus de 100 salariés inchangé ; il ne contient pas de lien, donc aucune cible à modifier.
 
 ## Vérifications
 
