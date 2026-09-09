@@ -15,6 +15,7 @@ export type EquipeData = {
   salaries: Salarie[];
   effectif: Effectif;
   organizationId: string | null;
+  subscriptionStatus: string | null;
   refresh: () => Promise<void>;
 };
 
