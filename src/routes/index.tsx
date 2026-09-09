@@ -1379,17 +1379,10 @@ function Index() {
             margin: "0 auto 32px",
           }}
         >
-          Rejoignez les {count} dirigeants déjà sur la liste d'attente. Lancement prévu début septembre 2026.
+          Déjà plus de 20 managers partenaires accompagnent leur équipe avec HeedUp.
         </p>
-        <button
-          type="button"
-          {...{
-            "data-tally-open": "VLBY9E",
-            "data-tally-overlay": "1",
-            "data-tally-emoji-text": "👋",
-            "data-tally-emoji-animation": "wave",
-            "data-tally-width": "500",
-          }}
+        <Link
+          to="/connexion"
           style={{
             backgroundColor: "var(--indigo)",
             color: "#FFFFFF",
@@ -1403,10 +1396,11 @@ function Index() {
             alignItems: "center",
             gap: "8px",
             cursor: "pointer",
+            textDecoration: "none",
           }}
         >
-          Accéder au lancement →
-        </button>
+          Créer mon espace →
+        </Link>
 
       </section>
 
