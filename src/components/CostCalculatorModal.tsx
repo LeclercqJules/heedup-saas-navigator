@@ -349,8 +349,8 @@ export function CostCalculatorModal({ isOpen, onClose }: Props) {
           </div>
         </div>
 
-        <button
-          {...TALLY_ATTRS}
+        <Link
+          to="/connexion"
           style={{
             width: "100%",
             padding: 13,
@@ -363,10 +363,13 @@ export function CostCalculatorModal({ isOpen, onClose }: Props) {
             border: "none",
             marginTop: 16,
             fontFamily: "var(--font-sans)",
+            textDecoration: "none",
+            display: "inline-block",
+            textAlign: "center",
           }}
         >
-          Accéder au lancement →
-        </button>
+          Créer mon espace →
+        </Link>
         <div
           style={{
             fontSize: 12,
