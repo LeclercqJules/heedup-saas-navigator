@@ -520,7 +520,7 @@ function ReportView({
             Rapport d'équipe
           </span>
           <span style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "rgba(255,255,255,0.62)" }}>
-            {participationLine(rapport, effectif)}
+            {participationLine(rapport)}
           </span>
         </div>
 
