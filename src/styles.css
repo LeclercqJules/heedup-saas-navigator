@@ -1059,9 +1059,10 @@ body:has(#repondre-root) {
     grid-template-areas: "org account" "links links";
     row-gap: 8px;
   }
-  .heedup-dash-topbar-inner > *:first-child { grid-area: org; }
-  .heedup-dash-links { grid-area: links; justify-self: start; }
+  .heedup-dash-topbar-inner > *:first-child { grid-area: org; max-width: 100%; }
+  .heedup-dash-links { grid-area: links; justify-self: start; margin-left: 0; }
   .heedup-dash-topbar-inner > *:last-child { grid-area: account; }
+
   .heedup-dash-account-label { display: none; }
 }
 .heedup-dash-wrap {
