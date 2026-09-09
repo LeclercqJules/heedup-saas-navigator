@@ -332,7 +332,7 @@ function BienvenuePage() {
               trois actions pour la semaine.
             </p>
             <Link to="/connexion" className="fade-up fade-up-delay-3" style={{ ...ctaStyle, margin: "0 0 14px", display: "inline-block" }}>
-              Créer mon espace →
+              Créer mon espace
             </Link>
             <Link to="/fonctionnalites" style={textLink}>
               Voir toutes les fonctionnalités →
@@ -789,7 +789,7 @@ function BienvenuePage() {
             Déjà plus de 20 managers partenaires accompagnent leur équipe avec HeedUp.
           </p>
           <Link to="/connexion" style={ctaStyle}>
-            Créer mon espace →
+            Créer mon espace
           </Link>
 
           <div

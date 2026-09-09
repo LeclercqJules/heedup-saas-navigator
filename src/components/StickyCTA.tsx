@@ -48,7 +48,7 @@ export function StickyCTA() {
           textAlign: "center",
         }}
       >
-        Créer mon espace →
+        Créer mon espace
       </Link>
     </div>
   );

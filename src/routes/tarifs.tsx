@@ -1039,7 +1039,7 @@ function SectionCta() {
           display: "inline-block",
         }}
       >
-        Créer mon espace →
+        Créer mon espace
       </Link>
     </section>
   );

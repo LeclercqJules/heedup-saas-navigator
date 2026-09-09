@@ -334,7 +334,7 @@ function EstimerCoutPage() {
               textAlign: "center",
             }}
           >
-            Créer mon espace →
+            Créer mon espace
           </Link>
           <div
             style={{

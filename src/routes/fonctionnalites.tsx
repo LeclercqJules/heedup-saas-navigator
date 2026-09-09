@@ -1078,7 +1078,7 @@ function Page() {
             display: "inline-block",
           }}
         >
-          Créer mon espace →
+          Créer mon espace
         </Link>
       </section>
     </SiteLayout>

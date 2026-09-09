@@ -130,7 +130,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 padding: 0,
               }}
             >
-              Commencer maintenant →
+              Commencer maintenant
             </Link>
           </div>
         )}

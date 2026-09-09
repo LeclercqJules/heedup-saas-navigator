@@ -369,7 +369,7 @@ export function CostCalculatorModal({ isOpen, onClose }: Props) {
             textAlign: "center",
           }}
         >
-          Créer mon espace →
+          Créer mon espace
         </Link>
         <div
           style={{

@@ -426,7 +426,7 @@ function Index() {
                   textDecoration: "none",
                 }}
               >
-                Créer mon espace →
+                Créer mon espace
               </Link>
 
               <div
@@ -1399,7 +1399,7 @@ function Index() {
             textDecoration: "none",
           }}
         >
-          Créer mon espace →
+          Créer mon espace
         </Link>
 
       </section>
