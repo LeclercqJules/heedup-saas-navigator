@@ -223,7 +223,7 @@ function LigneSalarie({
 }
 
 export function EquipeContent() {
-  const { loading, salaries, effectif, organizationId, refresh } = useEquipeData();
+  const { loading, salaries, effectif, organizationId, subscriptionStatus, refresh } = useEquipeData();
   const [email, setEmail] = useState("");
   const [ajoutMessage, setAjoutMessage] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -235,6 +235,7 @@ export function EquipeContent() {
   const actifs = effectif?.salaries_actifs ?? null;
   const desinscrits = effectif?.desinscrits ?? 0;
   const sousLeSeuil = effectif?.sous_le_seuil === true;
+  const facturationVisible = subscriptionStatus === "active" || subscriptionStatus === "past_due";
 
   const ajouter = async () => {
     const clean = nettoyerEmail(email);
