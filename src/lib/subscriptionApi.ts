@@ -46,7 +46,7 @@ export async function createCheckoutSession(periodicite: "mensuel" | "annuel"): 
     });
     return readResult(data, error);
   } catch {
-    return { status: null, url: null, message: "", rawMessage: "", failed: true };
+    return { status: null, url: null, quantite: null, message: "", rawMessage: "", failed: true };
   }
 }
 
@@ -55,7 +55,7 @@ export async function openBillingPortalSession(): Promise<InvokeResult> {
     const { data, error } = await heedupClient.functions.invoke("billing-portal");
     return readResult(data, error);
   } catch {
-    return { status: null, url: null, message: "", rawMessage: "", failed: true };
+    return { status: null, url: null, quantite: null, message: "", rawMessage: "", failed: true };
   }
 }
 
