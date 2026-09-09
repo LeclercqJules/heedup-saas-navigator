@@ -299,6 +299,12 @@ export function EquipeContent() {
             questionnaire.
           </p>
         )}
+        {facturationVisible && (
+          <p style={{ ...mutedStyle, marginTop: "10px" }}>
+            Vous pouvez ajouter, désactiver ou remplacer des adresses à tout moment. Votre facturation suit le nombre de
+            salariés actifs, recalculé avant chaque échéance.
+          </p>
+        )}
       </header>
 
       {sousLeSeuil && (
