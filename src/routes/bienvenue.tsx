@@ -786,12 +786,11 @@ function BienvenuePage() {
               margin: "0 0 24px",
             }}
           >
-            Lancement prévu début septembre 2026. Les inscrits accèdent à l'outil avant l'ouverture publique, sans
-            engagement.
+            Déjà plus de 20 managers partenaires accompagnent leur équipe avec HeedUp.
           </p>
-          <button {...TALLY} style={ctaStyle}>
-            Accéder au lancement →
-          </button>
+          <Link to="/connexion" style={ctaStyle}>
+            Créer mon espace →
+          </Link>
 
           <div
             style={{
@@ -839,10 +838,10 @@ function BienvenuePage() {
                 fontFamily: "var(--font-sans)",
                 fontSize: 14,
                 color: "var(--midnight)",
-                fontWeight: 500,
+                fontWeight: 700,
               }}
             >
-              <span style={{ fontWeight: 700 }}>{count}</span> dirigeants ont déjà rejoint
+              Déjà plus de 20 managers partenaires
             </div>
           </div>
 
