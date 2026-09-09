@@ -160,7 +160,6 @@ function EtapeEntreprise({ onDone }: { onDone: () => void | Promise<void> }) {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [blocked, setBlocked] = useState(false);
-  const [closed, setClosed] = useState(false);
 
   const trimmed = name.trim();
   const disabled = trimmed.length === 0 || loading || blocked;
