@@ -54,7 +54,7 @@ const infoBannerStyle: CSSProperties = {
 };
 
 const trialBannerStyle: CSSProperties = {
-  background: "var(--indigo-pile)",
+  background: "var(--indigo-pale)",
   borderLeft: "3px solid var(--indigo)",
   borderRadius: "0 10px 10px 0",
   padding: "14px 20px",
