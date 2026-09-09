@@ -308,14 +308,11 @@ export function DashboardSkeleton() {
   );
 }
 
-function participationLine(rapport: Rapport, effectif: Effectif): string {
+function participationLine(rapport: Rapport): string {
   const n = rapport.respondent_count ?? 0;
-  const rep = n === 1 ? "1 réponse" : `${n} réponses`;
-  const sollicites = effectif && typeof effectif.sollicites === "number" ? effectif.sollicites : null;
-  return sollicites === null
-    ? rep
-    : `${rep} sur ${sollicites} ${sollicites === 1 ? "salarié sollicité" : "salariés sollicités"}`;
+  return n === 1 ? "1 réponse" : `${n} réponses`;
 }
+
 
 function WeekStrip({ rapports, current }: { rapports: Rapport[]; current: string }) {
   const navigate = useNavigate();
@@ -523,7 +520,7 @@ function ReportView({
             Rapport d'équipe
           </span>
           <span style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "rgba(255,255,255,0.62)" }}>
-            {participationLine(rapport, effectif)}
+            {participationLine(rapport)}
           </span>
         </div>
 
@@ -859,8 +856,20 @@ export function DashboardContent({ data, weekStart }: { data: DashboardData; wee
     );
   }
 
-  if (rapports[0].below_threshold === true) {
-    return <BelowThresholdView rapport={rapports[0]} data={data} />;
+  const defaultIndex = (() => {
+    const i = rapports.findIndex((r) => r.below_threshold === false);
+    return i === -1 ? 0 : i;
+  })();
+
+  if (rapports[defaultIndex].below_threshold === true) {
+    return <BelowThresholdView rapport={rapports[defaultIndex]} data={data} />;
   }
-  return <ReportView rapport={rapports[0]} data={data} hasPrevious={hasValidPrevious(rapports, 0)} />;
+  return (
+    <ReportView
+      rapport={rapports[defaultIndex]}
+      data={data}
+      hasPrevious={hasValidPrevious(rapports, defaultIndex)}
+    />
+  );
+
 }
