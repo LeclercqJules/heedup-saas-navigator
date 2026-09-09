@@ -259,11 +259,14 @@ export function DashTopBar({ orgName }: { orgName?: string | null }) {
     <header className="heedup-dash-topbar">
       <div className="heedup-dash-topbar-inner">
         <div
+          title={name || undefined}
+          className="heedup-dash-orgname"
           style={{
             fontFamily: "var(--font-display)",
             fontSize: "18px",
             color: "var(--midnight)",
             justifySelf: "start",
+            maxWidth: "280px",
             whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
@@ -271,6 +274,7 @@ export function DashTopBar({ orgName }: { orgName?: string | null }) {
         >
           {name}
         </div>
+
         <DashNav />
         <div style={{ justifySelf: "end" }}>
           <AccountMenu />
