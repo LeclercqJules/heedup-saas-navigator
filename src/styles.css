@@ -1370,10 +1370,63 @@ body:has(#repondre-root) {
 .heedup-sub-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 18px;
+  gap: 20px;
 }
 @media (max-width: 640px) {
   .heedup-sub-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Bandeau d'abonnement collant, sous la barre de navigation sticky. */
+.heedup-sticky-banner {
+  position: sticky;
+  top: 64px;
+  z-index: 40;
+}
+@media (max-width: 640px) {
+  .heedup-sticky-banner {
+    top: 104px;
+  }
+}
+
+.heedup-sub-list {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.heedup-sub-list-item {
+  display: grid;
+  grid-template-columns: 6px 1fr;
+  gap: 12px;
+  align-items: start;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+.heedup-sub-list-item span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--indigo);
+  margin-top: 9px;
+}
+
+.heedup-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 27, 62, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 120;
+}
+.heedup-modal-card {
+  background: var(--bg-card);
+  border-radius: 14px;
+  padding: 28px;
+  width: 100%;
+  max-width: 440px;
 }
