@@ -290,10 +290,23 @@ export function SubscriptionBanner({ data }: { data: DashboardData }) {
     return null;
   })();
 
+  const sticky =
+    status === "past_due" ||
+    status === "canceled" ||
+    status === "paused" ||
+    status === "orphaned" ||
+    status === "trial_expired";
+
   return (
     <>
       <ReturnBanner initialStatus={status} />
-      {stateBanner}
+      {stateBanner ? (
+        sticky ? (
+          <div className="heedup-sticky-banner">{stateBanner}</div>
+        ) : (
+          stateBanner
+        )
+      ) : null}
     </>
   );
 }
