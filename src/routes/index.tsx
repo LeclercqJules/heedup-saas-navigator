@@ -410,16 +410,9 @@ function Index() {
                 alignItems: "center",
               }}
             >
-              <button
-                type="button"
+              <Link
+                to="/connexion"
                 className="heedup-hero-cta inline-flex items-center gap-2"
-                {...{
-                  "data-tally-open": "VLBY9E",
-                  "data-tally-overlay": "1",
-                  "data-tally-emoji-text": "👋",
-                  "data-tally-emoji-animation": "wave",
-                  "data-tally-width": "500",
-                }}
                 style={{
                   backgroundColor: "var(--indigo)",
                   color: "#FFFFFF",
@@ -430,10 +423,11 @@ function Index() {
                   fontFamily: "var(--font-sans)",
                   border: "none",
                   cursor: "pointer",
+                  textDecoration: "none",
                 }}
               >
-                Accéder au lancement →
-              </button>
+                Créer mon espace →
+              </Link>
 
               <div
                 className="heedup-hero-social"
