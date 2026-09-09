@@ -251,38 +251,35 @@ export function SubscriptionBanner({ data }: { data: DashboardData }) {
     if (status === "trial_expired") {
       if (count >= 2) {
         return (
-          <div style={trialBannerStyle}>
-            <div style={bannerTextStyle}>
-              {"Votre essai est terminé. Plus aucun questionnaire ne sera envoyé à votre équipe et aucun nouveau rapport ne sera produit.\n\nVos deux rapports restent consultables ci-dessous."}
-            </div>
-            <div style={{ marginTop: "12px" }}>
-              <SubscribeLink label="S'abonner" />
-            </div>
+          <div style={trialBannerStyle} className="heedup-trial-banner-inner">
+            <p style={{ margin: 0, flex: 1 }}>
+              Votre essai est terminé. Plus aucun questionnaire ne sera envoyé à votre équipe et aucun nouveau rapport
+              ne sera produit. Vos deux rapports restent consultables ci-dessous.
+            </p>
+            <SubscribeLink label="S'abonner" />
           </div>
         );
       }
       if (count === 1) {
         return (
-          <div style={trialBannerStyle}>
-            <div style={bannerTextStyle}>
-              {"Votre essai est terminé. Plus aucun questionnaire ne sera envoyé à votre équipe et aucun nouveau rapport ne sera produit.\n\nVotre rapport reste consultable ci-dessous."}
-            </div>
-            <div style={{ marginTop: "12px" }}>
-              <SubscribeLink label="S'abonner" />
-            </div>
+          <div style={trialBannerStyle} className="heedup-trial-banner-inner">
+            <p style={{ margin: 0, flex: 1 }}>
+              Votre essai est terminé. Plus aucun questionnaire ne sera envoyé à votre équipe et aucun nouveau rapport
+              ne sera produit. Votre rapport reste consultable ci-dessous.
+            </p>
+            <SubscribeLink label="S'abonner" />
           </div>
         );
       }
       return (
-        <div style={trialBannerStyle}>
-          <div style={bannerTextStyle}>
-            {"Votre essai est terminé, mais aucun rapport n'a pu être produit : il faut au moins cinq réponses complètes sur une même semaine.\n\nÉcrivons-nous, on regarde ensemble ce qui a bloqué."}
-          </div>
-          <div style={{ marginTop: "12px" }}>
-            <a href="mailto:contact@heedup.fr" style={subSecondaryButtonStyle}>
-              Nous écrire
-            </a>
-          </div>
+        <div style={trialBannerStyle} className="heedup-trial-banner-inner">
+          <p style={{ margin: 0, flex: 1 }}>
+            Votre essai est terminé, mais aucun rapport n'a pu être produit : il faut au moins cinq réponses complètes
+            sur une même semaine.
+          </p>
+          <a href="mailto:contact@heedup.fr" style={subSecondaryButtonStyle}>
+            Nous écrire
+          </a>
         </div>
       );
     }
