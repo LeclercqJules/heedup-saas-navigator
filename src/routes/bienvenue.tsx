@@ -331,9 +331,9 @@ function BienvenuePage() {
               Vous savez déjà de quoi il s'agit. Pas un tableau de bord à interpréter : une lecture de 30 secondes, et
               trois actions pour la semaine.
             </p>
-            <button className="fade-up fade-up-delay-3" {...TALLY} style={{ ...ctaStyle, margin: "0 0 14px" }}>
-              Accéder au lancement →
-            </button>
+            <Link to="/connexion" className="fade-up fade-up-delay-3" style={{ ...ctaStyle, margin: "0 0 14px", display: "inline-block" }}>
+              Créer mon espace
+            </Link>
             <Link to="/fonctionnalites" style={textLink}>
               Voir toutes les fonctionnalités →
             </Link>
@@ -786,12 +786,11 @@ function BienvenuePage() {
               margin: "0 0 24px",
             }}
           >
-            Lancement prévu début septembre 2026. Les inscrits accèdent à l'outil avant l'ouverture publique, sans
-            engagement.
+            Déjà plus de 20 managers partenaires accompagnent leur équipe avec HeedUp.
           </p>
-          <button {...TALLY} style={ctaStyle}>
-            Accéder au lancement →
-          </button>
+          <Link to="/connexion" style={ctaStyle}>
+            Créer mon espace
+          </Link>
 
           <div
             style={{
@@ -839,10 +838,10 @@ function BienvenuePage() {
                 fontFamily: "var(--font-sans)",
                 fontSize: 14,
                 color: "var(--midnight)",
-                fontWeight: 500,
+                fontWeight: 700,
               }}
             >
-              <span style={{ fontWeight: 700 }}>{count}</span> dirigeants ont déjà rejoint
+              Déjà plus de 20 managers partenaires
             </div>
           </div>
 

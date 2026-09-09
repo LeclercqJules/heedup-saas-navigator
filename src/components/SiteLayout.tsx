@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { useRouter } from "@tanstack/react-router";
+import { useRouter, Link } from "@tanstack/react-router";
 import { Nav } from "./Nav";
 import { Footer } from "./Footer";
 import { ScrollToTop } from "./ScrollToTop";
@@ -105,7 +105,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 color: "rgba(255,255,255,0.7)",
               }}
             >
-              Lancement officiel prévu septembre 2026
+              2 premiers rapports gratuits, sans carte bancaire
             </span>
             <span
               style={{
@@ -116,15 +116,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             >
               ·
             </span>
-            <button
-              type="button"
-              {...{
-                "data-tally-open": "VLBY9E",
-                "data-tally-overlay": "1",
-                "data-tally-emoji-text": "👋",
-                "data-tally-emoji-animation": "wave",
-                "data-tally-width": "500",
-              }}
+            <Link
+              to="/connexion"
               style={{
                 fontFamily: "var(--font-sans)",
                 fontSize: "12px",
@@ -137,8 +130,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 padding: 0,
               }}
             >
-              Accès bêta en avant-première →
-            </button>
+              Commencer maintenant
+            </Link>
           </div>
         )}
         <Nav />

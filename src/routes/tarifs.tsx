@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, Fragment } from "react";
 import {
   IconSend,
@@ -1022,11 +1022,10 @@ function SectionCta() {
           lineHeight: 1.6,
         }}
       >
-        Rejoignez les {count} dirigeants déjà sur la liste d'attente. Lancement prévu début septembre 2026.
+        Déjà plus de 20 managers partenaires accompagnent leur équipe avec HeedUp.
       </p>
-      <button
-        type="button"
-        {...TALLY_ATTRS}
+      <Link
+        to="/connexion"
         style={{
           backgroundColor: "var(--indigo)",
           color: "#FFFFFF",
@@ -1036,10 +1035,12 @@ function SectionCta() {
           fontWeight: 700,
           border: "none",
           cursor: "pointer",
+          textDecoration: "none",
+          display: "inline-block",
         }}
       >
-        Accéder au lancement →
-      </button>
+        Créer mon espace
+      </Link>
     </section>
   );
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 
 export function StickyCTA() {
   const [visible, setVisible] = useState(false);
@@ -29,12 +30,8 @@ export function StickyCTA() {
         display: "none",
       }}
     >
-      <button
-        type="button"
-        data-tally-open="VLBY9E"
-        data-tally-overlay="1"
-        data-tally-emoji-text="👋"
-        data-tally-emoji-animation="wave"
+      <Link
+        to="/connexion"
         style={{
           width: "100%",
           background: "var(--indigo)",
@@ -46,10 +43,13 @@ export function StickyCTA() {
           border: "none",
           cursor: "pointer",
           fontFamily: "Inter, var(--font-sans)",
+          textDecoration: "none",
+          display: "inline-block",
+          textAlign: "center",
         }}
       >
-        Accéder au lancement →
-      </button>
+        Créer mon espace
+      </Link>
     </div>
   );
 }
