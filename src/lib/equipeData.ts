@@ -33,23 +33,30 @@ export function useEquipeData(): EquipeData {
   const [salaries, setSalaries] = useState<Salarie[]>([]);
   const [effectif, setEffectif] = useState<Effectif>(null);
   const [organizationId, setOrganizationId] = useState<string | null>(null);
+  const [subscriptionStatus, setSubscriptionStatus] = useState<string | null>(null);
 
   const load = useCallback(async (withSpinner: boolean) => {
     if (withSpinner) setLoading(true);
 
-    const [managerRes, salariesRes, effectifRes] = await Promise.all([
-      heedupClient.from("managers").select("organization_id").maybeSingle(),
-      heedupClient.from("employees").select("id, email, status, team_id, created_at").order("email"),
-      heedupClient.rpc("compter_desinscrits"),
-    ]);
-
+    const managerRes = await heedupClient.from("managers").select("organization_id").maybeSingle();
     const orgId = (managerRes.data as { organization_id?: string } | null)?.organization_id ?? null;
     setOrganizationId(orgId);
+
+    const [salariesRes, effectifRes, orgRes] = await Promise.all([
+      heedupClient.from("employees").select("id, email, status, team_id, created_at").order("email"),
+      heedupClient.rpc("compter_desinscrits"),
+      orgId
+        ? heedupClient.from("organizations").select("subscription_status").eq("id", orgId).maybeSingle()
+        : Promise.resolve({ data: null, error: null } as { data: unknown; error: unknown }),
+    ]);
 
     setSalaries(((salariesRes.data as Salarie[] | null) ?? []).map((s) => ({ ...s })));
 
     const agg = effectifRes.data as Effectif;
     setEffectif(agg && agg.status !== "error" ? agg : null);
+
+    const org = (orgRes.data ?? null) as { subscription_status?: string | null } | null;
+    setSubscriptionStatus(org?.subscription_status ?? null);
 
     setLoading(false);
   }, []);
@@ -62,7 +69,7 @@ export function useEquipeData(): EquipeData {
     await load(false);
   }, [load]);
 
-  return { loading, salaries, effectif, organizationId, refresh };
+  return { loading, salaries, effectif, organizationId, subscriptionStatus, refresh };
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
