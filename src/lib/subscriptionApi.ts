@@ -8,17 +8,29 @@ export function normalizeMessage(value: unknown): string {
 type InvokeResult = {
   status: string | null;
   url: string | null;
+  quantite: number | null;
   message: string;
   rawMessage: string;
   failed: boolean;
 };
 
 function readResult(data: unknown, error: unknown): InvokeResult {
-  const payload = (data ?? null) as { status?: unknown; url?: unknown; message?: unknown } | null;
+  const payload = (data ?? null) as {
+    status?: unknown;
+    url?: unknown;
+    quantite?: unknown;
+    message?: unknown;
+  } | null;
   const rawMessage = typeof payload?.message === "string" ? payload.message : "";
+  const rawQuantite = payload?.quantite;
+  const quantite =
+    typeof rawQuantite === "number" && Number.isFinite(rawQuantite) && rawQuantite > 0
+      ? Math.round(rawQuantite)
+      : null;
   return {
     status: typeof payload?.status === "string" ? payload.status : null,
     url: typeof payload?.url === "string" ? payload.url : null,
+    quantite,
     message: normalizeMessage(rawMessage),
     rawMessage,
     failed: Boolean(error) || payload === null,
