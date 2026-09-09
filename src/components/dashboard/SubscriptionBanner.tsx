@@ -249,8 +249,7 @@ export function SubscriptionBanner({ data }: { data: DashboardData }) {
         return (
           <div style={trialBannerStyle}>
             <div style={bannerTextStyle}>
-              Votre essai est terminé. Vos deux rapports restent consultables. Abonnez-vous pour reprendre les
-              questionnaires hebdomadaires.
+              {"Votre essai est terminé. Plus aucun questionnaire ne sera envoyé à votre équipe et aucun nouveau rapport ne sera produit.\n\nVos deux rapports restent consultables ci-dessous."}
             </div>
             <div style={{ marginTop: "12px" }}>
               <SubscribeLink label="S'abonner" />
@@ -262,8 +261,7 @@ export function SubscriptionBanner({ data }: { data: DashboardData }) {
         return (
           <div style={trialBannerStyle}>
             <div style={bannerTextStyle}>
-              Votre essai est terminé. Votre rapport reste consultable. Abonnez-vous pour reprendre les questionnaires
-              hebdomadaires.
+              {"Votre essai est terminé. Plus aucun questionnaire ne sera envoyé à votre équipe et aucun nouveau rapport ne sera produit.\n\nVotre rapport reste consultable ci-dessous."}
             </div>
             <div style={{ marginTop: "12px" }}>
               <SubscribeLink label="S'abonner" />
