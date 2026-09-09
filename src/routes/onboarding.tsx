@@ -188,12 +188,6 @@ function EtapeEntreprise({ onDone }: { onDone: () => void | Promise<void> }) {
         return;
       }
 
-      if (payload.status === "error" && msg.includes("pas encore ouverte")) {
-        setClosed(true);
-        setLoading(false);
-        return;
-      }
-
       if (msg.includes("administrateur")) {
         setError("Ce compte ne peut pas créer d'espace. Utilisez votre accès administrateur.");
         setBlocked(true);
