@@ -169,8 +169,8 @@ function AbonnementContent() {
             marginTop: "22px",
           }}
         >
-          Le nombre de sièges facturés correspond à vos salariés actifs, avec un minimum de 10. Il est recalculé
-          automatiquement avant chaque échéance : vous n'avez rien à ajuster quand votre équipe change.
+          Le nombre de sièges correspond à vos salariés actifs, avec un minimum de 10. Il est recalculé automatiquement
+          avant chaque échéance : vous n'avez rien à ajuster.
         </p>
         <p
           style={{
@@ -179,6 +179,18 @@ function AbonnementContent() {
             lineHeight: 1.65,
             color: "var(--text-muted)",
             marginTop: "10px",
+          }}
+        >
+          Vous pouvez modifier les adresses email de votre équipe à tout moment sans changer votre facturation. Si un
+          salarié quitte l'entreprise, remplacez simplement son adresse : aucun siège supplémentaire n'est nécessaire.
+        </p>
+        <p
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "13px",
+            lineHeight: 1.65,
+            color: "var(--text-muted)",
+            marginTop: "6px",
           }}
         >
           Le tarif par siège diminue à partir de 25, 50 et 100 salariés.

@@ -223,7 +223,7 @@ function LigneSalarie({
 }
 
 export function EquipeContent() {
-  const { loading, salaries, effectif, organizationId, refresh } = useEquipeData();
+  const { loading, salaries, effectif, organizationId, subscriptionStatus, refresh } = useEquipeData();
   const [email, setEmail] = useState("");
   const [ajoutMessage, setAjoutMessage] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -235,6 +235,7 @@ export function EquipeContent() {
   const actifs = effectif?.salaries_actifs ?? null;
   const desinscrits = effectif?.desinscrits ?? 0;
   const sousLeSeuil = effectif?.sous_le_seuil === true;
+  const facturationVisible = subscriptionStatus === "active" || subscriptionStatus === "past_due";
 
   const ajouter = async () => {
     const clean = nettoyerEmail(email);
@@ -296,6 +297,12 @@ export function EquipeContent() {
           <p style={{ ...mutedStyle, marginTop: "4px" }}>
             {desinscrits} {desinscrits === 1 ? "personne a" : "personnes ont"} choisi de ne plus recevoir le
             questionnaire.
+          </p>
+        )}
+        {facturationVisible && (
+          <p style={{ ...mutedStyle, marginTop: "10px" }}>
+            Vous pouvez ajouter, désactiver ou remplacer des adresses à tout moment. Votre facturation suit le nombre de
+            salariés actifs, recalculé avant chaque échéance.
           </p>
         )}
       </header>
