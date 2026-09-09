@@ -308,14 +308,11 @@ export function DashboardSkeleton() {
   );
 }
 
-function participationLine(rapport: Rapport, effectif: Effectif): string {
+function participationLine(rapport: Rapport): string {
   const n = rapport.respondent_count ?? 0;
-  const rep = n === 1 ? "1 réponse" : `${n} réponses`;
-  const sollicites = effectif && typeof effectif.sollicites === "number" ? effectif.sollicites : null;
-  return sollicites === null
-    ? rep
-    : `${rep} sur ${sollicites} ${sollicites === 1 ? "salarié sollicité" : "salariés sollicités"}`;
+  return n === 1 ? "1 réponse" : `${n} réponses`;
 }
+
 
 function WeekStrip({ rapports, current }: { rapports: Rapport[]; current: string }) {
   const navigate = useNavigate();
