@@ -54,11 +54,15 @@ const infoBannerStyle: CSSProperties = {
 };
 
 const trialBannerStyle: CSSProperties = {
-  background: "var(--indigo-pale)",
+  background: "var(--indigo-pile)",
   borderLeft: "3px solid var(--indigo)",
   borderRadius: "0 10px 10px 0",
-  padding: "16px 20px",
+  padding: "14px 20px",
   marginBottom: "20px",
+  fontFamily: "var(--font-sans)",
+  fontSize: "14px",
+  lineHeight: 1.5,
+  color: "var(--text-primary)",
 };
 
 /** Ouvre le portail de facturation Stripe. Aucun payload n'est envoyé. */
