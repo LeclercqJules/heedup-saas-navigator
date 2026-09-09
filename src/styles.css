@@ -1048,7 +1048,9 @@ body:has(#repondre-root) {
   align-items: center;
   gap: 28px;
   justify-self: center;
+  margin-left: 32px;
 }
+
 @media (max-width: 640px) {
   .heedup-dash-topbar-inner {
     height: auto;
