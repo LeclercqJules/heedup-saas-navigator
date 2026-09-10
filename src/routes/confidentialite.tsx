@@ -50,7 +50,7 @@ const sections: { title: string; content: string }[] = [
   {
     title: "Combien de temps nous conservons vos données",
     content:
-      "| Ce que nous conservons | Combien de temps | À partir de quand |\n|---|---|---|\n| Les réponses aux questionnaires hebdomadaires | 12 mois | la date de la réponse |\n| Les échanges avec l'assistant du site, sans coordonnées laissées | 6 mois | le dernier message |\n| Les échanges avec l'assistant du site, avec coordonnées laissées | 24 mois | le dernier message |\n| Les comptes créés sans espace de travail | 90 jours | la création ou la dernière connexion |\n| Les rapports hebdomadaires | sans limite de durée | |\n| Les demandes de désinscription | sans limite de durée | |\n\nPourquoi les rapports ne sont pas effacés. Un rapport hebdomadaire ne contient aucune donnée permettant d'identifier une personne : ni nom, ni adresse, ni réponse individuelle. Il contient des moyennes et une synthèse rédigée à partir de l'ensemble des retours. L'intérêt du produit étant de suivre l'évolution d'une équipe dans le temps, effacer cet historique reviendrait à effacer le service rendu.\n\nPourquoi les demandes de désinscription ne sont pas effacées. Une désinscription est la trace de votre refus de recevoir nos emails. L'effacer reviendrait à l'oublier, donc à vous solliciter de nouveau. Nous la conservons précisément pour continuer à la respecter.\n\nPourquoi les échanges avec l'assistant ont deux durées. Une conversation où personne n'a laissé de coordonnées ne sert plus à rien passé quelques mois : nous l'effaçons à six mois. Une conversation où un visiteur nous a laissé son adresse pour être recontacté est conservée deux ans, parce que c'est la durée pendant laquelle ce contact garde un sens. Dans les deux cas, vous pouvez demander la suppression immédiate.",
+      "Pourquoi les rapports ne sont pas effacés. Un rapport hebdomadaire ne contient aucune donnée permettant d'identifier une personne : ni nom, ni adresse, ni réponse individuelle. Il contient des moyennes et une synthèse rédigée à partir de l'ensemble des retours. L'intérêt du produit étant de suivre l'évolution d'une équipe dans le temps, effacer cet historique reviendrait à effacer le service rendu.\n\nPourquoi les demandes de désinscription ne sont pas effacées. Une désinscription est la trace de votre refus de recevoir nos emails. L'effacer reviendrait à l'oublier, donc à vous solliciter de nouveau. Nous la conservons précisément pour continuer à la respecter.\n\nPourquoi les échanges avec l'assistant ont deux durées. Une conversation où personne n'a laissé de coordonnées ne sert plus à rien passé quelques mois : nous l'effaçons à six mois. Une conversation où un visiteur nous a laissé son adresse pour être recontacté est conservée deux ans, parce que c'est la durée pendant laquelle ce contact garde un sens. Dans les deux cas, vous pouvez demander la suppression immédiate.",
   },
   {
     title: "Suppression des comptes inactifs",
@@ -69,6 +69,85 @@ const sections: { title: string; content: string }[] = [
       "Vous pouvez à tout moment demander l'accès, la rectification ou la suppression de vos données, ainsi que la suppression immédiate d'un échange avec l'assistant, en écrivant à contact@heedup.fr. Une demande de suppression est traitée sans attendre l'échéance des durées ci-dessus.\n\nLe questionnaire hebdomadaire peut être arrêté à tout moment depuis le lien présent en bas de chaque email, sans passer par votre employeur, qui n'est pas informé des désinscriptions individuelles.\n\nRéclamation possible auprès de la CNIL : www.cnil.fr",
   },
 ];
+
+const retentionRows = [
+  { what: "Les réponses aux questionnaires hebdomadaires", howLong: "12 mois", fromWhen: "la date de la réponse" },
+  { what: "Les échanges avec l'assistant du site, sans coordonnées laissées", howLong: "6 mois", fromWhen: "le dernier message" },
+  { what: "Les échanges avec l'assistant du site, avec coordonnées laissées", howLong: "24 mois", fromWhen: "le dernier message" },
+  { what: "Les comptes créés sans espace de travail", howLong: "90 jours", fromWhen: "la création ou la dernière connexion" },
+  { what: "Les rapports hebdomadaires", howLong: "sans limite de durée", fromWhen: "" },
+  { what: "Les demandes de désinscription", howLong: "sans limite de durée", fromWhen: "" },
+];
+
+function RetentionTable() {
+  return (
+    <table
+      style={{
+        width: "100%",
+        borderCollapse: "collapse",
+        fontFamily: "var(--font-sans)",
+        fontSize: "13px",
+        color: "var(--text-primary)",
+        lineHeight: 1.5,
+        marginBottom: "20px",
+        marginTop: "4px",
+      }}
+    >
+      <thead>
+        <tr style={{ borderBottom: "1.5px solid rgba(67,56,202,0.25)" }}>
+          <th
+            style={{
+              textAlign: "left",
+              padding: "10px 8px 10px 0",
+              fontWeight: 600,
+              color: "var(--midnight)",
+              width: "42%",
+            }}
+          >
+            Ce que nous conservons
+          </th>
+          <th
+            style={{
+              textAlign: "left",
+              padding: "10px 8px",
+              fontWeight: 600,
+              color: "var(--midnight)",
+              width: "28%",
+            }}
+          >
+            Combien de temps
+          </th>
+          <th
+            style={{
+              textAlign: "left",
+              padding: "10px 0 10px 8px",
+              fontWeight: 600,
+              color: "var(--midnight)",
+              width: "30%",
+            }}
+          >
+            À partir de quand
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {retentionRows.map((row, i) => (
+          <tr
+            key={i}
+            style={{
+              borderBottom:
+                i < retentionRows.length - 1 ? "1px solid rgba(67,56,202,0.08)" : "none",
+            }}
+          >
+            <td style={{ padding: "10px 8px 10px 0", verticalAlign: "top" }}>{row.what}</td>
+            <td style={{ padding: "10px 8px", verticalAlign: "top" }}>{row.howLong}</td>
+            <td style={{ padding: "10px 0 10px 8px", verticalAlign: "top" }}>{row.fromWhen}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
 
 function Page() {
   return (
@@ -111,6 +190,7 @@ function Page() {
               >
                 {section.title}
               </h2>
+              {section.title === "Combien de temps nous conservons vos données" && <RetentionTable />}
               <p
                 style={{
                   fontFamily: "var(--font-sans)",
