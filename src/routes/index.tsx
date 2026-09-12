@@ -337,13 +337,15 @@ function Index() {
             </div>
 
             <div id="demo-report" className="heedup-hero-report-stage">
-              <div className="heedup-hero-halo" aria-hidden="true" />
-              <div className="heedup-hero-sheet is-beige" aria-hidden="true" />
-              <div className="heedup-hero-sheet is-lilac" aria-hidden="true" />
-              <div className="heedup-hero-note is-dimensions">✦ Les 5 dimensions mesurées</div>
-              <div className="heedup-hero-note is-analysis">↗ Ce que l'IA analyse</div>
-              <div className="heedup-hero-note is-action">◈ Ce que vous pouvez faire</div>
-              <DemoReportCard presentation="hero" />
+              <div className="heedup-hero-report-frame">
+                <div className="heedup-hero-halo" aria-hidden="true" />
+                <div className="heedup-hero-sheet is-beige" aria-hidden="true" />
+                <div className="heedup-hero-sheet is-lilac" aria-hidden="true" />
+                <div className="heedup-hero-note is-dimensions">✦ Les 5 dimensions mesurées</div>
+                <div className="heedup-hero-note is-analysis">↗ Ce que l'IA analyse</div>
+                <div className="heedup-hero-note is-action">◈ Ce que vous pouvez faire</div>
+                <DemoReportCard presentation="hero" />
+              </div>
             </div>
           </div>
         </div>
