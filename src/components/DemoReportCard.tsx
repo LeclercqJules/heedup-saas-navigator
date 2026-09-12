@@ -42,7 +42,7 @@ export function DemoReportCard({ className, presentation = "standard" }: DemoRep
 
         <div className="demo-report-scores" aria-label="Scores de la semaine">
           {scores.map((item) => (
-            <section className={cn("demo-score", `demo-score-${item.tone}`)} key={item.label}>
+            <div className={cn("demo-score", `demo-score-${item.tone}`)} key={item.label}>
               <div className="demo-score-topline">
                 <span className="demo-score-icon" aria-hidden="true" />
                 <span className="demo-score-label">{item.label}</span>
@@ -52,12 +52,12 @@ export function DemoReportCard({ className, presentation = "standard" }: DemoRep
               <div className="demo-score-track" aria-hidden="true">
                 <span style={{ width: `${(item.score / 5) * 100}%` }} />
               </div>
-            </section>
+            </div>
           ))}
         </div>
 
         <div className="demo-report-details">
-          <section className="demo-report-recommendations">
+          <div className="demo-report-recommendations">
             <h3>Recommandations pour cette semaine</h3>
             <ol>
               {recommendations.map((item) => (
@@ -67,20 +67,20 @@ export function DemoReportCard({ className, presentation = "standard" }: DemoRep
                 </li>
               ))}
             </ol>
-          </section>
+          </div>
 
-          <section className="demo-report-expression">
+          <div className="demo-report-expression">
             <h3>Ce que l'équipe exprime</h3>
             <p>La charge de travail se tend légèrement, sans que les autres dimensions bougent.</p>
             <p>Plusieurs retours évoquent des demandes qui arrivent en fin de journée.</p>
             <p className="demo-report-privacy">Synthèse collective. Aucun commentaire individuel n'est accessible.</p>
-          </section>
+          </div>
         </div>
 
-        <section className="demo-report-vigilance">
+        <div className="demo-report-vigilance">
           <h3>Un signal de vigilance a été détecté cette semaine.</h3>
           <p>Un ou plusieurs retours évoquent une situation de surcharge ou d'épuisement. Nous recommandons des points individuels. Aucun détail supplémentaire n'est disponible.</p>
-        </section>
+        </div>
       </div>
     </article>
   );
