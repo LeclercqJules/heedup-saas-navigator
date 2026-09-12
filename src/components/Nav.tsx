@@ -47,8 +47,8 @@ export function Nav() {
       className="heedup-nav w-full"
       style={{
         backgroundColor: "#FFFFFF",
-        borderBottom: "3px solid var(--midnight)",
-        height: "84px",
+        borderBottom: "1px solid rgba(13,27,62,0.08)",
+        height: "80px",
       }}
     >
       <div className="mx-auto grid h-full items-center px-[5%]" style={{ gridTemplateColumns: "1fr auto 1fr" }}>

@@ -170,8 +170,8 @@ body {
 .heedup-hero-grid {
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 0.72fr) minmax(620px, 1.28fr);
-  gap: 56px;
+  grid-template-columns: minmax(0, 0.86fr) minmax(580px, 1.14fr);
+  gap: 40px;
   align-items: start;
 }
 
@@ -199,7 +199,7 @@ body {
   margin: 0 0 24px;
   color: var(--midnight);
   font-family: var(--font-display);
-  font-size: 58px;
+  font-size: 54px;
   font-weight: 700;
   line-height: 1.04;
   letter-spacing: 0;
@@ -293,7 +293,7 @@ body {
 .heedup-hero-report-stage {
   position: relative;
   min-width: 0;
-  padding: 52px;
+  padding: 48px;
   scroll-margin-top: 150px;
 }
 
@@ -363,6 +363,26 @@ body {
 }
 
 .demo-report-hero { rotate: -1deg; }
+
+.demo-report-hero .demo-report-header {
+  min-height: 54px;
+  padding: 8px 16px;
+}
+
+.demo-report-hero .demo-report-body { padding: 17px; }
+.demo-report-hero .demo-report-intro { margin-bottom: 13px; }
+.demo-report-hero .demo-report-intro h2 { font-size: 20px; }
+.demo-report-hero .demo-score { padding: 9px 8px; }
+.demo-report-hero .demo-report-details {
+  gap: 16px;
+  margin-top: 16px;
+  padding-top: 15px;
+}
+.demo-report-hero .demo-report-recommendations ol { gap: 7px; }
+.demo-report-hero .demo-report-vigilance {
+  margin-top: 15px;
+  padding: 10px 12px;
+}
 
 .demo-report-header {
   min-height: 58px;

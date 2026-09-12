@@ -44,11 +44,10 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col page-transition" style={{ backgroundColor: "var(--bg-main)" }}>
       <div
+        className="heedup-top-stack"
         style={{
-          position: "fixed",
+          position: "sticky",
           top: 0,
-          left: 0,
-          right: 0,
           zIndex: 100,
         }}
       >
@@ -57,7 +56,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             className="heedup-announcement-bar"
             style={{
               backgroundColor: "#F5F4FE",
-              padding: "10px 5%",
+                height: "36px",
+                padding: "0 5%",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -68,7 +68,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <span
               style={{
                 fontFamily: "var(--font-sans)",
-                fontSize: "12px",
+                fontSize: "13px",
                 color: "var(--indigo)",
               }}
             >
@@ -78,7 +78,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               to="/connexion"
               style={{
                 fontFamily: "var(--font-sans)",
-                fontSize: "12px",
+                fontSize: "13px",
                 fontWeight: 700,
                 color: "var(--indigo)",
                 textDecoration: "underline",
@@ -94,7 +94,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         )}
         <Nav />
       </div>
-      <main className="flex-1" style={{ position: "relative", paddingTop: isHome ? "120px" : "84px" }}>
+      <main className="flex-1" style={{ position: "relative" }}>
         {children}
       </main>
       <Footer />
