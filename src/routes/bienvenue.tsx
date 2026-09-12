@@ -361,7 +361,7 @@ function BienvenuePage() {
             </div>
           </div>
 
-          <DemoReportCard className="fade-up fade-up-delay-2" />
+          <DemoReportCard />
         </div>
       </section>
 
@@ -631,7 +631,7 @@ function BienvenuePage() {
       {/* Démonstration du rapport */}
       <section style={{ background: "var(--bg-main)", padding: "56px 5%" }}>
         <div style={{ maxWidth: 1080, margin: "0 auto" }}>
-          <DemoReportCard className="fade-up" />
+          <DemoReportCard />
         </div>
       </section>
 
