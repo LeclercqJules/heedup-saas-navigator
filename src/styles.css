@@ -459,9 +459,9 @@ body {
   grid-column: 2 / 4;
   min-width: 0;
   color: var(--midnight);
-  font-size: 9.5px;
+  font-size: 9px;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.25;
   overflow-wrap: normal;
   white-space: normal;
 }
