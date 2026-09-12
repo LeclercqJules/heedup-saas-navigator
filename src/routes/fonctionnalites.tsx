@@ -34,7 +34,6 @@ import {
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { DemoReportCard } from "@/components/DemoReportCard";
-import { useTallyCount } from "@/hooks/useTallyCount";
 
 
 export const Route = createFileRoute("/fonctionnalites")({
@@ -671,7 +670,6 @@ const featureVisuals: Record<TabId, () => React.JSX.Element> = {
 function Page() {
   const [active, setActive] = useState<TabId>("q12");
   const [openFeature, setOpenFeature] = useState<number | null>(0);
-  const count = useTallyCount();
 
 
   return (

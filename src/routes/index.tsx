@@ -16,7 +16,6 @@ import { CostCalculatorModal } from "@/components/CostCalculatorModal";
 import { DemoReportCard } from "@/components/DemoReportCard";
 
 
-import { useTallyCount } from "@/hooks/useTallyCount";
 import { useCountUp } from "@/hooks/useCountUp";
 
 function CountUp({ target, format, suffix }: { target: number; format?: (n: number) => string; suffix?: string }) {
@@ -105,10 +104,6 @@ function Index() {
 
 
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
-  const count = useTallyCount();
-
-
-
   const renderFaqAnswer = (text: string, boldPart: string) => {
     const idx = text.indexOf(boldPart);
     if (idx === -1) return text;

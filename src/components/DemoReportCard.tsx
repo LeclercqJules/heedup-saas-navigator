@@ -37,7 +37,7 @@ export function DemoReportCard({ className, presentation = "standard" }: DemoRep
       <div className="demo-report-body">
         <div className="demo-report-intro">
           <h2>Votre équipe cette semaine</h2>
-          <p>5 réponses · 2 commentaires · Seuil atteint</p>
+          <p className="demo-report-summary">5 réponses · 2 commentaires · Seuil atteint</p>
         </div>
 
         <div className="demo-report-scores" aria-label="Scores de la semaine">

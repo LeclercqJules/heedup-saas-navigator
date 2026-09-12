@@ -3,7 +3,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { IconMail, IconDeviceLaptopOff, IconEyeOff } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { DemoReportCard } from "@/components/DemoReportCard";
-import { useTallyCount } from "@/hooks/useTallyCount";
 
 type UtmSearch = {
   utm_source?: string;
@@ -268,7 +267,6 @@ function AccordionItem({ item, index }: { item: { question: string; answer: stri
 }
 
 function BienvenuePage() {
-  const count = useTallyCount();
 
   return (
     <SiteLayout>
