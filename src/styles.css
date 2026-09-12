@@ -158,6 +158,7 @@ body {
   min-height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 .heedup-hero-inner {
@@ -292,13 +293,18 @@ body {
 .heedup-hero-report-stage {
   position: relative;
   min-width: 0;
-  padding: 32px 24px 24px 42px;
+  padding: 52px;
   scroll-margin-top: 150px;
+}
+
+.heedup-hero-report-frame {
+  position: relative;
+  min-width: 0;
 }
 
 .heedup-hero-halo {
   position: absolute;
-  inset: 14% 11% 12% 15%;
+  inset: 10% 8% 8%;
   border-radius: 40%;
   background: rgba(67, 56, 202, 0.2);
   filter: blur(48px);
@@ -306,20 +312,20 @@ body {
 
 .heedup-hero-sheet {
   position: absolute;
-  width: 82%;
-  height: 82%;
+  width: 100%;
+  height: 100%;
   border-radius: 12px;
 }
 
 .heedup-hero-sheet.is-beige {
-  top: 49px;
-  right: 6px;
+  top: 20px;
+  left: 20px;
   background: var(--hero-beige);
 }
 
 .heedup-hero-sheet.is-lilac {
-  top: 19px;
-  left: 18px;
+  top: 10px;
+  left: -16px;
   background: var(--indigo-pale);
 }
 
@@ -339,9 +345,9 @@ body {
   white-space: nowrap;
 }
 
-.heedup-hero-note.is-dimensions { top: 10px; left: 0; }
-.heedup-hero-note.is-analysis { top: 78px; right: -12px; }
-.heedup-hero-note.is-action { right: -4px; bottom: 4px; }
+.heedup-hero-note.is-dimensions { top: -38px; left: -34px; }
+.heedup-hero-note.is-analysis { top: -44px; right: -34px; }
+.heedup-hero-note.is-action { right: -30px; bottom: -28px; }
 
 .demo-report {
   position: relative;
@@ -450,20 +456,22 @@ body {
   background: var(--score-color);
 }
 .demo-score-label {
+  grid-column: 2 / 4;
   min-width: 0;
-  overflow: hidden;
   color: var(--midnight);
-  font-size: 10.5px;
+  font-size: 9px;
   font-weight: 600;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.25;
+  overflow-wrap: normal;
+  white-space: normal;
 }
 .demo-score-topline strong {
+  grid-column: 2;
   color: var(--midnight);
   font-size: 15px;
 }
 .demo-score-delta {
-  grid-column: 2 / 4;
+  grid-column: 3;
   font-size: 10px;
   font-weight: 700;
 }
@@ -623,11 +631,15 @@ body {
     grid-template-columns: 8px minmax(0, 1fr) auto auto;
   }
   .demo-score-label {
+    grid-column: auto;
     font-size: 12px;
     overflow: visible;
     text-overflow: clip;
   }
-  .demo-score-topline strong { font-size: 15px; }
+  .demo-score-topline strong {
+    grid-column: auto;
+    font-size: 15px;
+  }
   .demo-score-delta {
     grid-column: auto;
     font-size: 11px;

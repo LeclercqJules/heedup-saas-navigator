@@ -5,3 +5,4 @@
 - [x] Utiliser le vrai logo dans la navigation et le rapport
 - [x] Vérifier le rendu desktop, tablette et mobile
 - [x] Vérifier contenus, destinations et contraintes visuelles
+- [x] Corriger les libellés, le positionnement de la bulle IA et le débordement du hero
