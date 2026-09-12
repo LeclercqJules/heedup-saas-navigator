@@ -2,8 +2,7 @@ import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { IconMail, IconDeviceLaptopOff, IconEyeOff } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
-import { RapportCard } from "@/components/RapportCard";
-import { RapportDemo } from "@/components/RapportDemo";
+import { DemoReportCard } from "@/components/DemoReportCard";
 import { useTallyCount } from "@/hooks/useTallyCount";
 
 type UtmSearch = {
@@ -364,7 +363,7 @@ function BienvenuePage() {
             </div>
           </div>
 
-          <RapportCard className="fade-up fade-up-delay-2" />
+          <DemoReportCard className="fade-up fade-up-delay-2" />
         </div>
       </section>
 
@@ -631,9 +630,11 @@ function BienvenuePage() {
         </div>
       </section>
 
-      {/* Démonstration interactive */}
+      {/* Démonstration du rapport */}
       <section style={{ background: "var(--bg-main)", padding: "56px 5%" }}>
-        <RapportDemo className="fade-up" />
+        <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+          <DemoReportCard className="fade-up" />
+        </div>
       </section>
 
       {/* 4. DÉMARRAGE */}

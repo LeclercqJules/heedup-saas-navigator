@@ -54,6 +54,7 @@ export function Nav() {
       <div className="mx-auto grid h-full items-center px-[5%]" style={{ gridTemplateColumns: "1fr auto 1fr" }}>
         <Link
           to="/"
+          className="heedup-nav-brand"
           style={{
             fontFamily: "var(--font-display)",
             fontSize: "26px",
@@ -62,7 +63,8 @@ export function Nav() {
             justifySelf: "start",
           }}
         >
-          HeedUp
+          <img src="/favicon.svg" alt="" className="heedup-nav-logo" />
+          <span>HeedUp</span>
         </Link>
 
         <nav className="heedup-nav-links hidden items-center md:flex" style={{ gap: "40px", justifySelf: "center" }}>
@@ -196,14 +198,9 @@ export function Nav() {
             }}
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-              <span
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "24px",
-                  color: "var(--midnight)",
-                }}
-              >
-                HeedUp
+              <span className="heedup-nav-brand" style={{ fontFamily: "var(--font-display)", fontSize: "24px", color: "var(--midnight)" }}>
+                <img src="/favicon.svg" alt="" className="heedup-nav-logo" />
+                <span>HeedUp</span>
               </span>
               <button
                 type="button"

@@ -33,7 +33,7 @@ import {
   IconFileText,
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
-import { RapportCard } from "@/components/RapportCard";
+import { DemoReportCard } from "@/components/DemoReportCard";
 import { useTallyCount } from "@/hooks/useTallyCount";
 
 
@@ -826,7 +826,7 @@ function Page() {
             </div>
           </div>
           <div>
-            <RapportCard />
+            <DemoReportCard />
           </div>
         </div>
       </section>

@@ -89,7 +89,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           <div
             className="heedup-announcement-bar"
             style={{
-              backgroundColor: "var(--midnight)",
+              backgroundColor: "#F5F4FE",
               padding: "10px 5%",
               display: "flex",
               alignItems: "center",
@@ -102,19 +102,10 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               style={{
                 fontFamily: "var(--font-sans)",
                 fontSize: "12px",
-                color: "rgba(255,255,255,0.7)",
+                color: "var(--indigo)",
               }}
             >
               2 premiers rapports gratuits, sans carte bancaire
-            </span>
-            <span
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "12px",
-                color: "rgba(255,255,255,0.3)",
-              }}
-            >
-              ·
             </span>
             <Link
               to="/connexion"
@@ -122,8 +113,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 fontFamily: "var(--font-sans)",
                 fontSize: "12px",
                 fontWeight: 700,
-                color: "#FFFFFF",
-                textDecoration: "none",
+                color: "var(--indigo)",
+                textDecoration: "underline",
                 background: "transparent",
                 border: "none",
                 cursor: "pointer",
