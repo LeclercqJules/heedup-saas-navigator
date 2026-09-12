@@ -456,6 +456,7 @@ body {
   background: var(--score-color);
 }
 .demo-score-label {
+  grid-column: 2 / 4;
   min-width: 0;
   color: var(--midnight);
   font-size: 9.5px;
@@ -465,11 +466,12 @@ body {
   white-space: normal;
 }
 .demo-score-topline strong {
+  grid-column: 2;
   color: var(--midnight);
   font-size: 15px;
 }
 .demo-score-delta {
-  grid-column: 2 / 4;
+  grid-column: 3;
   font-size: 10px;
   font-weight: 700;
 }
@@ -629,11 +631,15 @@ body {
     grid-template-columns: 8px minmax(0, 1fr) auto auto;
   }
   .demo-score-label {
+    grid-column: auto;
     font-size: 12px;
     overflow: visible;
     text-overflow: clip;
   }
-  .demo-score-topline strong { font-size: 15px; }
+  .demo-score-topline strong {
+    grid-column: auto;
+    font-size: 15px;
+  }
   .demo-score-delta {
     grid-column: auto;
     font-size: 11px;
