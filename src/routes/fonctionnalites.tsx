@@ -33,8 +33,7 @@ import {
   IconFileText,
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
-import { RapportCard } from "@/components/RapportCard";
-import { useTallyCount } from "@/hooks/useTallyCount";
+import { DemoReportCard } from "@/components/DemoReportCard";
 
 
 export const Route = createFileRoute("/fonctionnalites")({
@@ -671,7 +670,6 @@ const featureVisuals: Record<TabId, () => React.JSX.Element> = {
 function Page() {
   const [active, setActive] = useState<TabId>("q12");
   const [openFeature, setOpenFeature] = useState<number | null>(0);
-  const count = useTallyCount();
 
 
   return (
@@ -826,7 +824,7 @@ function Page() {
             </div>
           </div>
           <div>
-            <RapportCard />
+            <DemoReportCard />
           </div>
         </div>
       </section>

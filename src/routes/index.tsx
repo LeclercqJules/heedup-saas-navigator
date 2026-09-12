@@ -13,10 +13,9 @@ import {
 import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
 
-import { RapportDemo } from "@/components/RapportDemo";
+import { DemoReportCard } from "@/components/DemoReportCard";
 
 
-import { useTallyCount } from "@/hooks/useTallyCount";
 import { useCountUp } from "@/hooks/useCountUp";
 
 function CountUp({ target, format, suffix }: { target: number; format?: (n: number) => string; suffix?: string }) {
@@ -105,10 +104,6 @@ function Index() {
 
 
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
-  const count = useTallyCount();
-
-
-
   const renderFaqAnswer = (text: string, boldPart: string) => {
     const idx = text.indexOf(boldPart);
     if (idx === -1) return text;
@@ -310,180 +305,45 @@ function Index() {
       <section
         id="hero"
         className="heedup-hero"
-        style={{
-          height: "calc(100vh - 120px)",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          background: `radial-gradient(
-            ellipse 900px 500px at 50% 28%,
-            rgba(67,56,202,0.08),
-            transparent 70%
-          ), var(--bg-main)`,
-        }}
+        style={{ background: "var(--bg-main)" }}
       >
-        <div
-          className="heedup-hero-inner"
-          style={{
-            flex: 1,
-            display: "flex",
-            alignItems: "center",
-            padding: "40px 5%",
-          }}
-        >
-          <div
-            className="heedup-hero-grid w-full"
-            style={{
-              maxWidth: "1080px",
-              margin: "0 auto",
-              textAlign: "center",
-            }}
-          >
-            <span
-              className="hero-anim-1"
-              style={{
-                display: "inline-block",
-                background: "var(--indigo-pale)",
-                color: "var(--indigo)",
-                fontFamily: "var(--font-sans)",
-                fontSize: "11px",
-                fontWeight: 700,
-                letterSpacing: "0.8px",
-                textTransform: "uppercase",
-                padding: "5px 14px",
-                borderRadius: "20px",
-                marginTop: "24px",
-                marginBottom: "28px",
-              }}
-            >
-              Votre équipe, enfin lisible.
-            </span>
-            <h1
-              className="heedup-hero-h1 hero-anim-2"
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "50px",
-                lineHeight: 1.08,
-                letterSpacing: "-1.5px",
-                color: "var(--midnight)",
-                marginTop: "0px",
-                marginBottom: "32px",
-              }}
-            >
-              L'état réel de votre équipe, chaque semaine.
-              <br />
-              <span
-                className="heedup-hero-h1-line2"
-                style={{
-                  color: "var(--indigo)",
-                  fontStyle: "italic",
-                  fontSize: "38px",
-                  display: "inline-block",
-                  marginTop: "6px",
-                }}
-              >
-                Deux à trois actions managériales par IA, chaque lundi.
-              </span>
-            </h1>
-
-            <p
-              className="heedup-hero-sub hero-anim-3"
-              style={{
-                fontFamily: "var(--font-sans)",
-                maxWidth: "600px",
-                marginLeft: "auto",
-                marginRight: "auto",
-                fontSize: "17px",
-                lineHeight: 1.7,
-                color: "var(--text-muted)",
-                marginBottom: "40px",
-              }}
-            >
-              Vos salariés répondent à 5 questions anonymes le vendredi. Deux minutes, aucun compte à créer, aucune donnée nominative.
-            </p>
-
-            <div
-              className="heedup-hero-actions hero-anim-4"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
+        <div className="heedup-hero-inner">
+          <div className="heedup-hero-grid">
+            <div className="heedup-hero-copy">
+              <span className="heedup-hero-eyebrow">Votre équipe, enfin lisible</span>
+              <h1 className="heedup-hero-h1">Savez-vous vraiment comment va votre équipe&nbsp;?</h1>
+              <p className="heedup-hero-sub">
+                Chaque vendredi, vos salariés partagent anonymement leur ressenti. Chaque lundi, HeedUp vous indique ce qui change et où agir.
+              </p>
+              <div className="heedup-hero-actions">
               <Link
                 to="/connexion"
-                className="heedup-hero-cta inline-flex items-center gap-2"
-                style={{
-                  backgroundColor: "var(--indigo)",
-                  color: "#FFFFFF",
-                  fontWeight: 700,
-                  fontSize: "16px",
-                  borderRadius: "8px",
-                  padding: "15px 28px",
-                  fontFamily: "var(--font-sans)",
-                  border: "none",
-                  cursor: "pointer",
-                  textDecoration: "none",
-                }}
+                className="heedup-hero-cta"
               >
-                Créer mon espace
+                Créer mon espace →
               </Link>
-
-              <div
-                className="heedup-hero-social"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "12px",
-                  marginTop: "32px",
-                  marginBottom: "0px",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center", flexDirection: "row-reverse" }}>
-                  {[
-                    { initials: "AC", bg: "#2d4a6e" },
-                    { initials: "SP", bg: "#5b4c8a" },
-                    { initials: "JB", bg: "#1e3a5f" },
-                    { initials: "CR", bg: "#374151" },
-                    { initials: "TD", bg: "#4338CA" },
-                    { initials: "ML", bg: "#0D1B3E" },
-                  ].map((a, i, arr) => (
-                    <div
-                      key={a.initials}
-                      style={{
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "50%",
-                        background: a.bg,
-                        border: "2px solid var(--bg-main)",
-                        marginLeft: i === arr.length - 1 ? 0 : "-10px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontFamily: "var(--font-display)",
-                        fontSize: "13px",
-                        color: "#FFFFFF",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      {a.initials}
-                    </div>
+                <a href="#demo-report" className="heedup-hero-secondary">
+                  Voir le rapport ↓
+                </a>
+              </div>
+              <div className="heedup-hero-social">
+                <div className="heedup-avatar-stack" aria-hidden="true">
+                  {["AC", "SP", "JB", "CR"].map((initials) => (
+                    <span key={initials}>{initials}</span>
                   ))}
                 </div>
-                <div
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "14px",
-                    color: "var(--midnight)",
-                    fontWeight: 700,
-                    lineHeight: 1.3,
-                    textAlign: "left",
-                  }}
-                >
-                  Déjà plus de 20 managers partenaires
-                </div>
+                <span>Déjà plus de 20 managers partenaires</span>
               </div>
+            </div>
+
+            <div id="demo-report" className="heedup-hero-report-stage">
+              <div className="heedup-hero-halo" aria-hidden="true" />
+              <div className="heedup-hero-sheet is-beige" aria-hidden="true" />
+              <div className="heedup-hero-sheet is-lilac" aria-hidden="true" />
+              <div className="heedup-hero-note is-dimensions">✦ Les 5 dimensions mesurées</div>
+              <div className="heedup-hero-note is-analysis">↗ Ce que l'IA analyse</div>
+              <div className="heedup-hero-note is-action">◈ Ce que vous pouvez faire</div>
+              <DemoReportCard presentation="hero" />
             </div>
           </div>
         </div>
@@ -491,12 +351,9 @@ function Index() {
         {/* Trust bar */}
         <div
           className="heedup-trust"
-          style={{
-            backgroundColor: "var(--midnight)",
-            padding: "16px 5%",
-          }}
+          style={{ backgroundColor: "var(--bg-card)" }}
         >
-          <div className="heedup-trust-inner flex flex-wrap items-center justify-center" style={{ gap: "36px" }}>
+          <div className="heedup-trust-inner">
             {[
               "RGPD natif",
               "Hébergé en France",
@@ -506,25 +363,14 @@ function Index() {
             ].map((item) => (
               <div
                 key={item}
-                className="flex items-center gap-2"
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "13px",
-                  fontWeight: 500,
-                  color: "rgba(255,255,255,0.7)",
-                }}
+                className="heedup-trust-item"
               >
-                <span style={{ color: "var(--indigo-pale)" }}>✓</span>
+                <span>✓</span>
                 <span>{item}</span>
               </div>
             ))}
           </div>
         </div>
-      </section>
-
-      {/* Démonstration interactive */}
-      <section id="demo" style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%", scrollMarginTop: "132px" }}>
-        <RapportDemo className="fade-up" />
       </section>
 
       {/* Secteurs représentés */}

@@ -2,9 +2,7 @@ import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { IconMail, IconDeviceLaptopOff, IconEyeOff } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
-import { RapportCard } from "@/components/RapportCard";
-import { RapportDemo } from "@/components/RapportDemo";
-import { useTallyCount } from "@/hooks/useTallyCount";
+import { DemoReportCard } from "@/components/DemoReportCard";
 
 type UtmSearch = {
   utm_source?: string;
@@ -269,7 +267,6 @@ function AccordionItem({ item, index }: { item: { question: string; answer: stri
 }
 
 function BienvenuePage() {
-  const count = useTallyCount();
 
   return (
     <SiteLayout>
@@ -364,7 +361,7 @@ function BienvenuePage() {
             </div>
           </div>
 
-          <RapportCard className="fade-up fade-up-delay-2" />
+          <DemoReportCard />
         </div>
       </section>
 
@@ -631,9 +628,11 @@ function BienvenuePage() {
         </div>
       </section>
 
-      {/* Démonstration interactive */}
+      {/* Démonstration du rapport */}
       <section style={{ background: "var(--bg-main)", padding: "56px 5%" }}>
-        <RapportDemo className="fade-up" />
+        <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+          <DemoReportCard />
+        </div>
       </section>
 
       {/* 4. DÉMARRAGE */}
