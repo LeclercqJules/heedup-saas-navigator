@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Fragment, useState, useEffect } from "react";
-import { Upload, Clock, Rocket, Check, Mail, User, Users } from "lucide-react";
+import { Upload, Clock, Rocket, Check, Mail, User, Users, X } from "lucide-react";
 import {
   IconPlayerPlay,
   IconBrain,
@@ -12,8 +12,10 @@ import {
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
+import { Button } from "@/components/ui/button";
 
 import { DemoReportCard } from "@/components/DemoReportCard";
+import weeklyReportAsset from "@/assets/rapport-demo-hebdo.png.asset.json";
 
 
 import { useCountUp } from "@/hooks/useCountUp";
@@ -101,9 +103,36 @@ function Index() {
   const [activeStep, setActiveStep] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [openStep, setOpenStep] = useState<number | null>(0);
+  const [isReportPreviewOpen, setIsReportPreviewOpen] = useState(false);
 
 
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isReportPreviewOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsReportPreviewOpen(false);
+    };
+
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", closeOnEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [isReportPreviewOpen]);
+
+  const openReportPreview = () => {
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      setIsReportPreviewOpen(true);
+    }
+  };
+
+  const reportAlt = "Exemple de rapport hebdomadaire HeedUp : cinq scores d'équipe, recommandations managériales, synthèse des commentaires et évolution sur six semaines";
+
   const renderFaqAnswer = (text: string, boldPart: string) => {
     const idx = text.indexOf(boldPart);
     if (idx === -1) return text;
@@ -374,6 +403,59 @@ function Index() {
           </div>
         </div>
       </section>
+
+      <section className="heedup-weekly-report" aria-labelledby="weekly-report-title">
+        <div className="heedup-weekly-report-heading fade-up">
+          <span className="heedup-hero-eyebrow">Votre rapport hebdomadaire</span>
+          <h2 id="weekly-report-title">Chaque lundi, vous savez où agir.</h2>
+          <p>HeedUp transforme le ressenti de votre équipe en signaux clairs et en actions concrètes.</p>
+        </div>
+
+        <div className="heedup-weekly-report-visual fade-up">
+          <button
+            type="button"
+            className="heedup-weekly-report-trigger"
+            onClick={openReportPreview}
+            aria-label="Agrandir l'exemple de rapport hebdomadaire"
+          >
+            <img
+              src={weeklyReportAsset.url}
+              alt={reportAlt}
+              className="heedup-weekly-report-image"
+            />
+          </button>
+          <div className="heedup-report-callout is-change fade-up fade-up-delay-1">↗ Ce qui change</div>
+          <div className="heedup-report-callout is-expression fade-up fade-up-delay-2">◌ Ce que l'équipe exprime</div>
+          <div className="heedup-report-callout is-action fade-up fade-up-delay-3">◈ Ce que vous pouvez faire</div>
+        </div>
+        <p className="heedup-weekly-report-hint">Toucher pour agrandir</p>
+      </section>
+
+      {isReportPreviewOpen && (
+        <div
+          className="heedup-report-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Aperçu agrandi du rapport hebdomadaire"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) setIsReportPreviewOpen(false);
+          }}
+        >
+          <Button
+            type="button"
+            size="icon"
+            variant="secondary"
+            className="heedup-report-lightbox-close"
+            onClick={() => setIsReportPreviewOpen(false)}
+            aria-label="Fermer l'aperçu"
+          >
+            <X aria-hidden="true" />
+          </Button>
+          <div className="heedup-report-lightbox-scroll">
+            <img src={weeklyReportAsset.url} alt={reportAlt} />
+          </div>
+        </div>
+      )}
 
       {/* Secteurs représentés */}
       <div
