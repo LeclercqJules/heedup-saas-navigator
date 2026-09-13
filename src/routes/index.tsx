@@ -411,6 +411,21 @@ function Index() {
           <p>HeedUp transforme le ressenti de votre équipe en signaux clairs et en actions concrètes.</p>
         </div>
 
+        <div className="heedup-weekly-report-callouts fade-up">
+          <div className="heedup-report-callout">
+            <span className="heedup-report-callout-icon" aria-hidden="true">✦</span>
+            <span>Ce qui change</span>
+          </div>
+          <div className="heedup-report-callout">
+            <span className="heedup-report-callout-icon" aria-hidden="true">✎</span>
+            <span>Ce que l'équipe exprime</span>
+          </div>
+          <div className="heedup-report-callout">
+            <span className="heedup-report-callout-icon" aria-hidden="true">◈</span>
+            <span>Ce que vous pouvez faire</span>
+          </div>
+        </div>
+
         <div className="heedup-weekly-report-visual fade-up">
           <button
             type="button"
@@ -424,18 +439,6 @@ function Index() {
               className="heedup-weekly-report-image"
             />
           </button>
-          <div className="heedup-report-callout is-change fade-up fade-up-delay-1">
-            <span>Ce qui change</span>
-            <span className="heedup-report-callout-arrow" aria-hidden="true">↓</span>
-          </div>
-          <div className="heedup-report-callout is-expression fade-up fade-up-delay-2">
-            <span className="heedup-report-callout-arrow" aria-hidden="true">←</span>
-            <span>Ce que l'équipe exprime</span>
-          </div>
-          <div className="heedup-report-callout is-action fade-up fade-up-delay-3">
-            <span className="heedup-report-callout-arrow" aria-hidden="true">↑</span>
-            <span>Ce que vous pouvez faire</span>
-          </div>
         </div>
         <p className="heedup-weekly-report-hint">Toucher pour agrandir</p>
       </section>
