@@ -824,14 +824,26 @@ body {
     cursor: zoom-in;
   }
   .heedup-weekly-report-callouts {
+    grid-template-columns: 1fr;
     width: 100%;
-    margin-bottom: 22px;
-    gap: 10px;
+    margin-top: 32px;
+    gap: 16px;
   }
   .heedup-report-callout {
-    padding: 8px 12px;
-    font-size: 11px;
+    padding: 18px;
   }
+  .heedup-report-callout-number {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+  .heedup-report-callout-body strong {
+    font-size: 14px;
+  }
+  .heedup-report-callout-body p {
+    font-size: 13px;
+  }
+
   .heedup-weekly-report-hint {
     display: block;
     margin: 12px 0 0;
