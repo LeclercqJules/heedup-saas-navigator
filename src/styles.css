@@ -839,6 +839,15 @@ body {
 }
 
 @media (max-width: 639px) {
+  .heedup-weekly-report-callouts {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .heedup-report-callout {
+    width: 100%;
+    max-width: 260px;
+    justify-content: center;
+  }
   .heedup-nav-logo { width: 30px; height: 30px; }
   .heedup-hero-actions {
     display: grid;
