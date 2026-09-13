@@ -427,6 +427,31 @@ function Index() {
           </button>
         </div>
         <p className="heedup-weekly-report-hint">Toucher pour agrandir</p>
+
+        <div className="heedup-weekly-report-callouts fade-up">
+          <div className="heedup-report-callout">
+            <span className="heedup-report-callout-number is-01">01</span>
+            <div className="heedup-report-callout-body">
+              <strong>Ce qui change</strong>
+              <p>Les cinq indicateurs vous montrent les évolutions marquantes de votre équipe cette semaine.</p>
+            </div>
+          </div>
+          <div className="heedup-report-callout">
+            <span className="heedup-report-callout-number is-02">02</span>
+            <div className="heedup-report-callout-body">
+              <strong>Pourquoi</strong>
+              <p>L'IA analyse les commentaires anonymisés et identifie les causes possibles derrière ces changements.</p>
+            </div>
+          </div>
+          <div className="heedup-report-callout">
+            <span className="heedup-report-callout-number is-03">03</span>
+            <div className="heedup-report-callout-body">
+              <strong>Quoi faire</strong>
+              <p>Vous recevez 2 à 3 recommandations managériales concrètes, adaptées au contexte de votre équipe.</p>
+            </div>
+          </div>
+        </div>
+
       </section>
 
       {isReportPreviewOpen && (
