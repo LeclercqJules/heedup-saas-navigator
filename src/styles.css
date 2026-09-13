@@ -610,6 +610,89 @@ body {
   font-weight: 700;
 }
 
+.heedup-weekly-report {
+  width: 100%;
+  overflow: hidden;
+  padding: 88px 5% 96px;
+  background: var(--bg-card);
+}
+
+.heedup-weekly-report-heading {
+  max-width: 680px;
+  margin: 0 auto 42px;
+  text-align: center;
+}
+
+.heedup-weekly-report-heading .heedup-hero-eyebrow {
+  margin-bottom: 18px;
+}
+
+.heedup-weekly-report-heading h2 {
+  margin: 0 0 14px;
+  color: var(--midnight);
+  font-family: var(--font-display);
+  font-size: 44px;
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+
+.heedup-weekly-report-heading p {
+  margin: 0;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.heedup-weekly-report-visual {
+  position: relative;
+  width: min(90vw, 1580px);
+  margin: 0 auto;
+}
+
+.heedup-weekly-report-trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 13px;
+  background: transparent;
+  box-shadow: 0 24px 60px -16px rgba(13, 27, 62, 0.18);
+  cursor: default;
+}
+
+.heedup-weekly-report-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.heedup-report-callout {
+  position: absolute;
+  z-index: 2;
+  padding: 9px 12px;
+  border: 1px solid rgba(13, 27, 62, 0.1);
+  border-radius: 8px;
+  background: var(--bg-card);
+  box-shadow: 0 6px 18px rgba(13, 27, 62, 0.1);
+  color: var(--midnight);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.heedup-report-callout.is-change { top: 22%; left: 31%; }
+.heedup-report-callout.is-expression { top: 47%; right: 5%; }
+.heedup-report-callout.is-action { top: 45%; left: 21%; }
+
+.heedup-weekly-report-hint,
+.heedup-report-lightbox {
+  display: none;
+}
+
 @media (max-width: 1120px) {
   .heedup-hero-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -666,6 +749,73 @@ body {
   }
   .demo-report-details,
   .demo-report-vigilance { display: none; }
+
+  .heedup-weekly-report {
+    padding-top: 56px !important;
+    padding-bottom: 56px !important;
+  }
+  .heedup-weekly-report-heading {
+    margin-bottom: 26px;
+  }
+  .heedup-weekly-report-heading .heedup-hero-eyebrow {
+    margin-bottom: 14px;
+  }
+  .heedup-weekly-report-heading h2 {
+    font-size: 32px !important;
+    line-height: 1.15;
+  }
+  .heedup-weekly-report-heading p {
+    font-size: 15px;
+  }
+  .heedup-weekly-report-visual {
+    width: 100%;
+  }
+  .heedup-weekly-report-trigger {
+    cursor: zoom-in;
+  }
+  .heedup-report-callout {
+    display: none;
+  }
+  .heedup-weekly-report-hint {
+    display: block;
+    margin: 12px 0 0;
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    font-size: 12px;
+    text-align: center;
+  }
+  .heedup-report-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: grid;
+    place-items: center;
+    padding: 64px 12px 20px;
+    overflow: hidden;
+    background: rgba(13, 27, 62, 0.84);
+  }
+  .heedup-report-lightbox-close {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 202;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: var(--bg-card);
+    color: var(--midnight);
+  }
+  .heedup-report-lightbox-scroll {
+    width: 100%;
+    max-height: 100%;
+    overflow: auto;
+    overscroll-behavior: contain;
+    touch-action: pinch-zoom pan-x pan-y;
+  }
+  .heedup-report-lightbox-scroll img {
+    display: block;
+    width: max(100%, 960px);
+    height: auto;
+    border-radius: 12px;
+  }
 }
 
 @media (max-width: 639px) {

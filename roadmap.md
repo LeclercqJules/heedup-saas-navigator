@@ -7,3 +7,4 @@
 - [x] Vérifier contenus, destinations et contraintes visuelles
 - [x] Corriger les libellés, le positionnement de la bulle IA et le débordement du hero
 - [x] Ajuster le titre, le rapport et le bloc supérieur du hero
+- [x] Ajouter la section du rapport hebdomadaire avec aperçu mobile
