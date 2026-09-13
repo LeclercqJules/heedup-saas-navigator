@@ -411,20 +411,6 @@ function Index() {
           <p>HeedUp transforme le ressenti de votre équipe en signaux clairs et en actions concrètes.</p>
         </div>
 
-        <div className="heedup-weekly-report-callouts fade-up">
-          <div className="heedup-report-callout">
-            <span className="heedup-report-callout-icon" aria-hidden="true">✦</span>
-            <span>Ce qui change</span>
-          </div>
-          <div className="heedup-report-callout">
-            <span className="heedup-report-callout-icon" aria-hidden="true">✎</span>
-            <span>Ce que l'équipe exprime</span>
-          </div>
-          <div className="heedup-report-callout">
-            <span className="heedup-report-callout-icon" aria-hidden="true">◈</span>
-            <span>Ce que vous pouvez faire</span>
-          </div>
-        </div>
 
         <div className="heedup-weekly-report-visual fade-up">
           <button
