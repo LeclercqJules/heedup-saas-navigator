@@ -787,8 +787,14 @@ body {
   .heedup-weekly-report-trigger {
     cursor: zoom-in;
   }
+  .heedup-weekly-report-callouts {
+    width: 100%;
+    margin-bottom: 22px;
+    gap: 10px;
+  }
   .heedup-report-callout {
-    display: none;
+    padding: 8px 12px;
+    font-size: 11px;
   }
   .heedup-weekly-report-hint {
     display: block;
