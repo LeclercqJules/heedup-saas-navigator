@@ -424,9 +424,18 @@ function Index() {
               className="heedup-weekly-report-image"
             />
           </button>
-          <div className="heedup-report-callout is-change fade-up fade-up-delay-1">↗ Ce qui change</div>
-          <div className="heedup-report-callout is-expression fade-up fade-up-delay-2">◌ Ce que l'équipe exprime</div>
-          <div className="heedup-report-callout is-action fade-up fade-up-delay-3">◈ Ce que vous pouvez faire</div>
+          <div className="heedup-report-callout is-change fade-up fade-up-delay-1">
+            <span>Ce qui change</span>
+            <span className="heedup-report-callout-arrow" aria-hidden="true">↓</span>
+          </div>
+          <div className="heedup-report-callout is-expression fade-up fade-up-delay-2">
+            <span className="heedup-report-callout-arrow" aria-hidden="true">←</span>
+            <span>Ce que l'équipe exprime</span>
+          </div>
+          <div className="heedup-report-callout is-action fade-up fade-up-delay-3">
+            <span className="heedup-report-callout-arrow" aria-hidden="true">↑</span>
+            <span>Ce que vous pouvez faire</span>
+          </div>
         </div>
         <p className="heedup-weekly-report-hint">Toucher pour agrandir</p>
       </section>
