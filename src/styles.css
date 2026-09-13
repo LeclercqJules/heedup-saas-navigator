@@ -646,9 +646,9 @@ body {
 
 .heedup-weekly-report-visual {
   position: relative;
-  width: min(96vw, 1760px);
+  width: min(90vw, 1580px);
   margin: 0 auto;
-  padding: 54px 138px 58px 0;
+  padding: 60px 140px 60px 0;
   box-sizing: border-box;
 }
 
