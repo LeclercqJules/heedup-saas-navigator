@@ -32,24 +32,6 @@ import { Button } from "@/components/ui/button";
 import { DemoReportCard } from "@/components/DemoReportCard";
 import weeklyReportAsset from "@/assets/rapport-demo-hebdo.png.asset.json";
 
-
-import { useCountUp } from "@/hooks/useCountUp";
-
-function CountUp({ target, format, suffix }: { target: number; format?: (n: number) => string; suffix?: string }) {
-  const { count, ref } = useCountUp(target);
-  return (
-    <span ref={ref}>
-      {format ? format(count) : count}
-      {suffix ?? ""}
-    </span>
-  );
-}
-
-function fmtThousands(n: number): string {
-  return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-}
-
-
 type IndexSearch = {
   utm_source?: string;
   utm_medium?: string;
