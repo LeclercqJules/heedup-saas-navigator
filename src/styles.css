@@ -274,9 +274,9 @@ body {
   color: var(--demo-meaning);
 }
 
-.heedup-impact-icon.is-plum {
-  background: var(--indigo-pale);
-  color: var(--indigo);
+.heedup-impact-icon.is-teal {
+  background: var(--demo-clarity-pale);
+  color: var(--demo-clarity);
 }
 
 .heedup-impact-label {
@@ -1063,6 +1063,18 @@ body {
 }
 
 @media (max-width: 639px) {
+  .heedup-impact-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .heedup-impact-card {
+    min-height: 0;
+  }
+
+  .heedup-impact-calculator-copy {
+    align-items: flex-start;
+  }
+
   .heedup-nav-logo { width: 30px; height: 30px; }
 
   .heedup-hero-actions {
@@ -1101,6 +1113,9 @@ body {
   }
   .heedup-hero-inner {
     padding: 56px 5% !important;
+  }
+  .heedup-impact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -1228,6 +1243,15 @@ body {
   /* HOMEPAGE Impact stats : 2 colonnes */
   .heedup-impact-grid {
     grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .heedup-impact-calculator {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .heedup-impact-calculator-button {
+    width: 100%;
   }
 
   /* Comment ça marche : stepper 2x2, panel 1 col */

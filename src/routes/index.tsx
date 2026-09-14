@@ -640,7 +640,7 @@ function Index() {
                 label: "du climat d'équipe dépend directement du manager, pas de la politique RH globale.",
                 source: "Recherche Gallup",
                 icon: UserRoundCog,
-                tone: "plum",
+                tone: "teal",
               },
             ].map((card, index) => {
               const CardIcon = card.icon;
