@@ -1,5 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
+import {
+  calculateDisengagementCost,
+  calculateHeedupAnnualCost,
+  DEPARTURE_COST,
+  DEPARTURE_COST_MAX,
+  DEPARTURE_COST_MIN,
+  DEPARTURE_COST_SOURCE,
+  DISENGAGEMENT_COST_PER_EMPLOYEE,
+  DISENGAGEMENT_PERCENT,
+  DISENGAGEMENT_SOURCE,
+} from "@/lib/costCalculator";
 
 type Props = {
   isOpen: boolean;
@@ -12,13 +23,6 @@ const TALLY_ATTRS = {
   "data-tally-emoji-text": "👋",
   "data-tally-emoji-animation": "wave",
 } as const;
-
-function calcHeedup(n: number): number {
-  if (n < 25) return n * 5 * 12;
-  if (n < 50) return n * 4.5 * 12;
-  if (n < 100) return n * 4 * 12;
-  return n * 3.5 * 12;
-}
 
 function fmtEuro(n: number): string {
   return Math.round(n).toLocaleString("fr-FR") + "€";
@@ -44,9 +48,9 @@ export function CostCalculatorModal({ isOpen, onClose }: Props) {
   if (!isOpen) return null;
 
   const n = employees;
-  const disengaged = Math.round(n * 0.13) * 14300;
-  const heedup = calcHeedup(n);
-  const roi = 22500 - heedup;
+  const disengaged = calculateDisengagementCost(n);
+  const heedup = calculateHeedupAnnualCost(n);
+  const roi = DEPARTURE_COST - heedup;
   const pct = ((n - 10) / 90) * 100;
   const sliderBg = `linear-gradient(to right, var(--indigo) 0%, var(--indigo) ${pct}%, rgba(67,56,202,0.15) ${pct}%, rgba(67,56,202,0.15) 100%)`;
 
@@ -121,7 +125,7 @@ export function CostCalculatorModal({ isOpen, onClose }: Props) {
             marginBottom: 28,
           }}
         >
-          Basé sur les données IBET 2024 et Deloitte 2024. Entrez la taille de votre équipe.
+          Basé sur les données Gallup France et IBET 2024. Entrez la taille de votre équipe.
         </p>
 
         <div
@@ -250,10 +254,10 @@ export function CostCalculatorModal({ isOpen, onClose }: Props) {
               {fmtEuro(disengaged)}
             </div>
             <div style={{ fontSize: 12, color: "rgba(185,28,28,0.7)", marginTop: 4 }}>
-              13% de vos salariés sont activement désengagés. Chacun coûte en moyenne 14 300€/an.
+              {DISENGAGEMENT_PERCENT}% de vos salariés sont activement désengagés. Chacun coûte en moyenne {fmtEuro(DISENGAGEMENT_COST_PER_EMPLOYEE)}/an.
             </div>
             <div style={{ fontSize: 10, color: "rgba(185,28,28,0.4)", marginTop: 6 }}>
-              Source : IBET 2024, Gallup 2024
+              {DISENGAGEMENT_SOURCE}
             </div>
           </div>
 
@@ -279,13 +283,13 @@ export function CostCalculatorModal({ isOpen, onClose }: Props) {
               Risque par départ non anticipé
             </div>
             <div id="calcDeparture" style={{ fontFamily: "var(--font-display)", fontSize: 28, color: "#b91c1c" }}>
-              22 500€
+              {fmtEuro(DEPARTURE_COST)}
             </div>
             <div style={{ fontSize: 12, color: "rgba(185,28,28,0.7)", marginTop: 4 }}>
               Recrutement, formation et perte de productivité pendant 6 mois.
             </div>
             <div style={{ fontSize: 10, color: "rgba(185,28,28,0.4)", marginTop: 6 }}>
-              Source : Deloitte 2024, 15 000€ à 30 000€
+              Source : {DEPARTURE_COST_SOURCE}. Fourchette : {fmtEuro(DEPARTURE_COST_MIN)} à {fmtEuro(DEPARTURE_COST_MAX)}.
             </div>
           </div>
 

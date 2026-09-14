@@ -9,3 +9,4 @@
 - [x] Ajuster le titre, le rapport et le bloc supérieur du hero
 - [x] Ajouter la section du rapport hebdomadaire avec aperçu mobile
 - [x] Mettre à jour la section Impact Business et son accès au calculateur
+- [x] Aligner les chiffres et les sources des deux calculateurs de coût
