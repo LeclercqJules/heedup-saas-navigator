@@ -412,22 +412,6 @@ function Index() {
         </div>
 
 
-        <div className="heedup-weekly-report-visual fade-up">
-          <button
-            type="button"
-            className="heedup-weekly-report-trigger"
-            onClick={openReportPreview}
-            aria-label="Agrandir l'exemple de rapport hebdomadaire"
-          >
-            <img
-              src={weeklyReportAsset.url}
-              alt={reportAlt}
-              className="heedup-weekly-report-image"
-            />
-          </button>
-        </div>
-        <p className="heedup-weekly-report-hint">Toucher pour agrandir</p>
-
         <div className="heedup-weekly-report-callouts fade-up">
           <div className="heedup-report-callout">
             <span className="heedup-report-callout-number is-01">01</span>
@@ -451,6 +435,22 @@ function Index() {
             </div>
           </div>
         </div>
+
+        <div className="heedup-weekly-report-visual fade-up">
+          <button
+            type="button"
+            className="heedup-weekly-report-trigger"
+            onClick={openReportPreview}
+            aria-label="Agrandir l'exemple de rapport hebdomadaire"
+          >
+            <img
+              src={weeklyReportAsset.url}
+              alt={reportAlt}
+              className="heedup-weekly-report-image"
+            />
+          </button>
+        </div>
+        <p className="heedup-weekly-report-hint">Toucher pour agrandir</p>
 
       </section>
 
