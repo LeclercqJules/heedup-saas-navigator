@@ -67,6 +67,7 @@ body {
   --text-muted: #6B7280;
   --semantic-red: #EF4444;
   --semantic-green: #22C55E;
+  --callout-amber: #D97706;
 
   /* Legacy aliases (kept for shadcn tokens) */
   --navy: #0D1B3E;
@@ -673,7 +674,7 @@ body {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
   width: min(90vw, 1100px);
-  margin: 48px auto 0;
+  margin: 0 auto 32px;
 }
 
 .heedup-report-callout {
@@ -701,16 +702,15 @@ body {
 }
 
 .heedup-report-callout-number.is-01 {
-  background: var(--indigo);
+  background: var(--semantic-green);
 }
 
 .heedup-report-callout-number.is-02 {
-  background: var(--midnight);
+  background: var(--indigo);
 }
 
 .heedup-report-callout-number.is-03 {
-  background: rgba(67, 56, 202, 0.12);
-  color: var(--indigo);
+  background: var(--callout-amber);
 }
 
 .heedup-report-callout-body {
@@ -826,7 +826,7 @@ body {
   .heedup-weekly-report-callouts {
     grid-template-columns: 1fr;
     width: 100%;
-    margin-top: 32px;
+    margin: 0 0 24px;
     gap: 16px;
   }
   .heedup-report-callout {
