@@ -9,7 +9,7 @@ import {
   DEPARTURE_COST_MIN,
   DEPARTURE_COST_SOURCE,
   DISENGAGEMENT_COST_PER_EMPLOYEE,
-  DISENGAGEMENT_RATE,
+  DISENGAGEMENT_PERCENT,
   DISENGAGEMENT_SOURCE,
 } from "@/lib/costCalculator";
 
@@ -253,7 +253,7 @@ function EstimerCoutPage() {
                 {fmtEuro(disengaged)}
               </div>
               <div style={{ fontSize: 12, color: "rgba(185,28,28,0.7)", marginTop: 4 }}>
-                {DISENGAGEMENT_RATE * 100}% de vos salariés sont activement désengagés, impliqués en apparence, mais plus vraiment investis dans leur travail. Chacun coûte en moyenne {fmtEuro(DISENGAGEMENT_COST_PER_EMPLOYEE)}/an.
+                {DISENGAGEMENT_PERCENT}% de vos salariés sont activement désengagés, impliqués en apparence, mais plus vraiment investis dans leur travail. Chacun coûte en moyenne {fmtEuro(DISENGAGEMENT_COST_PER_EMPLOYEE)}/an.
               </div>
               <div style={{ fontSize: 10, color: "rgba(185,28,28,0.4)", marginTop: 6 }}>
                 {DISENGAGEMENT_SOURCE}
