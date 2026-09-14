@@ -609,7 +609,7 @@ function Index() {
               {
                 key: "engagement",
                 eyebrow: "TAUX D'ENGAGEMENT",
-                figureNode: <><CountUp target={7} />%</>,
+                figureNode: <>7%</>,
                 label: "des salariés français réellement engagés dans leur travail, l'un des taux les plus bas en Europe.",
                 source: "Gallup, 2024",
                 icon: Activity,
@@ -618,7 +618,7 @@ function Index() {
               {
                 key: "cout-chronique",
                 eyebrow: "COÛT CHRONIQUE",
-                figureNode: <span style={{ whiteSpace: "nowrap" }}>~<CountUp target={14840} format={fmtThousands} /> €</span>,
+                figureNode: <span style={{ whiteSpace: "nowrap" }}>~14 840 €</span>,
                 label: "par salarié et par an, le coût du désengagement, des salariés présents mais qui ont décroché, avant même le moindre départ.",
                 source: "IBET, 2024",
                 icon: Banknote,
@@ -627,7 +627,7 @@ function Index() {
               {
                 key: "cout-depart",
                 eyebrow: "COÛT D'UN DÉPART",
-                figureNode: <><CountUp target={15} />-<CountUp target={30} /> K€</>,
+                figureNode: <>15-30 K€</>,
                 label: "le coût réel d'un départ en PME, recrutement, formation et désorganisation compris.",
                 source: "Estimations sectorielles, 2024",
                 icon: UserMinus,
@@ -636,7 +636,7 @@ function Index() {
               {
                 key: "levier",
                 eyebrow: "LE LEVIER MANAGER",
-                figureNode: <><CountUp target={70} />%</>,
+                figureNode: <>70%</>,
                 label: "du climat d'équipe dépend directement du manager, pas de la politique RH globale.",
                 source: "Recherche Gallup",
                 icon: UserRoundCog,
