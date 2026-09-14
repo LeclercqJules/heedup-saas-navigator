@@ -30,7 +30,37 @@ import { CostCalculatorModal } from "@/components/CostCalculatorModal";
 import { Button } from "@/components/ui/button";
 
 import { DemoReportCard } from "@/components/DemoReportCard";
+import { useCountUp } from "@/hooks/useCountUp";
 import weeklyReportAsset from "@/assets/rapport-demo-hebdo.png.asset.json";
+
+function ImpactCount({
+  target,
+  prefix = "",
+  suffix = "",
+  format,
+}: {
+  target: number;
+  prefix?: string;
+  suffix?: string;
+  format?: (value: number) => string;
+}) {
+  const { count, ref } = useCountUp(target, 1000);
+  return (
+    <span ref={ref}>
+      {prefix}{format ? format(count) : count}{suffix}
+    </span>
+  );
+}
+
+function ImpactRangeCount() {
+  const lower = useCountUp(15, 1000);
+  const upper = useCountUp(30, 1000);
+  return (
+    <span style={{ whiteSpace: "nowrap" }}>
+      <span ref={lower.ref}>{lower.count}</span>-<span ref={upper.ref}>{upper.count}</span> K€
+    </span>
+  );
+}
 
 type IndexSearch = {
   utm_source?: string;
@@ -591,7 +621,7 @@ function Index() {
               {
                 key: "engagement",
                 eyebrow: "TAUX D'ENGAGEMENT",
-                figureNode: <>7%</>,
+                figureNode: <ImpactCount target={7} suffix="%" />,
                 label: "des salariés français réellement engagés dans leur travail, l'un des taux les plus bas en Europe.",
                 source: "Gallup, 2024",
                 icon: Activity,
@@ -600,7 +630,14 @@ function Index() {
               {
                 key: "cout-chronique",
                 eyebrow: "COÛT CHRONIQUE",
-                figureNode: <span style={{ whiteSpace: "nowrap" }}>~14 840 €</span>,
+                figureNode: (
+                  <ImpactCount
+                    target={14840}
+                    prefix="~"
+                    suffix=" €"
+                    format={(value) => value.toLocaleString("fr-FR")}
+                  />
+                ),
                 label: "par salarié et par an, le coût du désengagement, des salariés présents mais qui ont décroché, avant même le moindre départ.",
                 source: "IBET, 2024",
                 icon: Banknote,
@@ -609,7 +646,7 @@ function Index() {
               {
                 key: "cout-depart",
                 eyebrow: "COÛT D'UN DÉPART",
-                figureNode: <>15-30 K€</>,
+                figureNode: <ImpactRangeCount />,
                 label: "le coût réel d'un départ en PME, recrutement, formation et désorganisation compris.",
                 source: "Estimations sectorielles, 2024",
                 icon: UserMinus,
@@ -618,7 +655,7 @@ function Index() {
               {
                 key: "levier",
                 eyebrow: "LE LEVIER MANAGER",
-                figureNode: <>70%</>,
+                figureNode: <ImpactCount target={70} suffix="%" />,
                 label: "du climat d'équipe dépend directement du manager, pas de la politique RH globale.",
                 source: "Recherche Gallup",
                 icon: UserRoundCog,
