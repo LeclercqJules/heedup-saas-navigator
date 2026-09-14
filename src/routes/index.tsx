@@ -1,6 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Fragment, useState, useEffect } from "react";
-import { Upload, Clock, Rocket, Check, Mail, User, Users, X } from "lucide-react";
+import {
+  Upload,
+  Clock,
+  Rocket,
+  Check,
+  Mail,
+  User,
+  Users,
+  X,
+  Activity,
+  Banknote,
+  UserMinus,
+  UserRoundCog,
+  Calculator,
+  ArrowRight,
+} from "lucide-react";
 import {
   IconPlayerPlay,
   IconBrain,
@@ -16,24 +31,6 @@ import { Button } from "@/components/ui/button";
 
 import { DemoReportCard } from "@/components/DemoReportCard";
 import weeklyReportAsset from "@/assets/rapport-demo-hebdo.png.asset.json";
-
-
-import { useCountUp } from "@/hooks/useCountUp";
-
-function CountUp({ target, format, suffix }: { target: number; format?: (n: number) => string; suffix?: string }) {
-  const { count, ref } = useCountUp(target);
-  return (
-    <span ref={ref}>
-      {format ? format(count) : count}
-      {suffix ?? ""}
-    </span>
-  );
-}
-
-function fmtThousands(n: number): string {
-  return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-}
-
 
 type IndexSearch = {
   utm_source?: string;
@@ -576,216 +573,91 @@ function Index() {
       <section
         id="impact"
         className="heedup-impact fade-up"
-        style={{
-          backgroundColor: "var(--bg-main)",
-          padding: "64px 5%",
-        }}
+        style={{ backgroundColor: "var(--bg-main)", padding: "64px 5%" }}
       >
         <div className="mx-auto" style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <div className="text-center" style={{ marginBottom: "40px" }}>
-            <div
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "10px",
-                fontWeight: 700,
-                letterSpacing: "0.9px",
-                textTransform: "uppercase",
-                color: "var(--midnight)",
-                opacity: 0.35,
-                marginBottom: "12px",
-              }}
-            >
-              IMPACT BUSINESS
-            </div>
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "52px",
-                letterSpacing: "-1px",
-                lineHeight: 1.15,
-                color: "var(--midnight)",
-                marginBottom: "12px",
-              }}
-            >
+          <div className="heedup-impact-heading text-center">
+            <span className="heedup-hero-eyebrow">Impact business</span>
+            <h2>
               Ce que les données disent de vos équipes.
             </h2>
-            <p
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "19px",
-                lineHeight: 1.65,
-                color: "var(--text-muted)",
-                marginBottom: "40px",
-                maxWidth: "620px",
-                marginLeft: "auto",
-                marginRight: "auto",
-              }}
-            >
+            <p>
               On ne perd pas un salarié le jour de sa démission. On le perd bien avant, en silence.
             </p>
           </div>
 
-          <div
-            className="heedup-impact-grid grid grid-cols-1 gap-[14px] md:grid-cols-2 lg:grid-cols-4"
-          >
+          <div className="heedup-impact-grid">
             {[
               {
                 key: "engagement",
                 eyebrow: "TAUX D'ENGAGEMENT",
-                figureNode: <><CountUp target={13} /> %</>,
+                figureNode: <>7%</>,
                 label: "des salariés français réellement engagés dans leur travail, l'un des taux les plus bas en Europe.",
                 source: "Gallup, 2024",
+                icon: Activity,
+                tone: "violet",
               },
               {
                 key: "cout-chronique",
                 eyebrow: "COÛT CHRONIQUE",
-                figureNode: <span style={{ whiteSpace: "nowrap" }}>~<CountUp target={14300} format={fmtThousands} /> €</span>,
+                figureNode: <span style={{ whiteSpace: "nowrap" }}>~14 840 €</span>,
                 label: "par salarié et par an, le coût du désengagement, des salariés présents mais qui ont décroché, avant même le moindre départ.",
                 source: "IBET, 2024",
+                icon: Banknote,
+                tone: "blue",
               },
               {
                 key: "cout-depart",
                 eyebrow: "COÛT D'UN DÉPART",
-                figureNode: <><CountUp target={15} />–<CountUp target={30} /> K€</>,
+                figureNode: <>15-30 K€</>,
                 label: "le coût réel d'un départ en PME, recrutement, formation et désorganisation compris.",
-                source: "Deloitte, 2024",
+                source: "Estimations sectorielles, 2024",
+                icon: UserMinus,
+                tone: "amber",
               },
               {
                 key: "levier",
                 eyebrow: "LE LEVIER MANAGER",
-                figureNode: <><CountUp target={70} /> %</>,
+                figureNode: <>70%</>,
                 label: "du climat d'équipe dépend directement du manager, pas de la politique RH globale.",
-                source: "Gallup, 2024",
+                source: "Recherche Gallup",
+                icon: UserRoundCog,
+                tone: "teal",
               },
-            ].map((c, i) => (
-              <div
-                key={c.key}
-                className={`fade-up fade-up-delay-${i + 1} card-hover`}
-                style={{
-                  backgroundColor: "var(--bg-card)",
-                  border: "1px solid rgba(67,56,202,0.10)",
-                  borderTop: "3px solid var(--midnight)",
-                  borderRadius: "12px",
-                  padding: "32px 28px",
-                  minHeight: "200px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "12px",
-                }}
-              >
-                <div
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "11px",
-                    fontWeight: 700,
-                    letterSpacing: "0.8px",
-                    textTransform: "uppercase",
-                    color: "var(--text-muted)",
-                  }}
+            ].map((card, index) => {
+              const CardIcon = card.icon;
+              return (
+                <article
+                  key={card.key}
+                  className={`heedup-impact-card fade-up fade-up-delay-${index + 1}`}
                 >
-                  {c.eyebrow}
-                </div>
-                <div
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "52px",
-                    lineHeight: 1,
-                    color: "var(--midnight)",
-                    minHeight: "1.2em",
-                    display: "block",
-                  }}
-                >
-                  {c.figureNode}
-                </div>
-
-                <p
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "14.5px",
-                    lineHeight: 1.6,
-                    color: "var(--text-primary)",
-                    flex: 1,
-                  }}
-                >
-                  {c.label}
-                </p>
-                <span
-                  style={{
-                    backgroundColor: "#EEEEFF",
-                    color: "var(--midnight)",
-                    fontSize: "11px",
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.4px",
-                    padding: "4px 10px",
-                    borderRadius: "4px",
-                    display: "inline-block",
-                    alignSelf: "flex-start",
-                  }}
-                >
-                  {c.source}
-                </span>
-              </div>
-            ))}
+                  <div className="heedup-impact-card-head">
+                    <span className={`heedup-impact-icon is-${card.tone}`} aria-hidden="true">
+                      <CardIcon size={19} strokeWidth={2} />
+                    </span>
+                    <span className="heedup-impact-label">{card.eyebrow}</span>
+                  </div>
+                  <div className="heedup-impact-figure">{card.figureNode}</div>
+                  <p className="heedup-impact-copy">{card.label}</p>
+                  <span className="heedup-impact-source">{card.source}</span>
+                </article>
+              );
+            })}
           </div>
 
-          <div
-            id="calculateur"
-            className="calc-band-inner"
-            style={{
-              marginTop: "32px",
-              paddingTop: "28px",
-              borderTop: "1px solid rgba(67,56,202,0.12)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "20px",
-              flexWrap: "wrap",
-            }}
-          >
-            <p
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "16px",
-                color: "var(--text-primary)",
-                margin: 0,
-              }}
-            >
-              Estimez ce que le désengagement coûte réellement à votre équipe.
-            </p>
-            <Link
-              to="/estimer-cout"
-              style={{
-                backgroundColor: "var(--indigo)",
-                color: "#FFFFFF",
-                fontWeight: 700,
-                fontSize: "15px",
-                borderRadius: "8px",
-                padding: "13px 26px",
-                fontFamily: "var(--font-sans)",
-                border: "none",
-                cursor: "pointer",
-                textDecoration: "none",
-                transition: "transform 0.2s ease",
-                display: "inline-block",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
-              onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
-            >
-              Calculer pour mon équipe →
-            </Link>
-            <style>{`
-              @media (max-width: 768px) {
-                .calc-band-inner {
-                  flex-direction: column !important;
-                  gap: 14px !important;
-                }
-                .calc-band-inner > a {
-                  width: 100% !important;
-                  text-align: center !important;
-                }
-              }
-            `}</style>
+          <div id="calculateur" className="heedup-impact-calculator">
+            <div className="heedup-impact-calculator-copy">
+              <span className="heedup-impact-calculator-icon" aria-hidden="true">
+                <Calculator size={21} strokeWidth={2} />
+              </span>
+              <p>Estimez ce que le désengagement coûte réellement à votre équipe.</p>
+            </div>
+            <Button asChild className="heedup-impact-calculator-button">
+              <Link to="/estimer-cout">
+                Calculer pour mon équipe
+                <ArrowRight size={17} aria-hidden="true" />
+              </Link>
+            </Button>
           </div>
 
         </div>
