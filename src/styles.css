@@ -1655,6 +1655,16 @@ body {
 
 
 
+@media (max-width: 639px) {
+  .heedup-impact-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .heedup-impact-card {
+    min-height: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .fade-up,
   .card-hover,
