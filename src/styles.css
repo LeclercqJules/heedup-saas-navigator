@@ -2808,3 +2808,411 @@ body:has(#repondre-root) {
   width: 100%;
   max-width: 440px;
 }
+
+/* ============================================================
+ * Section Comparaison
+ * ============================================================ */
+.heedup-cmp {
+  background-color: var(--bg-card);
+  padding: 80px 5%;
+}
+
+.heedup-cmp-head {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.heedup-cmp-head h2 {
+  font-family: var(--font-display);
+  font-size: 34px;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  color: var(--midnight);
+  margin: 14px 0 10px;
+}
+
+.heedup-cmp-head p {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.heedup-cmp-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+
+.heedup-cmp-args {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.heedup-cmp-arg {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.heedup-cmp-arg-icon {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background-color: var(--indigo-pale);
+  color: var(--indigo);
+}
+
+.heedup-cmp-arg-icon.is-violet { background-color: rgba(124, 58, 237, 0.1); color: #7C3AED; }
+.heedup-cmp-arg-icon.is-blue { background-color: rgba(37, 99, 235, 0.1); color: #2563EB; }
+.heedup-cmp-arg-icon.is-plum { background-color: rgba(67, 56, 202, 0.1); color: var(--indigo); }
+
+.heedup-cmp-arg h3 {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--midnight);
+  margin: 0 0 4px;
+}
+
+.heedup-cmp-arg p {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.heedup-cmp-table {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.05fr) minmax(0, 0.95fr);
+  border: 1px solid rgba(67, 56, 202, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--bg-card);
+}
+
+.heedup-cmp-thead,
+.heedup-cmp-row {
+  display: contents;
+}
+
+.heedup-cmp-crit-head {
+  background-color: var(--bg-card);
+}
+
+.heedup-cmp-head-cell {
+  padding: 18px 18px 16px;
+  text-align: center;
+  font-family: var(--font-sans);
+}
+
+.heedup-cmp-head-cell strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.heedup-cmp-head-cell em {
+  display: block;
+  font-style: normal;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.heedup-cmp-head-cell.is-heedup {
+  background-color: var(--indigo);
+}
+
+.heedup-cmp-head-cell.is-heedup strong { color: #FFFFFF; }
+.heedup-cmp-head-cell.is-heedup em { color: rgba(255, 255, 255, 0.7); }
+
+.heedup-cmp-head-cell.is-autres {
+  background-color: var(--bg-main);
+}
+
+.heedup-cmp-head-cell.is-autres strong { color: var(--midnight); }
+.heedup-cmp-head-cell.is-autres em { color: var(--text-muted); }
+
+.heedup-cmp-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: inline-grid;
+  place-items: center;
+  background-color: #FFFFFF;
+  color: var(--indigo);
+}
+
+.heedup-cmp-head-cell.is-autres .heedup-cmp-logo {
+  background-color: rgba(13, 27, 62, 0.06);
+  color: var(--text-muted);
+}
+
+.heedup-cmp-crit,
+.heedup-cmp-cell {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  padding: 15px 18px;
+  border-top: 1px solid rgba(13, 27, 62, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.heedup-cmp-crit {
+  color: var(--midnight);
+  font-weight: 500;
+}
+
+.heedup-cmp-cell.is-heedup {
+  background-color: rgba(67, 56, 202, 0.04);
+  color: var(--midnight);
+  font-weight: 600;
+}
+
+.heedup-cmp-cell.is-autres {
+  color: var(--text-muted);
+}
+
+.heedup-cmp-mark {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.heedup-cmp-mark.is-yes {
+  background-color: var(--semantic-green);
+  color: #FFFFFF;
+}
+
+.heedup-cmp-mark.is-no {
+  background-color: rgba(13, 27, 62, 0.1);
+  color: var(--text-muted);
+}
+
+.heedup-cmp-cards {
+  display: none;
+}
+
+.heedup-cmp-final {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
+  align-items: center;
+  gap: 28px;
+  background-color: var(--indigo-pale);
+  border-radius: 12px;
+  padding: 22px 26px;
+}
+
+.heedup-cmp-final-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.heedup-cmp-final-icon {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background-color: #FFFFFF;
+  color: var(--indigo);
+}
+
+.heedup-cmp-final-eyebrow {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  color: var(--indigo);
+  margin-bottom: 3px;
+}
+
+.heedup-cmp-final-left strong {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--midnight);
+}
+
+.heedup-cmp-final-copy {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+  padding-left: 28px;
+  border-left: 1px solid rgba(13, 27, 62, 0.12);
+}
+
+.heedup-cmp-final-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--indigo);
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 13px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: none;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.heedup-cmp-final-button:hover {
+  opacity: 0.88;
+}
+
+@media (max-width: 1023px) {
+  .heedup-cmp-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .heedup-cmp-args {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .heedup-cmp {
+    padding: 56px 5%;
+  }
+
+  .heedup-cmp-head h2 {
+    font-size: 27px;
+  }
+
+  .heedup-cmp-args {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .heedup-cmp-table {
+    display: none;
+  }
+
+  .heedup-cmp-cards {
+    display: grid;
+    gap: 16px;
+  }
+
+  .heedup-cmp-card {
+    border: 1px solid rgba(67, 56, 202, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: var(--bg-card);
+  }
+
+  .heedup-cmp-card-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+
+  .heedup-cmp-card.is-heedup .heedup-cmp-card-head {
+    background-color: var(--indigo);
+  }
+
+  .heedup-cmp-card.is-heedup .heedup-cmp-card-head strong { color: #FFFFFF; }
+  .heedup-cmp-card.is-heedup .heedup-cmp-card-head em { color: rgba(255, 255, 255, 0.7); }
+
+  .heedup-cmp-card.is-autres .heedup-cmp-card-head {
+    background-color: var(--bg-main);
+  }
+
+  .heedup-cmp-card.is-autres .heedup-cmp-card-head strong { color: var(--midnight); }
+  .heedup-cmp-card.is-autres .heedup-cmp-card-head em { color: var(--text-muted); }
+
+  .heedup-cmp-card.is-autres .heedup-cmp-logo {
+    background-color: rgba(13, 27, 62, 0.06);
+    color: var(--text-muted);
+  }
+
+  .heedup-cmp-card-head strong {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .heedup-cmp-card-head em {
+    display: block;
+    font-style: normal;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    margin-top: 2px;
+  }
+
+  .heedup-cmp-card-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 16px;
+    border-top: 1px solid rgba(13, 27, 62, 0.06);
+  }
+
+  .heedup-cmp-card-crit {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--text-muted);
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .heedup-cmp-card-value {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--midnight);
+    text-align: right;
+    flex: 0 1 auto;
+  }
+
+  .heedup-cmp-card.is-autres .heedup-cmp-card-value {
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .heedup-cmp-final {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .heedup-cmp-final-copy {
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .heedup-cmp-final-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
