@@ -13,7 +13,6 @@ import {
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
-import { useTallyCount } from "@/hooks/useTallyCount";
 
 export const Route = createFileRoute("/tarifs")({
   head: () => ({
