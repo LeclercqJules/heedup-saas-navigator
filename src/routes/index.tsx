@@ -168,47 +168,54 @@ function Index() {
     );
   };
 
-  const faqLeft = [
+  const faq = [
     {
-      q: "Mes employés vont-ils vraiment répondre ?",
-      a: "Nous visons plus de 75% de participation. Tout est conçu pour ça : cinq questions, deux minutes, aucun compte à créer, une réponse depuis le téléphone. Le reste dépend de vous : un questionnaire devient une routine quand le manager l'installe comme telle et montre ce qu'il en fait.",
-      b: "Nous visons plus de 75% de participation",
+      q: "Comment fonctionne l'anonymat ?",
+      a: "Le lien entre un salarié et sa réponse est supprimé à la soumission, pas masqué par un réglage. Les réponses ne sont jamais stockées avec un identifiant nominatif, et même notre équipe ne peut pas retrouver qui a répondu quoi. Vous ne verrez que des scores agrégés, et seulement à partir de 5 réponses complètes.",
+      b: "supprimé à la soumission",
     },
     {
-      q: "L'anonymat est-il vraiment garanti, ou c'est une promesse ?",
-      a: "C'est une contrainte architecturale, pas une promesse managériale. Les réponses ne sont jamais stockées avec un identifiant nominatif. Même notre équipe ne peut pas retrouver qui a répondu quoi. Vous ne verrez que des scores agrégés, et seulement à partir de 5 réponses complètes.",
-      b: "contrainte architecturale, pas une promesse managériale",
-    },
-    {
-      q: "Que reçoit exactement le manager chaque lundi ?",
+      q: "Que voit exactement le manager ?",
       a: "Un email vous prévient que le rapport est prêt, avec le nombre de réponses reçues. Le rapport lui-même s'ouvre dans votre espace : 5 scores affichés séparément (charge de travail, reconnaissance, clarté, soutien, sens), le delta par rapport à la semaine précédente, et 2 à 3 recommandations managériales concrètes générées par IA. Le rapport reste derrière votre mot de passe plutôt que dans une boîte mail qui peut être transférée. Vous comprenez l'état de votre équipe en moins de 2 minutes.",
-      b: "Rapport d'équipe",
+      b: "5 scores affichés séparément",
     },
     {
-      q: "Combien de temps ça prend à mettre en place ?",
+      q: "Mes salariés doivent-ils créer un compte ?",
+      a: "Non. Vos salariés reçoivent un lien par email chaque vendredi. Ils répondent directement depuis ce lien, sans inscription, sans application, sans mot de passe à retenir. Zéro friction de leur côté.",
+      b: "un lien par email chaque vendredi",
+    },
+    {
+      q: "Combien de temps prend la mise en place ?",
       a: "Moins de 10 minutes. Vous créez votre compte, importez les emails de votre équipe (CSV ou saisie manuelle), et activez le premier survey. Aucun IT requis, aucun déploiement. Vous lancez le premier questionnaire immédiatement depuis votre espace, puis les envois deviennent automatiques chaque vendredi.",
       b: "Aucun IT requis, aucun déploiement",
     },
     {
-      q: "Mes employés doivent-ils créer un compte ?",
-      a: "Non. Vos salariés reçoivent un lien par email chaque vendredi. Ils répondent directement depuis ce lien, sans inscription, sans application, sans mot de passe à retenir. Zéro friction de leur côté.",
-      b: "un lien par email chaque vendredi",
-    },
-  ];
-
-  const faqRight = [
-    {
-      q: "HeedUp remplace-t-il les entretiens annuels ?",
-      a: "Non, et ce n'est pas l'objectif. HeedUp détecte les signaux faibles en continu, semaine après semaine. L'entretien annuel reste votre espace de dialogue approfondi. HeedUp vous aide à y arriver avec une vraie visibilité sur l'année, pas juste un ressenti.",
-      b: "en continu, semaine après semaine",
+      q: "Que se passe-t-il si peu de salariés répondent ?",
+      a: "En dessous de cinq réponses complètes, aucun score n'est publié, parce qu'une moyenne cesse alors de protéger les personnes qui la composent. Vous recevez tout de même des pistes concrètes pour améliorer la participation. Et l'essai gratuit porte sur deux rapports réellement produits : personne ne paie pour un outil qui n'a rien produit.",
+      b: "aucun score n'est publié",
     },
     {
-      q: "Que se passe-t-il si peu d'employés répondent ?",
-      a: "Sous 5 réponses complètes, les scores ne sont pas affichés pour préserver l'anonymat statistique. Vous recevez un email vous indiquant que le seuil n'est pas atteint, avec des pistes pour améliorer l'adhésion. Ce message ne contient aucun chiffre : publier le nombre de répondants sous le seuil reviendrait à publier une mesure dans la zone que le seuil protège. Notre objectif est une participation supérieure à 70% dès la deuxième semaine.",
-      b: "préserver l'anonymat statistique",
+      q: "Quel taux de réponse puis-je attendre ?",
+      a: "Tout est conçu pour maximiser la participation : cinq questions, deux minutes, aucun compte à créer, une réponse depuis le téléphone. Le reste dépend de vous : un questionnaire devient une routine quand le manager l'installe comme telle et montre ce qu'il en fait.",
+      b: "cinq questions, deux minutes, aucun compte à créer",
     },
     {
-      q: "Est-ce que ça fonctionne pour des équipes en télétravail ?",
+      q: "Combien de temps prennent les questionnaires ?",
+      a: "Environ deux minutes. Cinq questions, à répondre depuis un téléphone, sans inscription ni application. Un champ libre facultatif permet d'ajouter un commentaire.",
+      b: "Environ deux minutes",
+    },
+    {
+      q: "Que fait l'IA avec les réponses ?",
+      a: "L'IA analyse les commentaires anonymisés pour identifier les causes possibles derrière les évolutions de vos scores, puis rédige les 2 à 3 recommandations managériales de votre rapport. Les commentaires sont rendus non attribuables avant toute analyse, et ce traitement ne sert à aucun autre usage.",
+      b: "commentaires anonymisés",
+    },
+    {
+      q: "À partir de combien de salariés HeedUp est-il pertinent ?",
+      a: "Dès 10 salariés. La grille tarifaire couvre les équipes de 10 à 100 personnes et au-delà. Sous le seuil de 5 réponses complètes, aucun score n'est publié, ce qui garantit des moyennes qui protègent les personnes, même dans de petites équipes.",
+      b: "Dès 10 salariés",
+    },
+    {
+      q: "Les équipes à distance peuvent-elles utiliser HeedUp ?",
       a: "Oui, c'est même là qu'il est le plus utile. Sur des équipes hybrides ou distantes, le manager voit moins ses employés au quotidien. HeedUp comble précisément ce manque de visibilité informelle que le bureau permettait naturellement.",
       b: "le plus utile",
     },
@@ -218,7 +225,12 @@ function Index() {
       b: "identiques chaque semaine",
     },
     {
-      q: "Où sont hébergées les données de mes employés ?",
+      q: "Puis-je arrêter quand je veux ?",
+      a: "Oui. L'abonnement est sans engagement et la désinscription se fait en libre-service depuis votre espace, sans email ni appel à passer. Vos données sont ensuite supprimées selon les durées décrites dans notre politique de confidentialité.",
+      b: "sans engagement",
+    },
+    {
+      q: "Où sont hébergées les données ?",
       a: "En France. HeedUp utilise Supabase sur la région Paris (eu-west-3). Deux traitements passent par des prestataires hors UE, l'envoi des emails et la génération de la synthèse, détaillés dans la politique de confidentialité. La documentation RGPD, dont le DPA et le registre de traitement, est disponible sur demande.",
       b: "En France",
     },
@@ -694,8 +706,7 @@ function Index() {
             margin: "0 auto",
           }}
         >
-          <div>{faqLeft.map((item, i) => renderFaqItem(item, i))}</div>
-          <div>{faqRight.map((item, i) => renderFaqItem(item, i + faqLeft.length))}</div>
+          {faq.map((item, i) => renderFaqItem(item, i))}
         </div>
       </section>
 
