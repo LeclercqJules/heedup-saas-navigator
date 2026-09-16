@@ -80,7 +80,7 @@ const features: Feature[] = [
     Icon: Send,
     tag: "Questions hebdomadaires",
     title: "5 questions. Pas 50.",
-    lead: "Les 5 questions couvrent cinq dimensions retenues sur deux critères : prédictives du départ, et actionnables par un manager sans formation RH dans la semaine.",
+    lead: "Les 5 questions couvrent cinq dimensions qui couvrent ce qui se dégrade le plus souvent avant un départ, et sur quoi un manager peut réellement agir.",
     rest: "Charge de travail, reconnaissance, clarté, soutien, sens. Elles ne changent pas d'une semaine à l'autre, ce qui permet de mesurer des tendances réelles.",
     detail: {
       label: "Pourquoi des questions fixes ?",
@@ -103,7 +103,7 @@ const features: Feature[] = [
     rest: "Il interprète les tendances et génère 2 à 3 recommandations selon le contexte de la semaine. Chaque recommandation est rattachée à la dimension à laquelle elle répond, ce qui vous permet de voir immédiatement quel score elle cherche à faire bouger.",
     detail: {
       label: "Ce que l'IA analyse",
-      text: "Score absolu de la semaine, delta vs semaine N-1 et tendance sur 3 semaines. La recommandation combine ces signaux, pas juste le dernier score.",
+      text: "Score absolu de la semaine, évolution par rapport à la semaine précédente, et commentaires libres de la semaine. La recommandation combine ces signaux, pas juste le dernier score.",
     },
   },
   {
@@ -113,7 +113,7 @@ const features: Feature[] = [
     tag: "Anonymat",
     title: "Ce que vous ne pouvez pas voir. Même si vous le voulez.",
     lead: "L'anonymat de HeedUp est une contrainte d'architecture, pas un paramètre.",
-    rest: "Répondre reste facultatif : chaque email porte un lien de désinscription, et le manager ne voit jamais qui s'est désinscrit. Le système ne stocke jamais de lien entre une réponse et un salarié. Techniquement, même si vous demandiez à notre équipe qui a répondu quoi, nous ne pourrions pas vous répondre.",
+    rest: "Répondre reste facultatif : chaque email porte un lien de désinscription, et le manager ne voit jamais qui s'est désinscrit. Le lien entre un salarié et sa réponse est supprimé au moment même de la soumission. Cette information n'existe plus dans la base : ce n'est pas une règle interne, c'est une absence de donnée.",
     detail: {
       label: "Seuil de protection statistique",
       text: "Si moins de 5 salariés ont répondu complètement cette semaine, aucun score n'est affiché. La synthèse des commentaires suit un seuil distinct : elle demande 5 commentaires. Ces seuils protègent l'anonymat dans les petites équipes.",
@@ -131,13 +131,14 @@ const features: Feature[] = [
     tag: "Tableau de bord",
     title: "L'historique pour comprendre. Le rapport lundi pour agir.",
     lead: "Le Rapport d'équipe du lundi est votre outil d'action.",
-    rest: "Le tableau de bord est votre outil de compréhension. Quand un score descend, le dashboard vous permet de voir si c'est un accident ou une tendance installée depuis 3 semaines.",
+    rest: "Le tableau de bord est votre outil de compréhension. Quand un score descend, le tableau de bord vous permet de voir si c'est un accident ou une tendance installée.",
     detail: {
       label: "Vigilance humaine",
       text: "Quand un commentaire évoque une situation grave, le rapport signale qu'une vigilance humaine est recommandée, sans jamais citer le commentaire ni son auteur.",
     },
     bullets: [
       "Historique complet consultable, sans limite de durée",
+      "Vos rapports restent consultables même si vous arrêtez votre abonnement.",
       "Courbes de tendance par dimension (charge de travail, reconnaissance, clarté, soutien, sens)",
       "Taux de réponse semaine par semaine",
     ],
@@ -327,7 +328,7 @@ function VisualQ12() {
         </div>
         <div style={{ display: "flex", gap: "8px" }}>
           <span style={{ background: "#EEEEFF", color: "var(--indigo)", fontSize: "9.5px", fontWeight: 700, padding: "2px 8px", borderRadius: "4px" }}>
-            Dimension : relation managériale
+            Dimension : Reconnaissance
           </span>
         </div>
         <div style={{ fontSize: "13.5px", color: "var(--midnight)", fontWeight: 600, lineHeight: 1.4 }}>
@@ -436,7 +437,7 @@ function VisualAnon() {
         Comment l'anonymat est garanti
       </div>
       <AnonRow Icon={Mail} title="Email du salarié" sub="Utilisé uniquement pour l'envoi" badge="✓ Jamais stocké" badgeColor="green" />
-      <AnonRow Icon={Key} title="Token UUID aléatoire" sub="Lien unique, régénéré chaque vendredi" badge="✓ Non traçable" badgeColor="green" />
+      <AnonRow Icon={Key} title="Jeton aléatoire de 32 octets" sub="Lien unique, régénéré chaque semaine" badge="✓ Non traçable" badgeColor="green" />
       <AnonRow Icon={BarChart3} title="Score agrégé uniquement" sub="Ce que vous voyez dans le rapport" badge="✓ Anonymisé" badgeColor="green" />
       <AnonRow Icon={User} title="Identité du répondant" sub="Inaccessible par conception" badge="✕ Impossible" badgeColor="red" dim strike />
     </div>
@@ -545,7 +546,7 @@ function VisualDashboard() {
               color: "#991b1b",
               fontWeight: 600
             }}>
-              Reconnaissance en baisse depuis 3 semaines.
+              Reconnaissance en baisse cette semaine.
               Tendance à surveiller.
             </span>
           </div>
@@ -621,7 +622,7 @@ function VisualOnboard() {
         Processus de démarrage complet
       </div>
       <OnboardStep n={1} title="Création du compte" sub="Email et mot de passe" time="60 sec" />
-      <OnboardStep n={2} title="Import de l'équipe" sub="CSV ou saisie manuelle" time="5 min" />
+      <OnboardStep n={2} title="Ajout de l'équipe" sub="Collage des adresses email" time="5 min" />
       <OnboardStep n={3} title="Activation du survey" sub="Jour, heure, confirmation" time="2 min" />
       <OnboardStep n={4} title="Paiement" sub="Stripe sécurisé, sans engagement annuel" time="2 min" />
       <div style={{ display: "flex", gap: "10px", alignItems: "center", background: "var(--midnight)", borderRadius: "8px", padding: "11px 14px" }}>
@@ -629,8 +630,8 @@ function VisualOnboard() {
           <Check size={14} />
         </div>
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: "12px", fontWeight: 700, color: "#EEEEFF" }}>Live ce vendredi</div>
-          <div style={{ fontSize: "10.5px", color: "rgba(255,255,255,0.45)", marginTop: "1px" }}>Premier survey envoyé automatiquement</div>
+          <div style={{ fontSize: "12px", fontWeight: 700, color: "#EEEEFF" }}>Premier questionnaire envoyé</div>
+          <div style={{ fontSize: "10.5px", color: "rgba(255,255,255,0.45)", marginTop: "1px" }}>Immédiatement après l'activation</div>
         </div>
         <span style={{ background: "rgba(67,56,202,0.2)", color: "var(--indigo)", fontSize: "10px", fontWeight: 700, padding: "3px 8px", borderRadius: "4px" }}>~10 min</span>
       </div>
@@ -803,14 +804,14 @@ function Page() {
               <em style={{ fontStyle: "italic", color: "rgba(255,255,255,0.6)" }}>De la donnée à l'action en 2 minutes.</em>
             </h2>
             <p style={{ fontFamily: "var(--font-sans)", fontSize: "14px", color: "rgba(255,255,255,0.65)", lineHeight: 1.7, marginBottom: "20px" }}>
-              Ce n'est pas un dashboard que vous ouvrez. C'est un email qui arrive dans votre boîte, structuré pour être lu en 2 minutes et pour déclencher une action dans la journée.
+              Chaque lundi, un email vous prévient que votre rapport est prêt. Le rapport lui-même s'ouvre dans votre espace, structuré pour être lu en 2 minutes et pour déclencher une action dans la journée. Il reste derrière votre mot de passe plutôt que dans une boîte mail qui peut être transférée.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
               {[
                 { t: "5 scores affichés séparément + deltas", s: "Charge de travail, reconnaissance, clarté, soutien, sens. La variation vs la semaine précédente en rouge ou vert." },
                 { t: "Le signal prioritaire", s: "L'IA identifie le signal qui mérite votre attention cette semaine, pas une liste de tout ce qui s'est passé." },
                 { t: "2 à 3 recommandations actionnables", s: "Formulées pour un manager qui pilote seul, pas pour un DRH avec une équipe de 5 personnes." },
-                { t: "Le taux de réponse + alertes silences", s: "Si un salarié n'a pas répondu 2 semaines de suite, HeedUp vous le signale." },
+                { t: "Un signal de vigilance quand c'est nécessaire", s: "Quand un commentaire évoque une situation grave, le rapport vous invite à une attention particulière, sans jamais citer le commentaire ni son auteur." },
               ].map((step, i) => (
                 <div key={step.t} style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
                   <div style={{ width: "26px", height: "26px", borderRadius: "50%", background: "var(--indigo)", color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 700, flexShrink: 0 }}>
@@ -865,12 +866,12 @@ function Page() {
                 {
                   Icon: Unplug,
                   title: "Pas de projet informatique",
-                  text: "Aucune intégration SIRH, aucun ticket IT, aucune réunion de déploiement. Vous importez un fichier CSV et c'est terminé.",
+                  text: "Aucune intégration SIRH, aucun ticket IT, aucune réunion de déploiement. Vous collez la liste des adresses email de votre équipe, et c'est terminé.",
                 },
                 {
                   Icon: Inbox,
                   title: "L'information vient à vous",
-                  text: "Vous n'ouvrez pas un outil pour aller chercher les données. Le rapport d'équipe arrive dans votre boîte mail. Vous n'avez rien à déclencher.",
+                  text: "Chaque lundi, un email vous prévient que votre rapport est prêt, et il s'ouvre dans votre espace. Vous n'avez rien à déclencher.",
                 },
                 {
                   Icon: Target,
@@ -880,7 +881,7 @@ function Page() {
                 {
                   Icon: Wallet,
                   title: "Un budget PME, pas un budget ETI",
-                  text: "À partir de 50€/mois, sans engagement annuel obligatoire. Prix affiché publiquement, sans devis, sans appel commercial préalable.",
+                  text: "À partir de 50€/mois, sans engagement annuel obligatoire. Deux premiers rapports gratuits, sans carte bancaire, avant toute facturation. Prix affiché publiquement, sans devis, sans appel commercial préalable.",
                 },
               ].map((arg, i, arr) => (
                 <div
@@ -935,6 +936,11 @@ function Page() {
                   Icon: RefreshCw,
                   title: "Ils voient que ça change quelque chose",
                   text: "Quand vos actions du lundi reflètent les signaux de la semaine, le taux de réponse monte. La boucle de confiance se referme d'elle-même.",
+                },
+                {
+                  Icon: Unplug,
+                  title: "Un salarié peut se retirer à tout moment",
+                  text: "Chaque email porte un lien de désinscription. Le manager n'est jamais informé de qui s'est retiré, seulement du nombre.",
                 },
                 {
                   Icon: Timer,
