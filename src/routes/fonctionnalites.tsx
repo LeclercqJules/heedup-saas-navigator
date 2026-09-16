@@ -290,14 +290,18 @@ function Page() {
             <QuestionnaireVisual />
           </section>
 
-          <section id="rapport" className="features-scroll-section is-visual-left">
+          <section id="rapport" className="features-scroll-section features-report-section">
             <SectionHeading eyebrow="Le rapport" title="Votre lundi commence par l'essentiel.">
               <p>Chaque lundi, un email vous prévient que votre rapport est prêt. Le rapport s'ouvre dans votre espace, derrière votre mot de passe, structuré pour être lu en deux minutes.</p>
-              <CheckList items={reportBullets} />
-              <div className="features-inline-detail"><strong>Ce que l'IA analyse</strong><p>Score absolu de la semaine, évolution par rapport à la semaine précédente, et commentaires libres de la semaine. La recommandation combine ces signaux, pas juste le dernier score.</p></div>
-              <ImportantNote label="Quand une situation mérite votre attention">Quand un commentaire évoque une situation grave, le rapport vous invite à proposer des points individuels à votre équipe. Il ne cite jamais le commentaire ni son auteur, et ne donne aucun détail supplémentaire.</ImportantNote>
             </SectionHeading>
             <div className="features-report-visual"><DemoReportCard /></div>
+            <div className="features-report-columns">
+              <CheckList items={reportBullets} />
+              <div className="features-report-details">
+                <div className="features-inline-detail"><strong>Ce que l'IA analyse</strong><p>Score absolu de la semaine, évolution par rapport à la semaine précédente, et commentaires libres de la semaine. La recommandation combine ces signaux, pas juste le dernier score.</p></div>
+                <ImportantNote label="Quand une situation mérite votre attention">Quand un commentaire évoque une situation grave, le rapport vous invite à proposer des points individuels à votre équipe. Il ne cite jamais le commentaire ni son auteur, et ne donne aucun détail supplémentaire.</ImportantNote>
+              </div>
+            </div>
           </section>
 
           <section id="anonymat" className="features-scroll-section is-visual-right">
