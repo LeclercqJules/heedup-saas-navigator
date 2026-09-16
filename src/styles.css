@@ -3746,6 +3746,9 @@ body:has(#repondre-root) {
 .features-support-line { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 10px; align-items: start; margin-top: 22px; }
 .features-support-line svg { margin-top: 3px; color: var(--indigo); }
 .features-support-line strong { color: var(--midnight); }
+.features-pricing-line { margin-top: 26px; color: var(--text-muted); font-size: 14px; }
+.features-pricing-line a { color: var(--indigo); font-weight: 600; text-decoration: none; }
+.features-pricing-line a:hover { opacity: 0.8; }
 
 @media (max-width: 1023px) {
   .features-scroll-hero { padding: 60px 5% 40px; }
