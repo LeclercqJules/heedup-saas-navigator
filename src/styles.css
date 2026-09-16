@@ -3689,6 +3689,26 @@ body:has(#repondre-root) {
 .features-report-visual { min-width: 0; padding: 10px; }
 .features-report-visual .demo-report { width: 100%; box-shadow: 0 12px 32px color-mix(in oklab, var(--midnight) 7%, transparent); }
 
+.features-report-section {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  min-height: 0;
+  row-gap: 34px;
+}
+
+.features-report-section .features-scroll-copy > p { max-width: 680px; }
+
+.features-report-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: start;
+}
+
+.features-report-columns > .features-scroll-checks { margin-top: 0; }
+.features-report-columns .features-inline-detail { margin-top: 0; border-top: 0; padding-top: 0; }
+.features-report-columns .features-scroll-note { margin-top: 22px; }
+
 .features-anonymity-visual { display: flex; flex-direction: column; gap: 9px; }
 .features-anonymity-row {
   display: grid;
