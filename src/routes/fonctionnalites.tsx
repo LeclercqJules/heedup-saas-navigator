@@ -42,8 +42,8 @@ const sections = [
   { id: "rapport", label: "Le rapport" },
   { id: "anonymat", label: "L'anonymat" },
   { id: "historique", label: "L'historique" },
-  { id: "donnees", label: "Vos données" },
   { id: "mise-en-route", label: "La mise en route" },
+  { id: "donnees", label: "Vos données" },
 ] as const;
 
 type SectionId = (typeof sections)[number]["id"];
@@ -55,7 +55,15 @@ const questionnaireBullets = [
   "Vous voyez le nombre de participants, jamais leur identité",
 ];
 
+const reportBullets = [
+  "2 à 3 recommandations, chacune rattachée à la dimension qu'elle cherche à faire bouger",
+  "Les cinq scores et leur évolution depuis la semaine précédente",
+  "Une synthèse collective des commentaires, jamais une citation individuelle",
+];
+
 const anonymityBullets = [
+  "Répondre reste facultatif, chaque email porte un lien de désinscription",
+  "Le manager n'est jamais informé de qui s'est désinscrit, seulement du nombre",
   "Jeton aléatoire de 32 octets, régénéré chaque semaine, stocké uniquement sous forme hachée",
   "Impossible de tracer un salarié dans le temps",
   "Vous voyez uniquement des scores agrégés",
@@ -69,10 +77,10 @@ const historyBullets = [
 ];
 
 const dataBullets = [
-  "Base de données hébergée en France",
   "L'email professionnel de chaque salarié est conservé pour permettre l'envoi du questionnaire. Aucune réponse ne lui est rattachée : le lien est supprimé à la soumission.",
   "Réponses salariés : 12 mois glissants. Autres durées détaillées dans la politique de confidentialité.",
-  "Documentation RGPD disponible sur demande",
+  "Deux traitements passent par des prestataires hors UE, l'envoi des emails et la génération de la synthèse, sous clauses contractuelles types.",
+  "Accord de sous-traitance et documentation RGPD disponibles sur demande",
 ];
 
 function CheckList({ items }: { items: string[] }) {
@@ -284,18 +292,20 @@ function Page() {
 
           <section id="rapport" className="features-scroll-section is-visual-left">
             <SectionHeading eyebrow="Le rapport" title="Votre lundi commence par l'essentiel.">
-              <p>Chaque lundi, un email vous prévient que votre rapport est prêt. Le rapport lui-même s'ouvre dans votre espace, structuré pour être lu en 2 minutes et pour déclencher une action dans la journée. Il reste derrière votre mot de passe plutôt que dans une boîte mail qui peut être transférée.</p>
-              <p>Le Rapport d'équipe ne liste pas des scores. Il interprète les tendances et génère 2 à 3 recommandations selon le contexte de la semaine. Chaque recommandation est rattachée à la dimension à laquelle elle répond, ce qui vous permet de voir immédiatement quel score elle cherche à faire bouger.</p>
+              <p>Chaque lundi, un email vous prévient que votre rapport est prêt. Le rapport s'ouvre dans votre espace, derrière votre mot de passe, structuré pour être lu en deux minutes.</p>
+              <CheckList items={reportBullets} />
               <div className="features-inline-detail"><strong>Ce que l'IA analyse</strong><p>Score absolu de la semaine, évolution par rapport à la semaine précédente, et commentaires libres de la semaine. La recommandation combine ces signaux, pas juste le dernier score.</p></div>
+              <ImportantNote label="Quand une situation mérite votre attention">Quand un commentaire évoque une situation grave, le rapport vous invite à proposer des points individuels à votre équipe. Il ne cite jamais le commentaire ni son auteur, et ne donne aucun détail supplémentaire.</ImportantNote>
             </SectionHeading>
             <div className="features-report-visual"><DemoReportCard /></div>
           </section>
 
           <section id="anonymat" className="features-scroll-section is-visual-right">
             <SectionHeading eyebrow="L'anonymat" title="Ce que vous ne pouvez pas voir. Même si vous le voulez.">
-              <p>L'anonymat de HeedUp est une contrainte d'architecture, pas un paramètre.</p>
-              <p>Répondre reste facultatif : chaque email porte un lien de désinscription, et le manager ne voit jamais qui s'est désinscrit. Le lien entre un salarié et sa réponse est supprimé au moment même de la soumission. Cette information n'existe plus dans la base : ce n'est pas une règle interne, c'est une absence de donnée.</p>
+              <p>Le lien entre un salarié et sa réponse est supprimé au moment même de la soumission. Cette information n'existe plus dans la base : ce n'est pas une règle interne, c'est une absence de donnée.</p>
+              <p>Ce n'est pas un réglage que quelqu'un pourrait changer.</p>
               <ImportantNote label="Seuil de protection statistique">Si moins de 5 salariés ont répondu complètement cette semaine, aucun score n'est affiché. La synthèse des commentaires suit un seuil distinct : elle demande 5 commentaires. Ces seuils protègent l'anonymat dans les petites équipes.</ImportantNote>
+              <ImportantNote label="Et si peu de salariés répondent ?">En dessous de cinq réponses complètes, aucun score n'est publié : une moyenne cesse alors de protéger les personnes qui la composent. Vous recevez tout de même des pistes concrètes pour améliorer la participation. Et comme l'essai porte sur deux rapports réellement produits, vous ne payez jamais pour un outil qui n'a rien produit.</ImportantNote>
               <CheckList items={anonymityBullets} />
             </SectionHeading>
             <AnonymityVisual />
