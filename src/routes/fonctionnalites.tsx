@@ -321,16 +321,6 @@ function Page() {
             <HistoryVisual />
           </section>
 
-          <section id="donnees" className="features-scroll-section is-visual-right">
-            <SectionHeading eyebrow="Vos données" title="Conforme RGPD. Hébergé en France.">
-              <p>HeedUp est conçu pour être conforme au RGPD par architecture, pas par paramètre.</p>
-              <p>Les données de vos salariés sont hébergées en France, région Paris, minimisées au strict nécessaire, et l'anonymat est garanti par conception. Deux traitements passent par des prestataires hors UE, l'envoi des emails et la génération de la synthèse, sous clauses contractuelles types. La documentation contractuelle est disponible sur demande.</p>
-              <div className="features-inline-detail"><strong>Ce qui est collecté. Rien d'autre.</strong><p>Scores numériques de 1 à 5, commentaire libre facultatif, et jeton aléatoire dissocié du salarié à la soumission. L'email professionnel du salarié est conservé pour l'envoi du questionnaire, jamais rattaché à une réponse.</p></div>
-              <CheckList items={dataBullets} />
-            </SectionHeading>
-            <DataVisual />
-          </section>
-
           <section id="mise-en-route" className="features-scroll-section features-start-section">
             <SectionHeading eyebrow="La mise en route" title="10 minutes. Pas 10 semaines.">
               <p>Aucun projet informatique, aucune intégration SIRH, aucun déploiement.</p>
@@ -343,6 +333,16 @@ function Page() {
             </div>
             <ImportantNote label="Délai du premier rapport">Le premier rapport est produit dès que cinq réponses complètes sont arrivées. Les deux premiers rapports réellement produits sont gratuits, sans carte bancaire.</ImportantNote>
             <div className="features-support-line"><Clock3 size={18} /><p><strong>Support humain, pas de chatbot.</strong> Réponse par email sous 24h ouvrées, en français, par une vraie personne qui connaît votre compte. Pas de ticket automatique, pas de FAQ obligatoire avant d'écrire.</p></div>
+            <p className="features-pricing-line">À partir de 50 € par mois, deux rapports gratuits pour commencer. <Link to="/tarifs">Voir les tarifs →</Link></p>
+          </section>
+
+          <section id="donnees" className="features-scroll-section is-visual-right">
+            <SectionHeading eyebrow="Vos données" title="Hébergé en France, avec des durées précises.">
+              <p>La base de données est hébergée en France, région Paris. Les données collectées sont limitées au strict nécessaire pour envoyer les questionnaires.</p>
+              <div className="features-inline-detail"><strong>Ce qui est collecté. Rien d'autre.</strong><p>Scores numériques de 1 à 5, commentaire libre facultatif, et jeton aléatoire dissocié du salarié à la soumission. L'email professionnel du salarié est conservé pour l'envoi du questionnaire, jamais rattaché à une réponse.</p></div>
+              <CheckList items={dataBullets} />
+            </SectionHeading>
+            <DataVisual />
           </section>
         </main>
       </div>
