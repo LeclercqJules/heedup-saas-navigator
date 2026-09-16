@@ -1,3 +1,4 @@
+import { FinalCta } from "@/components/FinalCta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { SiteLayout } from "@/components/SiteLayout";
@@ -352,6 +353,7 @@ function EstimerCoutPage() {
           </div>
         </div>
       </div>
+      <FinalCta />
     </SiteLayout>
   );
 }
