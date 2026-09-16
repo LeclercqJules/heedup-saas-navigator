@@ -706,8 +706,7 @@ function Index() {
             margin: "0 auto",
           }}
         >
-          <div>{faqLeft.map((item, i) => renderFaqItem(item, i))}</div>
-          <div>{faqRight.map((item, i) => renderFaqItem(item, i + faqLeft.length))}</div>
+          {faq.map((item, i) => renderFaqItem(item, i))}
         </div>
       </section>
 
