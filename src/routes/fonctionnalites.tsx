@@ -225,7 +225,9 @@ function Page() {
         const visible = entries
           .filter((entry) => entry.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible?.target.id) setActiveSection(visible.target.id as SectionId);
+        if (!visible) return;
+        const section = sections.find(({ id }) => id === visible.target.id);
+        if (section) setActiveSection(section.id);
       },
       { rootMargin: "-22% 0px -58% 0px", threshold: [0, 0.15, 0.35, 0.6] },
     );
