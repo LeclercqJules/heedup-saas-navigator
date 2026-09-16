@@ -433,13 +433,7 @@ body {
   position: relative;
   display: flex;
   justify-content: center;
-  margin: 76px 0 68px;
-}
-
-.heedup-how-ritual {
-  margin-top: 76px;
-  padding: 0 5% 80px;
-  background: var(--bg-main);
+  margin: 76px 0 0;
 }
 
 .heedup-ritual-separator::before {
@@ -449,8 +443,27 @@ body {
   right: 0;
   left: 0;
   height: 1px;
+  margin-top: -0.5px;
   background: rgba(13, 27, 62, 0.12);
 }
+
+/* Fond de la moitié basse du séparateur : prolonge exactement le fond du
+   bloc B à partir du filet, sans bande intermédiaire. */
+.heedup-ritual-separator::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: var(--bg-main);
+}
+
+.heedup-how-ritual {
+  padding: 68px 5% 80px;
+  background: var(--bg-main);
+}
+
 
 .heedup-ritual-separator span {
   position: relative;

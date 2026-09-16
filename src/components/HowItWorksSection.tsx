@@ -179,8 +179,10 @@ export function HowItWorksSection() {
         </div>
       </div>
 
+      <div className="heedup-ritual-separator"><span>ET CHAQUE SEMAINE, LE MÊME RITUEL</span></div>
+
       <div className="heedup-how-ritual">
-        <div className="heedup-ritual-separator"><span>ET CHAQUE SEMAINE, LE MÊME RITUEL</span></div>
+
 
         <div className="heedup-ritual-heading">
           <h2>Un rituel de 2 minutes. Une vision chaque semaine.</h2>
