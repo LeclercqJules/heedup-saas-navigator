@@ -12,6 +12,7 @@ import {
   Send,
   ShieldCheck,
   UserRoundX,
+  X,
 } from "lucide-react";
 import { DemoReportCard } from "@/components/DemoReportCard";
 import { FinalCta } from "@/components/FinalCta";
@@ -43,6 +44,7 @@ const sections = [
   { id: "anonymat", label: "L'anonymat" },
   { id: "historique", label: "L'historique" },
   { id: "mise-en-route", label: "La mise en route" },
+  { id: "perimetre", label: "Ce que ce n'est pas" },
   { id: "donnees", label: "Vos données" },
 ] as const;
 
@@ -83,12 +85,38 @@ const dataBullets = [
   "Accord de sous-traitance et documentation RGPD disponibles sur demande",
 ];
 
+const invisibleItems = [
+  "Aucune réponse individuelle, quelle que soit la requête",
+  "Aucun commentaire brut, seulement une synthèse collective",
+  "Aucune liste de qui a répondu, ni de qui s'est désinscrit",
+];
+
+const scopeItems = [
+  "Ce n'est pas un SIRH : pas de gestion des congés, des contrats ni de la paie",
+  "Ce n'est pas un outil d'évaluation individuelle : aucune donnée ne remonte au niveau d'une personne",
+  "Ce n'est pas un outil d'enquête ponctuelle : les questions sont fixes, c'est ce qui permet de mesurer une tendance",
+  "Ce n'est pas un outil de communication interne : HeedUp ne diffuse rien à votre équipe en dehors du questionnaire",
+];
+
 function CheckList({ items }: { items: string[] }) {
   return (
     <ul className="features-scroll-checks">
       {items.map((item) => (
         <li key={item}>
           <span aria-hidden="true"><Check size={12} strokeWidth={3} /></span>
+          <p>{item}</p>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function NeutralList({ items }: { items: string[] }) {
+  return (
+    <ul className="features-neutral-list">
+      {items.map((item) => (
+        <li key={item}>
+          <span aria-hidden="true"><X size={12} strokeWidth={2.5} /></span>
           <p>{item}</p>
         </li>
       ))}
@@ -311,6 +339,11 @@ function Page() {
               <ImportantNote label="Seuil de protection statistique">Si moins de 5 salariés ont répondu complètement cette semaine, aucun score n'est affiché. La synthèse des commentaires suit un seuil distinct : elle demande 5 commentaires. Ces seuils protègent l'anonymat dans les petites équipes.</ImportantNote>
               <ImportantNote label="Et si peu de salariés répondent ?">En dessous de cinq réponses complètes, aucun score n'est publié : une moyenne cesse alors de protéger les personnes qui la composent. Vous recevez tout de même des pistes concrètes pour améliorer la participation. Et comme l'essai porte sur deux rapports réellement produits, vous ne payez jamais pour un outil qui n'a rien produit.</ImportantNote>
               <CheckList items={anonymityBullets} />
+              <div className="features-never-block">
+                <strong>Ce que vous ne verrez jamais</strong>
+                <NeutralList items={invisibleItems} />
+                <p>Ce ne sont pas des affichages que nous avons choisi d'omettre, ce sont des accès qui n'existent pas dans le produit.</p>
+              </div>
             </SectionHeading>
             <AnonymityVisual />
           </section>
@@ -336,8 +369,34 @@ function Page() {
               <StartCard number="03" Icon={Send} title="Activez HeedUp" text="Le premier questionnaire est envoyé immédiatement après l'activation." />
             </div>
             <ImportantNote label="Délai du premier rapport">Le premier rapport est produit dès que cinq réponses complètes sont arrivées. Les deux premiers rapports réellement produits sont gratuits, sans carte bancaire.</ImportantNote>
-            <div className="features-support-line"><Clock3 size={18} /><p><strong>Support humain, pas de chatbot.</strong> Réponse par email sous 24h ouvrées, en français, par une vraie personne qui connaît votre compte. Pas de ticket automatique, pas de FAQ obligatoire avant d'écrire.</p></div>
+            <div className="features-start-details">
+              <article className="features-start-detail">
+                <h3>Organiser votre effectif en équipes</h3>
+                <p>Vous pouvez répartir vos salariés en équipes distinctes. Le rapport affiche alors, en plus des scores globaux, un détail par équipe.</p>
+                <ImportantNote label="Seuil de publication par équipe">Une équipe n'apparaît dans le détail que si elle compte au moins 10 salariés actifs et que 5 d'entre eux au moins ont répondu complètement cette semaine. En dessous, le détail par équipe n'est pas publié : la même règle d'anonymat s'applique à l'échelle de l'équipe qu'à celle de l'entreprise.</ImportantNote>
+              </article>
+              <article className="features-start-detail">
+                <h3>Partager l'accès à votre espace</h3>
+                <p>Votre organisation peut accueillir plusieurs managers. Chacun accède aux mêmes rapports de l'organisation, y compris leurs détails par équipe, et reçoit la notification du lundi.</p>
+              </article>
+            </div>
+            <ImportantNote label="Pour quelle taille d'équipe ?">HeedUp est calibré pour les équipes de 10 à 100 salariés. En dessous de 10, le seuil de cinq réponses complètes devient difficile à atteindre chaque semaine, et l'outil produira peu de rapports. Au-delà de 100, <a href="mailto:contact@heedup.fr">écrivez-nous</a> : c'est possible, mais nous préférons en parler avant.</ImportantNote>
+            <div className="features-support-line">
+              <Clock3 size={18} />
+              <div>
+                <strong>Si vous avez une question</strong>
+                <p>Vous écrivez à <a href="mailto:contact@heedup.fr">contact@heedup.fr</a>, et c'est le fondateur qui vous répond, sous 24 heures. Pas de ticket, pas de service client à plusieurs niveaux, pas de base de connaissances à fouiller avant de pouvoir parler à quelqu'un.</p>
+                <small>Un assistant est aussi disponible en bas de chaque page du site pour les questions courantes sur le produit.</small>
+              </div>
+            </div>
             <p className="features-pricing-line">À partir de 50 € par mois, deux rapports gratuits pour commencer. <Link to="/tarifs">Voir les tarifs →</Link></p>
+          </section>
+
+          <section id="perimetre" className="features-scroll-section features-scope-section">
+            <SectionHeading eyebrow="Le périmètre" title="Ce que HeedUp ne fait pas.">
+              <p>Un outil qui prétend tout faire finit par mal faire l'essentiel. HeedUp mesure le ressenti d'équipe chaque semaine et vous dit où agir. Le reste, d'autres outils le font mieux.</p>
+              <NeutralList items={scopeItems} />
+            </SectionHeading>
           </section>
 
           <section id="donnees" className="features-scroll-section is-visual-right">
