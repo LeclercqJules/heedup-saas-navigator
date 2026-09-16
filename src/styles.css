@@ -467,7 +467,9 @@ body {
 
 .heedup-ritual-separator span {
   position: relative;
+  z-index: 1;
   padding: 16px 30px;
+
   border-radius: 40px;
   background: var(--bg-card);
   color: var(--indigo);
@@ -564,9 +566,10 @@ body {
   .heedup-start-step { min-height: 0; padding: 22px; }
   .heedup-start-step > p { min-height: 0; }
   .heedup-step-arrow { display: none; }
-  .heedup-how-ritual { margin-top: 56px; padding-bottom: 48px; }
-  .heedup-ritual-separator { margin: 0 0 48px; }
+  .heedup-how-ritual { margin-top: 0; padding: 48px 5% 48px; }
+  .heedup-ritual-separator { margin: 48px 0 0; }
   .heedup-ritual-separator span { max-width: 82%; text-align: center; }
+
   .heedup-weekly-sequence { height: auto; margin-top: 32px; }
   .heedup-weekly-cards {
     display: grid;
