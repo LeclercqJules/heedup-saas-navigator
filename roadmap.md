@@ -14,3 +14,4 @@
 - [x] Vérifier les contenus interdits et le comportement desktop/mobile
 - [x] Simplifier le rituel hebdomadaire et distinguer visuellement ses deux blocs
 - [x] Refaire la page Fonctionnalités en lecture continue avec navigation latérale
+- [x] Élargir le rapport de démonstration en pleine largeur dans la section Le rapport de /fonctionnalites
