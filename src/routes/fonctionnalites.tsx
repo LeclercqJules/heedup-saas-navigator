@@ -1,56 +1,34 @@
-import { FinalCta } from "@/components/FinalCta";
-import { useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
-  Send,
-  Brain,
-  EyeOff,
-  LineChart,
-  ShieldCheck,
-  Rocket,
-  Mail,
-  Key,
   BarChart3,
-  User,
-  FileText,
-  ListChecks,
-  Users,
-  Check,
-  X,
-  Unplug,
-  Inbox,
-  Target,
-  Wallet,
-  Lock,
   CalendarCheck,
-  RefreshCw,
-  Timer,
+  Check,
+  Clock3,
+  Database,
+  KeyRound,
+  Mail,
+  Rocket,
+  Send,
+  ShieldCheck,
+  UserRoundX,
 } from "lucide-react";
-import {
-  IconShieldCheck,
-  IconEyeOff,
-  IconDatabase,
-  IconClock,
-  IconFileText,
-} from "@tabler/icons-react";
-import { SiteLayout } from "@/components/SiteLayout";
 import { DemoReportCard } from "@/components/DemoReportCard";
-
+import { FinalCta } from "@/components/FinalCta";
+import { SiteLayout } from "@/components/SiteLayout";
 
 export const Route = createFileRoute("/fonctionnalites")({
   head: () => ({
     meta: [
-      { title: "Fonctionnalités : ce que HeedUp fait, précisément" },
+      { title: "Fonctionnalités HeedUp pour les PME" },
       {
         name: "description",
-        content:
-          "5 questions hebdomadaires, recommandations IA, anonymat architectural, RGPD, onboarding en 10 minutes. Chaque mécanisme expliqué.",
+        content: "Découvrez le questionnaire, le Rapport d'équipe, l'anonymat, l'historique et la protection des données dans HeedUp.",
       },
-      { property: "og:title", content: "Fonctionnalités HeedUp" },
+      { property: "og:title", content: "Fonctionnalités HeedUp pour les PME" },
       {
         property: "og:description",
-        content:
-          "Explication précise de chaque mécanisme HeedUp, pour que vous compreniez ce que vous achetez.",
+        content: "Chaque mécanisme de HeedUp expliqué clairement, du questionnaire hebdomadaire au Rapport d'équipe.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -59,1005 +37,305 @@ export const Route = createFileRoute("/fonctionnalites")({
   component: Page,
 });
 
-type TabId = "q12" | "ai" | "anon" | "dash" | "rgpd" | "onboard";
+const sections = [
+  { id: "questionnaire", label: "Le questionnaire" },
+  { id: "rapport", label: "Le rapport" },
+  { id: "anonymat", label: "L'anonymat" },
+  { id: "historique", label: "L'historique" },
+  { id: "donnees", label: "Vos données" },
+  { id: "mise-en-route", label: "La mise en route" },
+] as const;
 
-type Feature = {
-  id: TabId;
-  label: string;
-  Icon: typeof Send;
-  tag: string;
-  title: string;
-  lead: string;
-  rest?: string;
-  detail: { label: string; text: string };
-  bullets?: string[];
-};
+type SectionId = (typeof sections)[number]["id"];
 
-const features: Feature[] = [
-  {
-    id: "q12",
-    label: "5 questions hebdomadaires",
-    Icon: Send,
-    tag: "Questions hebdomadaires",
-    title: "5 questions. Pas 50.",
-    lead: "Les 5 questions couvrent cinq dimensions qui couvrent ce qui se dégrade le plus souvent avant un départ, et sur quoi un manager peut réellement agir.",
-    rest: "Charge de travail, reconnaissance, clarté, soutien, sens. Elles ne changent pas d'une semaine à l'autre, ce qui permet de mesurer des tendances réelles.",
-    detail: {
-      label: "Pourquoi des questions fixes ?",
-      text: "Des questions identiques d'une semaine à l'autre permettent de comparer les données dans le temps. Des questions qui changent donneraient une photo ponctuelle, pas une tendance.",
-    },
-    bullets: [
-      "Réponse facultative : chaque email porte un lien de désinscription, et le manager ne voit jamais qui s'est désinscrit",
-      "Réponse sur téléphone ou ordinateur, sans compte",
-      "Un champ libre facultatif en fin de questionnaire, jamais transmis tel quel au manager",
-      "Vous voyez le nombre de participants, jamais leur identité",
-    ],
-  },
-  {
-    id: "ai",
-    label: "Recommandations IA",
-    Icon: Brain,
-    tag: "IA actionnable",
-    title: "2 à 3 recommandations. Rattachées à vos scores.",
-    lead: "Le Rapport d'équipe ne liste pas des scores.",
-    rest: "Il interprète les tendances et génère 2 à 3 recommandations selon le contexte de la semaine. Chaque recommandation est rattachée à la dimension à laquelle elle répond, ce qui vous permet de voir immédiatement quel score elle cherche à faire bouger.",
-    detail: {
-      label: "Ce que l'IA analyse",
-      text: "Score absolu de la semaine, évolution par rapport à la semaine précédente, et commentaires libres de la semaine. La recommandation combine ces signaux, pas juste le dernier score.",
-    },
-  },
-  {
-    id: "anon",
-    label: "Anonymat architectural",
-    Icon: EyeOff,
-    tag: "Anonymat",
-    title: "Ce que vous ne pouvez pas voir. Même si vous le voulez.",
-    lead: "L'anonymat de HeedUp est une contrainte d'architecture, pas un paramètre.",
-    rest: "Répondre reste facultatif : chaque email porte un lien de désinscription, et le manager ne voit jamais qui s'est désinscrit. Le lien entre un salarié et sa réponse est supprimé au moment même de la soumission. Cette information n'existe plus dans la base : ce n'est pas une règle interne, c'est une absence de donnée.",
-    detail: {
-      label: "Seuil de protection statistique",
-      text: "Si moins de 5 salariés ont répondu complètement cette semaine, aucun score n'est affiché. La synthèse des commentaires suit un seuil distinct : elle demande 5 commentaires. Ces seuils protègent l'anonymat dans les petites équipes.",
-    },
-    bullets: [
-      "Jeton aléatoire de 32 octets, régénéré chaque semaine, stocké uniquement sous forme hachée",
-      "Impossible de tracer un salarié dans le temps",
-      "Vous voyez uniquement des scores agrégés",
-    ],
-  },
-  {
-    id: "dash",
-    label: "Tableau de bord",
-    Icon: LineChart,
-    tag: "Tableau de bord",
-    title: "L'historique pour comprendre. Le rapport lundi pour agir.",
-    lead: "Le Rapport d'équipe du lundi est votre outil d'action.",
-    rest: "Le tableau de bord est votre outil de compréhension. Quand un score descend, le tableau de bord vous permet de voir si c'est un accident ou une tendance installée.",
-    detail: {
-      label: "Vigilance humaine",
-      text: "Quand un commentaire évoque une situation grave, le rapport signale qu'une vigilance humaine est recommandée, sans jamais citer le commentaire ni son auteur.",
-    },
-    bullets: [
-      "Historique complet consultable, sans limite de durée",
-      "Vos rapports restent consultables même si vous arrêtez votre abonnement.",
-      "Courbes de tendance par dimension (charge de travail, reconnaissance, clarté, soutien, sens)",
-      "Taux de réponse semaine par semaine",
-    ],
-  },
-  {
-    id: "rgpd",
-    label: "RGPD et données",
-    Icon: ShieldCheck,
-    tag: "RGPD et données",
-    title: "Conforme RGPD. Hébergé en France.",
-    lead: "HeedUp est conçu pour être conforme au RGPD par architecture, pas par paramètre.",
-    rest: "Les données de vos salariés sont hébergées en France, région Paris, minimisées au strict nécessaire, et l'anonymat est garanti par conception. Deux traitements passent par des prestataires hors UE, l'envoi des emails et la génération de la synthèse, sous clauses contractuelles types. La documentation contractuelle est disponible sur demande.",
-    detail: {
-      label: "CE QUI EST COLLECTÉ. RIEN D'AUTRE.",
-      text: "Scores numériques de 1 à 5, commentaire libre facultatif, et jeton aléatoire dissocié du salarié à la soumission. L'email professionnel du salarié est conservé pour l'envoi du questionnaire, jamais rattaché à une réponse.",
-    },
-    bullets: [
-      "Base de données hébergée en France",
-      "L'email professionnel de chaque salarié est conservé pour permettre l'envoi du questionnaire. Aucune réponse ne lui est rattachée : le lien est supprimé à la soumission.",
-      "Réponses salariés : 12 mois glissants. Autres durées détaillées dans la politique de confidentialité.",
-      "Documentation RGPD disponible sur demande",
-    ],
-  },
-  {
-    id: "onboard",
-    label: "Onboarding et support",
-    Icon: Rocket,
-    tag: "Onboarding et support",
-    title: "10 minutes. Pas 10 semaines.",
-    lead: "Aucun projet informatique, aucune intégration SIRH, aucun déploiement.",
-    rest: "Vous importez les emails de votre équipe, vous activez, le premier questionnaire part dans la foulée. Le support est inclus dans tous les plans, pas derrière un plan Premium.",
-    detail: {
-      label: "Support humain, pas de chatbot",
-      text: "Réponse par email sous 24h ouvrées, en français, par une vraie personne qui connaît votre compte. Pas de ticket automatique, pas de FAQ obligatoire avant d'écrire.",
-    },
-  },
+const questionnaireBullets = [
+  "Réponse facultative : chaque email porte un lien de désinscription, et le manager ne voit jamais qui s'est désinscrit",
+  "Réponse sur téléphone ou ordinateur, sans compte",
+  "Un champ libre facultatif en fin de questionnaire, jamais transmis tel quel au manager",
+  "Vous voyez le nombre de participants, jamais leur identité",
 ];
 
-const tabs = features.map(({ id, label, Icon }) => ({ id, label, Icon }));
+const anonymityBullets = [
+  "Jeton aléatoire de 32 octets, régénéré chaque semaine, stocké uniquement sous forme hachée",
+  "Impossible de tracer un salarié dans le temps",
+  "Vous voyez uniquement des scores agrégés",
+];
 
+const historyBullets = [
+  "Historique complet consultable, sans limite de durée",
+  "Vos rapports restent consultables même si vous arrêtez votre abonnement.",
+  "Courbes de tendance par dimension (charge de travail, reconnaissance, clarté, soutien, sens)",
+  "Taux de réponse semaine par semaine",
+];
 
-// -------- shared panel styles --------
-const leftColStyle: React.CSSProperties = {
-  padding: "36px 32px",
-  background: "var(--bg-card)",
-  borderRight: "1px solid rgba(67,56,202,0.08)",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  gap: "16px",
-};
-const rightColStyle: React.CSSProperties = {
-  padding: "28px",
-  background: "var(--bg-main)",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-};
-const tagStyle: React.CSSProperties = {
-  background: "var(--midnight)",
-  color: "#EEEEFF",
-  fontSize: "10px",
-  textTransform: "uppercase",
-  fontWeight: 700,
-  letterSpacing: "0.6px",
-  padding: "4px 10px",
-  borderRadius: "4px",
-  alignSelf: "flex-start",
-};
-const titleStyle: React.CSSProperties = {
-  fontFamily: "var(--font-display)",
-  fontSize: "26px",
-  color: "var(--midnight)",
-  lineHeight: 1.2,
-  letterSpacing: "-0.3px",
-};
-const descStyle: React.CSSProperties = {
-  fontFamily: "var(--font-sans)",
-  fontSize: "13.5px",
-  color: "var(--text-primary)",
-  lineHeight: 1.7,
-};
-const boxStyle: React.CSSProperties = {
-  background: "#EEEEFF",
-  borderRadius: "8px",
-  padding: "12px 14px",
-  borderLeft: "3px solid var(--indigo)",
-};
-const boxLabelStyle: React.CSSProperties = {
-  fontSize: "10px",
-  textTransform: "uppercase",
-  fontWeight: 700,
-  letterSpacing: "0.6px",
-  color: "var(--indigo)",
-  marginBottom: "4px",
-};
-const boxTextStyle: React.CSSProperties = {
-  fontSize: "12.5px",
-  color: "var(--midnight)",
-  lineHeight: 1.5,
-};
+const dataBullets = [
+  "Base de données hébergée en France",
+  "L'email professionnel de chaque salarié est conservé pour permettre l'envoi du questionnaire. Aucune réponse ne lui est rattachée : le lien est supprimé à la soumission.",
+  "Réponses salariés : 12 mois glissants. Autres durées détaillées dans la politique de confidentialité.",
+  "Documentation RGPD disponible sur demande",
+];
 
-function Bullets({ items }: { items: string[] }) {
+function CheckList({ items }: { items: string[] }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-      {items.map((t) => (
-        <div
-          key={t}
-          style={{
-            display: "flex",
-            gap: "8px",
-            fontSize: "12.5px",
-            color: "rgba(13,27,62,0.75)",
-            lineHeight: 1.5,
-          }}
-        >
-          <span style={{ color: "#7A9B8E", fontWeight: 700 }}>✓</span>
-          <span>{t}</span>
+    <ul className="features-scroll-checks">
+      {items.map((item) => (
+        <li key={item}>
+          <span aria-hidden="true"><Check size={12} strokeWidth={3} /></span>
+          <p>{item}</p>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function ImportantNote({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <aside className="features-scroll-note">
+      <strong>{label}</strong>
+      <p>{children}</p>
+    </aside>
+  );
+}
+
+function SectionHeading({ eyebrow, title, children }: { eyebrow: string; title: string; children: ReactNode }) {
+  return (
+    <div className="features-scroll-copy">
+      <span className="features-scroll-eyebrow">{eyebrow}</span>
+      <h2>{title}</h2>
+      {children}
+    </div>
+  );
+}
+
+function QuestionnaireVisual() {
+  const dimensions = [
+    ["Charge de travail", "workload"],
+    ["Reconnaissance", "recognition"],
+    ["Clarté", "clarity"],
+    ["Soutien", "support"],
+    ["Sens", "meaning"],
+  ] as const;
+
+  return (
+    <div className="features-scroll-visual features-questionnaire-visual" aria-label="Aperçu des cinq dimensions du questionnaire">
+      <div className="features-visual-topline">
+        <span>Question 1 sur 5</span>
+        <span>2 minutes</span>
+      </div>
+      <p>Cette semaine, ma charge de travail était à un niveau que je peux tenir dans la durée.</p>
+      <div className="features-answer-scale" aria-hidden="true">
+        {[1, 2, 3, 4, 5].map((number) => <span className={number === 3 ? "is-selected" : ""} key={number}>{number}</span>)}
+      </div>
+      <div className="features-dimensions">
+        {dimensions.map(([label, tone]) => (
+          <span className={`is-${tone}`} key={label}>{label}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AnonymityVisual() {
+  const rows = [
+    { Icon: Mail, title: "Email du salarié", text: "Utilisé uniquement pour l'envoi", status: "Dissocié" },
+    { Icon: KeyRound, title: "Jeton aléatoire de 32 octets", text: "Régénéré chaque semaine", status: "Haché" },
+    { Icon: BarChart3, title: "Score agrégé", text: "Visible dans le rapport", status: "Collectif" },
+    { Icon: UserRoundX, title: "Identité du répondant", text: "Inaccessible par conception", status: "Supprimée" },
+  ];
+
+  return (
+    <div className="features-scroll-visual features-anonymity-visual" aria-label="Mécanisme d'anonymat">
+      <div className="features-visual-topline"><span>Anonymat par construction</span></div>
+      {rows.map(({ Icon, title, text, status }) => (
+        <div className="features-anonymity-row" key={title}>
+          <span className="features-anonymity-icon"><Icon size={16} /></span>
+          <div><strong>{title}</strong><small>{text}</small></div>
+          <span className="features-anonymity-status">{status}</span>
         </div>
       ))}
     </div>
   );
 }
 
-function Detail({ label, text }: { label: string; text: string }) {
-  return (
-    <div style={boxStyle}>
-      <div style={boxLabelStyle}>{label}</div>
-      <div style={boxTextStyle}>{text}</div>
-    </div>
-  );
-}
+function HistoryVisual() {
+  const dimensions = [
+    ["Charge de travail", "2,6", "workload"],
+    ["Reconnaissance", "3,1", "recognition"],
+    ["Clarté", "3,3", "clarity"],
+    ["Soutien", "3,0", "support"],
+    ["Sens", "3,2", "meaning"],
+  ] as const;
 
-// ---------- Panel visuals ----------
-
-function VisualQ12() {
-  const scale = [1, 2, 3, 4, 5];
-  const cardBase: React.CSSProperties = {
-    background: "#FFFFFF",
-    border: "1px solid rgba(67,56,202,0.10)",
-    borderRadius: "10px",
-    padding: "14px 16px",
-    width: "100%",
-    maxWidth: "340px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "8px",
-  };
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "100%", alignItems: "center" }}>
-      <div style={cardBase}>
-        <div style={{ fontSize: "9.5px", textTransform: "uppercase", letterSpacing: "0.6px", color: "rgba(13,27,62,0.35)", fontWeight: 700 }}>
-          Question 1 sur 5
-        </div>
-        <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-          <span style={{ background: "#EEEEFF", color: "var(--indigo)", fontSize: "9.5px", fontWeight: 700, padding: "2px 8px", borderRadius: "4px" }}>
-            Dimension : Charge de travail
-          </span>
-          <span style={{ fontSize: "10px", color: "var(--indigo)" }}>🔒 Réponse anonyme</span>
-        </div>
-        <div style={{ fontSize: "13.5px", color: "var(--midnight)", fontWeight: 600, lineHeight: 1.4 }}>
-          Cette semaine, ma charge de travail était à un niveau que je peux tenir dans la durée.
-        </div>
-        <div style={{ display: "flex", gap: "6px" }}>
-          {scale.map((n) => (
-            <div
-              key={n}
-              style={{
-                flex: 1,
-                textAlign: "center",
-                padding: "8px 0",
-                borderRadius: "6px",
-                background: n === 3 ? "var(--indigo)" : "#F8F9FF",
-                color: n === 3 ? "#FFFFFF" : "var(--midnight)",
-                fontSize: "12px",
-                fontWeight: 600,
-              }}
-            >
-              {n}
-            </div>
-          ))}
-        </div>
+    <div className="features-scroll-visual features-history-visual" aria-label="Aperçu de l'historique des cinq dimensions">
+      <div className="features-history-header">
+        <div><span>Historique</span><strong>Les cinq dernières semaines</strong></div>
+        <CalendarCheck size={20} />
       </div>
-      <div style={{ ...cardBase, opacity: 0.6 }}>
-        <div style={{ fontSize: "9.5px", textTransform: "uppercase", letterSpacing: "0.6px", color: "rgba(13,27,62,0.35)", fontWeight: 700 }}>
-          Question 2 sur 5
-        </div>
-        <div style={{ display: "flex", gap: "8px" }}>
-          <span style={{ background: "#EEEEFF", color: "var(--indigo)", fontSize: "9.5px", fontWeight: 700, padding: "2px 8px", borderRadius: "4px" }}>
-            Dimension : Reconnaissance
-          </span>
-        </div>
-        <div style={{ fontSize: "13.5px", color: "var(--midnight)", fontWeight: 600, lineHeight: 1.4 }}>
-          Sentez-vous que votre travail est reconnu cette semaine ?
-        </div>
-        <div style={{ display: "flex", gap: "6px" }}>
-          {scale.map((n) => (
-            <div key={n} style={{ flex: 1, textAlign: "center", padding: "8px 0", borderRadius: "6px", background: "#F8F9FF", fontSize: "12px", color: "var(--midnight)", fontWeight: 600 }}>
-              {n}
-            </div>
-          ))}
-        </div>
+      <div className="features-history-chart" aria-hidden="true">
+        {[58, 68, 64, 75, 71].map((height, index) => <span key={index} style={{ height: `${height}%` }} />)}
       </div>
-      <div style={{ fontSize: "11px", color: "var(--text-muted)", textAlign: "center" }}>
-        + 3 questions · 2 minutes au total
+      <div className="features-history-legend">
+        {dimensions.map(([label, score, tone]) => (
+          <div key={label}><span className={`is-${tone}`} /><small>{label}</small><strong>{score}</strong></div>
+        ))}
       </div>
     </div>
   );
 }
 
-function RecoCard({
-  dimension,
-  title,
-  text,
-}: {
-  dimension: string;
-  title: string;
-  text: string;
-}) {
+function DataVisual() {
+  const rows = [
+    ["Réponses salariés", "12 mois glissants"],
+    ["Hébergement", "France, région Paris"],
+    ["Documentation", "Disponible sur demande"],
+  ];
+
   return (
-    <div style={{ background: "rgba(67,56,202,0.06)", border: "1px solid rgba(67,56,202,0.15)", borderRadius: "9px", padding: "12px 14px" }}>
-      <div
-        style={{
-          display: "inline-block",
-          fontSize: "9px",
-          fontWeight: 700,
-          textTransform: "uppercase",
-          letterSpacing: "0.6px",
-          color: "var(--indigo)",
-          background: "var(--indigo-pale)",
-          padding: "3px 8px",
-          borderRadius: "20px",
-          marginBottom: "6px",
-        }}
-      >
-        {dimension}
-      </div>
-      <div style={{ fontSize: "11.5px", fontWeight: 700, color: "var(--midnight)", marginBottom: "3px" }}>{title}</div>
-      <div style={{ fontSize: "10.5px", color: "var(--text-muted)", lineHeight: 1.5 }}>{text}</div>
+    <div className="features-scroll-visual features-data-visual" aria-label="Résumé de la conservation des données">
+      <div className="features-data-heading"><Database size={18} /><strong>Données minimisées</strong></div>
+      {rows.map(([label, value]) => (
+        <div className="features-data-row" key={label}><span>{label}</span><strong>{value}</strong></div>
+      ))}
+      <div className="features-data-footer"><ShieldCheck size={16} /><span>Documentation RGPD disponible sur demande</span></div>
     </div>
   );
 }
 
-function VisualAI() {
+function StartCard({ number, Icon, title, text }: { number: string; Icon: typeof Rocket; title: string; text: string }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "8px", width: "100%", maxWidth: "360px" }}>
-      <div style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.6px", color: "rgba(13,27,62,0.4)", fontWeight: 700, marginBottom: "4px" }}>
-        2 à 3 recommandations, rattachées à vos scores
-      </div>
-      <RecoCard dimension="Reconnaissance" title="Reconnaissance en baisse depuis 2 semaines" text="Prenez 10 minutes pour un retour individuel à chacun avant vendredi." />
-      <RecoCard dimension="Clarté" title="Clarté en hausse" text="Le point de lundi dernier a eu de l'effet, gardez ce format." />
-      <RecoCard dimension="Charge de travail" title="Charge de travail sous tension" text="Repriorisez une échéance de la semaine et dites-le en réunion d'équipe." />
-    </div>
+    <article className="features-start-card fade-up">
+      <div className="features-start-card-top"><span>{number}</span><Icon size={20} /></div>
+      <h3>{title}</h3>
+      <p>{text}</p>
+    </article>
   );
 }
-
-function AnonRow({
-  Icon,
-  title,
-  sub,
-  badge,
-  badgeColor,
-  dim = false,
-  strike = false,
-}: {
-  Icon: typeof Mail;
-  title: string;
-  sub: string;
-  badge: string;
-  badgeColor: "green" | "red";
-  dim?: boolean;
-  strike?: boolean;
-}) {
-  const badgeStyles: React.CSSProperties =
-    badgeColor === "green"
-      ? { background: "rgba(34,197,94,0.10)", color: "#15803d" }
-      : { background: "rgba(239,68,68,0.10)", color: "#991b1b" };
-  return (
-    <div style={{ display: "flex", gap: "10px", alignItems: "center", background: "#FFFFFF", borderRadius: "8px", padding: "11px 14px", border: "1px solid rgba(67,56,202,0.10)", opacity: dim ? 0.4 : 1 }}>
-      <div style={{ width: "28px", height: "28px", borderRadius: "7px", background: "var(--midnight)", color: "#EEEEFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-        <Icon size={14} />
-      </div>
-      <div style={{ flex: 1 }}>
-        <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--midnight)", textDecoration: strike ? "line-through" : "none" }}>{title}</div>
-        <div style={{ fontSize: "10.5px", color: "var(--text-muted)", marginTop: "1px" }}>{sub}</div>
-      </div>
-      <span style={{ ...badgeStyles, fontSize: "10px", fontWeight: 600, padding: "2px 8px", borderRadius: "4px", whiteSpace: "nowrap" }}>{badge}</span>
-    </div>
-  );
-}
-
-function VisualAnon() {
-  return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "8px", width: "100%", maxWidth: "380px" }}>
-      <div style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.6px", color: "rgba(13,27,62,0.4)", fontWeight: 700, marginBottom: "4px" }}>
-        Comment l'anonymat est garanti
-      </div>
-      <AnonRow Icon={Mail} title="Email du salarié" sub="Utilisé uniquement pour l'envoi" badge="✓ Jamais stocké" badgeColor="green" />
-      <AnonRow Icon={Key} title="Jeton aléatoire de 32 octets" sub="Lien unique, régénéré chaque semaine" badge="✓ Non traçable" badgeColor="green" />
-      <AnonRow Icon={BarChart3} title="Score agrégé uniquement" sub="Ce que vous voyez dans le rapport" badge="✓ Anonymisé" badgeColor="green" />
-      <AnonRow Icon={User} title="Identité du répondant" sub="Inaccessible par conception" badge="✕ Impossible" badgeColor="red" dim strike />
-    </div>
-  );
-}
-
-function VisualDashboard() {
-  return (
-    <div style={{ width: "100%" }}>
-      <div style={{
-        background: "white",
-        borderRadius: 10,
-        border: "1px solid rgba(67,56,202,0.10)",
-        overflow: "hidden"
-      }}>
-        {/* Header */}
-        <div style={{
-          background: "var(--midnight)",
-          padding: "10px 14px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center"
-        }}>
-          <span style={{ fontSize: 11, color: "white", fontWeight: 500 }}>
-            Tableau de bord · Semaines 20-24
-          </span>
-          <span style={{ fontSize: 10, color: "rgba(255,255,255,0.4)" }}>
-            Charge de travail
-          </span>
-        </div>
-        {/* Chart */}
-        <div style={{ padding: "16px 14px 8px" }}>
-          <div style={{
-            display: "flex",
-            alignItems: "flex-end",
-            gap: 8,
-            height: 80,
-            marginBottom: 8
-          }}>
-            <div style={{
-              flex: 1, height: "80%",
-              background: "var(--indigo)",
-              borderRadius: "3px 3px 0 0"
-            }} />
-            <div style={{
-              flex: 1, height: "72%",
-              background: "var(--indigo)",
-              borderRadius: "3px 3px 0 0"
-            }} />
-            <div style={{
-              flex: 1, height: "60%",
-              background: "rgba(67,56,202,0.35)",
-              borderRadius: "3px 3px 0 0"
-            }} />
-            <div style={{
-              flex: 1, height: "50%",
-              background: "rgba(239,68,68,0.35)",
-              borderRadius: "3px 3px 0 0"
-            }} />
-            <div style={{
-              flex: 1, height: "42%",
-              background: "var(--semantic-red)",
-              borderRadius: "3px 3px 0 0",
-              opacity: 0.7
-            }} />
-          </div>
-          {/* Labels */}
-          <div style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: 12
-          }}>
-            {["S20", "S21", "S22", "S23"].map(w => (
-              <span key={w} style={{ fontSize: 10, color: "#6B7280" }}>{w}</span>
-            ))}
-            <span style={{
-              fontSize: 10,
-              color: "var(--semantic-red)",
-              fontWeight: 600
-            }}>S24</span>
-          </div>
-          {/* Alert */}
-          <div style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 7,
-            background: "rgba(239,68,68,0.06)",
-            border: "1px solid rgba(239,68,68,0.15)",
-            borderRadius: 6,
-            padding: "8px 10px"
-          }}>
-            <div style={{
-              width: 16, height: 16,
-              borderRadius: "50%",
-              background: "var(--semantic-red)",
-              color: "white",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 9,
-              fontWeight: 700,
-              flexShrink: 0
-            }}>!</div>
-            <span style={{
-              fontSize: 11,
-              color: "#991b1b",
-              fontWeight: 600
-            }}>
-              Reconnaissance en baisse cette semaine.
-              Tendance à surveiller.
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function DocCard({ Icon, title, sub }: { Icon: typeof FileText; title: string; sub: string }) {
-  return (
-    <div style={{ display: "flex", gap: "12px", alignItems: "flex-start", background: "#FFFFFF", border: "1px solid rgba(67,56,202,0.10)", padding: "11px 14px", borderRadius: "8px" }}>
-      <div style={{ width: "32px", height: "32px", borderRadius: "7px", background: "var(--midnight)", color: "#EEEEFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-        <Icon size={16} />
-      </div>
-      <div>
-        <div style={{ fontSize: "12px", fontWeight: 700, color: "var(--midnight)", marginBottom: "3px" }}>{title}</div>
-        <div style={{ fontSize: "11px", color: "var(--text-muted)", lineHeight: 1.5 }}>{sub}</div>
-      </div>
-    </div>
-  );
-}
-
-function ComplianceItem({ Icon, title, sub }: { Icon: typeof IconShieldCheck; title: string; sub: string }) {
-  return (
-    <div style={{ display: "flex", gap: "10px", alignItems: "center", background: "#FFFFFF", border: "1px solid rgba(67,56,202,0.10)", borderRadius: "8px", padding: "9px 12px" }}>
-      <div style={{ width: "20px", height: "20px", borderRadius: "5px", background: "var(--indigo)", color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-        <Icon size={12} stroke={2.5} />
-      </div>
-      <div>
-        <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--midnight)" }}>{title}</div>
-        <div style={{ fontSize: "10.5px", color: "var(--text-muted)", lineHeight: 1.45 }}>{sub}</div>
-      </div>
-    </div>
-  );
-}
-
-function VisualRgpd() {
-  return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "8px", width: "100%", maxWidth: "380px" }}>
-      <div style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.6px", color: "rgba(13,27,62,0.4)", fontWeight: 700, marginBottom: "8px" }}>
-        Conformité HeedUp
-      </div>
-      <ComplianceItem Icon={IconShieldCheck} title="Hébergement en France" sub="Serveurs région Paris" />
-      <ComplianceItem Icon={IconEyeOff} title="Anonymat architectural" sub="Réponses non-traçables par conception" />
-      <ComplianceItem Icon={IconDatabase} title="Données minimisées" sub="Scores 1-5 uniquement, aucune donnée sensible" />
-      <ComplianceItem Icon={IconClock} title="Conservation limitée" sub="12 mois glissants, puis suppression" />
-      <ComplianceItem Icon={IconFileText} title="Documentation sur demande" sub="DPA et registre disponibles sur demande" />
-    </div>
-  );
-}
-
-
-function OnboardStep({ n, title, sub, time }: { n: number; title: string; sub: string; time: string }) {
-  return (
-    <div style={{ display: "flex", gap: "10px", alignItems: "center", background: "#FFFFFF", borderRadius: "8px", border: "1px solid rgba(67,56,202,0.10)", padding: "11px 14px" }}>
-      <div style={{ width: "24px", height: "24px", borderRadius: "50%", background: "var(--midnight)", color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 700, flexShrink: 0 }}>
-        {n}
-      </div>
-      <div style={{ flex: 1 }}>
-        <div style={{ fontSize: "12px", fontWeight: 700, color: "var(--midnight)" }}>{title}</div>
-        <div style={{ fontSize: "10.5px", color: "var(--text-muted)", marginTop: "1px" }}>{sub}</div>
-      </div>
-      <span style={{ background: "rgba(67,56,202,0.12)", color: "var(--indigo)", fontSize: "10px", fontWeight: 700, padding: "3px 8px", borderRadius: "4px", whiteSpace: "nowrap" }}>{time}</span>
-    </div>
-  );
-}
-
-function VisualOnboard() {
-  return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "8px", width: "100%", maxWidth: "400px" }}>
-      <div style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.6px", color: "rgba(13,27,62,0.4)", fontWeight: 700, marginBottom: "2px" }}>
-        Processus de démarrage complet
-      </div>
-      <OnboardStep n={1} title="Création du compte" sub="Email et mot de passe" time="60 sec" />
-      <OnboardStep n={2} title="Ajout de l'équipe" sub="Collage des adresses email" time="5 min" />
-      <OnboardStep n={3} title="Activation du survey" sub="Jour, heure, confirmation" time="2 min" />
-      <OnboardStep n={4} title="Paiement" sub="Stripe sécurisé, sans engagement annuel" time="2 min" />
-      <div style={{ display: "flex", gap: "10px", alignItems: "center", background: "var(--midnight)", borderRadius: "8px", padding: "11px 14px" }}>
-        <div style={{ width: "24px", height: "24px", borderRadius: "50%", background: "var(--indigo)", color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-          <Check size={14} />
-        </div>
-        <div style={{ flex: 1 }}>
-          <div style={{ fontSize: "12px", fontWeight: 700, color: "#EEEEFF" }}>Premier questionnaire envoyé</div>
-          <div style={{ fontSize: "10.5px", color: "rgba(255,255,255,0.45)", marginTop: "1px" }}>Immédiatement après l'activation</div>
-        </div>
-        <span style={{ background: "rgba(67,56,202,0.2)", color: "var(--indigo)", fontSize: "10px", fontWeight: 700, padding: "3px 8px", borderRadius: "4px" }}>~10 min</span>
-      </div>
-    </div>
-  );
-}
-
-// ---------- Panels ----------
-
-function Panel({ visible, children }: { visible: boolean; children: React.ReactNode }) {
-  return (
-    <div
-      className="feature-panel"
-      style={{
-        display: visible ? "grid" : "none",
-        gridTemplateColumns: "1fr 1fr",
-        minHeight: "340px",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
-// ---------- Spotlight card ----------
-
-const featureVisuals: Record<TabId, () => React.JSX.Element> = {
-  q12: VisualQ12,
-  ai: VisualAI,
-  anon: VisualAnon,
-  dash: VisualDashboard,
-  rgpd: VisualRgpd,
-  onboard: VisualOnboard,
-};
-
-// ---------- Page ----------
 
 function Page() {
-  const [active, setActive] = useState<TabId>("q12");
-  const [openFeature, setOpenFeature] = useState<number | null>(0);
+  const [activeSection, setActiveSection] = useState<SectionId>("questionnaire");
 
+  useEffect(() => {
+    const elements = sections
+      .map(({ id }) => document.getElementById(id))
+      .filter((element): element is HTMLElement => element !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        const section = sections.find(({ id }) => id === visible.target.id);
+        if (section) setActiveSection(section.id);
+      },
+      { rootMargin: "-22% 0px -58% 0px", threshold: [0, 0.15, 0.35, 0.6] },
+    );
+
+    elements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToSection = (id: SectionId) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <SiteLayout>
-      {/* Section 1 : Hero */}
-      <section style={{ background: "var(--bg-main)", padding: "56px 5% 48px", textAlign: "center" }}>
-        <div style={{ fontFamily: "var(--font-sans)", fontSize: "11px", textTransform: "uppercase", fontWeight: 700, letterSpacing: "1px", color: "var(--midnight)", opacity: 0.35, marginBottom: "12px" }}>
-          Fonctionnalités
-        </div>
-        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "52px", color: "var(--midnight)", letterSpacing: "-1px", lineHeight: 1.08, marginBottom: "14px" }}>
-          Ce que HeedUp fait.
-          <br />
-          <em style={{ color: "var(--indigo)", fontStyle: "italic" }}>Et comment il le fait.</em>
-        </h1>
-        <p style={{ fontFamily: "var(--font-sans)", fontSize: "17px", color: "var(--text-muted)", maxWidth: "560px", margin: "0 auto", lineHeight: 1.6 }}>
-          Pas un tour de fonctionnalités, une explication précise de chaque mécanisme, pour que vous compreniez exactement ce que vous achetez avant de vous inscrire.
-        </p>
-      </section>
+      <header className="features-scroll-hero">
+        <span className="features-scroll-eyebrow">Le produit en détail</span>
+        <h1>Tout ce que fait HeedUp, et rien de plus.</h1>
+        <p>Cinq questions le vendredi, un rapport le lundi, des recommandations concrètes. Voici comment chaque pièce fonctionne, en détail.</p>
+      </header>
 
-      {/* Section 2 : Feature Explorer */}
-      <section id="fonctionnalites" className="fade-up" style={{ background: "var(--bg-card)", padding: "52px 5%", borderTop: "1px solid rgba(67,56,202,0.08)" }}>
-        <style>{`
-          .feature-tab {
-            transition: all 0.15s;
-          }
-          .feature-tab:not(.active):hover {
-            border-color: rgba(67,56,202,0.4) !important;
-          }
-        `}</style>
-        <div className="heedup-feature-tabs heedup-tabs-desktop" style={{ display: "flex", flexWrap: "wrap", gap: "8px", justifyContent: "center", marginBottom: "16px" }}>
-          {tabs.map(({ id, label, Icon }) => {
-            const isActive = id === active;
-            return (
-              <button
-                key={id}
-                type="button"
-                onClick={() => setActive(id)}
-                className={`feature-tab ${isActive ? "active" : ""}`}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "7px",
-                  padding: "10px 16px",
-                  borderRadius: "8px",
-                  border: `1.5px solid ${isActive ? "var(--midnight)" : "rgba(13,27,62,0.25)"}`,
-                  background: isActive ? "var(--midnight)" : "var(--bg-card)",
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "12.5px",
-                  fontWeight: 600,
-                  color: isActive ? "#EEEEFF" : "var(--midnight)",
-                  cursor: "pointer",
-                  boxShadow: isActive ? "none" : "0 1px 4px rgba(13,27,62,0.08)",
-                }}
-              >
-                <Icon size={14} color="var(--indigo)" />
-                {label}
+      <nav className="features-mobile-nav" aria-label="Sections de la page">
+        {sections.map((section) => (
+          <button className={activeSection === section.id ? "is-active" : ""} key={section.id} type="button" onClick={() => scrollToSection(section.id)}>
+            {section.label}
+          </button>
+        ))}
+      </nav>
+
+      <div className="features-scroll-layout">
+        <aside className="features-scroll-sidebar">
+          <nav aria-label="Sections de la page">
+            {sections.map((section) => (
+              <button className={activeSection === section.id ? "is-active" : ""} key={section.id} type="button" onClick={() => scrollToSection(section.id)}>
+                {section.label}
               </button>
-            );
-          })}
-        </div>
-
-        <div className="heedup-tabs-desktop" style={{ background: "var(--bg-main)", borderRadius: "14px", border: "1px solid rgba(67,56,202,0.10)", overflow: "hidden" }}>
-          {features.map((f) => {
-            const Visual = featureVisuals[f.id];
-            return (
-              <Panel key={f.id} visible={active === f.id}>
-                <div style={leftColStyle}>
-                  <span style={tagStyle}>{f.tag}</span>
-                  <h2 style={titleStyle}>{f.title}</h2>
-                  <p style={descStyle}>
-                    {f.lead}{f.rest ? ` ${f.rest}` : ""}
-                  </p>
-                  <Detail label={f.detail.label} text={f.detail.text} />
-                  {f.bullets && <Bullets items={f.bullets} />}
-                </div>
-                <div style={rightColStyle}><Visual /></div>
-              </Panel>
-            );
-          })}
-        </div>
-
-        {/* Accordéon mobile */}
-        <div className="heedup-accordion">
-          {features.map((f, i) => {
-            const isOpen = openFeature === i;
-            return (
-              <div key={f.id} className="heedup-accordion-item">
-                <button
-                  type="button"
-                  className="heedup-accordion-head"
-                  aria-expanded={isOpen}
-                  onClick={() => setOpenFeature(isOpen ? null : i)}
-                >
-                  <span>{f.label}</span>
-                  <span className="heedup-accordion-chevron">{isOpen ? "−" : "+"}</span>
-                </button>
-                <div className={`heedup-accordion-panel${isOpen ? " is-open" : ""}`}>
-                  <div>
-                    <div className="heedup-accordion-content">
-                      <p className="heedup-accordion-lead">{f.lead}</p>
-                      {f.rest && (
-                        <p className="heedup-accordion-rest" style={{ marginBottom: "14px" }}>{f.rest}</p>
-                      )}
-                      <Detail label={f.detail.label} text={f.detail.text} />
-                      {f.bullets && (
-                        <div style={{ marginTop: "14px" }}>
-                          <Bullets items={f.bullets} />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-      </section>
-
-      {/* Section 3 : Spotlight Rapport d'équipe */}
-      <section className="fade-up" style={{ background: "var(--midnight)", padding: "56px 5%" }}>
-        <div className="heedup-spotlight" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "48px", alignItems: "center" }}>
-          <div>
-            <div style={{ fontFamily: "var(--font-sans)", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.9px", color: "rgba(255,255,255,0.35)", marginBottom: "12px", fontWeight: 700 }}>
-              Ce que vous recevez chaque lundi
-            </div>
-            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "36px", color: "#FFFFFF", letterSpacing: "-0.5px", lineHeight: 1.15, marginBottom: "14px" }}>
-              Le Rapport d'équipe.
-              <br />
-              <em style={{ fontStyle: "italic", color: "rgba(255,255,255,0.6)" }}>De la donnée à l'action en 2 minutes.</em>
-            </h2>
-            <p style={{ fontFamily: "var(--font-sans)", fontSize: "14px", color: "rgba(255,255,255,0.65)", lineHeight: 1.7, marginBottom: "20px" }}>
-              Chaque lundi, un email vous prévient que votre rapport est prêt. Le rapport lui-même s'ouvre dans votre espace, structuré pour être lu en 2 minutes et pour déclencher une action dans la journée. Il reste derrière votre mot de passe plutôt que dans une boîte mail qui peut être transférée.
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-              {[
-                { t: "5 scores affichés séparément + deltas", s: "Charge de travail, reconnaissance, clarté, soutien, sens. La variation vs la semaine précédente en rouge ou vert." },
-                { t: "Le signal prioritaire", s: "L'IA identifie le signal qui mérite votre attention cette semaine, pas une liste de tout ce qui s'est passé." },
-                { t: "2 à 3 recommandations actionnables", s: "Formulées pour un manager qui pilote seul, pas pour un DRH avec une équipe de 5 personnes." },
-                { t: "Un signal de vigilance quand c'est nécessaire", s: "Quand un commentaire évoque une situation grave, le rapport vous invite à une attention particulière, sans jamais citer le commentaire ni son auteur." },
-              ].map((step, i) => (
-                <div key={step.t} style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
-                  <div style={{ width: "26px", height: "26px", borderRadius: "50%", background: "var(--indigo)", color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 700, flexShrink: 0 }}>
-                    {i + 1}
-                  </div>
-                  <div>
-                    <div style={{ fontSize: "13px", color: "#FFFFFF", fontWeight: 600, marginBottom: "2px" }}>{step.t}</div>
-                    <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.5)", lineHeight: 1.45 }}>{step.s}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div>
-            <DemoReportCard />
-          </div>
-        </div>
-      </section>
-
-      {/* Section 3b : Simple pour vous, simple pour eux */}
-      <section className="fade-up" style={{ background: "var(--bg-card)", padding: "56px 5%", borderTop: "1px solid rgba(67,56,202,0.08)" }}>
-        <div style={{ textAlign: "center", marginBottom: "40px" }}>
-          <div style={{ fontFamily: "var(--font-sans)", fontSize: "11px", textTransform: "uppercase", fontWeight: 700, letterSpacing: "1px", color: "var(--midnight)", opacity: 0.35, marginBottom: "12px" }}>
-            ZÉRO FRICTION
-          </div>
-          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "26px", color: "var(--midnight)", letterSpacing: "-0.3px", lineHeight: 1.2, marginBottom: "12px" }}>
-            Simple pour vous,{" "}
-            <span style={{ fontStyle: "italic", color: "var(--indigo)" }}>simple pour eux.</span>
-          </h2>
-          <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", color: "var(--text-muted)", maxWidth: "620px", margin: "0 auto", lineHeight: 1.65 }}>
-            L'outil qui s'efface est celui qu'on utilise vraiment. HeedUp est conçu pour disparaître dans votre routine.
-          </p>
-        </div>
-
-        <div className="heedup-simple-vous-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", alignItems: "stretch", maxWidth: "1000px", margin: "0 auto" }}>
-          {/* Carte gauche */}
-          <div className="heedup-simple-vous-card" style={{ background: "var(--bg-main)", border: "1px solid rgba(67,56,202,0.10)", borderRadius: "16px", padding: "28px" }}>
-            <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "var(--indigo-pale)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}>
-              <User size={20} strokeWidth={1.8} color="var(--indigo)" />
-            </div>
-            <div style={{ fontFamily: "var(--font-sans)", fontSize: "10.5px", fontWeight: 700, letterSpacing: "0.8px", textTransform: "uppercase", color: "var(--indigo)", marginBottom: "6px" }}>
-              Pour vous, le manager
-            </div>
-            <h3 style={{ fontFamily: "var(--font-display)", fontSize: "22px", color: "var(--midnight)", lineHeight: 1.25, marginBottom: "20px", paddingBottom: "20px", borderBottom: "1px solid rgba(67,56,202,0.10)" }}>
-              Vous pilotez.
-              <br />
-              Vous ne maintenez pas.
-            </h3>
-
-            <div>
-              {[
-                {
-                  Icon: Unplug,
-                  title: "Pas de projet informatique",
-                  text: "Aucune intégration SIRH, aucun ticket IT, aucune réunion de déploiement. Vous collez la liste des adresses email de votre équipe, et c'est terminé.",
-                },
-                {
-                  Icon: Inbox,
-                  title: "L'information vient à vous",
-                  text: "Chaque lundi, un email vous prévient que votre rapport est prêt, et il s'ouvre dans votre espace. Vous n'avez rien à déclencher.",
-                },
-                {
-                  Icon: Target,
-                  title: "Des actions, pas des données brutes",
-                  text: "HeedUp ne vous donne pas un score à interpréter. Il vous dit quoi faire cette semaine, formulé pour un manager, pas pour un analyste RH.",
-                },
-                {
-                  Icon: Wallet,
-                  title: "Un budget PME, pas un budget ETI",
-                  text: "À partir de 50€/mois, sans engagement annuel obligatoire. Deux premiers rapports gratuits, sans carte bancaire, avant toute facturation. Prix affiché publiquement, sans devis, sans appel commercial préalable.",
-                },
-              ].map((arg, i, arr) => (
-                <div
-                  key={arg.title}
-                  className="heedup-simple-vous-arg"
-                  style={{
-                    display: "flex",
-                    gap: "12px",
-                    alignItems: "flex-start",
-                    paddingBottom: i < arr.length - 1 ? "16px" : undefined,
-                    marginBottom: i < arr.length - 1 ? "16px" : undefined,
-                    borderBottom: i < arr.length - 1 ? "1px solid rgba(67,56,202,0.07)" : undefined,
-                  }}
-                >
-                  <arg.Icon size={17} strokeWidth={1.8} color="var(--indigo)" style={{ flexShrink: 0, marginTop: "2px" }} />
-                  <div>
-                    <div style={{ fontFamily: "var(--font-sans)", fontSize: "13.5px", fontWeight: 700, color: "var(--midnight)", marginBottom: "4px" }}>{arg.title}</div>
-                    <div style={{ fontFamily: "var(--font-sans)", fontSize: "12.5px", color: "var(--text-muted)", lineHeight: 1.6 }}>{arg.text}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Carte droite */}
-          <div className="heedup-simple-vous-card" style={{ background: "var(--bg-main)", border: "1px solid rgba(67,56,202,0.10)", borderRadius: "16px", padding: "28px" }}>
-            <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "var(--indigo-pale)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}>
-              <Users size={20} strokeWidth={1.8} color="var(--indigo)" />
-            </div>
-            <div style={{ fontFamily: "var(--font-sans)", fontSize: "10.5px", fontWeight: 700, letterSpacing: "0.8px", textTransform: "uppercase", color: "var(--indigo)", marginBottom: "6px" }}>
-              Pourquoi vos salariés répondent vraiment
-            </div>
-            <h3 style={{ fontFamily: "var(--font-display)", fontSize: "22px", color: "var(--midnight)", lineHeight: 1.25, marginBottom: "20px", paddingBottom: "20px", borderBottom: "1px solid rgba(67,56,202,0.10)" }}>
-              Ils participent
-              <br />
-              parce qu'ils font confiance.
-            </h3>
-
-            <div>
-              {[
-                {
-                  Icon: Lock,
-                  title: "L'anonymat est dans le code, pas dans la charte",
-                  text: "Même vous ne pouvez pas voir les réponses individuelles. Ce n'est pas une promesse managériale, c'est une contrainte architecturale.",
-                },
-                {
-                  Icon: CalendarCheck,
-                  title: "Un seul contact par semaine",
-                  text: "Un email le vendredi matin. Pas d'app, pas de compte, pas de relance. Moins intrusif qu'un point d'équipe.",
-                },
-                {
-                  Icon: RefreshCw,
-                  title: "Ils voient que ça change quelque chose",
-                  text: "Quand vos actions du lundi reflètent les signaux de la semaine, le taux de réponse monte. La boucle de confiance se referme d'elle-même.",
-                },
-                {
-                  Icon: Unplug,
-                  title: "Un salarié peut se retirer à tout moment",
-                  text: "Chaque email porte un lien de désinscription. Le manager n'est jamais informé de qui s'est retiré, seulement du nombre.",
-                },
-                {
-                  Icon: Timer,
-                  title: "Zéro surcharge cognitive",
-                  text: "5 questions, une échelle de 1 à 5, 2 minutes. Aucune question ouverte obligatoire, aucun formulaire à rallonge.",
-                },
-              ].map((arg, i, arr) => (
-                <div
-                  key={arg.title}
-                  className="heedup-simple-vous-arg"
-                  style={{
-                    display: "flex",
-                    gap: "12px",
-                    alignItems: "flex-start",
-                    paddingBottom: i < arr.length - 1 ? "16px" : undefined,
-                    marginBottom: i < arr.length - 1 ? "16px" : undefined,
-                    borderBottom: i < arr.length - 1 ? "1px solid rgba(67,56,202,0.07)" : undefined,
-                  }}
-                >
-                  <arg.Icon size={17} strokeWidth={1.8} color="var(--indigo)" style={{ flexShrink: 0, marginTop: "2px" }} />
-                  <div>
-                    <div style={{ fontFamily: "var(--font-sans)", fontSize: "13.5px", fontWeight: 700, color: "var(--midnight)", marginBottom: "4px" }}>{arg.title}</div>
-                    <div style={{ fontFamily: "var(--font-sans)", fontSize: "12.5px", color: "var(--text-muted)", lineHeight: 1.6 }}>{arg.text}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="heedup-simple-vous-closing" style={{ background: "var(--indigo-pale)", borderRadius: "12px", padding: "20px 28px", marginTop: "24px", maxWidth: "720px", marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>
-          <p style={{ fontFamily: "var(--font-display)", fontSize: "18px", fontStyle: "italic", color: "var(--midnight)", lineHeight: 1.5, margin: 0 }}>
-            Un outil que vos salariés acceptent d'utiliser est un outil qui vous donne de vraies données. C'est le seul pari de HeedUp.
-          </p>
-        </div>
-      </section>
-
-      {/* Section 4 : Comparatif */}
-      <section id="comparatif" className="fade-up" style={{ background: "var(--bg-main)", padding: "56px 5%", borderTop: "1px solid rgba(67,56,202,0.08)" }}>
-        <h2 style={{ fontFamily: "var(--font-display)", fontSize: "42px", color: "var(--midnight)", letterSpacing: "-0.8px", textAlign: "center", marginBottom: "8px" }}>
-          Ce qui change vraiment avec HeedUp
-        </h2>
-        <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", color: "var(--text-muted)", textAlign: "center", marginBottom: "40px" }}>
-          Six différences concrètes avec les outils conçus pour les équipes RH.
-        </p>
-        <div className="heedup-comparatif-desktop" style={{ maxWidth: "900px", margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "16px", marginBottom: "12px" }}>
-            <div style={{ fontSize: "11px", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.7px", color: "rgba(13,27,62,0.35)", textAlign: "left" }}>Sans HeedUp</div>
-            <div />
-            <div style={{ fontSize: "11px", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.7px", color: "var(--indigo)", textAlign: "right" }}>Avec HeedUp</div>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-            {[
-              { left: "Des semaines de déploiement IT avant de pouvoir envoyer la première question.", right: "Opérationnel en 10 minutes. Vous vous inscrivez, vous configurez, le premier questionnaire part dans la foulée." },
-              { left: "Un baromètre mensuel ou trimestriel. Le signal arrive après que le problème s'est installé.", right: "Une mesure hebdomadaire. Vous détectez les signaux faibles avant qu'ils deviennent des départs." },
-              { left: "Un dashboard avec des scores à lire, interpréter et traduire en actions vous-même.", right: "2 à 3 recommandations managériales actionnables livrées directement avec le rapport." },
-              { left: "Un appel commercial obligatoire avant d'avoir accès au produit ou au moindre tarif.", right: "Inscription directe, prix affiché publiquement. Vous démarrez sans parler à personne." },
-              { left: "Un contrat d'un an minimum. Vous êtes engagé avant même d'avoir validé que ça fonctionne pour votre équipe.", right: "Facturation mensuelle, résiliation libre. Vous arrêtez quand vous voulez, sans frais ni préavis." },
-              { left: "Des questionnaires pensés pour des DRH qui gèrent des centaines de personnes, pas pour un dirigeant qui pilote seul.", right: "Calibré pour 10 à 100 salariés. Interface, recommandations et seuil d'anonymat pensés pour votre réalité." },
-            ].map((row, i) => (
-              <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "16px" }}>
-                <div style={{ background: "rgba(239,68,68,0.04)", border: "1px solid rgba(239,68,68,0.12)", borderRadius: "10px", padding: "14px 16px", display: "flex", alignItems: "flex-start", gap: "10px" }}>
-                  <div style={{ width: "20px", height: "20px", borderRadius: "50%", background: "rgba(239,68,68,0.15)", color: "#b91c1c", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <X size={10} />
-                  </div>
-                  <span style={{ fontSize: "12.5px", color: "rgba(13,27,62,0.55)", lineHeight: 1.5 }}>{row.left}</span>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <span style={{ fontSize: "18px", color: "rgba(67,56,202,0.3)" }}>→</span>
-                </div>
-                <div style={{ background: "rgba(67,56,202,0.05)", border: "1px solid rgba(67,56,202,0.15)", borderRadius: "10px", padding: "14px 16px", display: "flex", alignItems: "flex-start", gap: "10px" }}>
-                  <div style={{ width: "20px", height: "20px", borderRadius: "50%", background: "var(--indigo)", color: "white", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <Check size={10} />
-                  </div>
-                  <span style={{ fontSize: "12.5px", color: "var(--midnight)", fontWeight: 600, lineHeight: 1.5 }}>{row.right}</span>
-                </div>
-              </div>
             ))}
+          </nav>
+          <div className="features-sidebar-cta">
+            <Link to="/connexion">Créer mon espace</Link>
+            <small>2 rapports gratuits, sans carte bancaire</small>
           </div>
-        </div>
+        </aside>
 
-        {/* Mobile stacked comparison */}
-        <div className="heedup-comparatif-mobile" style={{ display: "none", maxWidth: "560px", margin: "0 auto" }}>
-          {[
-            { criterion: "Temps de démarrage", heedup: "10 minutes", other: "4 à 12 semaines" },
-            { criterion: "Fréquence de mesure", heedup: "Hebdomadaire", other: "Mensuel ou trimestriel" },
-            { criterion: "Prix d'entrée (25 salariés)", heedup: "112,50€/mois", other: "Dès 667€/mois" },
-            { criterion: "Engagement", heedup: "Mensuel, libre", other: "12 mois minimum" },
-            { criterion: "Appel commercial requis", heedup: "Non", other: "Systématiquement" },
-            { criterion: "Anonymat", heedup: "Architectural (by design)", other: "Paramètre désactivable" },
-            { criterion: "Compte salarié requis", heedup: "Non, lien direct", other: "Oui, inscription requise" },
-          ].map((row) => (
-            <div
-              key={row.criterion}
-              style={{
-                background: "var(--bg-card)",
-                borderRadius: "10px",
-                border: "1px solid rgba(67,56,202,0.08)",
-                padding: "14px 16px",
-                marginBottom: "10px",
-              }}
-            >
-              <div style={{ fontSize: "12px", fontWeight: 600, color: "var(--midnight)", marginBottom: "10px" }}>
-                {row.criterion}
-              </div>
-              <div style={{ display: "flex", alignItems: "flex-start", gap: "8px", marginBottom: "6px" }}>
-                <span style={{ background: "var(--indigo)", color: "#fff", fontSize: "9px", fontWeight: 700, padding: "2px 7px", borderRadius: "4px", flexShrink: 0 }}>HeedUp</span>
-                <span style={{ fontSize: "12px", color: "#15803d", fontWeight: 600 }}>{row.heedup}</span>
-              </div>
-              <div style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}>
-                <span style={{ background: "rgba(13,27,62,0.08)", color: "rgba(13,27,62,0.4)", fontSize: "9px", fontWeight: 700, padding: "2px 7px", borderRadius: "4px", flexShrink: 0 }}>Autres</span>
-                <span style={{ fontSize: "12px", color: "rgba(13,27,62,0.35)" }}>{row.other}</span>
-              </div>
+        <main className="features-scroll-content">
+          <section id="questionnaire" className="features-scroll-section is-visual-right">
+            <SectionHeading eyebrow="Le questionnaire" title="5 questions. Pas 50.">
+              <p>Les 5 questions couvrent cinq dimensions qui couvrent ce qui se dégrade le plus souvent avant un départ, et sur quoi un manager peut réellement agir.</p>
+              <p>Charge de travail, reconnaissance, clarté, soutien, sens. Elles ne changent pas d'une semaine à l'autre, ce qui permet de mesurer des tendances réelles.</p>
+              <div className="features-inline-detail"><strong>Pourquoi des questions fixes ?</strong><p>Des questions identiques d'une semaine à l'autre permettent de comparer les données dans le temps. Des questions qui changent donneraient une photo ponctuelle, pas une tendance.</p></div>
+              <CheckList items={questionnaireBullets} />
+            </SectionHeading>
+            <QuestionnaireVisual />
+          </section>
+
+          <section id="rapport" className="features-scroll-section is-visual-left">
+            <SectionHeading eyebrow="Le rapport" title="Votre lundi commence par l'essentiel.">
+              <p>Chaque lundi, un email vous prévient que votre rapport est prêt. Le rapport lui-même s'ouvre dans votre espace, structuré pour être lu en 2 minutes et pour déclencher une action dans la journée. Il reste derrière votre mot de passe plutôt que dans une boîte mail qui peut être transférée.</p>
+              <p>Le Rapport d'équipe ne liste pas des scores. Il interprète les tendances et génère 2 à 3 recommandations selon le contexte de la semaine. Chaque recommandation est rattachée à la dimension à laquelle elle répond, ce qui vous permet de voir immédiatement quel score elle cherche à faire bouger.</p>
+              <div className="features-inline-detail"><strong>Ce que l'IA analyse</strong><p>Score absolu de la semaine, évolution par rapport à la semaine précédente, et commentaires libres de la semaine. La recommandation combine ces signaux, pas juste le dernier score.</p></div>
+            </SectionHeading>
+            <div className="features-report-visual"><DemoReportCard /></div>
+          </section>
+
+          <section id="anonymat" className="features-scroll-section is-visual-right">
+            <SectionHeading eyebrow="L'anonymat" title="Ce que vous ne pouvez pas voir. Même si vous le voulez.">
+              <p>L'anonymat de HeedUp est une contrainte d'architecture, pas un paramètre.</p>
+              <p>Répondre reste facultatif : chaque email porte un lien de désinscription, et le manager ne voit jamais qui s'est désinscrit. Le lien entre un salarié et sa réponse est supprimé au moment même de la soumission. Cette information n'existe plus dans la base : ce n'est pas une règle interne, c'est une absence de donnée.</p>
+              <ImportantNote label="Seuil de protection statistique">Si moins de 5 salariés ont répondu complètement cette semaine, aucun score n'est affiché. La synthèse des commentaires suit un seuil distinct : elle demande 5 commentaires. Ces seuils protègent l'anonymat dans les petites équipes.</ImportantNote>
+              <CheckList items={anonymityBullets} />
+            </SectionHeading>
+            <AnonymityVisual />
+          </section>
+
+          <section id="historique" className="features-scroll-section is-visual-left">
+            <SectionHeading eyebrow="L'historique" title="L'historique pour comprendre. Le rapport lundi pour agir.">
+              <p>Le Rapport d'équipe du lundi est votre outil d'action.</p>
+              <p>Le tableau de bord est votre outil de compréhension. Quand un score descend, le tableau de bord vous permet de voir si c'est un accident ou une tendance installée.</p>
+              <ImportantNote label="Semaines sous le seuil">Les semaines sous le seuil restent visibles dans la bande temporelle, sans afficher de score.</ImportantNote>
+              <CheckList items={historyBullets} />
+            </SectionHeading>
+            <HistoryVisual />
+          </section>
+
+          <section id="donnees" className="features-scroll-section is-visual-right">
+            <SectionHeading eyebrow="Vos données" title="Conforme RGPD. Hébergé en France.">
+              <p>HeedUp est conçu pour être conforme au RGPD par architecture, pas par paramètre.</p>
+              <p>Les données de vos salariés sont hébergées en France, région Paris, minimisées au strict nécessaire, et l'anonymat est garanti par conception. Deux traitements passent par des prestataires hors UE, l'envoi des emails et la génération de la synthèse, sous clauses contractuelles types. La documentation contractuelle est disponible sur demande.</p>
+              <div className="features-inline-detail"><strong>Ce qui est collecté. Rien d'autre.</strong><p>Scores numériques de 1 à 5, commentaire libre facultatif, et jeton aléatoire dissocié du salarié à la soumission. L'email professionnel du salarié est conservé pour l'envoi du questionnaire, jamais rattaché à une réponse.</p></div>
+              <CheckList items={dataBullets} />
+            </SectionHeading>
+            <DataVisual />
+          </section>
+
+          <section id="mise-en-route" className="features-scroll-section features-start-section">
+            <SectionHeading eyebrow="La mise en route" title="10 minutes. Pas 10 semaines.">
+              <p>Aucun projet informatique, aucune intégration SIRH, aucun déploiement.</p>
+              <p>Vous importez les emails de votre équipe, vous activez, le premier questionnaire part dans la foulée. Le support est inclus dans tous les plans, pas derrière un plan Premium.</p>
+            </SectionHeading>
+            <div className="features-start-grid">
+              <StartCard number="01" Icon={Rocket} title="Créez votre espace" text="Le nom de votre entreprise, et c'est tout." />
+              <StartCard number="02" Icon={Mail} title="Ajoutez votre équipe" text="Collez les adresses email de vos salariés. Rien à installer, aucun compte à créer pour eux." />
+              <StartCard number="03" Icon={Send} title="Activez HeedUp" text="Le premier questionnaire est envoyé immédiatement après l'activation." />
             </div>
-          ))}
-        </div>
-      </section>
+            <ImportantNote label="Délai du premier rapport">Le premier rapport est produit dès que cinq réponses complètes sont arrivées. Les deux premiers rapports réellement produits sont gratuits, sans carte bancaire.</ImportantNote>
+            <div className="features-support-line"><Clock3 size={18} /><p><strong>Support humain, pas de chatbot.</strong> Réponse par email sous 24h ouvrées, en français, par une vraie personne qui connaît votre compte. Pas de ticket automatique, pas de FAQ obligatoire avant d'écrire.</p></div>
+          </section>
+        </main>
+      </div>
 
       <FinalCta />
     </SiteLayout>

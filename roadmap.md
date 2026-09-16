@@ -13,3 +13,4 @@
 - [x] Refaire la section Comment ça marche en deux blocs interactifs
 - [x] Vérifier les contenus interdits et le comportement desktop/mobile
 - [x] Simplifier le rituel hebdomadaire et distinguer visuellement ses deux blocs
+- [x] Refaire la page Fonctionnalités en lecture continue avec navigation latérale
