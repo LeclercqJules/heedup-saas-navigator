@@ -231,22 +231,17 @@ body {
 .heedup-how {
   width: 100%;
   overflow: clip;
-  padding: 80px 5% 0;
+  padding: 80px 0 0;
   background: var(--indigo-pale);
   font-family: var(--font-sans);
 }
 
-.heedup-how-start,
-.heedup-ritual-heading,
-.heedup-weekly-sequence {
+.heedup-how-start {
   width: 100%;
+  padding: 0 5%;
 }
 
 .heedup-how-heading {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 40px;
   margin-bottom: 44px;
 }
 
@@ -270,24 +265,6 @@ body {
   font-size: 17px;
   line-height: 1.65;
 }
-
-.heedup-start-assurances {
-  display: grid;
-  gap: 10px;
-  padding-bottom: 4px;
-}
-
-.heedup-start-assurances span {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  color: var(--midnight);
-  font-size: 13px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.heedup-start-assurances svg { color: var(--indigo); }
 
 .heedup-start-steps {
   display: grid;
@@ -459,6 +436,12 @@ body {
   margin: 76px 0 68px;
 }
 
+.heedup-how-ritual {
+  margin-top: 76px;
+  padding: 0 5% 80px;
+  background: var(--bg-main);
+}
+
 .heedup-ritual-separator::before {
   content: "";
   position: absolute;
@@ -481,17 +464,11 @@ body {
 }
 
 .heedup-ritual-heading { text-align: center; }
+.heedup-ritual-heading .heedup-hero-eyebrow { margin-bottom: 16px; }
 .heedup-ritual-heading > p { margin: 0 auto; }
 
 .heedup-weekly-sequence {
-  height: 165vh;
   margin-top: 44px;
-}
-
-.heedup-weekly-sticky {
-  position: sticky;
-  top: 140px;
-  padding-bottom: 54px;
 }
 
 .heedup-weekly-cards {
@@ -508,11 +485,11 @@ body {
   padding: 22px;
   border: 1px solid rgba(13, 27, 62, 0.08);
   border-radius: 12px;
-  opacity: 0.42;
-  transition: opacity 240ms ease;
+  opacity: 1;
 }
 
-.heedup-weekly-card.is-active { opacity: 1; }
+.heedup-weekly-card.fade-up { transform: none; }
+.heedup-weekly-card.fade-up.visible { transform: none; }
 .heedup-weekly-card.is-violet { background: var(--hero-lilac); }
 .heedup-weekly-card.is-blue { background: var(--ritual-blue-pale); }
 .heedup-weekly-card.is-amber { background: var(--ritual-amber-pale); }
@@ -557,30 +534,7 @@ body {
 .heedup-objective-mini svg { flex-shrink: 0; color: var(--ritual-plum); }
 .heedup-objective-mini > p { color: var(--ritual-plum); }
 
-.heedup-weekly-progress {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 7px;
-  width: min(320px, 70%);
-  margin: 24px auto 0;
-}
-
-.heedup-weekly-progress button {
-  height: 4px;
-  padding: 0;
-  border: 0;
-  border-radius: 4px;
-  background: rgba(13, 27, 62, 0.14);
-  cursor: pointer;
-  transition: opacity 200ms ease;
-}
-
-.heedup-weekly-progress button.is-active { background: var(--indigo); }
-
 @media (max-width: 1024px) {
-  .heedup-how-heading { grid-template-columns: minmax(0, 1fr); }
-  .heedup-start-assurances { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .heedup-start-assurances span { white-space: normal; }
   .heedup-start-steps { gap: 9px; grid-template-columns: minmax(0, 1fr) 20px minmax(0, 1fr) 20px minmax(0, 1fr); }
   .heedup-start-step { min-height: 458px; padding: 18px; }
   .heedup-weekly-card { padding: 18px; }
@@ -588,46 +542,35 @@ body {
 
 @media (max-width: 767px) {
   .heedup-how { padding-top: 48px !important; padding-bottom: 48px !important; }
-  .heedup-how-heading { gap: 26px; margin-bottom: 34px; }
+  .heedup-how-heading { margin-bottom: 34px; }
   .heedup-how-heading h2,
   .heedup-ritual-heading h2 { font-size: 32px !important; }
   .heedup-how-heading > div:first-child > p,
   .heedup-ritual-heading > p { font-size: 15px; }
-  .heedup-start-assurances { grid-template-columns: 1fr; gap: 9px; }
   .heedup-start-steps { display: grid; grid-template-columns: 1fr !important; gap: 16px; }
   .heedup-start-step { min-height: 0; padding: 22px; }
   .heedup-start-step > p { min-height: 0; }
   .heedup-step-arrow { display: none; }
-  .heedup-ritual-separator { margin: 56px 0 48px; }
+  .heedup-how-ritual { margin-top: 56px; padding-bottom: 48px; }
+  .heedup-ritual-separator { margin: 0 0 48px; }
   .heedup-ritual-separator span { max-width: 82%; text-align: center; }
   .heedup-weekly-sequence { height: auto; margin-top: 32px; }
-  .heedup-weekly-sticky { position: static; padding-bottom: 0; }
   .heedup-weekly-cards {
-    display: flex;
-    width: calc(100% + 10%);
-    margin-left: -5%;
-    gap: 0;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
-  .heedup-weekly-cards::-webkit-scrollbar { display: none; }
   .heedup-weekly-card {
-    min-width: 100%;
+    min-width: 0;
     min-height: 390px;
-    flex-basis: 100%;
-    scroll-snap-align: start;
-    border-radius: 0;
+    border-radius: 12px;
     opacity: 1;
-    padding: 26px 7%;
+    padding: 26px;
   }
-  .heedup-weekly-progress { display: flex; justify-content: center; gap: 8px; width: auto; }
-  .heedup-weekly-progress button { width: 8px; height: 8px; border-radius: 50%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .heedup-weekly-card,
-  .heedup-weekly-progress button { transition: none; }
+  .heedup-weekly-card { transition: none; }
 }
 
 .heedup-impact-grid {

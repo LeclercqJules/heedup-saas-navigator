@@ -1,12 +1,9 @@
-import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   Bell,
-  Bolt,
   BrainCircuit,
   Building2,
   Check,
-  Clock3,
   MailPlus,
   Send,
   Sparkles,
@@ -129,10 +126,10 @@ function WeeklyVisual({ type }: { type: (typeof weeklyCards)[number]["visual"] }
   );
 }
 
-function WeeklyCard({ card, active }: { card: (typeof weeklyCards)[number]; active: boolean }) {
+function WeeklyCard({ card, index }: { card: (typeof weeklyCards)[number]; index: number }) {
   const Icon = card.icon;
   return (
-    <article className={`heedup-weekly-card is-${card.tone}${active ? " is-active" : ""}`} aria-current={active ? "step" : undefined}>
+    <article className={`heedup-weekly-card is-${card.tone} fade-up fade-up-delay-${index + 1}`}>
       <header>
         <span className="heedup-weekly-card-icon"><Icon size={20} aria-hidden="true" /></span>
         <div><span>{card.day}</span><h3>{card.title}</h3></div>
@@ -144,37 +141,6 @@ function WeeklyCard({ card, active }: { card: (typeof weeklyCards)[number]; acti
 }
 
 export function HowItWorksSection() {
-  const sequenceRef = useRef<HTMLDivElement>(null);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [activeCard, setActiveCard] = useState(0);
-
-  useEffect(() => {
-    const sequence = sequenceRef.current;
-    if (!sequence) return;
-
-    const updateFromPageScroll = () => {
-      if (window.matchMedia("(max-width: 767px)").matches) return;
-      const rect = sequence.getBoundingClientRect();
-      const travel = Math.max(sequence.offsetHeight - window.innerHeight, 1);
-      const progress = Math.min(Math.max(-rect.top / travel, 0), 0.999);
-      setActiveCard(Math.min(weeklyCards.length - 1, Math.floor(progress * weeklyCards.length)));
-    };
-
-    updateFromPageScroll();
-    window.addEventListener("scroll", updateFromPageScroll, { passive: true });
-    window.addEventListener("resize", updateFromPageScroll);
-    return () => {
-      window.removeEventListener("scroll", updateFromPageScroll);
-      window.removeEventListener("resize", updateFromPageScroll);
-    };
-  }, []);
-
-  const updateFromCarousel = () => {
-    const carousel = carouselRef.current;
-    if (!carousel || carousel.clientWidth === 0) return;
-    setActiveCard(Math.min(weeklyCards.length - 1, Math.round(carousel.scrollLeft / carousel.clientWidth)));
-  };
-
   return (
     <section id="comment-ca-marche" className="heedup-how">
       <div className="heedup-how-start">
@@ -183,11 +149,6 @@ export function HowItWorksSection() {
             <span className="heedup-hero-eyebrow">COMMENT ÇA MARCHE</span>
             <h2>Commencer prend quelques minutes.</h2>
             <p>Pas de démo commerciale obligatoire. Pas de déploiement complexe. Vous créez votre espace et lancez votre premier questionnaire directement.</p>
-          </div>
-          <div className="heedup-start-assurances" aria-label="Conditions de démarrage">
-            <span><Bolt size={16} aria-hidden="true" />Sans appel commercial</span>
-            <span><Clock3 size={16} aria-hidden="true" />Mise en place en quelques minutes</span>
-            <span><Check size={16} aria-hidden="true" />Sans engagement</span>
           </div>
         </div>
 
@@ -218,32 +179,18 @@ export function HowItWorksSection() {
         </div>
       </div>
 
-      <div className="heedup-ritual-separator"><span>ET CHAQUE SEMAINE, LE MÊME RITUEL</span></div>
+      <div className="heedup-how-ritual">
+        <div className="heedup-ritual-separator"><span>ET CHAQUE SEMAINE, LE MÊME RITUEL</span></div>
 
-      <div className="heedup-ritual-heading">
-        <h2>Un rituel de 2 minutes. Une vision chaque semaine.</h2>
-        <p>De la réponse de vos équipes au passage à l'action, en toute simplicité.</p>
-      </div>
+        <div className="heedup-ritual-heading">
+          <span className="heedup-hero-eyebrow">LE RITUEL HEBDOMADAIRE</span>
+          <h2>Un rituel de 2 minutes. Une vision chaque semaine.</h2>
+          <p>De la réponse de vos équipes au passage à l'action, en toute simplicité.</p>
+        </div>
 
-      <div ref={sequenceRef} className="heedup-weekly-sequence">
-        <div className="heedup-weekly-sticky">
-          <div ref={carouselRef} className="heedup-weekly-cards" onScroll={updateFromCarousel}>
-            {weeklyCards.map((card, index) => <WeeklyCard key={card.key} card={card} active={index === activeCard} />)}
-          </div>
-          <div className="heedup-weekly-progress" aria-label={`Étape ${activeCard + 1} sur ${weeklyCards.length}`}>
-            {weeklyCards.map((card, index) => (
-              <button
-                key={card.key}
-                type="button"
-                className={index === activeCard ? "is-active" : ""}
-                aria-label={`Voir ${card.day.toLowerCase()}`}
-                onClick={() => {
-                  setActiveCard(index);
-                  const carousel = carouselRef.current;
-                  if (carousel) carousel.scrollTo({ left: carousel.clientWidth * index, behavior: "smooth" });
-                }}
-              />
-            ))}
+        <div className="heedup-weekly-sequence">
+          <div className="heedup-weekly-cards">
+            {weeklyCards.map((card, index) => <WeeklyCard key={card.key} card={card} index={index} />)}
           </div>
         </div>
       </div>
