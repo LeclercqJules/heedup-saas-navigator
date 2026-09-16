@@ -40,7 +40,7 @@ const weeklyCards = [
   },
   {
     key: "semaine",
-    day: "LA SEMAINE",
+    day: "ENSUITE",
     title: "Vous agissez",
     icon: Target,
     tone: "plum",
@@ -162,7 +162,7 @@ export function HowItWorksSection() {
           </article>
           <ArrowRight className="heedup-step-arrow" size={24} aria-hidden="true" />
           <article className="heedup-start-step fade-up fade-up-delay-2">
-            <div className="heedup-start-step-head"><span>02</span><span className="heedup-duration">1 minute</span></div>
+            <div className="heedup-start-step-head"><span>02</span><span className="heedup-duration">3 minutes</span></div>
             <MailPlus className="heedup-start-icon" size={22} aria-hidden="true" />
             <h3>Ajoutez votre équipe</h3>
             <p>Collez les adresses email de vos salariés. Rien à installer, aucun compte à créer pour eux.</p>
@@ -183,7 +183,6 @@ export function HowItWorksSection() {
         <div className="heedup-ritual-separator"><span>ET CHAQUE SEMAINE, LE MÊME RITUEL</span></div>
 
         <div className="heedup-ritual-heading">
-          <span className="heedup-hero-eyebrow">LE RITUEL HEBDOMADAIRE</span>
           <h2>Un rituel de 2 minutes. Une vision chaque semaine.</h2>
           <p>De la réponse de vos équipes au passage à l'action, en toute simplicité.</p>
         </div>
