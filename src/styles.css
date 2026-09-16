@@ -3794,8 +3794,10 @@ body:has(#repondre-root) {
   .features-scroll-section { grid-template-columns: 1fr; gap: 30px; min-height: 0; padding: 48px 0; scroll-margin-top: 138px; }
   .features-scroll-section.is-visual-left .features-scroll-copy,
   .features-scroll-section.is-visual-left > :last-child { order: initial; }
-  .features-scroll-visual,
-  .features-report-visual { max-width: 680px; }
+  .features-scroll-visual { max-width: 680px; }
+  .features-report-section .features-report-visual { max-width: none; padding: 10px 0; }
+  .features-report-columns { grid-template-columns: 1fr; gap: 26px; }
+  .features-report-section .features-scroll-copy > p { max-width: none; }
 }
 
 @media (max-width: 767px) {
