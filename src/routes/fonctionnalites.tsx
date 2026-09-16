@@ -1,3 +1,4 @@
+import { FinalCta } from "@/components/FinalCta";
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
@@ -1052,33 +1053,7 @@ function Page() {
         </div>
       </section>
 
-      {/* Section 5 : CTA */}
-      <section style={{ background: "#EEEEFF", padding: "64px 5%", textAlign: "center" }}>
-        <h2 style={{ fontFamily: "var(--font-display)", fontSize: "36px", color: "var(--midnight)", letterSpacing: "-0.5px", marginBottom: "10px" }}>
-          Prêt à piloter votre équipe autrement ?
-        </h2>
-        <p style={{ fontFamily: "var(--font-sans)", fontSize: "15px", color: "var(--text-muted)", marginBottom: "26px", lineHeight: 1.6 }}>
-          Déjà plus de 20 managers partenaires accompagnent leur équipe avec HeedUp.
-        </p>
-        <Link
-          to="/connexion"
-          style={{
-            background: "var(--indigo)",
-            color: "#FFFFFF",
-            padding: "13px 28px",
-            borderRadius: "8px",
-            fontSize: "14px",
-            fontWeight: 700,
-            border: "none",
-            cursor: "pointer",
-            fontFamily: "var(--font-sans)",
-            textDecoration: "none",
-            display: "inline-block",
-          }}
-        >
-          Créer mon espace
-        </Link>
-      </section>
+      <FinalCta />
     </SiteLayout>
   );
 }

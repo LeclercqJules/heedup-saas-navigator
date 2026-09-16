@@ -1,3 +1,4 @@
+import { FinalCta } from "@/components/FinalCta";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, Fragment } from "react";
 import {
@@ -992,59 +993,6 @@ function SectionPricingCards({
   );
 }
 
-function SectionCta() {
-  const count = useTallyCount();
-  return (
-    <section
-      style={{
-        backgroundColor: "#EEEEFF",
-        padding: "64px 5%",
-        textAlign: "center",
-      }}
-    >
-      <h2
-        style={{
-          fontFamily: "var(--font-display)",
-          fontSize: 36,
-          letterSpacing: "-0.5px",
-          color: "var(--midnight)",
-          marginBottom: 10,
-        }}
-      >
-        Prêt à démarrer ce vendredi ?
-      </h2>
-      <p
-        style={{
-          fontFamily: "var(--font-sans)",
-          fontSize: 16,
-          color: "var(--text-muted)",
-          marginBottom: 26,
-          lineHeight: 1.6,
-        }}
-      >
-        Déjà plus de 20 managers partenaires accompagnent leur équipe avec HeedUp.
-      </p>
-      <Link
-        to="/connexion"
-        style={{
-          backgroundColor: "var(--indigo)",
-          color: "#FFFFFF",
-          padding: "14px 32px",
-          borderRadius: 8,
-          fontSize: 16,
-          fontWeight: 700,
-          border: "none",
-          cursor: "pointer",
-          textDecoration: "none",
-          display: "inline-block",
-        }}
-      >
-        Créer mon espace
-      </Link>
-    </section>
-  );
-}
-
 function Page() {
   const [isAnnual, setIsAnnual] = useState(false);
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
@@ -1334,7 +1282,7 @@ function Page() {
 
       <SectionFeatures />
       <SectionFaq />
-      <SectionCta />
+      <FinalCta />
       <CostCalculatorModal isOpen={isCalculatorOpen} onClose={() => setIsCalculatorOpen(false)} />
     </SiteLayout>
   );
