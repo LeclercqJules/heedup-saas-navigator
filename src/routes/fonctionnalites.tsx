@@ -6,8 +6,6 @@ import {
   Check,
   Clock3,
   Database,
-  EyeOff,
-  FileText,
   KeyRound,
   Mail,
   Rocket,
