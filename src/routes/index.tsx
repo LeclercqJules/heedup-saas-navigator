@@ -27,6 +27,7 @@ import { Button } from "@/components/ui/button";
 
 import { DemoReportCard } from "@/components/DemoReportCard";
 import { HowItWorksSection } from "@/components/HowItWorksSection";
+import { ComparisonSection } from "@/components/ComparisonSection";
 import { useCountUp } from "@/hooks/useCountUp";
 import weeklyReportAsset from "@/assets/rapport-demo-hebdo.png.asset.json";
 
@@ -288,12 +289,6 @@ function Index() {
     );
   };
 
-  const comparisonRows = [
-    { crit: "Temps de démarrage", heedup: "10 minutes", autres: "4 à 12 semaines" },
-    { crit: "Prix d'entrée", heedup: "Dès 50€/mois", autres: "Tarification sur devis" },
-    { crit: "Appel commercial requis", heedup: "Non", autres: "Systématiquement" },
-    { crit: "Anonymat", heedup: "Architectural, non désactivable", autres: "Paramètre désactivable" },
-  ];
 
   return (
     <SiteLayout>
