@@ -3607,6 +3607,58 @@ body:has(#repondre-root) {
   line-height: 1.55;
 }
 
+.features-neutral-list {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.features-neutral-list li {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 9px;
+  align-items: start;
+}
+
+.features-neutral-list li > span {
+  display: grid;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--text-muted) 10%, transparent);
+  color: var(--text-muted);
+}
+
+.features-neutral-list p {
+  color: #4B5563;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.features-never-block {
+  width: 100%;
+  margin-top: 22px;
+  border: 1px solid #EEEEF2;
+  border-radius: 8px;
+  background: var(--bg-main);
+  padding: 18px;
+}
+
+.features-never-block > strong {
+  color: var(--midnight);
+  font-size: 14px;
+}
+
+.features-never-block > p {
+  margin-top: 14px;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
 .features-scroll-note {
   width: 100%;
   margin-top: 20px;
@@ -3623,6 +3675,12 @@ body:has(#repondre-root) {
   font-size: 11px;
   letter-spacing: 0.6px;
   text-transform: uppercase;
+}
+
+.features-scroll-note a,
+.features-support-line a {
+  color: var(--indigo);
+  font-weight: 600;
 }
 
 .features-scroll-visual,
@@ -3763,12 +3821,29 @@ body:has(#repondre-root) {
 .features-start-card-top svg { color: var(--indigo); }
 .features-start-card h3 { margin-bottom: 8px; color: var(--midnight); font-family: var(--font-sans); font-size: 15px; font-weight: 700; }
 .features-start-section > .features-scroll-note { margin-top: 22px; }
+.features-start-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin-top: 28px; }
+.features-start-detail { border-top: 1px solid #EEEEF2; padding-top: 20px; }
+.features-start-detail h3 { color: var(--midnight); font-family: var(--font-display); font-size: 21px; font-weight: 400; line-height: 1.25; }
+.features-start-detail > p { margin-top: 8px; color: #4B5563; font-size: 14px; line-height: 1.7; }
+.features-start-detail .features-scroll-note { margin-top: 18px; }
 .features-support-line { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 10px; align-items: start; margin-top: 22px; }
 .features-support-line svg { margin-top: 3px; color: var(--indigo); }
-.features-support-line strong { color: var(--midnight); }
+.features-support-line strong { display: block; margin-bottom: 4px; color: var(--midnight); }
+.features-support-line small { display: block; margin-top: 8px; color: var(--text-muted); font-size: 12px; line-height: 1.55; }
 .features-pricing-line { margin-top: 26px; color: var(--text-muted); font-size: 14px; }
 .features-pricing-line a { color: var(--indigo); font-weight: 600; text-decoration: none; }
 .features-pricing-line a:hover { opacity: 0.8; }
+
+.features-scope-section {
+  display: block;
+  min-height: 0;
+  background: var(--bg-main);
+  padding: 46px 5%;
+}
+
+.features-scope-section .features-scroll-copy { max-width: 760px; }
+.features-scope-section .features-scroll-copy h2 { margin-bottom: 10px; }
+.features-scope-section .features-neutral-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 28px; }
 
 @media (max-width: 1023px) {
   .features-scroll-hero { padding: 60px 5% 40px; }
@@ -3798,6 +3873,8 @@ body:has(#repondre-root) {
   .features-report-section .features-report-visual { max-width: none; padding: 10px 0; }
   .features-report-columns { grid-template-columns: 1fr; gap: 26px; }
   .features-report-section .features-scroll-copy > p { max-width: none; }
+  .features-start-details { grid-template-columns: 1fr; }
+  .features-scope-section { padding-right: 5%; padding-left: 5%; }
 }
 
 @media (max-width: 767px) {
@@ -3813,4 +3890,5 @@ body:has(#repondre-root) {
   .features-anonymity-status { grid-column: 2; width: fit-content; }
   .features-start-grid { grid-template-columns: 1fr; }
   .features-start-card-top { margin-bottom: 20px; }
+  .features-scope-section .features-neutral-list { grid-template-columns: 1fr; }
 }
