@@ -236,10 +236,6 @@ function Index() {
     },
   ];
 
-  // Répartition alternée en deux colonnes : lecture row-by-row = ordre 1 à 13.
-  const faqLeft = faq.filter((_, i) => i % 2 === 0);
-  const faqRight = faq.filter((_, i) => i % 2 === 1);
-
   const renderFaqItem = (item: { q: string; a: string; b: string }, id: number) => {
     const isOpen = openFaq === id;
     return (
