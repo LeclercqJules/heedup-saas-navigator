@@ -16,3 +16,4 @@
 - [x] Refaire la page Fonctionnalités en lecture continue avec navigation latérale
 - [x] Élargir le rapport de démonstration en pleine largeur dans la section Le rapport de /fonctionnalites
 - [x] Ajouter les accès, limites produit, taille d'équipe et support sur /fonctionnalites
+- [x] Restructurer la section Anonymat de /fonctionnalites en deux étages
