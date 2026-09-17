@@ -332,20 +332,26 @@ function Page() {
             </div>
           </section>
 
-          <section id="anonymat" className="features-scroll-section is-visual-right">
-            <SectionHeading eyebrow="L'anonymat" title="Ce que vous ne pouvez pas voir. Même si vous le voulez.">
-              <p>Le lien entre un salarié et sa réponse est supprimé au moment même de la soumission. Cette information n'existe plus dans la base : ce n'est pas une règle interne, c'est une absence de donnée.</p>
-              <p>Ce n'est pas un réglage que quelqu'un pourrait changer.</p>
-              <ImportantNote label="Seuil de protection statistique">Si moins de 5 salariés ont répondu complètement cette semaine, aucun score n'est affiché. La synthèse des commentaires suit un seuil distinct : elle demande 5 commentaires. Ces seuils protègent l'anonymat dans les petites équipes.</ImportantNote>
-              <ImportantNote label="Et si peu de salariés répondent ?">En dessous de cinq réponses complètes, aucun score n'est publié : une moyenne cesse alors de protéger les personnes qui la composent. Vous recevez tout de même des pistes concrètes pour améliorer la participation. Et comme l'essai porte sur deux rapports réellement produits, vous ne payez jamais pour un outil qui n'a rien produit.</ImportantNote>
+          <section id="anonymat" className="features-scroll-section features-anonymity-section">
+            <div className="features-anonymity-top">
+              <SectionHeading eyebrow="L'anonymat" title="Ce que vous ne pouvez pas voir. Même si vous le voulez.">
+                <p>Le lien entre un salarié et sa réponse est supprimé au moment même de la soumission. Cette information n'existe plus dans la base : ce n'est pas une règle interne, c'est une absence de donnée.</p>
+                <p>Ce n'est pas un réglage que quelqu'un pourrait changer.</p>
+              </SectionHeading>
+              <AnonymityVisual />
+            </div>
+            <div className="features-anonymity-columns">
               <CheckList items={anonymityBullets} />
               <div className="features-never-block">
                 <strong>Ce que vous ne verrez jamais</strong>
                 <NeutralList items={invisibleItems} />
-                <p>Ce ne sont pas des affichages que nous avons choisi d'omettre, ce sont des accès qui n'existent pas dans le produit.</p>
               </div>
-            </SectionHeading>
-            <AnonymityVisual />
+            </div>
+            <p className="features-anonymity-quiet">Ce ne sont pas des affichages que nous avons choisi d'omettre, ce sont des accès qui n'existent pas dans le produit.</p>
+            <div className="features-anonymity-notes">
+              <ImportantNote label="Seuil de protection statistique">Si moins de 5 salariés ont répondu complètement cette semaine, aucun score n'est affiché. La synthèse des commentaires suit un seuil distinct : elle demande 5 commentaires. Ces seuils protègent l'anonymat dans les petites équipes.</ImportantNote>
+              <ImportantNote label="Et si peu de salariés répondent ?">En dessous de cinq réponses complètes, aucun score n'est publié : une moyenne cesse alors de protéger les personnes qui la composent. Vous recevez tout de même des pistes concrètes pour améliorer la participation. Et comme l'essai porte sur deux rapports réellement produits, vous ne payez jamais pour un outil qui n'a rien produit.</ImportantNote>
+            </div>
           </section>
 
           <section id="historique" className="features-scroll-section is-visual-left">
