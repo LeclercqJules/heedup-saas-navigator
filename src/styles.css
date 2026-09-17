@@ -3912,6 +3912,9 @@ body:has(#repondre-root) {
   .features-scroll-visual { max-width: 680px; }
   .features-report-section .features-report-visual { max-width: none; padding: 10px 0; }
   .features-report-columns { grid-template-columns: 1fr; gap: 26px; }
+  .features-anonymity-top { grid-template-columns: 1fr; gap: 30px; }
+  .features-anonymity-columns { grid-template-columns: 1fr; gap: 26px; }
+  .features-anonymity-notes { grid-template-columns: 1fr; }
   .features-report-section .features-scroll-copy > p { max-width: none; }
   .features-start-details { grid-template-columns: 1fr; }
   .features-scope-section { padding-right: 5%; padding-left: 5%; }
