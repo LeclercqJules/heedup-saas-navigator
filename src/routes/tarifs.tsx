@@ -28,12 +28,6 @@ export const Route = createFileRoute("/tarifs")({
   component: Page,
 });
 
-const TALLY_ATTRS = {
-  "data-tally-open": "VLBY9E",
-  "data-tally-overlay": "1",
-  "data-tally-emoji-text": "👋",
-  "data-tally-emoji-animation": "wave",
-} as const;
 
 type Card = {
   range: string;
@@ -71,13 +65,11 @@ const MIN = 10;
 const MAX = 100;
 
 function calcPrice(n: number) {
-  if (n < 25) return { seat: 5.0, total: n * 5.0 };
-  if (n < 50) return { seat: 4.5, total: n * 4.5 };
-  if (n < 100) {
-    const total = 200 + (n - 50) * 3.75;
-    return { seat: parseFloat((total / n).toFixed(2)), total };
-  }
-  return { seat: 3.5, total: n * 3.5 };
+  const seats = Math.max(10, n);
+  if (seats < 25) return { seat: 5.0, total: seats * 5.0 };
+  if (seats < 50) return { seat: 4.5, total: seats * 4.5 };
+  if (seats < 100) return { seat: 4.0, total: seats * 4.0 };
+  return { seat: 3.5, total: seats * 3.5 };
 }
 
 function fmt(n: number) {
@@ -89,10 +81,11 @@ function fmtInt(n: number) {
 }
 
 function calcAnnual(n: number) {
-  if (n < 25) return n * 5.0 * 10;
-  if (n < 50) return n * 4.5 * 10;
-  if (n < 100) return (200 + (n - 50) * 3.75) * 10;
-  return n * 3.5 * 10;
+  const seats = Math.max(10, n);
+  if (seats < 25) return seats * 5.0 * 10;
+  if (seats < 50) return seats * 4.5 * 10;
+  if (seats < 100) return seats * 4.0 * 10;
+  return seats * 3.5 * 10;
 }
 
 function getSavings(n: number): string | null {
@@ -107,7 +100,7 @@ function getSavings(n: number): string | null {
     return `En passant à 50 sièges, vous économisez ${saving}€/mois et pouvez couvrir ${extra} salarié${extra > 1 ? "s" : ""} supplémentaire${extra > 1 ? "s" : ""}.`;
   }
   if (n >= 91 && n < 100) {
-    const saving = fmt(200 + (n - 50) * 3.75 - 350);
+    const saving = fmt(n * 4.0 - 350);
     const extra = 100 - n;
     return `En passant à 100 sièges, vous économisez ${saving}€/mois et pouvez couvrir ${extra} salarié${extra > 1 ? "s" : ""} supplémentaire${extra > 1 ? "s" : ""}.`;
   }
@@ -331,9 +324,8 @@ function PricingSimulator({ isAnnual }: { isAnnual: boolean }) {
               : `${fmt(price.total)}€/mois`}
           </div>
         </div>
-        <button
-          type="button"
-          {...TALLY_ATTRS}
+        <Link
+          to="/connexion"
           style={{
             background: "var(--indigo)",
             color: "#fff",
@@ -344,10 +336,12 @@ function PricingSimulator({ isAnnual }: { isAnnual: boolean }) {
             fontWeight: 600,
             cursor: "pointer",
             whiteSpace: "nowrap",
+            textDecoration: "none",
+            display: "inline-block",
           }}
         >
-          Rejoindre →
-        </button>
+          Créer mon espace
+        </Link>
       </div>
 
       {/* Savings message */}
@@ -527,7 +521,7 @@ const faqItems = [
   },
   {
     q: "Mon équipe dépasse 100 salariés. HeedUp est-il adapté ?",
-    a: "HeedUp est calibré pour les équipes de 10 à 100 salariés. Au-delà, contactez-nous directement via le formulaire de liste d'attente. Nous évaluerons ensemble si le produit correspond à votre contexte ou si nous pouvons vous orienter.",
+    a: "HeedUp est calibré pour les équipes de 10 à 100 salariés. Au-delà, écrivez-nous à contact@heedup.fr : nous évaluerons ensemble si le produit correspond à votre contexte ou si nous pouvons vous orienter.",
   },
 ];
 
@@ -965,9 +959,8 @@ function SectionPricingCards({
                 )}
 
                 {/* CTA */}
-                <button
-                  type="button"
-                  {...TALLY_ATTRS}
+                <Link
+                  to="/connexion"
                   style={{
                     width: "100%",
                     padding: "11px",
@@ -979,15 +972,31 @@ function SectionPricingCards({
                     background: featured ? "var(--indigo)" : "transparent",
                     border: featured ? "none" : "1.5px solid var(--midnight)",
                     color: featured ? "#FFFFFF" : "var(--midnight)",
+                    textAlign: "center",
+                    textDecoration: "none",
+                    display: "inline-block",
+                    boxSizing: "border-box",
                   }}
                 >
-                  Rejoindre la liste
-                </button>
+                  Créer mon espace
+                </Link>
               </article>
             </div>
           );
         })}
       </div>
+
+      <p
+        style={{
+          textAlign: "center",
+          fontFamily: "var(--font-sans)",
+          fontSize: "12px",
+          color: "var(--text-muted)",
+          marginTop: "24px",
+        }}
+      >
+        TVA non applicable, article 293 B du code général des impôts.
+      </p>
     </section>
   );
 }

@@ -17,12 +17,6 @@ type Props = {
   onClose: () => void;
 };
 
-const TALLY_ATTRS = {
-  "data-tally-open": "VLBY9E",
-  "data-tally-overlay": "1",
-  "data-tally-emoji-text": "👋",
-  "data-tally-emoji-animation": "wave",
-} as const;
 
 function fmtEuro(n: number): string {
   return Math.round(n).toLocaleString("fr-FR") + "€";

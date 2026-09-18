@@ -37,12 +37,6 @@ function fmtEuro(n: number): string {
   return Math.round(n).toLocaleString("fr-FR") + "€";
 }
 
-const TALLY_ATTRS = {
-  "data-tally-open": "VLBY9E",
-  "data-tally-overlay": "1",
-  "data-tally-emoji-text": "👋",
-  "data-tally-emoji-animation": "wave",
-} as const;
 
 type Tick = { value: number; left: string; transform: string };
 const TICKS: Tick[] = [
