@@ -1,12 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  Outlet,
-  Link,
-  createRootRouteWithContext,
-  useRouter,
-  HeadContent,
-  Scripts,
-} from "@tanstack/react-router";
+import { Outlet, Link, createRootRouteWithContext, useRouter, HeadContent, Scripts } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
@@ -94,9 +87,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">This page didn't load</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Something went wrong on our end. You can try refreshing or head back home.
         </p>
@@ -143,9 +134,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "HeedUp · PME : pilotez votre équipe, prévenez le turnover" },
-      { name: "twitter:description", content: "Prévenez le turnover dans votre PME. HeedUp envoie 5 questions anonymes chaque vendredi et génère un rapport d'équipe IA chaque lundi. Sans équipe RH. Dès 50€/m" },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f41cc2e0-94d9-42d4-ad99-7cc08c9d9913/id-preview-493bea72--b890eb7b-6a90-4da1-a574-dc1e667673bf.lovable.app-1784641473692.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f41cc2e0-94d9-42d4-ad99-7cc08c9d9913/id-preview-493bea72--b890eb7b-6a90-4da1-a574-dc1e667673bf.lovable.app-1784641473692.png" },
+      {
+        name: "twitter:description",
+        content:
+          "Prévenez le turnover dans votre PME. HeedUp envoie 5 questions anonymes chaque vendredi et génère un rapport d'équipe IA chaque lundi. Sans équipe RH. Dès 50€/m",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f41cc2e0-94d9-42d4-ad99-7cc08c9d9913/id-preview-493bea72--b890eb7b-6a90-4da1-a574-dc1e667673bf.lovable.app-1784641473692.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f41cc2e0-94d9-42d4-ad99-7cc08c9d9913/id-preview-493bea72--b890eb7b-6a90-4da1-a574-dc1e667673bf.lovable.app-1784641473692.png",
+      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -171,9 +174,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         "data-domain": "heedup.fr",
       },
     ],
-
   }),
-
 
   shellComponent: RootShell,
   component: RootComponent,
@@ -196,6 +197,7 @@ function RootShell({ children }: { children: ReactNode }) {
       <body>
         {children}
         <Scripts />
+        <script src="https://benvo.fr/widget.js" data-benvo="bv_6uzh6ilj4m0xasyq5o2s8a07" async></script>
       </body>
     </html>
   );
