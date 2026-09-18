@@ -197,7 +197,6 @@ function RootShell({ children }: { children: ReactNode }) {
       <body>
         {children}
         <Scripts />
-        <script src="https://benvo.fr/widget.js" data-benvo="bv_6uzh6ilj4m0xasyq5o2s8a07" async></script>
       </body>
     </html>
   );
