@@ -518,7 +518,18 @@ const faqItems = [
   },
   {
     q: "Mon équipe dépasse 100 salariés. HeedUp est-il adapté ?",
-    a: "HeedUp est calibré pour les équipes de 10 à 100 salariés. Au-delà, écrivez-nous à contact@heedup.fr : nous évaluerons ensemble si le produit correspond à votre contexte ou si nous pouvons vous orienter.",
+    a: (
+      <>
+        HeedUp est calibré pour les équipes de 10 à 100 salariés. Au-delà,{" "}
+        <a
+          href="mailto:contact@heedup.fr"
+          style={{ color: "var(--indigo)", fontWeight: 600, textDecoration: "none" }}
+        >
+          écrivez-nous
+        </a>{" "}
+        : nous évaluerons ensemble si le produit correspond à votre contexte ou si nous pouvons vous orienter.
+      </>
+    ),
   },
 ];
 
