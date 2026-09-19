@@ -791,8 +791,8 @@ function SectionPricingCards({
                   <span
                     style={{
                       display: "inline-block",
-                      backgroundColor: "var(--indigo)",
-                      color: "#FFFFFF",
+                      backgroundColor: "var(--indigo-pale)",
+                      color: "var(--indigo)",
                       fontFamily: "var(--font-sans)",
                       fontSize: "10px",
                       fontWeight: 700,
@@ -808,28 +808,25 @@ function SectionPricingCards({
               </div>
 
               <article
-                className={`pricing-card ${featured ? "featured" : "card-hover"}`}
+                className="pricing-card"
                 style={{
-                  background: featured ? "var(--midnight)" : "var(--bg-card)",
-                  borderRadius: "16px",
-                  border: featured ? "none" : "1px solid rgba(67,56,202,0.12)",
+                  background: "var(--bg-card)",
+                  borderRadius: "14px",
+                  border: featured
+                    ? "2px solid var(--midnight)"
+                    : "1px solid #F1F1F4",
                   padding: "28px 24px",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
                   gap: 0,
-                  boxShadow: featured ? "0 8px 32px rgba(13,27,62,0.2)" : undefined,
                 }}
               >
                 {/* Pill range */}
                 <span
                   style={{
-                    background: featured
-                      ? "rgba(255,255,255,0.12)"
-                      : "var(--midnight)",
-                    color: featured
-                      ? "rgba(255,255,255,0.8)"
-                      : "var(--indigo-pale)",
+                    background: "var(--midnight)",
+                    color: "var(--indigo-pale)",
                     fontFamily: "var(--font-sans)",
                     fontSize: "11px",
                     fontWeight: 700,
