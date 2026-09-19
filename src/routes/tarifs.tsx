@@ -498,7 +498,7 @@ function SectionFeatures() {
 const faqItems = [
   {
     q: "Comment est calculé mon tarif ?",
-    a: "Le prix est calculé par siège, selon le palier correspondant à la taille de votre équipe. Le nombre de sièges correspond au nombre de salariés que vous invitez à répondre au survey. Plus votre équipe est grande, moins vous payez par siège.",
+    a: "Le prix est calculé par siège, selon le palier correspondant à la taille de votre équipe. Le nombre de sièges facturés correspond aux salariés actifs de votre espace, hors désinscrits, avec un minimum de 10. Plus votre équipe est grande, moins vous payez par siège.",
   },
   {
     q: "Que se passe-t-il si j'embauche et change de palier ?",
