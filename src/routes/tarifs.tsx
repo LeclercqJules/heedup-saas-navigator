@@ -845,10 +845,8 @@ function SectionPricingCards({
                   <span
                     style={{
                       display: "inline-block",
-                      background: featured
-                        ? "rgba(34,197,94,0.15)"
-                        : "rgba(34,197,94,0.10)",
-                      color: featured ? "#4ade80" : "#15803d",
+                      background: "rgba(34,197,94,0.10)",
+                      color: "#15803d",
                       fontFamily: "var(--font-sans)",
                       fontSize: "11px",
                       fontWeight: 700,
@@ -866,7 +864,7 @@ function SectionPricingCards({
                   style={{
                     fontFamily: "var(--font-display)",
                     fontSize: "52px",
-                    color: featured ? "#FFFFFF" : "var(--midnight)",
+                    color: "var(--midnight)",
                     lineHeight: 1,
                     textAlign: "center",
                     marginBottom: 0,
@@ -880,9 +878,7 @@ function SectionPricingCards({
                   style={{
                     fontFamily: "var(--font-sans)",
                     fontSize: "13px",
-                    color: featured
-                      ? "rgba(255,255,255,0.5)"
-                      : "var(--text-muted)",
+                    color: "var(--text-muted)",
                     textAlign: "center",
                     lineHeight: 1,
                     marginBottom: "16px",
@@ -897,9 +893,7 @@ function SectionPricingCards({
                   style={{
                     width: "100%",
                     height: "1px",
-                    background: featured
-                      ? "rgba(255,255,255,0.12)"
-                      : "rgba(67,56,202,0.10)",
+                    background: "#EEEEF2",
                     marginBottom: "14px",
                   }}
                 />
@@ -907,20 +901,14 @@ function SectionPricingCards({
                 {/* Total badge */}
                 <div
                   style={{
-                    background: featured
-                      ? "rgba(255,255,255,0.08)"
-                      : "var(--bg-main)",
-                    border: featured
-                      ? "1px solid rgba(255,255,255,0.12)"
-                      : "1px solid rgba(67,56,202,0.12)",
+                    background: "var(--bg-main)",
+                    border: "1px solid #F1F1F4",
                     borderRadius: "7px",
                     padding: "7px 14px",
                     fontFamily: "var(--font-sans)",
                     fontSize: "12.5px",
                     fontWeight: 500,
-                    color: featured
-                      ? "rgba(255,255,255,0.7)"
-                      : "var(--midnight)",
+                    color: "var(--midnight)",
                     textAlign: "center",
                     marginBottom: "14px",
                     width: "100%",
@@ -933,18 +921,14 @@ function SectionPricingCards({
                 {isAnnual && (
                   <div
                     style={{
-                      background: featured
-                        ? "rgba(34,197,94,0.12)"
-                        : "rgba(34,197,94,0.08)",
-                      border: featured
-                        ? "1px solid rgba(34,197,94,0.25)"
-                        : "1px solid rgba(34,197,94,0.2)",
+                      background: "rgba(34,197,94,0.08)",
+                      border: "1px solid rgba(34,197,94,0.2)",
                       borderRadius: "7px",
                       padding: "6px 12px",
                       fontFamily: "var(--font-sans)",
                       fontSize: "12px",
                       fontWeight: 600,
-                      color: featured ? "#4ade80" : "#15803d",
+                      color: "#15803d",
                       textAlign: "center",
                       marginBottom: "14px",
                       width: "100%",
