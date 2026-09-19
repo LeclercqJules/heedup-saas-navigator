@@ -8,8 +8,6 @@ import {
   IconEyeOff,
   IconHeadset,
   IconCreditCardOff,
-  IconTag,
-  IconRefresh,
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
@@ -154,8 +152,8 @@ function PricingSimulator({ isAnnual }: { isAnnual: boolean }) {
       className="heedup-sim"
       style={{
         background: "var(--bg-card)",
-        borderRadius: 16,
-        border: "1px solid rgba(67,56,202,0.10)",
+        borderRadius: 14,
+        border: "1px solid #F1F1F4",
         padding: "36px 40px",
         maxWidth: 860,
         margin: "0 auto",
@@ -405,9 +403,9 @@ function SectionFeatures() {
     <section
       className="fade-up"
       style={{
-        backgroundColor: "#EEEEFF",
-        padding: "52px 5%",
-        borderTop: "1px solid rgba(67,56,202,0.08)",
+        backgroundColor: "var(--bg-main)",
+        padding: "64px 5%",
+        borderTop: "1px solid #EEEEF2",
       }}
     >
       <div style={{ textAlign: "center", marginBottom: 36 }}>
@@ -446,12 +444,11 @@ function SectionFeatures() {
           return (
             <div
               key={f.title}
-              className="card-hover"
               style={{
                 backgroundColor: "var(--bg-card)",
-                borderRadius: 12,
-                padding: 22,
-                border: "1px solid rgba(67,56,202,0.08)",
+                borderRadius: 14,
+                padding: 24,
+                border: "1px solid #F1F1F4",
               }}
             >
               <div
@@ -459,8 +456,8 @@ function SectionFeatures() {
                   width: 36,
                   height: 36,
                   borderRadius: 8,
-                  backgroundColor: "var(--indigo)",
-                  color: "#EEEEFF",
+                  backgroundColor: "var(--midnight)",
+                  color: "var(--indigo-pale)",
                   marginBottom: 12,
                   display: "flex",
                   alignItems: "center",
@@ -501,7 +498,7 @@ function SectionFeatures() {
 const faqItems = [
   {
     q: "Comment est calculé mon tarif ?",
-    a: "Le prix est calculé par siège, selon le palier correspondant à la taille de votre équipe. Le nombre de sièges correspond au nombre de salariés que vous invitez à répondre au survey. Plus votre équipe est grande, moins vous payez par siège.",
+    a: "Le prix est calculé par siège, selon le palier correspondant à la taille de votre équipe. Le nombre de sièges facturés correspond aux salariés actifs de votre espace, hors désinscrits, avec un minimum de 10. Plus votre équipe est grande, moins vous payez par siège.",
   },
   {
     q: "Que se passe-t-il si j'embauche et change de palier ?",
@@ -521,9 +518,153 @@ const faqItems = [
   },
   {
     q: "Mon équipe dépasse 100 salariés. HeedUp est-il adapté ?",
-    a: "HeedUp est calibré pour les équipes de 10 à 100 salariés. Au-delà, écrivez-nous à contact@heedup.fr : nous évaluerons ensemble si le produit correspond à votre contexte ou si nous pouvons vous orienter.",
+    a: (
+      <>
+        HeedUp est calibré pour les équipes de 10 à 100 salariés. Au-delà,{" "}
+        <a
+          href="mailto:contact@heedup.fr"
+          style={{ color: "var(--indigo)", fontWeight: 600, textDecoration: "none" }}
+        >
+          écrivez-nous
+        </a>{" "}
+        : nous évaluerons ensemble si le produit correspond à votre contexte ou si nous pouvons vous orienter.
+      </>
+    ),
   },
 ];
+
+function SectionSeats() {
+  return (
+    <section
+      className="fade-up"
+      style={{
+        backgroundColor: "var(--bg-card)",
+        padding: "64px 5%",
+        borderTop: "1px solid #EEEEF2",
+      }}
+    >
+      <div style={{ maxWidth: 720, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: 36 }}>
+          <div className="features-scroll-eyebrow" style={{ margin: "0 auto 16px" }}>
+            LE COMPTAGE DES SIÈGES
+          </div>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: 42,
+              letterSpacing: "-0.8px",
+              color: "var(--midnight)",
+            }}
+          >
+            Un siège par salarié actif dans votre espace
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 15,
+              color: "var(--text-muted)",
+              marginTop: 10,
+              lineHeight: 1.65,
+            }}
+          >
+            Le nombre de sièges facturés correspond aux salariés actifs de votre
+            espace, avec un minimum de 10 sièges.
+          </p>
+        </div>
+
+        <div
+          style={{
+            border: "1px solid #F1F1F4",
+            borderRadius: 14,
+            background: "var(--bg-card)",
+            padding: "8px 24px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              gap: 12,
+              alignItems: "flex-start",
+              padding: "18px 0",
+              borderBottom: "1px solid #EEEEF2",
+            }}
+          >
+            <span
+              style={{
+                display: "grid",
+                width: 20,
+                height: 20,
+                placeItems: "center",
+                borderRadius: "50%",
+                background: "color-mix(in oklab, var(--semantic-green) 13%, transparent)",
+                color: "var(--semantic-green)",
+                fontSize: 12,
+                fontWeight: 700,
+                flexShrink: 0,
+                marginTop: 1,
+              }}
+            >
+              ✓
+            </span>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 14,
+                color: "var(--text-primary)",
+                lineHeight: 1.6,
+                margin: 0,
+              }}
+            >
+              Le nombre de sièges s'ajuste au renouvellement de votre abonnement,
+              pas en cours de période.
+            </p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              gap: 12,
+              alignItems: "flex-start",
+              padding: "18px 0",
+            }}
+          >
+            <span
+              style={{
+                display: "grid",
+                width: 20,
+                height: 20,
+                placeItems: "center",
+                borderRadius: "50%",
+                background: "color-mix(in oklab, var(--semantic-green) 13%, transparent)",
+                color: "var(--semantic-green)",
+                fontSize: 12,
+                fontWeight: 700,
+                flexShrink: 0,
+                marginTop: 1,
+              }}
+            >
+              ✓
+            </span>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 14,
+                color: "var(--text-primary)",
+                lineHeight: 1.6,
+                margin: 0,
+              }}
+            >
+              <strong style={{ color: "var(--midnight)" }}>
+                Les salariés qui se sont désinscrits ne sont pas facturés.
+              </strong>{" "}
+              Dès qu'un salarié se désinscrit, il sort du comptage au
+              renouvellement suivant.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function SectionFaq() {
   const [open, setOpen] = useState<number | null>(null);
@@ -792,8 +933,8 @@ function SectionPricingCards({
                   <span
                     style={{
                       display: "inline-block",
-                      backgroundColor: "var(--indigo)",
-                      color: "#FFFFFF",
+                      backgroundColor: "var(--indigo-pale)",
+                      color: "var(--indigo)",
                       fontFamily: "var(--font-sans)",
                       fontSize: "10px",
                       fontWeight: 700,
@@ -809,28 +950,25 @@ function SectionPricingCards({
               </div>
 
               <article
-                className={`pricing-card ${featured ? "featured" : "card-hover"}`}
+                className="pricing-card"
                 style={{
-                  background: featured ? "var(--midnight)" : "var(--bg-card)",
-                  borderRadius: "16px",
-                  border: featured ? "none" : "1px solid rgba(67,56,202,0.12)",
+                  background: "var(--bg-card)",
+                  borderRadius: "14px",
+                  border: featured
+                    ? "2px solid var(--midnight)"
+                    : "1px solid #F1F1F4",
                   padding: "28px 24px",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
                   gap: 0,
-                  boxShadow: featured ? "0 8px 32px rgba(13,27,62,0.2)" : undefined,
                 }}
               >
                 {/* Pill range */}
                 <span
                   style={{
-                    background: featured
-                      ? "rgba(255,255,255,0.12)"
-                      : "var(--midnight)",
-                    color: featured
-                      ? "rgba(255,255,255,0.8)"
-                      : "var(--indigo-pale)",
+                    background: "var(--midnight)",
+                    color: "var(--indigo-pale)",
                     fontFamily: "var(--font-sans)",
                     fontSize: "11px",
                     fontWeight: 700,
@@ -849,10 +987,8 @@ function SectionPricingCards({
                   <span
                     style={{
                       display: "inline-block",
-                      background: featured
-                        ? "rgba(34,197,94,0.15)"
-                        : "rgba(34,197,94,0.10)",
-                      color: featured ? "#4ade80" : "#15803d",
+                      background: "rgba(34,197,94,0.10)",
+                      color: "#15803d",
                       fontFamily: "var(--font-sans)",
                       fontSize: "11px",
                       fontWeight: 700,
@@ -870,7 +1006,7 @@ function SectionPricingCards({
                   style={{
                     fontFamily: "var(--font-display)",
                     fontSize: "52px",
-                    color: featured ? "#FFFFFF" : "var(--midnight)",
+                    color: "var(--midnight)",
                     lineHeight: 1,
                     textAlign: "center",
                     marginBottom: 0,
@@ -884,9 +1020,7 @@ function SectionPricingCards({
                   style={{
                     fontFamily: "var(--font-sans)",
                     fontSize: "13px",
-                    color: featured
-                      ? "rgba(255,255,255,0.5)"
-                      : "var(--text-muted)",
+                    color: "var(--text-muted)",
                     textAlign: "center",
                     lineHeight: 1,
                     marginBottom: "16px",
@@ -901,9 +1035,7 @@ function SectionPricingCards({
                   style={{
                     width: "100%",
                     height: "1px",
-                    background: featured
-                      ? "rgba(255,255,255,0.12)"
-                      : "rgba(67,56,202,0.10)",
+                    background: "#EEEEF2",
                     marginBottom: "14px",
                   }}
                 />
@@ -911,20 +1043,14 @@ function SectionPricingCards({
                 {/* Total badge */}
                 <div
                   style={{
-                    background: featured
-                      ? "rgba(255,255,255,0.08)"
-                      : "var(--bg-main)",
-                    border: featured
-                      ? "1px solid rgba(255,255,255,0.12)"
-                      : "1px solid rgba(67,56,202,0.12)",
+                    background: "var(--bg-main)",
+                    border: "1px solid #F1F1F4",
                     borderRadius: "7px",
                     padding: "7px 14px",
                     fontFamily: "var(--font-sans)",
                     fontSize: "12.5px",
                     fontWeight: 500,
-                    color: featured
-                      ? "rgba(255,255,255,0.7)"
-                      : "var(--midnight)",
+                    color: "var(--midnight)",
                     textAlign: "center",
                     marginBottom: "14px",
                     width: "100%",
@@ -937,18 +1063,14 @@ function SectionPricingCards({
                 {isAnnual && (
                   <div
                     style={{
-                      background: featured
-                        ? "rgba(34,197,94,0.12)"
-                        : "rgba(34,197,94,0.08)",
-                      border: featured
-                        ? "1px solid rgba(34,197,94,0.25)"
-                        : "1px solid rgba(34,197,94,0.2)",
+                      background: "rgba(34,197,94,0.08)",
+                      border: "1px solid rgba(34,197,94,0.2)",
                       borderRadius: "7px",
                       padding: "6px 12px",
                       fontFamily: "var(--font-sans)",
                       fontSize: "12px",
                       fontWeight: 600,
-                      color: featured ? "#4ade80" : "#15803d",
+                      color: "#15803d",
                       textAlign: "center",
                       marginBottom: "14px",
                       width: "100%",
@@ -1008,17 +1130,10 @@ function Page() {
     <SiteLayout>
       <style>{`
         .pricing-card {
-          transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+          transition: border-color 0.2s ease;
         }
         .pricing-card:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 8px 24px rgba(67,56,202,0.12);
-          border-color: rgba(67,56,202,0.3) !important;
-        }
-        .pricing-card.featured:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 8px 32px rgba(13,27,62,0.2);
-          border-color: var(--midnight) !important;
+          border-color: var(--midnight);
         }
       `}</style>
       {/* HERO */}
@@ -1036,18 +1151,7 @@ function Page() {
             textAlign: "center",
           }}
         >
-          <div
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "11px",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "1px",
-              color: "var(--midnight)",
-              opacity: 0.35,
-              marginBottom: "12px",
-            }}
-          >
+          <div className="features-scroll-eyebrow" style={{ marginBottom: "16px" }}>
             TARIFS
           </div>
           <h1
@@ -1134,8 +1238,10 @@ function Page() {
       {/* TRUST BAR */}
       <section
         style={{
-          backgroundColor: "var(--midnight)",
-          padding: "16px 5%",
+          backgroundColor: "var(--bg-card)",
+          borderTop: "1px solid #EEEEF2",
+          borderBottom: "1px solid #EEEEF2",
+          padding: "18px 5%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -1144,26 +1250,41 @@ function Page() {
         }}
       >
         {[
-          { icon: IconTag, text: "Prix affiché sans devis" },
-          { icon: IconCreditCardOff, text: "Sans engagement annuel" },
-          { icon: IconRefresh, text: "Résiliation libre" },
-          { icon: IconHeadset, text: "Support inclus" },
-          { icon: IconShieldCheck, text: "RGPD documenté" },
-        ].map((item) => (
+          "Prix affiché sans devis",
+          "Sans engagement annuel",
+          "Résiliation libre",
+          "Support inclus",
+          "RGPD documenté",
+        ].map((text) => (
           <div
-            key={item.text}
+            key={text}
             style={{
               display: "flex",
               alignItems: "center",
               gap: "8px",
               fontFamily: "var(--font-sans)",
-              fontSize: "12px",
-              color: "rgba(255,255,255,0.65)",
+              fontSize: "12.5px",
+              color: "var(--text-muted)",
               whiteSpace: "nowrap",
             }}
           >
-            <item.icon size={16} strokeWidth={2} color="var(--indigo-pale)" />
-            <span>{item.text}</span>
+            <span
+              style={{
+                display: "grid",
+                width: 18,
+                height: 18,
+                placeItems: "center",
+                borderRadius: "50%",
+                background: "color-mix(in oklab, var(--semantic-green) 13%, transparent)",
+                color: "var(--semantic-green)",
+                fontSize: 11,
+                fontWeight: 700,
+                flexShrink: 0,
+              }}
+            >
+              ✓
+            </span>
+            <span>{text}</span>
           </div>
         ))}
       </section>
@@ -1289,6 +1410,7 @@ function Page() {
       </section>
 
       <SectionFeatures />
+      <SectionSeats />
       <SectionFaq />
       <FinalCta />
       <CostCalculatorModal isOpen={isCalculatorOpen} onClose={() => setIsCalculatorOpen(false)} />
