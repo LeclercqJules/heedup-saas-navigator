@@ -8,8 +8,6 @@ import {
   IconEyeOff,
   IconHeadset,
   IconCreditCardOff,
-  IconTag,
-  IconRefresh,
 } from "@tabler/icons-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CostCalculatorModal } from "@/components/CostCalculatorModal";
@@ -154,8 +152,8 @@ function PricingSimulator({ isAnnual }: { isAnnual: boolean }) {
       className="heedup-sim"
       style={{
         background: "var(--bg-card)",
-        borderRadius: 16,
-        border: "1px solid rgba(67,56,202,0.10)",
+        borderRadius: 14,
+        border: "1px solid #F1F1F4",
         padding: "36px 40px",
         maxWidth: 860,
         margin: "0 auto",
@@ -988,17 +986,10 @@ function Page() {
     <SiteLayout>
       <style>{`
         .pricing-card {
-          transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+          transition: border-color 0.2s ease;
         }
         .pricing-card:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 8px 24px rgba(67,56,202,0.12);
-          border-color: rgba(67,56,202,0.3) !important;
-        }
-        .pricing-card.featured:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 8px 32px rgba(13,27,62,0.2);
-          border-color: var(--midnight) !important;
+          border-color: var(--midnight);
         }
       `}</style>
       {/* HERO */}
