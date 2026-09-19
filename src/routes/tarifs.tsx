@@ -1036,18 +1036,7 @@ function Page() {
             textAlign: "center",
           }}
         >
-          <div
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "11px",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "1px",
-              color: "var(--midnight)",
-              opacity: 0.35,
-              marginBottom: "12px",
-            }}
-          >
+          <div className="features-scroll-eyebrow" style={{ marginBottom: "16px" }}>
             TARIFS
           </div>
           <h1
@@ -1134,8 +1123,10 @@ function Page() {
       {/* TRUST BAR */}
       <section
         style={{
-          backgroundColor: "var(--midnight)",
-          padding: "16px 5%",
+          backgroundColor: "var(--bg-card)",
+          borderTop: "1px solid #EEEEF2",
+          borderBottom: "1px solid #EEEEF2",
+          padding: "18px 5%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -1144,26 +1135,41 @@ function Page() {
         }}
       >
         {[
-          { icon: IconTag, text: "Prix affiché sans devis" },
-          { icon: IconCreditCardOff, text: "Sans engagement annuel" },
-          { icon: IconRefresh, text: "Résiliation libre" },
-          { icon: IconHeadset, text: "Support inclus" },
-          { icon: IconShieldCheck, text: "RGPD documenté" },
-        ].map((item) => (
+          "Prix affiché sans devis",
+          "Sans engagement annuel",
+          "Résiliation libre",
+          "Support inclus",
+          "RGPD documenté",
+        ].map((text) => (
           <div
-            key={item.text}
+            key={text}
             style={{
               display: "flex",
               alignItems: "center",
               gap: "8px",
               fontFamily: "var(--font-sans)",
-              fontSize: "12px",
-              color: "rgba(255,255,255,0.65)",
+              fontSize: "12.5px",
+              color: "var(--text-muted)",
               whiteSpace: "nowrap",
             }}
           >
-            <item.icon size={16} strokeWidth={2} color="var(--indigo-pale)" />
-            <span>{item.text}</span>
+            <span
+              style={{
+                display: "grid",
+                width: 18,
+                height: 18,
+                placeItems: "center",
+                borderRadius: "50%",
+                background: "color-mix(in oklab, var(--semantic-green) 13%, transparent)",
+                color: "var(--semantic-green)",
+                fontSize: 11,
+                fontWeight: 700,
+                flexShrink: 0,
+              }}
+            >
+              ✓
+            </span>
+            <span>{text}</span>
           </div>
         ))}
       </section>
