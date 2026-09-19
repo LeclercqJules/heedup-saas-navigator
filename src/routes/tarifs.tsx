@@ -533,6 +533,139 @@ const faqItems = [
   },
 ];
 
+function SectionSeats() {
+  return (
+    <section
+      className="fade-up"
+      style={{
+        backgroundColor: "var(--bg-card)",
+        padding: "64px 5%",
+        borderTop: "1px solid #EEEEF2",
+      }}
+    >
+      <div style={{ maxWidth: 720, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: 36 }}>
+          <div className="features-scroll-eyebrow" style={{ margin: "0 auto 16px" }}>
+            LE COMPTAGE DES SIÈGES
+          </div>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: 42,
+              letterSpacing: "-0.8px",
+              color: "var(--midnight)",
+            }}
+          >
+            Un siège par salarié actif dans votre espace
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 15,
+              color: "var(--text-muted)",
+              marginTop: 10,
+              lineHeight: 1.65,
+            }}
+          >
+            Le nombre de sièges facturés correspond aux salariés actifs de votre
+            espace, avec un minimum de 10 sièges.
+          </p>
+        </div>
+
+        <div
+          style={{
+            border: "1px solid #F1F1F4",
+            borderRadius: 14,
+            background: "var(--bg-card)",
+            padding: "8px 24px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              gap: 12,
+              alignItems: "flex-start",
+              padding: "18px 0",
+              borderBottom: "1px solid #EEEEF2",
+            }}
+          >
+            <span
+              style={{
+                display: "grid",
+                width: 20,
+                height: 20,
+                placeItems: "center",
+                borderRadius: "50%",
+                background: "color-mix(in oklab, var(--semantic-green) 13%, transparent)",
+                color: "var(--semantic-green)",
+                fontSize: 12,
+                fontWeight: 700,
+                flexShrink: 0,
+                marginTop: 1,
+              }}
+            >
+              ✓
+            </span>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 14,
+                color: "var(--text-primary)",
+                lineHeight: 1.6,
+                margin: 0,
+              }}
+            >
+              Le nombre de sièges s'ajuste au renouvellement de votre abonnement,
+              pas en cours de période.
+            </p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              gap: 12,
+              alignItems: "flex-start",
+              padding: "18px 0",
+            }}
+          >
+            <span
+              style={{
+                display: "grid",
+                width: 20,
+                height: 20,
+                placeItems: "center",
+                borderRadius: "50%",
+                background: "color-mix(in oklab, var(--semantic-green) 13%, transparent)",
+                color: "var(--semantic-green)",
+                fontSize: 12,
+                fontWeight: 700,
+                flexShrink: 0,
+                marginTop: 1,
+              }}
+            >
+              ✓
+            </span>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 14,
+                color: "var(--text-primary)",
+                lineHeight: 1.6,
+                margin: 0,
+              }}
+            >
+              <strong style={{ color: "var(--midnight)" }}>
+                Les salariés qui se sont désinscrits ne sont pas facturés.
+              </strong>{" "}
+              Dès qu'un salarié se désinscrit, il sort du comptage au
+              renouvellement suivant.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function SectionFaq() {
   const [open, setOpen] = useState<number | null>(null);
 
@@ -1277,6 +1410,7 @@ function Page() {
       </section>
 
       <SectionFeatures />
+      <SectionSeats />
       <SectionFaq />
       <FinalCta />
       <CostCalculatorModal isOpen={isCalculatorOpen} onClose={() => setIsCalculatorOpen(false)} />
