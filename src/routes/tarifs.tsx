@@ -405,9 +405,9 @@ function SectionFeatures() {
     <section
       className="fade-up"
       style={{
-        backgroundColor: "#EEEEFF",
-        padding: "52px 5%",
-        borderTop: "1px solid rgba(67,56,202,0.08)",
+        backgroundColor: "var(--bg-main)",
+        padding: "64px 5%",
+        borderTop: "1px solid #EEEEF2",
       }}
     >
       <div style={{ textAlign: "center", marginBottom: 36 }}>
@@ -446,12 +446,11 @@ function SectionFeatures() {
           return (
             <div
               key={f.title}
-              className="card-hover"
               style={{
                 backgroundColor: "var(--bg-card)",
-                borderRadius: 12,
-                padding: 22,
-                border: "1px solid rgba(67,56,202,0.08)",
+                borderRadius: 14,
+                padding: 24,
+                border: "1px solid #F1F1F4",
               }}
             >
               <div
@@ -459,8 +458,8 @@ function SectionFeatures() {
                   width: 36,
                   height: 36,
                   borderRadius: 8,
-                  backgroundColor: "var(--indigo)",
-                  color: "#EEEEFF",
+                  backgroundColor: "var(--midnight)",
+                  color: "var(--indigo-pale)",
                   marginBottom: 12,
                   display: "flex",
                   alignItems: "center",
